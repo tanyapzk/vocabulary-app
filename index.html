@@ -786,7 +786,6 @@
   <div id="quiz" class="tab-content">
     <div class="quiz-card" id="quiz-card-box">
       <div class="quiz-header-row">
-        <!-- Скрываем счетчик, если вопросы закончились -->
         <div class="quiz-num" id="quiz-progress">Question 1 of 3</div>
         <button class="hint-btn" id="quiz-hint-btn" onclick="toggleHint()">💡 Hint</button>
       </div>
@@ -816,6 +815,7 @@
       <div class="quiz-hint" id="type-hint" style="font-size: 1.05rem; font-weight: 600; color: var(--c-berry); margin-bottom: 20px; line-height: 1.5;">...</div>
       
       <div class="type-input-group">
+        <!-- Инпут теперь подсвечивается зеленым при успехе -->
         <input type="text" id="type-user-input" class="type-input" placeholder="Type a sentence..." autocomplete="off">
         <button class="btn btn-primary" id="type-check-btn" onclick="checkTypedAnswer()">Check</button>
       </div>
@@ -866,8 +866,6 @@
         <li style="color: var(--c-text-muted); background: transparent; border-left: none;" data-en="No mismatches recorded yet. Great job!" data-ru="Пока нет ошибок в сопоставлении. Отличная работа!">No mismatches recorded yet. Great job!</li>
       </ul>
     </div>
-
-    <!-- Блок «Difficult Words to Review» полностью убран по запросу -->
 
     <div style="text-align: center; margin-top: 30px;">
       <img src="https://i.pinimg.com/736x/95/15/ea/9515ea9ff152dab629925bba14aac7a1.jpg" alt="Analytics Mascot Large" referrerpolicy="no-referrer" style="width: 320px; height: 320px; object-fit: cover; border-radius: 32px; border: 3.5px solid var(--c-berry); box-shadow: 0 14px 35px rgba(163, 32, 57, 0.15); display: inline-block;">
@@ -1063,7 +1061,6 @@
     } else {
       const uniqueIssues = [];
       matchingMistakes.forEach(m => {
-        // Убрано слово Target для того, чтобы строка дышала
         const text = currentLang === 'en' 
           ? `<strong>${m.target}</strong> (Confused with: <em>${m.confusedWith}</em>)`
           : `<strong>${m.target}</strong> (Перепутано с: <em>${m.confusedWith}</em>)`;
@@ -1081,6 +1078,17 @@
 
   function shootSmallConfetti() {
     confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 }, colors: paletteColors, disableForReducedMotion: true });
+  }
+
+  // Мощный салют из конфетти для завершения партии в Matching
+  function shootBigCelebration() {
+    confetti({
+      particleCount: 100,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: paletteColors,
+      disableForReducedMotion: true
+    });
   }
 
   const heartConfetti = confetti.create(document.getElementById('heart-canvas'), {
@@ -1236,7 +1244,6 @@
 
   function renderQuizQuestion() {
     const item = quizPool[quizIdx];
-    // Скрываем счетчик, если вопросы закончились (чтобы не было 4 из 3)
     if (quizIdx < quizPool.length) {
       document.getElementById('quiz-progress').style.display = 'block';
       document.getElementById('quiz-progress').innerText = currentLang === 'en' ? `Question ${quizIdx + 1} of ${quizPool.length}` : `Вопрос ${quizIdx + 1} из ${quizPool.length}`;
@@ -1334,7 +1341,6 @@
           </h3>
         </div>
       `;
-      // Скрываем счетчик при завершении
       document.getElementById('quiz-progress').style.display = 'none';
       document.getElementById('quiz-sentence').innerHTML = completionHtml;
       document.getElementById('quiz-options').innerHTML = "";
@@ -1367,8 +1373,6 @@
     const item = typePool[typeIdx];
     document.getElementById('type-progress').innerText = currentLang === 'en' ? `Task ${typeIdx + 1} of ${typePool.length}` : `Задание ${typeIdx + 1} из ${typePool.length}`;
     document.getElementById('type-hint').innerText = `${item.term}`;
-    const cardBox = document.getElementById('type-card-box');
-    cardBox.style.backgroundColor = 'var(--c-white)';
     const input = document.getElementById('type-user-input');
     input.value = '';
     input.disabled = false;
@@ -1381,7 +1385,6 @@
   async function checkTypedAnswer() {
     const input = document.getElementById('type-user-input');
     const feedback = document.getElementById('type-feedback');
-    const cardBox = document.getElementById('type-card-box');
     const item = typePool[typeIdx];
     
     const userVal = input.value.trim();
@@ -1446,11 +1449,11 @@
         recordAttempt(false, item.term);
         document.getElementById('type-next-btn').style.display = 'inline-block';
       } else {
+        // Подсвечиваем зеленым само поле ввода при правильном ответе
         input.classList.add('correct-input');
         input.disabled = true;
         feedback.style.color = '#1f6314';
         feedback.innerText = currentLang === 'en' ? '✨ Perfect sentence! Great job.' : '✨ Отличное предложение! Прекрасная работа.';
-        cardBox.style.backgroundColor = '#defad6';
         recordAttempt(true, item.term);
         document.getElementById('type-next-btn').style.display = 'inline-block';
       }
@@ -1459,7 +1462,6 @@
       input.disabled = true;
       feedback.style.color = '#1f6314';
       feedback.innerText = currentLang === 'en' ? '✨ Perfect sentence! Great job.' : '✨ Отличное предложение! Прекрасная работа.';
-      cardBox.style.backgroundColor = '#defad6';
       recordAttempt(true, item.term);
       document.getElementById('type-next-btn').style.display = 'inline-block';
     }
@@ -1544,6 +1546,7 @@
         const nextBtn = document.getElementById('match-next-btn');
         nextBtn.innerText = currentBatchIdx < matchBatches.length - 1 ? translations[currentLang].nextW : translations[currentLang].restart;
         nextBtn.style.display = 'inline-block';
+        // Запуск мощного салюта конфетти при завершении партии в Matching
         shootBigCelebration();
       }
     } else {
