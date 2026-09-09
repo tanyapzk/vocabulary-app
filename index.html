@@ -192,8 +192,23 @@
       justify-content: space-between;
       text-align: center;
       border: 2px solid var(--border-color);
-      background: var(--c-white);
+    }
+
+    .card-face.card-front {
+      background: var(--c-pink-soft);
+      border-color: var(--c-pink);
       box-shadow: 0 16px 35px rgba(163, 32, 57, 0.06);
+    }
+
+    .card-flip-indicator {
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      font-size: 1.1rem;
+      color: var(--c-berry);
+      opacity: 0.85;
+      font-weight: 800;
+      pointer-events: none;
     }
 
     .card-front-content {
@@ -203,15 +218,38 @@
       justify-content: center;
       flex: 1;
       width: 100%;
-      gap: 10px;
+      gap: 12px;
     }
 
-    .links-row {
+    .links-column {
       display: flex;
-      gap: 8px;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .link-sub-btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
+      gap: 6px;
+      background: var(--c-white);
+      border: 1px solid var(--border-color);
+      color: var(--c-berry-dark);
+      padding: 6px 14px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .link-sub-btn:hover {
+      background: var(--c-berry);
+      border-color: var(--c-berry);
+      color: var(--c-white);
+      transform: translateY(-1px);
     }
 
     .card-back {
@@ -236,39 +274,7 @@
       font-weight: 800;
       color: var(--c-berry);
       line-height: 1.15;
-      margin-bottom: 6px;
-    }
-
-    .youglish-link-btn, .cambridge-link-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--c-yellow);
-      border: 1.5px solid #d4e242;
-      color: var(--c-berry-dark);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .cambridge-link-btn {
-      background: var(--c-pink-soft);
-      border-color: var(--c-pink);
-    }
-
-    .youglish-link-btn:hover, .cambridge-link-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(163, 32, 57, 0.15);
-    }
-
-    .card-front-hint {
-      font-size: 0.75rem;
-      color: var(--c-text-muted);
-      font-weight: 600;
-      opacity: 0.7;
+      margin-bottom: 2px;
     }
 
     .translation-label {
@@ -370,7 +376,7 @@
     }
 
     .register-bar-track {
-      width: 100%; height: 3px; background: #f2e3e6; border-radius: 2px; position: relative;
+      width: 100%; height: 3px; background: #ebd3d7; border-radius: 2px; position: relative;
     }
 
     .register-thumb {
@@ -383,8 +389,6 @@
     .back-footer {
       width: 100%; display: flex; justify-content: space-between; align-items: center;
     }
-
-    .note-flip { font-size: 0.75rem; font-weight: 600; color: var(--c-text-muted); opacity: 0.7; }
 
     .controls { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 
@@ -404,6 +408,7 @@
       background: var(--c-white); border: 2px solid var(--border-color); border-radius: var(--radius);
       padding: 34px 28px; margin-bottom: 20px; box-shadow: 0 14px 30px rgba(163, 32, 57, 0.06);
       position: relative;
+      transition: all 0.3s ease;
     }
 
     .quiz-header-row {
@@ -412,11 +417,11 @@
 
     .hint-btn {
       background: #faf7f5;
-      border: 1px solid var(--border-color);
+      border: 1.5px solid var(--border-color);
       color: var(--c-text-muted);
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 10px;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
@@ -428,7 +433,7 @@
     }
 
     .hint-box {
-      display: none; background: var(--c-pink-soft); border: 1px solid var(--c-pink);
+      display: none; background: var(--c-pink-soft); border: 1.5px solid var(--c-pink);
       padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; color: var(--c-berry);
       margin-bottom: 14px; font-weight: 600;
     }
@@ -462,23 +467,38 @@
     }
     .cat-modal-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--c-berry); }
 
-    .mistakes-summary {
-      background: var(--c-pink-soft); border: 2px solid var(--c-pink); border-radius: 16px; padding: 20px; margin-top: 15px;
+    #completion-popup-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(34, 28, 30, 0.45); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; 
+      z-index: 99999; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
     }
-    .mistakes-summary h3 { color: var(--c-berry); font-size: 1.1rem; margin-bottom: 10px; font-weight: 800; }
-    .mistakes-list { list-style-type: none; display: flex; flex-direction: column; gap: 8px; }
-    .mistake-item {
-      background: var(--c-white); padding: 8px 12px; border-radius: 8px; font-size: 0.95rem;
-      font-weight: 700; color: var(--c-text); border-left: 4px solid var(--c-berry);
-      display: flex; justify-content: space-between; align-items: center;
+    #completion-popup-overlay.show { opacity: 1; pointer-events: auto; }
+
+    .completion-popup-card {
+      background: var(--c-white); border: 3px solid var(--c-berry); border-radius: 28px;
+      padding: 30px; text-align: center; box-shadow: 0 20px 50px rgba(163, 32, 57, 0.3);
+      transform: scale(0.8); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      max-width: 340px; width: 90%; cursor: default;
+      position: relative; z-index: 100000;
     }
-    .error-badge {
-      background: var(--c-pink-soft);
-      color: var(--c-berry);
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 800;
+    #completion-popup-overlay.show .completion-popup-card { transform: scale(1); }
+    .completion-popup-card img {
+      width: 160px; height: 160px; object-fit: cover; border-radius: 20px;
+      border: 2.5px solid var(--c-berry); margin-bottom: 16px; cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .completion-popup-card img:hover { transform: scale(1.03); }
+    .completion-popup-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--c-berry); line-height: 1.4; }
+
+    #heart-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 100005;
     }
 
     .quiz-num {
@@ -530,7 +550,7 @@
     .match-btn.wrong-match { border-color: #d12e2e; background: #fde8e8; }
 
     .analytics-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;
     }
     .stat-card {
       background: var(--c-white); border: 2px solid var(--border-color); border-radius: 16px;
@@ -538,6 +558,120 @@
     }
     .stat-card h4 { font-size: 0.8rem; color: var(--c-text-muted); text-transform: uppercase; margin-bottom: 6px; font-weight: 800; }
     .stat-card .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--c-berry); }
+
+    .vocab-progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      background: var(--c-white);
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(163, 32, 57, 0.03);
+    }
+    .vocab-progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .vocab-progress-header h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--c-berry);
+    }
+    .vocab-progress-bar {
+      display: flex;
+      height: 14px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #f2e3e6;
+      width: 100%;
+    }
+    .progress-segment { height: 100%; transition: width 0.4s ease; }
+    .progress-segment.mastered { background: #2d8a56; }
+    .progress-segment.review { background: #e5a11c; }
+    .progress-segment.struggled { background: #a32039; }
+
+    .progress-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; color: var(--c-text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    .breakdown-group {
+      background: var(--c-white);
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(163, 32, 57, 0.03);
+    }
+    .breakdown-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--c-berry);
+      margin-bottom: 12px;
+    }
+    .word-pills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .word-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 14px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .word-pill.mastered { background: #e8f7ee; color: #1e5e3a; border: 1px solid #bce6cb; }
+    .word-pill.review { background: #fef7e6; color: #8e5804; border: 1px solid #fae3af; }
+    .word-pill.struggled { background: #fdebee; color: #a30e20; border: 1px solid #f9c7cf; }
+
+    .matching-issues-box {
+      background: var(--c-white);
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(163, 32, 57, 0.03);
+      margin-bottom: 20px;
+    }
+    .matching-issues-box h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--c-berry);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .matching-issues-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--c-text);
+    }
+    .matching-issues-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      background: var(--c-pink-soft);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border-left: 4px solid var(--c-berry);
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -545,10 +679,19 @@
   <div class="glow-spot-left"></div>
   <div class="glow-spot-right"></div>
 
+  <canvas id="heart-canvas"></canvas>
+
   <div id="big-cat-overlay" onclick="closeBigCat()">
     <div class="cat-modal-card" onclick="event.stopPropagation()">
       <img src="https://static.ctclove.ru/uploads/fileskotiki/zaplakannyi.jpg" alt="Sad cat">
       <h3 id="cat-msg">Oops... Try again! 😿</h3>
+    </div>
+  </div>
+
+  <div id="completion-popup-overlay" onclick="closeCompletionPopup()">
+    <div class="completion-popup-card" onclick="event.stopPropagation()">
+      <img id="popup-img" src="https://i.pinimg.com/736x/ed/d7/9a/edd79a8eabef78c84546802686d99d40.jpg" alt="Completed" referrerpolicy="no-referrer" onclick="handlePopupClick()">
+      <h3 id="popup-text">Click me! 🐾</h3>
     </div>
   </div>
 
@@ -562,7 +705,7 @@
 
 <div class="container">
   <header>
-    <h1 id="main-title">Vocabulary Revision</h1>
+    <h1>Vocabulary Revision</h1>
     <div class="lang-switcher">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('ru')">RU</button>
@@ -572,23 +715,25 @@
   <div class="tabs">
     <button class="tab-btn active" id="tab-fc" onclick="switchTab('flashcards')">🗂 Flashcards</button>
     <button class="tab-btn" id="tab-quiz" onclick="switchTab('quiz')">✍️ Multiple Choice</button>
-    <button class="tab-btn" id="tab-type" onclick="switchTab('type')">⌨️ Written Test</button>
     <button class="tab-btn" id="tab-match" onclick="switchTab('matching')">🧩 Matching</button>
+    <button class="tab-btn" id="tab-type" onclick="switchTab('type')">⌨️ Written Test</button>
     <button class="tab-btn" id="tab-analytics" onclick="switchTab('analytics')">📊 Analytics</button>
   </div>
 
   <div id="flashcards" class="tab-content active">
     <div class="flashcard-wrapper" onclick="flipCard()">
       <div class="flashcard" id="card">
-        <div class="card-face">
+        <div class="card-face card-front">
+          <div class="card-flip-indicator" id="card-flip-arrow">↺</div>
           <div class="card-front-content">
             <div class="term" id="fc-term">Loading...</div>
-            <div class="links-row">
-              <a id="yg-link-btn" href="#" target="_blank" class="youglish-link-btn" onclick="event.stopPropagation()">
+            
+            <div class="links-column">
+              <a id="yg-link-btn" href="#" target="_blank" class="link-sub-btn" onclick="event.stopPropagation()">
                 <span>Watch on YouGlish</span> ↗
               </a>
-              <a id="cambridge-link-btn" href="#" target="_blank" class="cambridge-link-btn" style="display:none;" onclick="event.stopPropagation()">
-                <span>Cambridge</span> ↗
+              <a id="cambridge-link-btn" href="#" target="_blank" class="link-sub-btn" style="display:none;" onclick="event.stopPropagation()">
+                <span>Cambridge Dictionary</span> ↗
               </a>
             </div>
           </div>
@@ -614,11 +759,10 @@
               </div>
             </div>
           </div>
-
-          <div class="card-front-hint" data-en="Click card to flip ↺" data-ru="Нажмите на карточку, чтобы перевернуть ↺">Click card to flip ↺</div>
         </div>
 
         <div class="card-face card-back">
+          <div class="card-flip-indicator">↺</div>
           <div class="card-back-content">
             <div class="translation-label" id="fc-trans">...</div>
             <div class="example-block" id="fc-ex">...</div>
@@ -626,16 +770,15 @@
 
           <div class="back-footer">
             <button class="origin-toggle-btn" onclick="openOriginModal(event)">
-              <span>💡 Word Origin</span>
+              <span id="origin-btn-text">💡 Word Origin</span>
             </button>
-            <span class="note-flip" data-en="click to flip back ↺" data-ru="нажмите, чтобы вернуть ↺">click to flip back ↺</span>
           </div>
         </div>
       </div>
     </div>
     <div class="controls">
       <button class="btn" id="btn-back" onclick="prevCard()">← Back</button>
-      <span id="fc-counter" style="color: var(--c-text-muted); font-size: 0.95rem; font-weight: 700;">1 / 7</span>
+      <span id="fc-counter" style="color: var(--c-text-muted); font-size: 0.95rem; font-weight: 700;">1 / 3</span>
       <button class="btn" id="btn-next" onclick="nextCard()">Next →</button>
     </div>
   </div>
@@ -643,8 +786,9 @@
   <div id="quiz" class="tab-content">
     <div class="quiz-card" id="quiz-card-box">
       <div class="quiz-header-row">
-        <div class="quiz-num" id="quiz-progress">Question 1 of 7</div>
-        <button class="hint-btn" onclick="toggleHint()" data-en="💡 Hint" data-ru="💡 Подсказка">💡 Hint</button>
+        <!-- Скрываем счетчик, если вопросы закончились -->
+        <div class="quiz-num" id="quiz-progress">Question 1 of 3</div>
+        <button class="hint-btn" id="quiz-hint-btn" onclick="toggleHint()">💡 Hint</button>
       </div>
       <div class="hint-box" id="quiz-hint-box">...</div>
       <div class="quiz-sentence" id="quiz-sentence">...</div>
@@ -655,10 +799,20 @@
     </div>
   </div>
 
+  <div id="matching" class="tab-content">
+    <p style="text-align: center; color: var(--c-text-muted); font-size: 0.9rem; margin-bottom: 16px; font-weight: 600;" id="match-counter-text">
+      Batch 1 of 1
+    </p>
+    <div class="match-grid" id="match-grid"></div>
+    <div style="text-align: center; margin-top: 15px;">
+      <button class="btn btn-primary" id="match-next-btn" style="display:none;" onclick="nextMatchingBatch()">Next words →</button>
+    </div>
+  </div>
+
   <div id="type" class="tab-content">
     <div class="quiz-card" id="type-card-box">
-      <div class="quiz-num" id="type-progress">Task 1 of 7</div>
-      <div class="quiz-sentence" style="margin-bottom: 6px;" data-en="Type your own sentence using this phrase:" data-ru="Напишите свое предложение с этой фразой:">Type your own sentence using this phrase:</div>
+      <div class="quiz-num" id="type-progress">Task 1 of 3</div>
+      <div class="quiz-sentence" style="margin-bottom: 6px;" id="type-instruction-text">Type your own sentence using this phrase:</div>
       <div class="quiz-hint" id="type-hint" style="font-size: 1.05rem; font-weight: 600; color: var(--c-berry); margin-bottom: 20px; line-height: 1.5;">...</div>
       
       <div class="type-input-group">
@@ -672,36 +826,51 @@
     </div>
   </div>
 
-  <div id="matching" class="tab-content">
-    <p style="text-align: center; color: var(--c-text-muted); font-size: 0.9rem; margin-bottom: 16px; font-weight: 600;" id="match-counter-text">
-      Batch 1 of 2
-    </p>
-    <div class="match-grid" id="match-grid"></div>
-    <div style="text-align: center; margin-top: 15px;">
-      <button class="btn btn-primary" id="match-next-btn" style="display:none;" onclick="nextMatchingBatch()">Next words →</button>
-    </div>
-  </div>
-
   <div id="analytics" class="tab-content">
     <div class="analytics-grid">
       <div class="stat-card">
-        <h4 data-en="Total Attempts" data-ru="Всего попыток">Total Attempts</h4>
-        <div class="stat-value" id="stat-attempts">0</div>
+        <h4 data-en="Current Streak" data-ru="Серия побед">Current Streak</h4>
+        <div class="stat-value" id="stat-streak">0 🔥</div>
       </div>
       <div class="stat-card">
         <h4 data-en="Accuracy" data-ru="Точность">Accuracy</h4>
         <div class="stat-value" id="stat-accuracy">0%</div>
       </div>
-      <div class="stat-card">
-        <h4 data-en="Completed Drills" data-ru="Пройдено сессий">Completed Drills</h4>
-        <div class="stat-value" id="stat-drills">0</div>
+    </div>
+
+    <div class="vocab-progress-wrap">
+      <div class="vocab-progress-header">
+        <h3 data-en="Mastery Progress" data-ru="Прогресс усвоения">Mastery Progress</h3>
+        <span style="font-size: 0.8rem; color: var(--c-text-muted);" id="an-progress-summary">3 total</span>
+      </div>
+      <div class="vocab-progress-bar">
+        <div class="progress-segment mastered" id="bar-mastered" style="width: 100%;"></div>
+        <div class="progress-segment review" id="bar-review" style="width: 0%;"></div>
+        <div class="progress-segment struggled" id="bar-struggled" style="width: 0%;"></div>
+      </div>
+      <div class="progress-legend">
+        <div class="legend-item"><span class="legend-dot" style="background:#2d8a56;"></span> <span data-en="Mastered" data-ru="Уверенно усвоенные">Mastered</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#e5a11c;"></span> <span data-en="Needs Review" data-ru="Требующие повторения">Needs Review</span></div>
+        <div class="legend-item"><span class="legend-dot" style="background:#a32039;"></span> <span data-en="Struggled" data-ru="Сложные">Struggled</span></div>
       </div>
     </div>
-    <div class="quiz-card">
-      <h3 style="color: var(--c-berry); margin-bottom: 10px; font-weight: 800;" data-en="Difficult Words to Review" data-ru="Слова, требующие внимания">Difficult Words to Review</h3>
-      <ul class="mistakes-list" id="analytics-mistakes-list">
-        <li class="mistake-item" data-en="No difficult words recorded yet!" data-ru="Пока нет сложных слов!">No difficult words recorded yet!</li>
+
+    <div class="breakdown-group">
+      <div class="breakdown-title" data-en="Word Mastery Breakdown" data-ru="Статус слов">Word Mastery Breakdown</div>
+      <div class="word-pills-list" id="analytics-word-pills"></div>
+    </div>
+
+    <div class="matching-issues-box">
+      <h4 data-en="Matching Inaccuracies" data-ru="Ошибки в сопоставлении (Matching)">Matching Inaccuracies</h4>
+      <ul class="matching-issues-list" id="matching-mistakes-list">
+        <li style="color: var(--c-text-muted); background: transparent; border-left: none;" data-en="No mismatches recorded yet. Great job!" data-ru="Пока нет ошибок в сопоставлении. Отличная работа!">No mismatches recorded yet. Great job!</li>
       </ul>
+    </div>
+
+    <!-- Блок «Difficult Words to Review» полностью убран по запросу -->
+
+    <div style="text-align: center; margin-top: 30px;">
+      <img src="https://i.pinimg.com/736x/95/15/ea/9515ea9ff152dab629925bba14aac7a1.jpg" alt="Analytics Mascot Large" referrerpolicy="no-referrer" style="width: 320px; height: 320px; object-fit: cover; border-radius: 32px; border: 3.5px solid var(--c-berry); box-shadow: 0 14px 35px rgba(163, 32, 57, 0.15); display: inline-block;">
     </div>
   </div>
 </div>
@@ -709,13 +878,51 @@
 <script>
   let currentLang = 'en';
 
+  const vocabData = [
+    { 
+      term: "Just my luck", 
+      trans: { en: "Used to express disappointment when something unlucky happens to you.", ru: "Используется для выражения разочарования, когда случается неудача." }, 
+      blankSentence: "It started raining as soon as I washed my car — ___!", 
+      exampleFormatted: "It started raining as soon as I washed my car — <em>just my luck</em>!",
+      style: 5, 
+      region: 50, 
+      origin: {
+        en: "Originates from early 20th-century colloquial English, expressing ironic misfortune.",
+        ru: "Происходит из разговорного английского начала XX века, выражает ироничное невезение."
+      }
+    },
+    { 
+      term: "Ingenious", 
+      trans: { en: "Exhibiting striking originality, cleverness, or resourcefulness.", ru: "Проявляющий поразительную оригинальность, ум или находчивость." }, 
+      blankSentence: "Using AI to organize your weekly lesson plans is an ___ idea.", 
+      exampleFormatted: "Using AI to organize your weekly lesson plans is an <em>ingenious</em> idea.",
+      style: 85, 
+      region: 50, 
+      origin: {
+        en: "Borrowed from Latin 'ingeniosus' (talented, clever), rooted in 'ingenium' (innate quality, genius).",
+        ru: "Заимствовано из латинского 'ingeniosus' (талантливый, умный), восходит к 'ingenium' (врожденное качество, гениальность)."
+      }
+    },
+    { 
+      term: "A no-brainer", 
+      trans: { en: "Something that is very obvious or requires no thought.", ru: "Что-то очень очевидное или не требующее раздумий." }, 
+      blankSentence: "Choosing between a free tropical vacation or staying at the office? That's ___.", 
+      exampleFormatted: "Choosing between a free tropical vacation or staying at the office? That's <em>a no-brainer</em>.",
+      style: 10, 
+      region: 10, 
+      origin: {
+        en: "American origin from the mid-20th century, describing a decision that doesn't strain the brain.",
+        ru: "Американское происхождение из середины XX века, описывающее решение, которое не напрягает мозг."
+      }
+    }
+  ];
+
   const translations = {
     en: {
-      title: "Vocabulary Revision",
       fc: "🗂 Flashcards",
       quiz: "✍️ Multiple Choice",
-      type: "⌨️ Written Test",
       match: "🧩 Matching",
+      type: "⌨️ Written Test",
       analytics: "📊 Analytics",
       back: "← Back",
       next: "Next →",
@@ -723,19 +930,17 @@
       nextQ: "Next Question →",
       nextW: "Next words →",
       restart: "Restart 🔄",
-      typePrompt: "Type your own sentence using this phrase:",
-      typePlaceholder: "Type a sentence containing the phrase...",
+      youglish: "Watch on YouGlish",
+      cambridge: "Cambridge Dictionary",
+      originBtn: "💡 Word Origin",
       hintBtn: "💡 Hint",
-      flipFront: "Click card to flip ↺",
-      flipBack: "click to flip back ↺",
-      youglish: "Watch on YouGlish"
+      typeInstruction: "Type your own sentence using this phrase:"
     },
     ru: {
-      title: "Повторение лексики",
       fc: "🗂 Карточки",
       quiz: "✍️ Тест с выбором",
-      type: "⌨️ Письменный тест",
       match: "🧩 Сопоставление",
+      type: "⌨️ Письменный тест",
       analytics: "📊 Аналитика",
       back: "← Назад",
       next: "Дальше →",
@@ -743,12 +948,11 @@
       nextQ: "Следующий вопрос →",
       nextW: "Следующие слова →",
       restart: "Заново 🔄",
-      typePrompt: "Составьте свое предложение с этой фразой:",
-      typePlaceholder: "Введите предложение, содержащее фразу...",
+      youglish: "Смотреть on YouGlish",
+      cambridge: "Словарь Cambridge",
+      originBtn: "💡 Происхождение слова",
       hintBtn: "💡 Подсказка",
-      flipFront: "Нажмите на карточку, чтобы перевернуть ↺",
-      flipBack: "нажмите, чтобы вернуть ↺",
-      youglish: "Смотреть на YouGlish"
+      typeInstruction: "Напишите свое предложение с этой фразой:"
     }
   };
 
@@ -757,56 +961,119 @@
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
     event.target.classList.add('active');
 
-    document.getElementById('main-title').innerText = translations[lang].title;
     document.getElementById('tab-fc').innerText = translations[lang].fc;
     document.getElementById('tab-quiz').innerText = translations[lang].quiz;
-    document.getElementById('tab-type').innerText = translations[lang].type;
     document.getElementById('tab-match').innerText = translations[lang].match;
+    document.getElementById('tab-type').innerText = translations[lang].type;
     document.getElementById('tab-analytics').innerText = translations[lang].analytics;
 
     document.getElementById('btn-back').innerText = translations[lang].back;
     document.getElementById('btn-next').innerText = translations[lang].next;
     document.getElementById('type-check-btn').innerText = translations[lang].check;
+    document.getElementById('origin-btn-text').innerText = translations[lang].originBtn;
+    document.getElementById('quiz-hint-btn').innerText = translations[lang].hintBtn;
+    document.getElementById('type-instruction-text').innerText = translations[lang].typeInstruction;
+
     document.getElementById('yg-link-btn').querySelector('span').innerText = translations[lang].youglish;
+    document.getElementById('cambridge-link-btn').querySelector('span').innerText = translations[lang].cambridge;
 
     document.querySelectorAll('[data-en]').forEach(el => {
       el.innerText = el.getAttribute(`data-${lang}`);
     });
     
-    document.getElementById('type-user-input').placeholder = translations[lang].typePlaceholder;
+    document.getElementById('type-user-input').placeholder = currentLang === 'en' ? "Type a sentence..." : "Введите предложение...";
+    
+    updateCardTexts();
+    updateAnalyticsUI();
+    renderQuizQuestion();
+    if (document.getElementById('type').classList.contains('active')) {
+      renderTypeQuestion();
+    }
   }
 
-  let stats = { attempts: 0, correct: 0, drills: 0, mistakesMap: {} };
+  let stats = { streak: 0, attempts: 0, correct: 0, mistakesMap: {} };
+  const matchingMistakes = [];
 
   function recordAttempt(isCorrect, term) {
     stats.attempts++;
-    if (isCorrect) stats.correct++;
-    else {
+    if (isCorrect) {
+      stats.correct++;
+      stats.streak++;
+    } else {
+      stats.streak = 0;
       stats.mistakesMap[term] = (stats.mistakesMap[term] || 0) + 1;
     }
     updateAnalyticsUI();
   }
 
   function updateAnalyticsUI() {
-    document.getElementById('stat-attempts').innerText = stats.attempts;
+    document.getElementById('stat-streak').innerText = stats.streak + ' 🔥';
     const acc = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
     document.getElementById('stat-accuracy').innerText = acc + '%';
-    document.getElementById('stat-drills').innerText = stats.drills;
 
-    const listContainer = document.getElementById('analytics-mistakes-list');
-    const keys = Object.keys(stats.mistakesMap);
-    
-    if (keys.length === 0) {
-      listContainer.innerHTML = `<li class="mistake-item">${currentLang === 'en' ? 'No difficult words recorded yet!' : 'Пока нет сложных слов!'}</li>`;
+    let masteredCount = 0;
+    let reviewCount = 0;
+    let struggledCount = 0;
+    const pillsContainer = document.getElementById('analytics-word-pills');
+    pillsContainer.innerHTML = '';
+
+    const sortedVocab = [...vocabData].sort((a, b) => {
+      const getPriority = (term) => {
+        const errs = stats.mistakesMap[term] || 0;
+        if (errs >= 2) return 3;
+        if (errs === 1) return 2;
+        return 1;
+      };
+      return getPriority(a.term) - getPriority(b.term);
+    });
+
+    sortedVocab.forEach(v => {
+      const errCount = stats.mistakesMap[v.term] || 0;
+      let status = 'mastered';
+
+      if (errCount >= 2) {
+        status = 'struggled';
+        struggledCount++;
+      } else if (errCount === 1) {
+        status = 'review';
+        reviewCount++;
+      } else {
+        masteredCount++;
+      }
+
+      const pill = document.createElement('div');
+      pill.className = `word-pill ${status}`;
+      pill.innerHTML = `<span>${v.term}</span>`;
+      pillsContainer.appendChild(pill);
+    });
+
+    const totalWords = vocabData.length;
+    document.getElementById('bar-mastered').style.width = `${(masteredCount / totalWords) * 100}%`;
+    document.getElementById('bar-review').style.width = `${(reviewCount / totalWords) * 100}%`;
+    document.getElementById('bar-struggled').style.width = `${(struggledCount / totalWords) * 100}%`;
+
+    document.getElementById('an-progress-summary').textContent = currentLang === 'en' 
+      ? `${masteredCount} mastered • ${reviewCount} review • ${struggledCount} struggled`
+      : `${masteredCount} усвоено • ${reviewCount} повтор • ${struggledCount} сложно`;
+
+    const mistakesListEl = document.getElementById('matching-mistakes-list');
+    mistakesListEl.innerHTML = '';
+    if (matchingMistakes.length === 0) {
+      mistakesListEl.innerHTML = `<li style="color: var(--c-text-muted); background: transparent; border-left: none;">${currentLang === 'en' ? 'No mismatches recorded yet. Great job!' : 'Пока нет ошибок в сопоставлении. Отличная работа!'}</li>`;
     } else {
-      keys.sort((a, b) => stats.mistakesMap[b] - stats.mistakesMap[a]);
-      
-      listContainer.innerHTML = keys.map(k => `
-        <li class="mistake-item">
-          <strong>${k}</strong> 
-          <span class="error-badge">${currentLang === 'en' ? 'Errors: ' : 'Ошибок: '}${stats.mistakesMap[k]}</span>
-        </li>
-      `).join('');
+      const uniqueIssues = [];
+      matchingMistakes.forEach(m => {
+        // Убрано слово Target для того, чтобы строка дышала
+        const text = currentLang === 'en' 
+          ? `<strong>${m.target}</strong> (Confused with: <em>${m.confusedWith}</em>)`
+          : `<strong>${m.target}</strong> (Перепутано с: <em>${m.confusedWith}</em>)`;
+        if (!uniqueIssues.includes(text)) uniqueIssues.push(text);
+      });
+      uniqueIssues.slice(0, 5).forEach(issue => {
+        const li = document.createElement('li');
+        li.innerHTML = issue;
+        mistakesListEl.appendChild(li);
+      });
     }
   }
 
@@ -816,34 +1083,33 @@
     confetti({ particleCount: 40, spread: 60, origin: { y: 0.7 }, colors: paletteColors, disableForReducedMotion: true });
   }
 
-  function shootBigCelebration() {
-    const end = Date.now() + 1.2 * 1000;
-    (function frame() {
-      confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors: paletteColors });
-      confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors: paletteColors });
-      if (Date.now() < end) requestAnimationFrame(frame);
-    }());
+  const heartConfetti = confetti.create(document.getElementById('heart-canvas'), {
+    resize: true,
+    useWorker: true
+  });
+
+  function shootPinkHearts() {
+    heartConfetti({
+      particleCount: 60,
+      spread: 80,
+      origin: { y: 0.5 },
+      colors: ['#ff758c', '#ff7eb3', '#ff6b81', '#ffb6c1', '#ffc0cb'],
+      shapes: ['circle'],
+      scalar: 1.4
+    });
   }
 
-  function triggerBigCatReaction(msg) {
-    document.getElementById('cat-msg').innerText = msg || (currentLang === 'en' ? "Oops... Try again! 😿" : "Упс... Попробуй еще раз! 😿");
+  function triggerCustomCatReaction(imgUrl, msg) {
+    const modalImg = document.querySelector('#big-cat-overlay img');
+    const modalMsg = document.getElementById('cat-msg');
+    if (modalImg) modalImg.src = imgUrl;
+    if (modalMsg) modalMsg.innerText = msg;
     document.getElementById('big-cat-overlay').classList.add('show');
   }
 
   function closeBigCat() {
     document.getElementById('big-cat-overlay').classList.remove('show');
   }
-
-  // Сокращенный список до 7 элементов (включая одиночные слова для проверки Кембриджа)
-  const vocabData = [
-    { term: "Just my luck", trans: "Used to express disappointment when something unlucky happens to you.", blankSentence: "It started raining as soon as I washed my car — ___!", exampleFormatted: "It started raining as soon as I washed my car — <em>just my luck</em>!", style: 5, region: 50, origin: "Originates from early 20th-century colloquial English." },
-    { term: "Ingenious", trans: "Exhibiting striking originality, cleverness, or resourcefulness.", blankSentence: "Using AI to organize your weekly lesson plans is an ___ idea.", exampleFormatted: "Using AI to organize your weekly lesson plans is an <em>ingenious</em> idea.", style: 85, region: 50, origin: "Borrowed from Latin 'ingeniosus'." },
-    { term: "A no-brainer", trans: "Something that is very obvious or requires no thought.", blankSentence: "Choosing between a free tropical vacation or staying at the office? That's ___.", exampleFormatted: "Choosing between a free tropical vacation or staying at the office? That's <em>a no-brainer</em>.", style: 10, region: 10, origin: "American origin from the mid-20th century." },
-    { term: "Nitpicking", trans: "Giving too much attention to tiny, insignificant details or faults.", blankSentence: "Stop ___ every minor typo and focus on the overall message.", exampleFormatted: "Stop <em>nitpicking</em> every minor typo and focus on the overall message.", style: 40, region: 50, origin: "Metaphor from grooming hair and removing parasite eggs." },
-    { term: "Help yourself!", trans: "A polite way to invite someone to take or use something freely.", blankSentence: "There are fresh cookies on the kitchen counter, ___!", exampleFormatted: "There are fresh cookies on the kitchen counter, <em>help yourself!</em>", style: 15, region: 50, origin: "Rooted in 19th-century hospitality etiquette." },
-    { term: "Chop chop!", trans: "An informal phrase used to tell someone to hurry up.", blankSentence: "___! We need to leave for the airport right now.", exampleFormatted: "<em>Chop chop!</em> We need to leave for the airport right now.", style: 2, region: 85, origin: "Derived from Chinese Pidgin English." },
-    { term: "Bury the hatchet", trans: "To make peace or end a long-standing conflict.", blankSentence: "After years of not speaking, the former business partners decided to ___.", exampleFormatted: "After years of not speaking, the former business partners decided to <em>bury the hatchet</em>.", style: 60, region: 50, origin: "Reflects 17th-century Native American peace rituals." }
-  ];
 
   function switchTab(tabId) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -853,17 +1119,55 @@
     if (tabId === 'matching') startMatchingSession();
     if (tabId === 'type') renderTypeQuestion();
     if (tabId === 'quiz') renderQuizQuestion();
-    if (tabId === 'analytics') stats.drills++, updateAnalyticsUI();
+    if (tabId === 'analytics') updateAnalyticsUI();
   }
 
   let currentCardIdx = 0;
   const cardElem = document.getElementById('card');
 
-  function updateCard() {
-    cardElem.classList.remove('flipped');
+  function updateCardTexts() {
+    if (currentCardIdx >= vocabData.length) {
+      document.getElementById('fc-term').innerHTML = `
+        <img src="https://i.pinimg.com/1200x/ae/5b/a4/ae5ba44a7ff3f49be66d7a89fdb9330a.jpg" alt="Completed" referrerpolicy="no-referrer" style="width: 250px; height: 250px; object-fit: cover; border-radius: 32px; border: 3px solid var(--c-berry); margin-bottom: 16px; display: block; margin-left: auto; margin-right: auto; box-shadow: 0 12px 30px rgba(163, 32, 57, 0.18);">
+        <div style="font-size: 1.8rem; font-weight: 800; color: var(--c-berry); white-space: nowrap;">${currentLang === 'en' ? "Deck completed! 🎉" : "Колода пройдена! 🎉"}</div>
+      `;
+      document.getElementById('fc-trans').innerText = currentLang === 'en' ? "Great job reviewing your vocabulary." : "Отличная работа по повторению лексики.";
+      document.getElementById('fc-ex').innerHTML = currentLang === 'en' ? "Would you like to start over?" : "Хотите пройти карточки еще раз?";
+      const restartBtn = document.getElementById('btn-next');
+      restartBtn.innerText = currentLang === 'en' ? "Restart 🔄" : "Заново 🔄";
+      return;
+    }
     const item = vocabData[currentCardIdx];
     document.getElementById('fc-term').innerText = item.term;
-    document.getElementById('fc-trans').innerText = item.trans;
+    document.getElementById('fc-trans').innerText = item.trans[currentLang];
+    document.getElementById('fc-ex').innerHTML = item.exampleFormatted;
+    document.getElementById('origin-modal-text').innerText = item.origin[currentLang];
+    document.getElementById('btn-next').innerText = translations[currentLang].next;
+  }
+
+  function updateCard() {
+    cardElem.classList.remove('flipped');
+    
+    if (currentCardIdx >= vocabData.length) {
+      updateCardTexts();
+      document.getElementById('fc-counter').innerText = `${vocabData.length} / ${vocabData.length}`;
+      
+      const flipArrow = document.getElementById('card-flip-arrow');
+      if (flipArrow) flipArrow.style.display = 'none';
+
+      document.getElementById('yg-link-btn').style.display = 'none';
+      document.getElementById('cambridge-link-btn').style.display = 'none';
+      document.querySelector('.bars-wrapper').style.display = 'none';
+      return;
+    }
+
+    const flipArrow = document.getElementById('card-flip-arrow');
+    if (flipArrow) flipArrow.style.display = 'block';
+
+    document.querySelector('.bars-wrapper').style.display = 'flex';
+    const item = vocabData[currentCardIdx];
+    document.getElementById('fc-term').innerText = item.term;
+    document.getElementById('fc-trans').innerText = item.trans[currentLang];
     document.getElementById('fc-ex').innerHTML = item.exampleFormatted;
     document.getElementById('fc-counter').innerText = `${currentCardIdx + 1} / ${vocabData.length}`;
 
@@ -871,10 +1175,11 @@
     document.getElementById('region-thumb').style.left = `${item.region}%`;
 
     document.getElementById('origin-modal-title').innerText = item.term;
-    document.getElementById('origin-modal-text').innerText = item.origin;
+    document.getElementById('origin-modal-text').innerText = item.origin[currentLang];
 
     const ygBtn = document.getElementById('yg-link-btn');
     ygBtn.href = `https://youglish.com/pronounce/${encodeURIComponent(item.term)}/english`;
+    ygBtn.style.display = 'inline-flex';
 
     const camBtn = document.getElementById('cambridge-link-btn');
     if (!item.term.includes(' ')) {
@@ -883,6 +1188,8 @@
     } else {
       camBtn.style.display = 'none';
     }
+
+    document.getElementById('btn-next').innerText = translations[currentLang].next;
   }
 
   function openOriginModal(e) {
@@ -894,9 +1201,24 @@
     document.getElementById('origin-modal-overlay').classList.remove('show');
   }
 
-  function flipCard() { cardElem.classList.toggle('flipped'); }
-  function nextCard() { currentCardIdx = (currentCardIdx + 1) % vocabData.length; updateCard(); }
-  function prevCard() { currentCardIdx = (currentCardIdx - 1 + vocabData.length) % vocabData.length; updateCard(); }
+  function flipCard() { 
+    if (currentCardIdx < vocabData.length) {
+      cardElem.classList.toggle('flipped'); 
+    }
+  }
+
+  function nextCard() { 
+    currentCardIdx++;
+    if (currentCardIdx > vocabData.length) {
+      currentCardIdx = 0;
+    }
+    updateCard(); 
+  }
+
+  function prevCard() { 
+    currentCardIdx = (currentCardIdx - 1 + vocabData.length) % vocabData.length; 
+    updateCard(); 
+  }
 
   function cleanOptionText(term, sentence) {
     let clean = term.replace(/[\?\.,!]/g, "").trim();
@@ -911,22 +1233,32 @@
 
   let quizIdx = 0;
   let quizPool = [...vocabData].sort(() => 0.5 - Math.random());
-  let quizMistakes = [];
 
   function renderQuizQuestion() {
     const item = quizPool[quizIdx];
-    document.getElementById('quiz-progress').innerText = `Question ${quizIdx + 1} of ${quizPool.length}`;
+    // Скрываем счетчик, если вопросы закончились (чтобы не было 4 из 3)
+    if (quizIdx < quizPool.length) {
+      document.getElementById('quiz-progress').style.display = 'block';
+      document.getElementById('quiz-progress').innerText = currentLang === 'en' ? `Question ${quizIdx + 1} of ${quizPool.length}` : `Вопрос ${quizIdx + 1} из ${quizPool.length}`;
+    } else {
+      document.getElementById('quiz-progress').style.display = 'none';
+    }
+
     document.getElementById('quiz-sentence').innerHTML = item.blankSentence.replace('___', '<span class="blank">?</span>');
     document.getElementById('quiz-next-btn').style.display = 'none';
+    document.getElementById('quiz-next-btn').innerText = translations[currentLang].nextQ;
     
-    document.getElementById('quiz-hint-box').innerText = item.trans;
+    const hintBtn = document.getElementById('quiz-hint-btn');
+    if (hintBtn) hintBtn.style.display = 'inline-block';
+
+    document.getElementById('quiz-hint-box').innerText = item.trans[currentLang];
     document.getElementById('quiz-hint-box').classList.remove('show');
 
     const correctFormatted = cleanOptionText(item.term, item.blankSentence);
     const options = [correctFormatted];
     const others = vocabData.filter(x => x.term !== item.term).sort(() => 0.5 - Math.random());
     
-    options.push(cleanOptionText(others[0].term, item.blankSentence), cleanOptionText(others[1].term, item.blankSentence), cleanOptionText(others[2].term, item.blankSentence));
+    others.forEach(o => options.push(cleanOptionText(o.term, item.blankSentence)));
     options.sort(() => 0.5 - Math.random());
 
     const optionsContainer = document.getElementById('quiz-options');
@@ -971,29 +1303,61 @@
           }
         });
       } else {
-        triggerBigCatReaction();
-      }
-
-      if (!quizMistakes.some(m => m.term === currentItem.term)) {
-        quizMistakes.push(currentItem);
+        triggerCustomCatReaction(
+          "https://static.ctclove.ru/uploads/fileskotiki/zaplakannyi.jpg",
+          currentLang === 'en' ? "Oops... Try again! 😿" : "Упс... Попробуй еще раз! 😿"
+        );
       }
     }
   }
+
+  let completionStep = 1;
 
   function nextQuestion() {
     quizIdx++;
     if (quizIdx < quizPool.length) {
       renderQuizQuestion();
     } else {
-      let html = currentLang === 'en' ? `✨ Great job! All questions completed.` : `✨ Отличная работа! Все вопросы пройдены.`;
-      if (quizMistakes.length > 0) {
-        html += `<div class="mistakes-summary"><h3>⚠️ ${currentLang === 'en' ? 'Pay extra attention to these words:' : 'Обратите внимание на эти слова:'}</h3><ul class="mistakes-list">${quizMistakes.map(m => `<li class="mistake-item"><strong>${m.term}</strong> — ${m.trans}</li>`).join('')}</ul></div>`;
-      }
-      document.getElementById('quiz-sentence').innerHTML = html;
+      const hintBtn = document.getElementById('quiz-hint-btn');
+      if (hintBtn) hintBtn.style.display = 'none';
+      document.getElementById('quiz-hint-box').classList.remove('show');
+
+      completionStep = 1;
+      document.getElementById('popup-img').src = "https://i.pinimg.com/736x/ed/d7/9a/edd79a8eabef78c84546802686d99d40.jpg";
+      document.getElementById('popup-text').innerText = currentLang === 'en' ? "Click me! 🐾" : "Нажми на меня! 🐾";
+      document.getElementById('completion-popup-overlay').classList.add('show');
+
+      const completionHtml = `
+        <div style="text-align: center; padding: 20px 0;">
+          <h3 style="color: var(--c-berry); font-size: 1.3rem; font-weight: 800; margin-bottom: 6px;">
+            ${currentLang === 'en' ? '✨ Great job! All questions completed.' : '✨ Отличная работа! Все вопросы пройдены.'}
+          </h3>
+        </div>
+      `;
+      // Скрываем счетчик при завершении
+      document.getElementById('quiz-progress').style.display = 'none';
+      document.getElementById('quiz-sentence').innerHTML = completionHtml;
       document.getElementById('quiz-options').innerHTML = "";
       document.getElementById('quiz-next-btn').style.display = 'none';
-      shootBigCelebration();
     }
+  }
+
+  function handlePopupClick() {
+    const imgEl = document.getElementById('popup-img');
+    const textEl = document.getElementById('popup-text');
+
+    if (completionStep === 1) {
+      shootPinkHearts();
+      if (imgEl) imgEl.src = "https://i.pinimg.com/736x/25/7e/59/257e59da988e2d56d4671c1e56bca5b4.jpg";
+      if (textEl) textEl.innerText = currentLang === 'en' ? "Awesome! ✨" : "Потрясающе! ✨";
+      completionStep = 2;
+    } else if (completionStep === 2) {
+      closeCompletionPopup();
+    }
+  }
+
+  function closeCompletionPopup() {
+    document.getElementById('completion-popup-overlay').classList.remove('show');
   }
 
   let typeIdx = 0;
@@ -1001,8 +1365,10 @@
 
   function renderTypeQuestion() {
     const item = typePool[typeIdx];
-    document.getElementById('type-progress').innerText = `Task ${typeIdx + 1} of ${typePool.length}`;
-    document.getElementById('type-hint').innerText = `${item.term} (${item.trans})`;
+    document.getElementById('type-progress').innerText = currentLang === 'en' ? `Task ${typeIdx + 1} of ${typePool.length}` : `Задание ${typeIdx + 1} из ${typePool.length}`;
+    document.getElementById('type-hint').innerText = `${item.term}`;
+    const cardBox = document.getElementById('type-card-box');
+    cardBox.style.backgroundColor = 'var(--c-white)';
     const input = document.getElementById('type-user-input');
     input.value = '';
     input.disabled = false;
@@ -1015,6 +1381,7 @@
   async function checkTypedAnswer() {
     const input = document.getElementById('type-user-input');
     const feedback = document.getElementById('type-feedback');
+    const cardBox = document.getElementById('type-card-box');
     const item = typePool[typeIdx];
     
     const userVal = input.value.trim();
@@ -1022,11 +1389,16 @@
     const targetTerm = item.term.toLowerCase();
 
     const containsPhrase = userValLower.includes(targetTerm);
-    const hasEnoughWords = userVal.split(' ').length >= 3;
+    const wordsCount = userVal.split(/\s+/).filter(Boolean).length;
+    const hasPunctuation = /[.!?]$/.test(userVal);
+    const hasEnoughWords = wordsCount >= 4 && hasPunctuation;
 
     if (!containsPhrase) {
       input.classList.add('wrong-input');
-      triggerBigCatReaction(currentLang === 'en' ? "Phrase is missing! Try again 😿" : "Фраза пропущена! Попробуйте снова 😿");
+      triggerCustomCatReaction(
+        "https://i.pinimg.com/736x/6b/5b/2f/6b5b2f82d0cae3735309d0efd08ce263.jpg",
+        currentLang === 'en' ? "Phrase is missing! Try again 😿" : "Фраза пропущена! Попробуйте снова 😿"
+      );
       feedback.style.color = '#991b1b';
       feedback.innerText = currentLang === 'en' ? `❌ You must include the phrase "${item.term}". Try again!` : `❌ Вы должны использовать фразу "${item.term}". Попробуйте еще раз!`;
       recordAttempt(false, item.term);
@@ -1042,9 +1414,8 @@
     if (!hasEnoughWords) {
       input.classList.add('minor-input');
       feedback.style.color = '#ca8a04';
-      feedback.innerText = currentLang === 'en' ? '⚠️ Close, but try making a full, longer sentence.' : '⚠️ Почти, но попробуйте написать более полное предложение.';
+      feedback.innerText = currentLang === 'en' ? '⚠️ Please write a full sentence (at least 4 words and a punctuation mark at the end).' : '⚠️ Пожалуйста, напишите полное предложение (не менее 4 слов и знак препинания в конце).';
       recordAttempt(false, item.term);
-      document.getElementById('type-next-btn').style.display = 'inline-block';
       return;
     }
 
@@ -1079,7 +1450,7 @@
         input.disabled = true;
         feedback.style.color = '#1f6314';
         feedback.innerText = currentLang === 'en' ? '✨ Perfect sentence! Great job.' : '✨ Отличное предложение! Прекрасная работа.';
-        shootSmallConfetti();
+        cardBox.style.backgroundColor = '#defad6';
         recordAttempt(true, item.term);
         document.getElementById('type-next-btn').style.display = 'inline-block';
       }
@@ -1088,7 +1459,7 @@
       input.disabled = true;
       feedback.style.color = '#1f6314';
       feedback.innerText = currentLang === 'en' ? '✨ Perfect sentence! Great job.' : '✨ Отличное предложение! Прекрасная работа.';
-      shootSmallConfetti();
+      cardBox.style.backgroundColor = '#defad6';
       recordAttempt(true, item.term);
       document.getElementById('type-next-btn').style.display = 'inline-block';
     }
@@ -1141,7 +1512,7 @@
       lBtn.onclick = () => handleLeftClick(lBtn);
 
       const rBtn = document.createElement('button');
-      rBtn.className = 'match-btn'; rBtn.innerText = rightItems[i].trans; rBtn.dataset.key = rightItems[i].term;
+      rBtn.className = 'match-btn'; rBtn.innerText = rightItems[i].trans[currentLang]; rBtn.dataset.key = rightItems[i].term;
       rBtn.onclick = () => handleRightClick(rBtn);
 
       grid.appendChild(lBtn); grid.appendChild(rBtn);
@@ -1179,6 +1550,15 @@
       const l = selectedLeft; const r = selectedRight;
       l.classList.add('wrong-match'); r.classList.add('wrong-match');
       recordAttempt(false, "Matching pair");
+
+      const targetTerm = l.dataset.key;
+      const wrongDefText = r.innerText;
+      const mismatchedItem = vocabData.find(v => v.trans[currentLang] === wrongDefText);
+      const confusedWord = mismatchedItem ? mismatchedItem.term : "another phrase";
+      if (!matchingMistakes.some(m => m.target === targetTerm && m.confusedWith === confusedWord)) {
+        matchingMistakes.push({ target: targetTerm, confusedWith: confusedWord });
+      }
+
       const grid = document.getElementById('match-grid');
       grid.classList.add('shake'); setTimeout(() => grid.classList.remove('shake'), 400);
       setTimeout(() => { l.classList.remove('wrong-match', 'selected'); r.classList.remove('wrong-match', 'selected'); }, 400);
