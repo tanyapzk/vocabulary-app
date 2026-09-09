@@ -815,7 +815,6 @@
       <div class="quiz-hint" id="type-hint" style="font-size: 1.05rem; font-weight: 600; color: var(--c-berry); margin-bottom: 20px; line-height: 1.5;">...</div>
       
       <div class="type-input-group">
-        <!-- Инпут теперь подсвечивается зеленым при успехе -->
         <input type="text" id="type-user-input" class="type-input" placeholder="Type a sentence..." autocomplete="off">
         <button class="btn btn-primary" id="type-check-btn" onclick="checkTypedAnswer()">Check</button>
       </div>
@@ -1449,7 +1448,7 @@
         recordAttempt(false, item.term);
         document.getElementById('type-next-btn').style.display = 'inline-block';
       } else {
-        // Подсвечиваем зеленым само поле ввода при правильном ответе
+        // Подсвечиваем зеленым только саму строку ввода текста
         input.classList.add('correct-input');
         input.disabled = true;
         feedback.style.color = '#1f6314';
@@ -1546,7 +1545,7 @@
         const nextBtn = document.getElementById('match-next-btn');
         nextBtn.innerText = currentBatchIdx < matchBatches.length - 1 ? translations[currentLang].nextW : translations[currentLang].restart;
         nextBtn.style.display = 'inline-block';
-        // Запуск мощного салюта конфетти при завершении партии в Matching
+        // Мощный салют конфетти при завершении партии в Matching
         shootBigCelebration();
       }
     } else {
