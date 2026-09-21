@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary Practice</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --c-bg: #f9f9f9;
+      --c-white: #ffffff;
+      --c-lime: #e6ff78;
+      --c-pink: #ffc7c5;
+      --c-pink-soft: #fff3f4;
+      --c-berry: #b71b3f;
+      --c-berry-dark: #8a102b;
+      --c-text: #221c1e;
+      --c-text-muted: #6e6164;
+      --border-color: #ebd3d7;
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px 60px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .glow-spot-left {
+      position: fixed;
+      top: 15%;
+      left: -120px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(183, 27, 63, 0.2) 0%, rgba(183, 27, 63, 0) 70%);
+      filter: blur(40px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .glow-spot-right {
+      position: fixed;
+      bottom: 10%;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(230, 255, 120, 0.55) 0%, rgba(230, 255, 120, 0) 70%);
+      filter: blur(40px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--c-berry);
+      letter-spacing: -0.5px;
+    }
+
+    .lang-switcher {
+      display: flex;
+      background: var(--c-white);
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 2px;
+      box-shadow: 0 2px 6px rgba(183, 27, 63, 0.04);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--c-text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-btn.active {
+      background: var(--c-berry);
+      color: var(--c-white);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      background: var(--c-white);
+      padding: 6px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border-color);
+      margin-bottom: 24px;
+      box-shadow: 0 4px 15px rgba(183, 27, 63, 0.04);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--c-text-muted);
+      padding: 10px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: var(--c-berry);
+      color: var(--c-white);
+      box-shadow: 0 4px 12px rgba(183, 27, 63, 0.2);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* FLASHCARD */
+    .flashcard-wrapper {
+      perspective: 1200px;
+      width: 100%;
+      height: 480px;
+      margin-bottom: 16px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+      border-radius: var(--radius);
+    }
+
+    .flashcard.flipped { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--radius);
+      padding: 28px 24px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+      border: 2px solid var(--border-color);
+    }
+
+    .card-face.card-front {
+      background: var(--c-pink-soft);
+      border-color: var(--c-pink);
+      box-shadow: 0 16px 35px rgba(183, 27, 63, 0.06);
+    }
+
+    .card-flip-indicator {
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      font-size: 1.1rem;
+      color: var(--c-berry);
+      opacity: 0.85;
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .card-front-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      width: 100%;
+      gap: 12px;
+    }
+
+    .term {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--c-berry);
+      line-height: 1.15;
+    }
+
+    .links-column {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .link-sub-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--c-white);
+      border: 1.5px solid var(--border-color);
+      color: var(--c-berry-dark);
+      padding: 6px 14px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .link-sub-btn:hover {
+      background: var(--c-berry);
+      border-color: var(--c-berry);
+      color: var(--c-white);
+      transform: translateY(-1px);
+    }
+
+    .bars-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 4px 0;
+    }
+
+    .register-container { width: 100%; }
+
+    .register-labels, .register-labels-simple {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--c-text-muted);
+      margin-bottom: 3px;
+    }
+
+    .register-labels span { width: 33.33%; text-align: left; }
+    .register-labels span:nth-child(2) { text-align: center; }
+    .register-labels span:nth-child(3) { text-align: right; }
+
+    .register-bar-track {
+      width: 100%;
+      height: 4px;
+      background: #ebd3d7;
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .register-thumb {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background: var(--c-lime);
+      border: 2px solid var(--c-berry);
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(183, 27, 63, 0.3);
+      transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      text-align: left;
+      background: #ffffff;
+      border-color: var(--c-berry);
+      overflow-y: auto;
+      justify-content: space-between;
+    }
+
+    .card-back-content {
+      width: 100%;
+      max-width: 540px;
+      margin: auto 0;
+    }
+
+    .translation-label {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--c-text);
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+
+    .example-block {
+      width: 100%;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: var(--c-text-muted);
+      background: var(--c-pink-soft);
+      padding: 12px 14px;
+      border-radius: 12px;
+      border-left: 4px solid var(--c-berry);
+      margin-bottom: 10px;
+    }
+
+    .example-block em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--c-berry);
+    }
+
+    .back-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .origin-toggle-btn {
+      background: transparent;
+      border: 1.5px dashed var(--c-pink);
+      color: var(--c-berry);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .origin-toggle-btn:hover {
+      background: var(--c-pink-soft);
+      border-color: var(--c-berry);
+    }
+
+    .knowledge-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .btn-know-action {
+      background: var(--c-lime);
+      color: var(--c-text);
+      border: 1.5px solid #d4eb52;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-know-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(230, 255, 120, 0.4);
+    }
+
+    .btn-dont-know-action {
+      background: var(--c-pink-soft);
+      color: var(--c-berry);
+      border: 1.5px solid var(--c-pink);
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-dont-know-action:hover {
+      background: var(--c-pink);
+      transform: translateY(-2px);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      background: var(--c-white);
+      color: var(--c-text);
+      border: 1.5px solid var(--border-color);
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--c-pink-soft);
+      border-color: var(--c-pink);
+    }
+
+    .btn-primary {
+      background: var(--c-berry);
+      color: var(--c-white);
+      border-color: var(--c-berry);
+      box-shadow: 0 4px 12px rgba(183, 27, 63, 0.2);
+    }
+
+    .btn-primary:hover { background: var(--c-berry-dark); }
+
+    /* QUIZ */
+    .quiz-card {
+      background: var(--c-white); border: 2px solid var(--border-color); border-radius: var(--radius);
+      padding: 34px 28px; margin-bottom: 20px; box-shadow: 0 14px 30px rgba(183, 27, 63, 0.05);
+    }
+
+    .quiz-header-row {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+    }
+
+    .hint-btn {
+      background: #faf7f5; border: 1.5px solid var(--border-color); color: var(--c-text-muted);
+      padding: 6px 14px; border-radius: 10px; font-size: 0.78rem; font-weight: 700; cursor: pointer;
+    }
+
+    .hint-box {
+      display: none; background: var(--c-pink-soft); border: 1.5px solid var(--c-pink);
+      padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; color: var(--c-berry);
+      margin-bottom: 14px; font-weight: 600;
+    }
+    .hint-box.show { display: block; }
+
+    .quiz-sentence { font-size: 1.2rem; line-height: 1.6; font-weight: 600; margin-bottom: 22px; }
+
+    .blank {
+      display: inline-block; min-width: 120px; border-bottom: 2.5px dashed var(--c-berry);
+      background: var(--c-lime); color: var(--c-berry-dark); font-weight: 800; text-align: center; padding: 0 8px; border-radius: 6px;
+    }
+
+    .options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (max-width: 520px) { .options-grid { grid-template-columns: 1fr; } }
+
+    .option-btn {
+      background: #faf7f5; border: 1.5px solid var(--border-color); color: var(--c-text);
+      padding: 14px 18px; border-radius: 12px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; text-align: left; transition: all 0.2s;
+    }
+    .option-btn:hover:not([disabled]) { border-color: var(--c-berry); background: var(--c-pink-soft); transform: translateY(-2px); }
+    .option-btn.correct { background: #defad6 !important; border-color: #3b9c2b !important; color: #1f6314 !important; }
+    .option-btn.wrong { background: #fde8e8 !important; border-color: #d12e2e !important; color: #991b1b !important; opacity: 0.7; }
+
+    /* MATCHING */
+    .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .match-btn {
+      background: var(--c-white); border: 1.5px solid var(--border-color); color: var(--c-text);
+      padding: 16px 14px; border-radius: 14px; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; text-align: center; transition: all 0.2s; display: flex; align-items: center;
+      justify-content: center; min-height: 74px;
+    }
+    .match-btn.left-btn { font-weight: 800; color: var(--c-berry); }
+    .match-btn:hover:not(.matched) { border-color: var(--c-berry); background: var(--c-pink-soft); }
+    .match-btn.selected { border-color: var(--c-berry); background: var(--c-lime); color: var(--c-berry-dark); font-weight: 800; }
+    .match-btn.matched { background: #eef9ed; border-color: #b7e3b3; color: #2b7a24; cursor: default; opacity: 0.7; }
+    .match-btn.wrong-match { border-color: #d12e2e; background: #fde8e8; }
+
+    /* SENTENCE BUILDER (SCRAMBLE) */
+    .scramble-card {
+      background: var(--c-white); border: 2px solid var(--border-color); border-radius: var(--radius);
+      padding: 30px 24px; margin-bottom: 20px; box-shadow: 0 14px 30px rgba(183, 27, 63, 0.05);
+    }
+
+    .answer-dropzone {
+      min-height: 70px;
+      background: var(--c-pink-soft);
+      border: 2px dashed var(--c-berry);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    /* Зеленое свечение и фон при правильном ответе */
+    .answer-dropzone.success-zone {
+      background: #eefbee !important;
+      border: 2.5px solid #2e8b24 !important;
+      box-shadow: 0 0 18px rgba(46, 139, 36, 0.22) !important;
+    }
+
+    .answer-dropzone:empty::before {
+      content: attr(data-placeholder);
+      color: var(--c-text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .words-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      justify-content: center;
+      min-height: 60px;
+    }
+
+    .scramble-chip {
+      background: var(--c-white);
+      border: 1.5px solid var(--c-berry);
+      color: var(--c-text);
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .scramble-chip:hover {
+      background: var(--c-lime);
+      transform: translateY(-2px);
+    }
+
+    .scramble-chip.in-answer {
+      background: var(--c-white);
+      color: var(--c-berry);
+      border-color: var(--c-berry);
+    }
+
+    /* Подсветка плашек внутри зеленого поля */
+    .answer-dropzone.success-zone .scramble-chip.in-answer {
+      border-color: #2e8b24;
+      color: #1e6317;
+      background: #ffffff;
+      cursor: default;
+    }
+
+    .scramble-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* ANALYTICS */
+    .analytics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+    .stat-card {
+      background: var(--c-white); border: 2px solid var(--border-color); border-radius: 16px;
+      padding: 20px; text-align: center;
+    }
+    .stat-card h4 { font-size: 0.8rem; color: var(--c-text-muted); text-transform: uppercase; margin-bottom: 6px; font-weight: 800; }
+    .stat-card .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--c-berry); }
+
+    .breakdown-group {
+      background: var(--c-white); border: 2px solid var(--border-color); border-radius: 16px;
+      padding: 20px; margin-bottom: 20px;
+    }
+    .breakdown-title { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: var(--c-berry); margin-bottom: 12px; }
+    .word-pills-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .word-pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+      border-radius: 14px; font-size: 0.85rem; font-weight: 700;
+    }
+    .word-pill.mastered { background: #e8f7ee; color: #1e5e3a; border: 1px solid #bce6cb; }
+    .word-pill.struggled { background: #fdebee; color: #a30e20; border: 1px solid #f9c7cf; }
+
+    /* CAT OVERLAY */
+    #big-cat-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(34, 28, 30, 0.45); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; z-index: 9999;
+      cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    #big-cat-overlay.show { opacity: 1; pointer-events: auto; }
+    .cat-modal-card {
+      background: var(--c-white); border: 3px solid var(--c-berry); border-radius: 28px;
+      padding: 30px; text-align: center; max-width: 320px; width: 90%;
+    }
+    .cat-modal-card img {
+      width: 160px; height: 160px; object-fit: cover; border-radius: 20px;
+      border: 2.5px solid var(--c-berry); margin-bottom: 16px;
+    }
+    .cat-modal-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--c-berry); }
+
+    /* ORIGIN MODAL */
+    #origin-modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(34, 28, 30, 0.45); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    #origin-modal-overlay.show { opacity: 1; pointer-events: auto; }
+    .origin-modal-card {
+      background: var(--c-white); border: 3px solid var(--c-berry); border-radius: 24px; padding: 30px 24px;
+      text-align: center; box-shadow: 0 20px 50px rgba(183, 27, 63, 0.25);
+      transform: scale(0.85); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      max-width: 400px; width: 90%;
+    }
+    #origin-modal-overlay.show .origin-modal-card { transform: scale(1); }
+    .origin-modal-card img {
+      width: 80px; height: 80px; object-fit: cover; border-radius: 16px;
+      border: 2px solid var(--c-berry); margin-bottom: 14px;
+    }
+    .origin-modal-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--c-berry); margin-bottom: 10px; }
+    .origin-modal-card p { font-size: 0.9rem; color: var(--c-text); line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <div class="glow-spot-left"></div>
+  <div class="glow-spot-right"></div>
+
+  <div id="big-cat-overlay" onclick="closeBigCat()">
+    <div class="cat-modal-card" onclick="event.stopPropagation()">
+      <img src="https://static.ctclove.ru/uploads/fileskotiki/zaplakannyi.jpg" alt="Sad cat">
+      <h3 id="cat-msg">Oops... Try again! 😿</h3>
+    </div>
+  </div>
+
+  <div id="origin-modal-overlay" onclick="closeOriginModal()">
+    <div class="origin-modal-card" onclick="event.stopPropagation()">
+      <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=200" alt="Word Origin">
+      <h3 id="origin-modal-title">Phrase</h3>
+      <p id="origin-modal-text">Origin info...</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Vocabulary Practice</h1>
+      <div class="lang-switcher">
+        <button class="lang-btn active" id="btn-lang-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="btn-lang-ru" onclick="setLang('ru')">RU</button>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-fc" onclick="switchTab('flashcards')">🗂 Flashcards</button>
+      <button class="tab-btn" id="tab-quiz" onclick="switchTab('quiz')">✍️ Multiple Choice</button>
+      <button class="tab-btn" id="tab-match" onclick="switchTab('matching')">🧩 Matching</button>
+      <button class="tab-btn" id="tab-scramble" onclick="switchTab('scramble')">🧩 Sentence Builder</button>
+      <button class="tab-btn" id="tab-analytics" onclick="switchTab('analytics')">📊 Analytics</button>
+    </div>
+
+    <!-- 1. FLASHCARDS -->
+    <div id="flashcards" class="tab-content active">
+      <div class="flashcard-wrapper" onclick="flipCard()">
+        <div class="flashcard" id="card">
+          
+          <div class="card-face card-front">
+            <div class="card-flip-indicator" id="card-flip-arrow">↺</div>
+            <div class="card-front-content">
+              <div class="term" id="fc-term">Loading...</div>
+              
+              <div class="links-column" id="fc-links-box">
+                <a id="yg-link-btn" href="#" target="_blank" class="link-sub-btn" onclick="event.stopPropagation()">
+                  <span>YouGlish</span> ↗
+                </a>
+                <a id="cambridge-link-btn" href="#" target="_blank" class="link-sub-btn" onclick="event.stopPropagation()">
+                  <span>Cambridge Dictionary</span> ↗
+                </a>
+              </div>
+            </div>
+
+            <div class="bars-wrapper" id="fc-bars-box">
+              <div class="register-container">
+                <div class="register-labels">
+                  <span>🇺🇸 US</span>
+                  <span>Neutral</span>
+                  <span>🇬🇧 UK</span>
+                </div>
+                <div class="register-bar-track">
+                  <div class="register-thumb" id="region-thumb" style="left: 50%;"></div>
+                </div>
+              </div>
+              <div class="register-container">
+                <div class="register-labels-simple">
+                  <span>Informal</span>
+                  <span>Formal</span>
+                </div>
+                <div class="register-bar-track">
+                  <div class="register-thumb" id="style-thumb" style="left: 50%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-face card-back">
+            <div class="card-flip-indicator">↺</div>
+            <div class="card-back-content">
+              <div class="translation-label" id="fc-trans">...</div>
+              <div class="example-block" id="fc-ex">...</div>
+            </div>
+
+            <div class="back-footer">
+              <button class="origin-toggle-btn" onclick="openOriginModal(event)">
+                <span id="origin-btn-text">💡 Word Origin</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="knowledge-actions" id="fc-knowledge-actions">
+        <button class="btn-dont-know-action" onclick="markKnowledge(false)">
+          <span id="label-dont-know">❌ Still learning</span>
+        </button>
+        <button class="btn-know-action" onclick="markKnowledge(true)">
+          <span id="label-know">✅ I know this</span>
+        </button>
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="btn-back" onclick="prevCard()">← Back</button>
+        <span id="fc-counter" style="color: var(--c-text-muted); font-size: 0.95rem; font-weight: 700;">1 / 8</span>
+        <button class="btn" id="btn-next" onclick="nextCard()">Next →</button>
+      </div>
+    </div>
+
+    <!-- 2. MULTIPLE CHOICE -->
+    <div id="quiz" class="tab-content">
+      <div class="quiz-card">
+        <div class="quiz-header-row">
+          <div class="quiz-num" id="quiz-progress" style="font-size: 0.82rem; font-weight: 800; color: var(--c-berry);">Question 1 of 8</div>
+          <button class="hint-btn" id="quiz-hint-btn" onclick="toggleHint()">💡 Hint</button>
+        </div>
+        <div class="hint-box" id="quiz-hint-box">...</div>
+        <div class="quiz-sentence" id="quiz-sentence">...</div>
+        <div class="options-grid" id="quiz-options"></div>
+      </div>
+      <div class="controls" style="justify-content: flex-end;">
+        <button class="btn btn-primary" id="quiz-next-btn" style="display:none;" onclick="nextQuestion()">Next Question →</button>
+      </div>
+    </div>
+
+    <!-- 3. MATCHING -->
+    <div id="matching" class="tab-content">
+      <div class="match-grid" id="match-grid"></div>
+      <div style="text-align: center; margin-top: 15px;">
+        <button class="btn btn-primary" id="match-next-btn" style="display:none;" onclick="startMatchingSession()">Restart 🔄</button>
+      </div>
+    </div>
+
+    <!-- 4. SENTENCE BUILDER -->
+    <div id="scramble" class="tab-content">
+      <div class="scramble-card">
+        <div class="quiz-header-row">
+          <div class="quiz-num" id="scramble-progress" style="font-size: 0.82rem; font-weight: 800; color: var(--c-berry);">Task 1 of 8</div>
+        </div>
+        
+        <div class="quiz-sentence" id="scramble-instruction" style="margin-bottom: 6px;">
+          Build the correct sentence:
+        </div>
+        
+        <div id="scramble-translation-hint" style="font-size: 0.95rem; font-weight: 600; color: var(--c-text-muted); margin-bottom: 18px;">
+          ...
+        </div>
+
+        <div class="answer-dropzone" id="scramble-answer-box" data-placeholder="Click words below to build the sentence..."></div>
+
+        <div class="words-bank" id="scramble-words-bank"></div>
+
+        <div class="scramble-actions">
+          <button class="btn" onclick="resetCurrentScramble()" id="scramble-reset-btn">Reset ↺</button>
+          <button class="btn btn-primary" onclick="checkScrambleAnswer()" id="scramble-check-btn">Check</button>
+          <button class="btn btn-primary" onclick="nextScrambleQuestion()" id="scramble-next-btn" style="display:none;">Next →</button>
+        </div>
+
+        <div id="scramble-feedback" style="margin-top: 14px; font-weight: 700; font-size: 0.95rem; min-height: 24px; text-align: center;"></div>
+      </div>
+    </div>
+
+    <!-- 5. ANALYTICS -->
+    <div id="analytics" class="tab-content">
+      <div class="analytics-grid">
+        <div class="stat-card">
+          <h4 id="stat-known-label">Mastered Words</h4>
+          <div class="stat-value" id="stat-known-count">0</div>
+        </div>
+        <div class="stat-card">
+          <h4 id="stat-review-label">Need Review</h4>
+          <div class="stat-value" id="stat-review-count">0</div>
+        </div>
+      </div>
+
+      <div class="breakdown-group">
+        <div class="breakdown-title" id="breakdown-title">Word Breakdown</div>
+        <div class="word-pills-list" id="analytics-word-pills"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  let currentLang = 'en';
+
+  const vocabData = [
+    {
+      term: "competence",
+      trans: {
+        en: "the ability to do work well; good skills",
+        ru: "компетентность, хорошие навыки"
+      },
+      example: "She's got great <em>competence</em> in sales.",
+      blankSentence: "She's got great ___ in sales.",
+      scrambleSentence: "She's got great competence in sales.",
+      style: 80, region: 50,
+      origin: {
+        en: "From Latin 'competentia' (agreement, ability).",
+        ru: "От латинского 'competentia' (согласованность, способность)."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/competence"
+    },
+    {
+      term: "touch base",
+      trans: {
+        en: "to talk briefly to check news or plans",
+        ru: "связаться, быстро обсудить дела"
+      },
+      example: "<em>Let's</em> touch base before the call.",
+      blankSentence: "Let's ___ before the call.",
+      scrambleSentence: "Let's touch base before the call.",
+      style: 30, region: 25,
+      origin: {
+        en: "Originated from baseball (briefly touching a base).",
+        ru: "Из бейсбола: быстро коснуться базы."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/touch-base"
+    },
+    {
+      term: "stick with",
+      trans: {
+        en: "to keep doing or choosing the same thing",
+        ru: "придерживаться, не менять"
+      },
+      example: "<em>Let's</em> stick with our current plan.",
+      blankSentence: "Let's ___ our current plan.",
+      scrambleSentence: "Let's stick with our current plan.",
+      style: 40, region: 50,
+      origin: {
+        en: "Metaphor: staying firmly attached to something.",
+        ru: "Метафора: крепко держаться за привычное."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/stick-with"
+    },
+    {
+      term: "recruit",
+      trans: {
+        en: "to hire new workers for a team",
+        ru: "нанимать новых сотрудников"
+      },
+      example: "We <em>don't</em> recruit staff without experience.",
+      blankSentence: "We don't ___ staff without experience.",
+      scrambleSentence: "We don't recruit staff without experience.",
+      style: 70, region: 50,
+      origin: {
+        en: "From French 'recruter' (to grow or add new people).",
+        ru: "Из французского: пополнять новыми людьми."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/recruit"
+    },
+    {
+      term: "doable",
+      trans: {
+        en: "easy to do; possible to finish",
+        ru: "выполнимый, реальный"
+      },
+      example: "Don't worry, <em>it's</em> totally doable.",
+      blankSentence: "Don't worry, it's totally ___.",
+      scrambleSentence: "Don't worry, it's totally doable.",
+      style: 30, region: 40,
+      origin: {
+        en: "Formed from 'do' + '-able' (possible to do).",
+        ru: "Образовано от 'do' + суффикс возможности '-able'."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/doable"
+    },
+    {
+      term: "have a blast",
+      trans: {
+        en: "to have a lot of fun",
+        ru: "отлично проводить время, веселиться"
+      },
+      example: "We always <em>have a blast</em> together.",
+      blankSentence: "We always ___ together.",
+      scrambleSentence: "We always have a blast together.",
+      style: 15, region: 25,
+      origin: {
+        en: "Slang comparing fun to an explosion of energy.",
+        ru: "Сленг: веселье как взрыв энергии."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/have-a-blast"
+    },
+    {
+      term: "decide",
+      trans: {
+        en: "to make a choice",
+        ru: "решать, делать выбор"
+      },
+      example: "She <em>didn't</em> decide what to buy.",
+      blankSentence: "She didn't ___ what to buy.",
+      scrambleSentence: "She didn't decide what to buy.",
+      style: 50, region: 50,
+      origin: {
+        en: "From Latin 'decidere' (to cut off other choices).",
+        ru: "От латинского: отсечь лишние варианты."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/decide"
+    },
+    {
+      term: "in two weeks",
+      trans: {
+        en: "after fourteen days",
+        ru: "через две недели"
+      },
+      example: "<em>We'll</em> start the project in two weeks.",
+      blankSentence: "We'll start the project ___.",
+      scrambleSentence: "We'll start the project in two weeks.",
+      style: 50, region: 50,
+      origin: {
+        en: "Standard phrase indicating future time.",
+        ru: "Стандартная временная фраза о будущем."
+      },
+      cambridge: "https://dictionary.cambridge.org/dictionary/english/week"
+    }
+  ];
+
+  const translations = {
+    en: {
+      fc: "🗂 Flashcards",
+      quiz: "✍️ Multiple Choice",
+      match: "🧩 Matching",
+      scrambleTab: "🧩 Sentence Builder",
+      analytics: "📊 Analytics",
+      back: "← Back",
+      next: "Next →",
+      restart: "Restart 🔄",
+      know: "✅ I know this",
+      dontKnow: "❌ Still learning",
+      originBtn: "💡 Word Origin",
+      hintBtn: "💡 Hint",
+      checkBtn: "Check",
+      resetBtn: "Reset ↺",
+      scrambleInstruction: "Build the correct sentence:",
+      scramblePlaceholder: "Click words below to build the sentence...",
+      knownLabel: "Mastered Words",
+      reviewLabel: "Need Review",
+      breakdownTitle: "Word Breakdown",
+      deckFinished: "Deck completed! 🎉",
+      deckFinishedSub: "Great job reviewing your vocabulary.",
+      deckFinishedQ: "Would you like to start over?"
+    },
+    ru: {
+      fc: "🗂 Карточки",
+      quiz: "✍️ Multiple Choice",
+      match: "🧩 Сопоставление",
+      scrambleTab: "🧩 Собери предложение",
+      analytics: "📊 Аналитика",
+      back: "← Назад",
+      next: "Дальше →",
+      restart: "Заново 🔄",
+      know: "✅ Знаю",
+      dontKnow: "❌ Не знаю",
+      originBtn: "💡 Происхождение слова",
+      hintBtn: "💡 Подсказка",
+      checkBtn: "Проверить",
+      resetBtn: "Сбросить ↺",
+      scrambleInstruction: "Соберите правильное предложение из слов:",
+      scramblePlaceholder: "Нажимайте на слова ниже, чтобы составить фразу...",
+      knownLabel: "Усвоенные слова",
+      reviewLabel: "На повторение",
+      breakdownTitle: "Статус слов",
+      deckFinished: "Колода завершена! 🎉",
+      deckFinishedSub: "Отличная работа по повторению лексики.",
+      deckFinishedQ: "Пройти карточки еще раз?"
+    }
+  };
+
+  let currentCardIdx = 0;
+  const wordStatus = {};
+  const cardElem = document.getElementById('card');
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`btn-lang-${lang}`).classList.add('active');
+
+    document.getElementById('tab-fc').innerText = translations[lang].fc;
+    document.getElementById('tab-quiz').innerText = translations[lang].quiz;
+    document.getElementById('tab-match').innerText = translations[lang].match;
+    document.getElementById('tab-scramble').innerText = translations[lang].scrambleTab;
+    document.getElementById('tab-analytics').innerText = translations[lang].analytics;
+
+    document.getElementById('btn-back').innerText = translations[lang].back;
+    document.getElementById('label-know').innerText = translations[lang].know;
+    document.getElementById('label-dont-know').innerText = translations[lang].dontKnow;
+    document.getElementById('origin-btn-text').innerText = translations[lang].originBtn;
+    document.getElementById('quiz-hint-btn').innerText = translations[lang].hintBtn;
+    document.getElementById('scramble-check-btn').innerText = translations[lang].checkBtn;
+    document.getElementById('scramble-reset-btn').innerText = translations[lang].resetBtn;
+    document.getElementById('scramble-instruction').innerText = translations[lang].scrambleInstruction;
+    document.getElementById('scramble-answer-box').setAttribute('data-placeholder', translations[lang].scramblePlaceholder);
+
+    document.getElementById('stat-known-label').innerText = translations[lang].knownLabel;
+    document.getElementById('stat-review-label').innerText = translations[lang].reviewLabel;
+    document.getElementById('breakdown-title').innerText = translations[lang].breakdownTitle;
+
+    updateCard();
+    renderQuizQuestion();
+    renderScrambleQuestion();
+    updateAnalyticsUI();
+  }
+
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+    if (tabId === 'matching') startMatchingSession();
+    if (tabId === 'scramble') renderScrambleQuestion();
+    if (tabId === 'analytics') updateAnalyticsUI();
+  }
+
+  function updateCard() {
+    cardElem.classList.remove('flipped');
+    const flipArrow = document.getElementById('card-flip-arrow');
+    const linksBox = document.getElementById('fc-links-box');
+    const barsBox = document.getElementById('fc-bars-box');
+    const knowledgeActions = document.getElementById('fc-knowledge-actions');
+    const nextBtn = document.getElementById('btn-next');
+
+    if (currentCardIdx >= vocabData.length) {
+      document.getElementById('fc-term').innerHTML = `
+        <img src="https://i.pinimg.com/1200x/ae/5b/a4/ae5ba44a7ff3f49be66d7a89fdb9330a.jpg" alt="Raccoon completed" referrerpolicy="no-referrer" style="width: 240px; height: 240px; object-fit: cover; border-radius: 28px; border: 3px solid var(--c-berry); margin-bottom: 14px; display: block; margin-left: auto; margin-right: auto; box-shadow: 0 12px 30px rgba(183, 27, 63, 0.18);">
+        <div style="font-size: 1.5rem; font-weight: 800; color: var(--c-berry);">${translations[currentLang].deckFinished}</div>
+      `;
+      document.getElementById('fc-trans').innerText = translations[currentLang].deckFinishedSub;
+      document.getElementById('fc-ex').innerHTML = translations[currentLang].deckFinishedQ;
+      document.getElementById('fc-counter').innerText = `${vocabData.length} / ${vocabData.length}`;
+
+      if (flipArrow) flipArrow.style.display = 'none';
+      if (linksBox) linksBox.style.display = 'none';
+      if (barsBox) barsBox.style.display = 'none';
+      if (knowledgeActions) knowledgeActions.style.display = 'none';
+
+      nextBtn.innerText = translations[currentLang].restart;
+      return;
+    }
+
+    if (flipArrow) flipArrow.style.display = 'block';
+    if (linksBox) linksBox.style.display = 'flex';
+    if (barsBox) barsBox.style.display = 'flex';
+    if (knowledgeActions) knowledgeActions.style.display = 'grid';
+
+    nextBtn.innerText = translations[currentLang].next;
+
+    const item = vocabData[currentCardIdx];
+    document.getElementById('fc-term').innerText = item.term;
+    document.getElementById('fc-trans').innerText = item.trans[currentLang];
+    document.getElementById('fc-ex').innerHTML = item.example;
+    document.getElementById('fc-counter').innerText = `${currentCardIdx + 1} / ${vocabData.length}`;
+
+    document.getElementById('style-thumb').style.left = `${item.style}%`;
+    document.getElementById('region-thumb').style.left = `${item.region}%`;
+
+    document.getElementById('origin-modal-title').innerText = item.term;
+    document.getElementById('origin-modal-text').innerText = item.origin[currentLang];
+
+    const ygBtn = document.getElementById('yg-link-btn');
+    ygBtn.href = `https://youglish.com/pronounce/${encodeURIComponent(item.term)}/english`;
+
+    const camBtn = document.getElementById('cambridge-link-btn');
+    if (item.cambridge) {
+      camBtn.href = item.cambridge;
+      camBtn.style.display = 'inline-flex';
+    } else {
+      camBtn.style.display = 'none';
+    }
+  }
+
+  function flipCard() { 
+    if (currentCardIdx < vocabData.length) {
+      cardElem.classList.toggle('flipped'); 
+    }
+  }
+
+  function nextCard() { 
+    currentCardIdx++;
+    if (currentCardIdx > vocabData.length) {
+      currentCardIdx = 0;
+    }
+    updateCard(); 
+  }
+
+  function prevCard() { 
+    currentCardIdx = (currentCardIdx - 1 + vocabData.length) % vocabData.length; 
+    updateCard(); 
+  }
+
+  function markKnowledge(isKnown) {
+    const item = vocabData[currentCardIdx];
+    wordStatus[item.term] = isKnown;
+    updateAnalyticsUI();
+    nextCard();
+  }
+
+  function openOriginModal(e) {
+    e.stopPropagation();
+    document.getElementById('origin-modal-overlay').classList.add('show');
+  }
+
+  function closeOriginModal() {
+    document.getElementById('origin-modal-overlay').classList.remove('show');
+  }
+
+  function triggerCatReaction(msg) {
+    const modalMsg = document.getElementById('cat-msg');
+    if (modalMsg) modalMsg.innerText = msg;
+    document.getElementById('big-cat-overlay').classList.add('show');
+  }
+
+  function closeBigCat() {
+    document.getElementById('big-cat-overlay').classList.remove('show');
+  }
+
+  // QUIZ (MULTIPLE CHOICE)
+  let quizIdx = 0;
+  let quizPool = [...vocabData].sort(() => 0.5 - Math.random());
+
+  function renderQuizQuestion() {
+    const item = quizPool[quizIdx];
+    document.getElementById('quiz-progress').innerText = currentLang === 'en' 
+      ? `Question ${quizIdx + 1} of ${quizPool.length}` 
+      : `Вопрос ${quizIdx + 1} из ${quizPool.length}`;
+      
+    document.getElementById('quiz-sentence').innerHTML = item.blankSentence.replace('___', '<span class="blank">?</span>');
+    document.getElementById('quiz-hint-box').innerText = item.trans[currentLang];
+    document.getElementById('quiz-hint-box').classList.remove('show');
+    document.getElementById('quiz-next-btn').style.display = 'none';
+
+    const options = [item.term];
+    const others = vocabData.filter(x => x.term !== item.term).sort(() => 0.5 - Math.random());
+    others.slice(0, 3).forEach(o => options.push(o.term));
+    options.sort(() => 0.5 - Math.random());
+
+    const container = document.getElementById('quiz-options');
+    container.innerHTML = '';
+
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      btn.innerText = opt;
+      btn.onclick = () => {
+        if (opt === item.term) {
+          btn.classList.add('correct');
+          document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+          document.querySelector('.blank').innerText = item.term;
+          document.getElementById('quiz-next-btn').style.display = 'inline-block';
+        } else {
+          btn.classList.add('wrong');
+          btn.disabled = true;
+          triggerCatReaction(currentLang === 'en' ? "Oops... Try again! 😿" : "Упс... Попробуй еще раз! 😿");
+        }
+      };
+      container.appendChild(btn);
+    });
+  }
+
+  function toggleHint() { document.getElementById('quiz-hint-box').classList.toggle('show'); }
+  function nextQuestion() { quizIdx = (quizIdx + 1) % quizPool.length; renderQuizQuestion(); }
+
+  // MATCHING
+  let selectedLeft = null;
+  let selectedRight = null;
+
+  function startMatchingSession() {
+    const grid = document.getElementById('match-grid');
+    grid.innerHTML = '';
+    selectedLeft = null; selectedRight = null;
+    document.getElementById('match-next-btn').style.display = 'none';
+
+    const batch = [...vocabData].sort(() => 0.5 - Math.random()).slice(0, 5);
+    const leftItems = [...batch].sort(() => 0.5 - Math.random());
+    const rightItems = [...batch].sort(() => 0.5 - Math.random());
+
+    for (let i = 0; i < batch.length; i++) {
+      const lBtn = document.createElement('button');
+      lBtn.className = 'match-btn left-btn';
+      lBtn.innerText = leftItems[i].term;
+      lBtn.dataset.key = leftItems[i].term;
+      lBtn.onclick = () => {
+        if (lBtn.classList.contains('matched')) return;
+        document.querySelectorAll('.left-btn').forEach(b => b.classList.remove('selected'));
+        selectedLeft = lBtn; lBtn.classList.add('selected');
+        checkMatchPair();
+      };
+
+      const rBtn = document.createElement('button');
+      rBtn.className = 'match-btn right-btn';
+      rBtn.innerText = rightItems[i].trans[currentLang];
+      rBtn.dataset.key = rightItems[i].term;
+      rBtn.onclick = () => {
+        if (rBtn.classList.contains('matched')) return;
+        document.querySelectorAll('.right-btn').forEach(b => b.classList.remove('selected'));
+        selectedRight = rBtn; rBtn.classList.add('selected');
+        checkMatchPair();
+      };
+
+      grid.appendChild(lBtn); grid.appendChild(rBtn);
+    }
+  }
+
+  function checkMatchPair() {
+    if (!selectedLeft || !selectedRight) return;
+    if (selectedLeft.dataset.key === selectedRight.dataset.key) {
+      selectedLeft.classList.remove('selected'); selectedRight.classList.remove('selected');
+      selectedLeft.classList.add('matched'); selectedRight.classList.add('matched');
+      selectedLeft = null; selectedRight = null;
+
+      if (document.querySelectorAll('.match-btn:not(.matched)').length === 0) {
+        document.getElementById('match-next-btn').style.display = 'inline-block';
+      }
+    } else {
+      const l = selectedLeft; const r = selectedRight;
+      l.classList.add('wrong-match'); r.classList.add('wrong-match');
+      setTimeout(() => {
+        l.classList.remove('wrong-match', 'selected');
+        r.classList.remove('wrong-match', 'selected');
+      }, 400);
+      selectedLeft = null; selectedRight = null;
+    }
+  }
+
+  // SENTENCE BUILDER
+  let scrambleIdx = 0;
+  let scramblePool = [...vocabData].sort(() => 0.5 - Math.random());
+  let currentOriginalTokens = [];
+  let userAssembledTokens = [];
+
+  function renderScrambleQuestion() {
+    const item = scramblePool[scrambleIdx];
+    document.getElementById('scramble-progress').innerText = currentLang === 'en' 
+      ? `Task ${scrambleIdx + 1} of ${scramblePool.length}` 
+      : `Задание ${scrambleIdx + 1} из ${scramblePool.length}`;
+
+    document.getElementById('scramble-translation-hint').innerText = `Target: "${item.term}" (${item.trans[currentLang]})`;
+    
+    currentOriginalTokens = item.scrambleSentence.split(' ');
+    userAssembledTokens = [];
+
+    const answerBox = document.getElementById('scramble-answer-box');
+    answerBox.innerHTML = '';
+    answerBox.classList.remove('success-zone'); // Сброс зеленой подсветки
+
+    document.getElementById('scramble-feedback').innerText = '';
+    document.getElementById('scramble-next-btn').style.display = 'none';
+    document.getElementById('scramble-check-btn').style.display = 'inline-block';
+
+    const shuffled = [...currentOriginalTokens].sort(() => 0.5 - Math.random());
+    const bankEl = document.getElementById('scramble-words-bank');
+    bankEl.innerHTML = '';
+
+    shuffled.forEach((word, idx) => {
+      const chip = document.createElement('button');
+      chip.className = 'scramble-chip';
+      chip.innerText = word;
+      chip.dataset.idx = idx;
+      chip.onclick = () => moveWordToAnswer(chip, word);
+      bankEl.appendChild(chip);
+    });
+  }
+
+  function moveWordToAnswer(chip, word) {
+    chip.style.display = 'none';
+    userAssembledTokens.push({ word, sourceChip: chip });
+    renderAnswerZone();
+  }
+
+  function returnWordToBank(index) {
+    const answerBox = document.getElementById('scramble-answer-box');
+    if (answerBox.classList.contains('success-zone')) return; // Блокируем клики после победы
+    const removed = userAssembledTokens.splice(index, 1)[0];
+    removed.sourceChip.style.display = 'inline-block';
+    renderAnswerZone();
+  }
+
+  function renderAnswerZone() {
+    const answerBox = document.getElementById('scramble-answer-box');
+    answerBox.innerHTML = '';
+    userAssembledTokens.forEach((item, index) => {
+      const chip = document.createElement('button');
+      chip.className = 'scramble-chip in-answer';
+      chip.innerText = item.word;
+      chip.onclick = () => returnWordToBank(index);
+      answerBox.appendChild(chip);
+    });
+  }
+
+  function resetCurrentScramble() {
+    userAssembledTokens = [];
+    document.querySelectorAll('#scramble-words-bank .scramble-chip').forEach(c => c.style.display = 'inline-block');
+    const answerBox = document.getElementById('scramble-answer-box');
+    answerBox.classList.remove('success-zone');
+    renderAnswerZone();
+    document.getElementById('scramble-feedback').innerText = '';
+    document.getElementById('scramble-check-btn').style.display = 'inline-block';
+    document.getElementById('scramble-next-btn').style.display = 'none';
+  }
+
+  function checkScrambleAnswer() {
+    const userSentence = userAssembledTokens.map(t => t.word).join(' ');
+    const correctSentence = currentOriginalTokens.join(' ');
+    const feedback = document.getElementById('scramble-feedback');
+    const answerBox = document.getElementById('scramble-answer-box');
+
+    if (userSentence === correctSentence) {
+      answerBox.classList.add('success-zone'); // Загорается зеленым
+      feedback.style.color = '#1f6314';
+      feedback.innerText = currentLang === 'en' ? '✨ Perfect sentence order!' : '✨ Отлично! Предложение собрано верно.';
+      document.getElementById('scramble-check-btn').style.display = 'none';
+      document.getElementById('scramble-next-btn').style.display = 'inline-block';
+    } else {
+      answerBox.classList.remove('success-zone');
+      feedback.style.color = '#991b1b';
+      feedback.innerText = currentLang === 'en' ? '❌ Not quite right. Try arranging again!' : '❌ Порядок слов не совпадает. Попробуйте еще раз!';
+      triggerCatReaction(currentLang === 'en' ? "Wrong word order! 😿" : "Не тот порядок слов! 😿");
+    }
+  }
+
+  function nextScrambleQuestion() {
+    scrambleIdx = (scrambleIdx + 1) % scramblePool.length;
+    renderScrambleQuestion();
+  }
+
+  // ANALYTICS UI
+  function updateAnalyticsUI() {
+    let knownCount = 0;
+    let reviewCount = 0;
+    const pillsContainer = document.getElementById('analytics-word-pills');
+    pillsContainer.innerHTML = '';
+
+    vocabData.forEach(item => {
+      const status = wordStatus[item.term];
+      const pill = document.createElement('div');
+
+      if (status === true) {
+        knownCount++;
+        pill.className = 'word-pill mastered';
+        pill.innerText = `✅ ${item.term}`;
+      } else if (status === false) {
+        reviewCount++;
+        pill.className = 'word-pill struggled';
+        pill.innerText = `❌ ${item.term}`;
+      } else {
+        pill.className = 'word-pill';
+        pill.style.background = '#f0ebeb';
+        pill.innerText = `⏳ ${item.term}`;
+      }
+      pillsContainer.appendChild(pill);
+    });
+
+    document.getElementById('stat-known-count').innerText = knownCount;
+    document.getElementById('stat-review-count').innerText = reviewCount;
+  }
+
+  setLang('en');
+</script>
+
+</body>
+</html>
