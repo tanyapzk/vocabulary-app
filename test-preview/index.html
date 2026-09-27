@@ -1113,10 +1113,14 @@
     #flashcards .flashcard-wrapper {
       position: absolute; left: 0; right: 0; top: 0; height: 440px; margin: 0; z-index: 3;
       perspective: 1400px; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
-      outline: none; will-change: transform;
+      outline: none; will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden;
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
     }
-    #flashcards .flashcard-wrapper.dragging { transition: none; cursor: grabbing; }
+    /* while an actual swipe is in progress: take touch handling away from the browser entirely (no
+       fighting with native scroll/rubber-band) and freeze the card's own flip transition so the
+       compositor only has one live transform to track instead of two nested ones */
+    #flashcards .flashcard-wrapper.dragging { transition: none; cursor: grabbing; touch-action: none; }
+    #flashcards .flashcard-wrapper.dragging .flashcard { transition: none !important; }
     #flashcards .flashcard-wrapper.flying { transition: transform 0.45s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.42s ease; }
     #flashcards .flashcard-wrapper.resetting,
     #flashcards .flashcard-wrapper.resetting .flashcard,
@@ -2084,6 +2088,29 @@
     button.example-audio.playing .example-audio-icon { transform: scale(1.15); }
     .example-audio-text { flex: 1; }
     .front-example.example-audio .example-audio-icon { background: rgba(255, 255, 255, 0.9); color: var(--c-berry-dark); }
+
+    /* ============ MOBILE PERFORMANCE: fewer live-blurred layers during animation ============
+       Phones have far less GPU headroom than a desktop browser. Several always-on blur effects
+       (the floating background orbs, the blurred cards waiting in the stack, the glass tab pills)
+       were competing with the lesson-open animation and the flashcard swipe for the same frames,
+       which is what showed up as "the color fills in late" and the card jittering mid-swipe.
+       Below ~700px these are flattened to plain solid colours — same look, far cheaper to redraw. */
+    @media (max-width: 700px) {
+      #flashcards .stage-orb { animation: none; }
+      #flashcards .stack-card {
+        -webkit-backdrop-filter: none; backdrop-filter: none;
+      }
+      #flashcards .stack-card.s1 { background: #f4c9c8; }
+      #flashcards .stack-card.s2 { background: #f0e28a; }
+      header, .top-tab, #trainer-screen .tab-btn, .lang-switcher, #lesson-search {
+        -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+      }
+      header { background: rgba(255, 255, 255, 0.85); }
+      .top-tab, #trainer-screen .tab-btn { background: rgba(255, 255, 255, 0.82); }
+      .lang-switcher { background: rgba(255, 255, 255, 0.82); }
+      #lesson-search { background: rgba(255, 255, 255, 0.88); }
+      .lesson-screen { will-change: clip-path; }
+    }
 </style>
 </head>
 <body>
@@ -9009,7 +9036,11 @@ let currentCardIdx = 0;
       const dy = e.clientY - dragStartY;
       if (!dragMoved) {
         if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) {
-          if (Math.abs(dy) > 12) dragActive = false; // the person is scrolling the page
+          // A real thumb swipe is rarely perfectly horizontal, so only give up on it (and hand the
+          // gesture back to native page scrolling) once vertical movement is clearly, decisively
+          // winning — not just a few pixels ahead. Bailing too eagerly here is what made left/right
+          // swipes feel like they "fought back" on a phone.
+          if (Math.abs(dy) > 24 && Math.abs(dy) > Math.abs(dx) * 2) dragActive = false;
           return;
         }
         if (currentCardIdx >= fcDeck.length) { dragActive = false; return; }
