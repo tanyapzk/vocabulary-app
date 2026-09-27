@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Without user-scalable=no, some in-app browsers (Telegram's built-in one, for example) read a
+       left-right swipe as a pinch/page-zoom gesture instead of handing it to our own drag code —
+       the page visibly "grows" sideways while the card itself never moves. -->
   <!-- Without this, mobile Safari guesses the address-bar/toolbar colour itself by sampling the
        page, which is why it filled in late and in patches, and stayed the wrong colour after
        leaving a lesson. Giving it an explicit value (kept in sync from JS below) fixes that. -->
@@ -9099,10 +9102,12 @@ let currentCardIdx = 0;
 
     wrap.addEventListener('pointerup', function (e) { finishDrag(e, false); });
     wrap.addEventListener('pointercancel', function (e) { finishDrag(e, true); });
-    // belt-and-braces: this fires whenever pointer capture ends for ANY reason, so even if iOS
-    // Safari fails to deliver pointerup/pointercancel itself, the drag still gets cleaned up
-    // instead of leaving the card stuck mid-drag for the next touch to inherit.
-    wrap.addEventListener('lostpointercapture', function (e) { finishDrag(e, true); });
+    // belt-and-braces for the rare case where iOS Safari drops pointerup/pointercancel entirely:
+    // wait one tick first, so a normal pointerup that already resolved this same gesture (the
+    // overwhelmingly common case) always wins — only step in if nothing else finished it.
+    wrap.addEventListener('lostpointercapture', function (e) {
+      setTimeout(function () { if (dragActive && e.pointerId === dragPointer) finishDrag(e, true); }, 0);
+    });
     wrap.addEventListener('keydown', function (e) {
       if (e.target !== wrap) return;
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flipCard(); }
