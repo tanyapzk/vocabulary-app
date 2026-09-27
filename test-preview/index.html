@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Without this, mobile Safari guesses the address-bar/toolbar colour itself by sampling the
+       page, which is why it filled in late and in patches, and stayed the wrong colour after
+       leaving a lesson. Giving it an explicit value (kept in sync from JS below) fixes that. -->
+  <meta name="theme-color" id="theme-color-meta" content="#faf9f9">
   <title>Vocabulary Practice</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1116,10 +1120,12 @@
       outline: none; will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden;
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
     }
-    /* while an actual swipe is in progress: take touch handling away from the browser entirely (no
-       fighting with native scroll/rubber-band) and freeze the card's own flip transition so the
-       compositor only has one live transform to track instead of two nested ones */
-    #flashcards .flashcard-wrapper.dragging { transition: none; cursor: grabbing; touch-action: none; }
+    /* while an actual swipe is in progress: freeze the card's own flip transition so the
+       compositor only has one live transform to track instead of two nested ones.
+       touch-action stays the fixed "pan-y" from above at all times — changing touch-action
+       mid-gesture is a known way to make iOS Safari silently drop the "finger lifted" event,
+       which is what was leaving the card stuck mid-drag and stretching on the next attempt. */
+    #flashcards .flashcard-wrapper.dragging { transition: none; cursor: grabbing; }
     #flashcards .flashcard-wrapper.dragging .flashcard { transition: none !important; }
     #flashcards .flashcard-wrapper.flying { transition: transform 0.45s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.42s ease; }
     #flashcards .flashcard-wrapper.resetting,
@@ -2090,11 +2096,10 @@
     .front-example.example-audio .example-audio-icon { background: rgba(255, 255, 255, 0.9); color: var(--c-berry-dark); }
 
     /* ============ MOBILE PERFORMANCE: fewer live-blurred layers during animation ============
-       Phones have far less GPU headroom than a desktop browser. Several always-on blur effects
-       (the floating background orbs, the blurred cards waiting in the stack, the glass tab pills)
-       were competing with the lesson-open animation and the flashcard swipe for the same frames,
-       which is what showed up as "the color fills in late" and the card jittering mid-swipe.
-       Below ~700px these are flattened to plain solid colours — same look, far cheaper to redraw. */
+       Phones have far less GPU headroom than a desktop browser. The floating background orbs and
+       the blurred cards waiting in the stack were both animating continuously right through the
+       flashcard swipe, competing with it for the same frames. Below ~700px these are flattened —
+       header/tabs keep their normal glass blur (they're small and static, not the actual cost). */
     @media (max-width: 700px) {
       #flashcards .stage-orb { animation: none; }
       #flashcards .stack-card {
@@ -2102,13 +2107,6 @@
       }
       #flashcards .stack-card.s1 { background: #f4c9c8; }
       #flashcards .stack-card.s2 { background: #f0e28a; }
-      header, .top-tab, #trainer-screen .tab-btn, .lang-switcher, #lesson-search {
-        -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
-      }
-      header { background: rgba(255, 255, 255, 0.85); }
-      .top-tab, #trainer-screen .tab-btn { background: rgba(255, 255, 255, 0.82); }
-      .lang-switcher { background: rgba(255, 255, 255, 0.82); }
-      #lesson-search { background: rgba(255, 255, 255, 0.88); }
       .lesson-screen { will-change: clip-path; }
     }
 </style>
@@ -7599,10 +7597,15 @@ let currentCardIdx = 0;
   // Continuous gradient chain: every card flows into the colour of the card below it
   // (burgundy -> lime -> pink -> burgundy -> ...). Only the brand palette, no black.
   const FOLDER_CHAIN = [
-    { color: 'var(--c-berry)', fg: 'var(--c-white)', tone: 'dark' },
-    { color: 'var(--c-lime)', fg: 'var(--c-berry-dark)', tone: 'light' },
-    { color: 'var(--c-pink)', fg: 'var(--c-berry-dark)', tone: 'light' }
+    { color: 'var(--c-berry)', hex: '#b71a3f', fg: 'var(--c-white)', tone: 'dark' },
+    { color: 'var(--c-lime)', hex: '#e9ff79', fg: 'var(--c-berry-dark)', tone: 'light' },
+    { color: 'var(--c-pink)', hex: '#ffc6c6', fg: 'var(--c-berry-dark)', tone: 'light' }
   ];
+  const PAGE_BG_HEX = '#faf9f9';
+  function setThemeColor(hex) {
+    const meta = document.getElementById('theme-color-meta');
+    if (meta) meta.setAttribute('content', hex);
+  }
 
   function folderTheme(idx) {
     const from = FOLDER_CHAIN[idx % FOLDER_CHAIN.length];
@@ -7611,6 +7614,7 @@ let currentCardIdx = 0;
       bg: 'linear-gradient(165deg, ' + from.color + ' 0%, ' + from.color + ' 24%, ' + to.color + ' 82%, ' + to.color + ' 100%)',
       fg: from.fg,
       solid: from.color,
+      hex: from.hex,
       tone: from.tone
     };
   }
@@ -8203,6 +8207,7 @@ let currentCardIdx = 0;
     const el = document.getElementById('lesson-screen');
     el.style.background = theme.solid;
     el.style.color = theme.fg;
+    setThemeColor(theme.hex);
     el.style.setProperty('--lesson-bg', theme.solid);
     el.classList.toggle('on-dark', theme.tone === 'dark');
     el.classList.toggle('on-light', theme.tone !== 'dark');
@@ -8235,6 +8240,7 @@ let currentCardIdx = 0;
     el.classList.remove('open');
     el.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    setThemeColor(PAGE_BG_HEX);
   }
 
   function renderLessonScreen() {
@@ -9016,6 +9022,14 @@ let currentCardIdx = 0;
     wrap.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       if (swipeBusy) return;
+      // self-healing: if a previous touch never got a clean pointerup/pointercancel (iOS Safari
+      // occasionally drops it), don't let its leftover position/classes carry into this new touch —
+      // this is what made the card look like it was stretching/drifting further with each attempt
+      if (dragActive || wrap.classList.contains('dragging')) {
+        wrap.classList.remove('dragging');
+        wrap.style.transform = '';
+        setSwipeVisuals(0);
+      }
       // a swipe may start anywhere on the card, even on a link or button;
       // if the finger doesn't move, that link/button just works as usual
       dragFromControl = !!e.target.closest('button, a');
@@ -9073,13 +9087,22 @@ let currentCardIdx = 0;
       if (!cancelled && (Math.abs(dragDx) > SWIPE_THRESHOLD || (Math.abs(velocity) > 0.35 && Math.abs(dragDx) > 30))) {
         swipeOut(dragDx > 0 ? 1 : -1);
       } else {
-        wrap.style.transform = '';
-        setSwipeVisuals(0);
+        // removing .dragging (which had transition:none) and setting the new transform in the very
+        // same tick can make the browser skip animating between them, so the card just snaps back
+        // instantly instead of gliding — waiting one frame lets it register the transition first.
+        requestAnimationFrame(function () {
+          wrap.style.transform = '';
+          setSwipeVisuals(0);
+        });
       }
     }
 
     wrap.addEventListener('pointerup', function (e) { finishDrag(e, false); });
     wrap.addEventListener('pointercancel', function (e) { finishDrag(e, true); });
+    // belt-and-braces: this fires whenever pointer capture ends for ANY reason, so even if iOS
+    // Safari fails to deliver pointerup/pointercancel itself, the drag still gets cleaned up
+    // instead of leaving the card stuck mid-drag for the next touch to inherit.
+    wrap.addEventListener('lostpointercapture', function (e) { finishDrag(e, true); });
     wrap.addEventListener('keydown', function (e) {
       if (e.target !== wrap) return;
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flipCard(); }
