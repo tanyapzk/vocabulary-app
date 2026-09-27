@@ -40,6 +40,11 @@
       font-family: 'Inter', sans-serif;
     }
 
+    /* the page must only ever scroll up/down, never sideways — a 3D-transformed element (the
+       flipping flashcard) can otherwise make WebKit think there's extra content off to the side,
+       which is what let the whole page get dragged left/right instead of just the card */
+    html { overflow-x: hidden; }
+
     body {
       background-color: var(--c-bg);
       color: var(--c-text);
@@ -1227,6 +1232,11 @@
     #flashcards .swipe-hint {
       text-align: center; font-size: 0.78rem; font-weight: 700; color: var(--c-text-muted);
       margin: 0 auto 16px; max-width: 400px;
+    }
+    /* drag-to-swipe is mouse-only (see the JS) — on a touch device this hint would promise
+       something the card no longer does, so it's hidden wherever touch is the primary input */
+    @media (pointer: coarse) {
+      #flashcards .swipe-hint { display: none; }
     }
 
     #flashcards .knowledge-actions { max-width: 400px; margin: 0 auto 14px; gap: 12px; }
@@ -9049,6 +9059,11 @@ let currentCardIdx = 0;
 
     wrap.addEventListener('pointermove', function (e) {
       if (!dragActive || e.pointerId !== dragPointer) return;
+      // Drag-to-swipe is mouse-only now: on a phone it kept fighting the browser's own touch/scroll
+      // handling in ways that never fully settled (the card stuck mid-drag, or the whole page
+      // panning sideways). A tap still flips the card either way — see finishDrag below — and
+      // "Still learning" / "I know this" cover the rest reliably on touch.
+      if (e.pointerType !== 'mouse') return;
       const dx = e.clientX - dragStartX;
       const dy = e.clientY - dragStartY;
       if (!dragMoved) {
