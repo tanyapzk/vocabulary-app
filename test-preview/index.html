@@ -1135,7 +1135,7 @@
        which is what was leaving the card stuck mid-drag and stretching on the next attempt. */
     #flashcards .flashcard-wrapper.dragging { transition: none; cursor: grabbing; }
     #flashcards .flashcard-wrapper.dragging .flashcard { transition: none !important; }
-    #flashcards .flashcard-wrapper.flying { transition: transform 0.45s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.42s ease; }
+    #flashcards .flashcard-wrapper.flying { transition: transform 0.26s cubic-bezier(0.4, 0, 0.9, 0.6), opacity 0.24s ease; }
     #flashcards .flashcard-wrapper.resetting,
     #flashcards .flashcard-wrapper.resetting .flashcard,
     #flashcards .flashcard-wrapper.resetting .swipe-stamp,
@@ -2047,7 +2047,10 @@
     }
     #flashcards .card-stage.back-first .card-back .back-footer { display: none; }
     #flashcards .front-extra { display: none; flex-direction: column; align-items: center; width: 100%; }
-    #flashcards .card-stage.back-first .front-extra { display: flex; }
+    /* fc-links-box is pinned to the bottom of the card (see above), so it doesn't take up any
+       space in normal flow — a long example sentence would otherwise grow right underneath it
+       and the two would overlap. This padding just reserves that strip for the pinned row. */
+    #flashcards .card-stage.back-first .front-extra { display: flex; padding-bottom: 64px; }
     #flashcards .front-example {
       font-size: 1rem; line-height: 1.5; text-align: left; color: rgba(255, 255, 255, 0.92); max-width: 320px;
       margin: 4px auto 12px;
@@ -2117,13 +2120,21 @@
        flashcard swipe, competing with it for the same frames. Below ~700px these are flattened —
        header/tabs keep their normal glass blur (they're small and static, not the actual cost). */
     @media (max-width: 700px) {
-      #flashcards .stage-orb { animation: none; }
+      /* their blur bleeds up past the card into the header behind it, which read as an
+         unwanted wash of colour under the lesson title/tabs — simplest is to drop them here */
+      #flashcards .stage-orb { display: none; }
       #flashcards .stack-card {
         -webkit-backdrop-filter: none; backdrop-filter: none;
       }
       #flashcards .stack-card.s1 { background: #f4c9c8; }
       #flashcards .stack-card.s2 { background: #f0e28a; }
       .lesson-screen { will-change: clip-path; }
+
+      /* the word count ("190 words (1 hidden)") used to share a row with Select/Learn words, so
+         once it got long enough it wrapped onto its own line and shoved those buttons down —
+         "jumping" every time a word got hidden. Giving the count its own row *always* means the
+         buttons sit in the same place whether anything is hidden or not. */
+      .list-count { flex-basis: 100%; }
 
       /* on a narrow screen these washes used to reach all the way to the top/bottom edges, so
          Safari's own address bar or toolbar sliding over them looked like a hard, ragged crop.
@@ -2176,7 +2187,6 @@
 
   <div id="origin-modal-overlay" onclick="closeOriginModal()">
     <div class="origin-modal-card" onclick="event.stopPropagation()">
-      <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=200" alt="Word Origin" onerror="imgFallback(this, 'origin')">
       <h3 id="origin-modal-title">Phrase</h3>
       <p id="origin-modal-text">Origin info...</p>
       <p id="origin-modal-register"></p>
@@ -7633,6 +7643,10 @@ let currentCardIdx = 0;
   function setThemeColor(hex) {
     const meta = document.getElementById('theme-color-meta');
     if (meta) meta.setAttribute('content', hex);
+    // iOS Safari can briefly reveal whatever's behind fixed-position elements while its own
+    // toolbar animates in/out — syncing the real page background too means that flash matches
+    // the lesson's colour instead of showing plain white underneath it.
+    document.body.style.backgroundColor = hex;
   }
 
   function folderTheme(idx) {
@@ -9045,7 +9059,7 @@ let currentCardIdx = 0;
       dragDy = 0;
       swipeBusy = false;
       if (window.scrollX) window.scrollTo(0, window.scrollY);
-    }, 430);
+    }, 260);
   }
 
   (function setupSwipe() {
