@@ -2012,7 +2012,10 @@
   
     /* ============ STUDY SCREEN: FIT THE VIEWPORT, QUIET "SHOW FIRST" ============ */
     /* the card scales with the window height so "Still learning / I know this" and Back/Next stay on screen */
-    #flashcards { --card-h: clamp(360px, calc(100dvh - 392px), 440px); }
+    /* svh (not dvh) on purpose: dvh tracks Safari's address bar collapsing/expanding as you scroll,
+       which was making the card itself visibly grow and shrink; svh is the stable "chrome fully
+       shown" height, so the card stays exactly one size regardless of what the browser bar does */
+    #flashcards { --card-h: clamp(360px, calc(100svh - 392px), 440px); }
     #flashcards .card-stage { height: calc(var(--card-h) + 44px); }
     #flashcards .flashcard-wrapper, #flashcards .stack-card { height: var(--card-h); }
     body.in-trainer { padding-bottom: 24px; }
@@ -2121,6 +2124,18 @@
       #flashcards .stack-card.s1 { background: #f4c9c8; }
       #flashcards .stack-card.s2 { background: #f0e28a; }
       .lesson-screen { will-change: clip-path; }
+
+      /* on a narrow screen these washes used to reach all the way to the top/bottom edges, so
+         Safari's own address bar or toolbar sliding over them looked like a hard, ragged crop.
+         Smaller and pulled in toward the card instead — a soft accent, not an edge-to-edge wash. */
+      .glow-spot-left {
+        top: 32%; left: -70px; width: 220px; height: 220px;
+        background: radial-gradient(circle, rgba(183, 27, 63, 0.16) 0%, rgba(183, 27, 63, 0) 70%);
+      }
+      .glow-spot-right {
+        bottom: 28%; right: -70px; width: 230px; height: 230px;
+        background: radial-gradient(circle, rgba(230, 255, 120, 0.4) 0%, rgba(230, 255, 120, 0) 70%);
+      }
     }
 </style>
 </head>
@@ -8227,7 +8242,12 @@ let currentCardIdx = 0;
     renderLessonScreen();
     el.scrollTop = 0;
 
-    if (sourceEl) {
+    // On a phone, growing the clip-path from a small card rect to full-screen was visibly
+    // uneven (colour reaching the edges at different times, a slow fade-out on the way back) —
+    // real hardware just can't repaint that fast. A plain fade is instant and always smooth, so
+    // phones get that instead; the grow-from-the-card animation stays for mouse/desktop.
+    const useSimpleFade = sourceEl && window.matchMedia('(max-width: 700px)').matches;
+    if (sourceEl && !useSimpleFade) {
       // start clipped to the folder's own rectangle, then grow to the full screen
       const r = sourceEl.getBoundingClientRect();
       const vw = window.innerWidth, vh = window.innerHeight;
