@@ -44,6 +44,10 @@
        flipping flashcard) can otherwise make WebKit think there's extra content off to the side,
        which is what let the whole page get dragged left/right instead of just the card */
     html { overflow-x: hidden; }
+    /* user-scalable=no in the viewport meta doesn't fully stop double-tap-to-zoom on every iOS
+       version any more (Apple loosened that for accessibility) — this is the modern, reliable way
+       to say "no double-tap zoom here" while still allowing normal scrolling/dragging. */
+    html, body { touch-action: manipulation; }
 
     body {
       background-color: var(--c-bg);
@@ -2132,9 +2136,10 @@
 
       /* the word count ("190 words (1 hidden)") used to share a row with Select/Learn words, so
          once it got long enough it wrapped onto its own line and shoved those buttons down —
-         "jumping" every time a word got hidden. Giving the count its own row *always* means the
-         buttons sit in the same place whether anything is hidden or not. */
-      .list-count { flex-basis: 100%; }
+         "jumping" every time a word got hidden. Stacking count above actions *always* means the
+         buttons sit in the same place whether anything is hidden or not — the count itself stays
+         sized to its own text (not stretched) since only the toolbar's direction changes. */
+      .list-toolbar { flex-direction: column; align-items: flex-start; }
 
       /* on a narrow screen these washes used to reach all the way to the top/bottom edges, so
          Safari's own address bar or toolbar sliding over them looked like a hard, ragged crop.
@@ -2146,6 +2151,30 @@
       .glow-spot-right {
         bottom: 28%; right: -70px; width: 230px; height: 230px;
         background: radial-gradient(circle, rgba(230, 255, 120, 0.4) 0%, rgba(230, 255, 120, 0) 70%);
+      }
+
+      /* the page background is now a solid lesson colour edge-to-edge (see setThemeColor), so the
+         white-tinted glass on the EN/RU switch and the unselected tab pills — sitting right at the
+         very top of the screen, directly under Safari's own solid-colour bar — read as a pale
+         stripe with a hard seam. Toning the white down to a faint tint lets them blend into
+         whatever colour is behind them instead of standing out as their own separate band. */
+      .lang-switcher {
+        background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.3);
+      }
+      .top-tab, #trainer-screen .tab-btn {
+        background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.28);
+      }
+      .top-tab:hover:not(.active), #trainer-screen .tab-btn:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* the unselected tab/lang text is a muted brownish-grey, tuned to read on the app's usual
+         near-white background — against a dark lesson colour (page-on-dark, see setThemeColor)
+         that same grey loses contrast, so swap it for a light colour with a soft shadow instead. */
+      body.page-on-dark .top-tab:not(.active),
+      body.page-on-dark #trainer-screen .tab-btn:not(.active),
+      body.page-on-dark .lang-btn:not(.active) {
+        color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       }
 
       /* the lesson-open/close fade was still visibly uneven on real hardware (colour reaching
@@ -2507,6 +2536,7 @@
           </div>
           <div class="lsp-actions">
             <button class="icon-action save-action" id="lesson-save-btn" onclick="saveSelected()"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="lesson-save-label">Save</span></button>
+            <button class="icon-action delete-action" id="lesson-delete-btn" onclick="deleteSelected()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"/><path d="M9.88 5.09A9.77 9.77 0 0 1 12 5c5 0 9 4.5 10 7-.32.9-.86 1.86-1.57 2.77M6.6 6.6C4.4 8.05 2.8 10.1 2 12c1 2.5 5 7 10 7 1.29 0 2.5-.3 3.6-.8"/></svg><span id="lesson-delete-label">Hide</span></button>
             <button class="learn-cta" id="lesson-learn-selected-btn" onclick="learnSelected()">Learn selected</button>
           </div>
         </div>
@@ -7646,13 +7676,17 @@ let currentCardIdx = 0;
     { color: 'var(--c-pink)', hex: '#ffc6c6', fg: 'var(--c-berry-dark)', tone: 'light' }
   ];
   const PAGE_BG_HEX = '#faf9f9';
-  function setThemeColor(hex) {
+  function setThemeColor(hex, tone) {
     const meta = document.getElementById('theme-color-meta');
     if (meta) meta.setAttribute('content', hex);
     // iOS Safari can briefly reveal whatever's behind fixed-position elements while its own
     // toolbar animates in/out — syncing the real page background too means that flash matches
-    // the lesson's colour instead of showing plain white underneath it.
-    document.body.style.backgroundColor = hex;
+    // the lesson's colour instead of showing plain white underneath it. This only ever happens
+    // on mobile (desktop never showed the seam), so leave desktop's background alone.
+    if (window.matchMedia('(max-width: 700px)').matches) {
+      document.body.style.backgroundColor = hex;
+      document.body.classList.toggle('page-on-dark', tone === 'dark');
+    }
   }
 
   function folderTheme(idx) {
@@ -7660,8 +7694,13 @@ let currentCardIdx = 0;
     const to = FOLDER_CHAIN[(idx + 1) % FOLDER_CHAIN.length];
     return {
       bg: 'linear-gradient(165deg, ' + from.color + ' 0%, ' + from.color + ' 24%, ' + to.color + ' 82%, ' + to.color + ' 100%)',
+      // a softer, continuous top-to-bottom blend for the full-screen flashcards view — the
+      // folder-card gradient above has flat plateaus at each end, which read fine on a small
+      // card but look like a solid block of colour once stretched across a whole phone screen.
+      screenBg: 'linear-gradient(180deg, ' + from.color + ' 0%, ' + to.color + ' 100%)',
       fg: from.fg,
       solid: from.color,
+      toColor: to.color,
       hex: from.hex,
       tone: from.tone
     };
@@ -8052,6 +8091,8 @@ let currentCardIdx = 0;
     if (lessonSaveLabel) lessonSaveLabel.innerText = allSaved ? t('unsaveLabel') : t('saveLabel');
     const delLabel = document.getElementById('select-delete-label');
     if (delLabel) delLabel.innerText = selectScreen === 'saved' ? t('unsaveLabel') : t('deleteLabel');
+    const lessonDelLabel = document.getElementById('lesson-delete-label');
+    if (lessonDelLabel) lessonDelLabel.innerText = t('deleteLabel');
     ['select-learn-btn', 'select-save-btn', 'select-delete-btn'].forEach(function (id) {
       const b = document.getElementById(id);
       if (b) b.disabled = n === 0;
@@ -8067,7 +8108,7 @@ let currentCardIdx = 0;
     const n = Object.keys(selectedTerms).length;
     const cnt = document.getElementById('lesson-select-count');
     if (cnt) cnt.innerText = t('selectedCount') + ': ' + n;
-    ['lesson-save-btn', 'lesson-learn-selected-btn'].forEach(function (id) {
+    ['lesson-save-btn', 'lesson-delete-btn', 'lesson-learn-selected-btn'].forEach(function (id) {
       const b = document.getElementById(id);
       if (b) b.disabled = on && n === 0;
     });
@@ -8208,19 +8249,23 @@ let currentCardIdx = 0;
     if (!words.length) return;
     const terms = words.map(function (w) { return w.term; });
     const fromSaved = selectScreen === 'saved';
+    const wasLesson = selectScreen === 'lesson';
     terms.forEach(function (term) {
       if (fromSaved) delete favoriteTerms[term]; else hiddenTerms[term] = true;
     });
     if (fromSaved) { persistSaved(); updateFavoriteButton(); } else { persistHidden(); }
     selectScreen = null;
     selectedTerms = {};
-    rerenderListScreen();
+    const refresh = function () {
+      if (wasLesson) { renderLessonScreen(); updateSelectBar(); } else { rerenderListScreen(); }
+    };
+    refresh();
     showToast((fromSaved ? t('unsavedToast') : t('deletedToast')) + ': ' + terms.length, t('undo'), function () {
       terms.forEach(function (term) {
         if (fromSaved) favoriteTerms[term] = true; else delete hiddenTerms[term];
       });
       if (fromSaved) { persistSaved(); updateFavoriteButton(); } else { persistHidden(); }
-      rerenderListScreen();
+      refresh();
     });
   }
 
@@ -8253,10 +8298,10 @@ let currentCardIdx = 0;
     currentOpenLessonId = id;
     const theme = folderTheme(idx);
     const el = document.getElementById('lesson-screen');
-    el.style.background = theme.solid;
+    el.style.background = theme.screenBg;
     el.style.color = theme.fg;
-    setThemeColor(theme.hex);
-    el.style.setProperty('--lesson-bg', theme.solid);
+    setThemeColor(theme.hex, theme.tone);
+    el.style.setProperty('--lesson-bg', theme.toColor);
     el.classList.toggle('on-dark', theme.tone === 'dark');
     el.classList.toggle('on-light', theme.tone !== 'dark');
     renderLessonScreen();
