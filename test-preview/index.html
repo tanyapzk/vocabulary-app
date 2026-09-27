@@ -1299,12 +1299,14 @@
       to   { opacity: 1; scale: 1; }
     }
 
-    /* soft colour clouds behind the study block so the glass has something to show through */
+    /* soft colour clouds behind the study block — turned out to read as clutter ("two colour
+       spots") behind the trainer screen, which should stay a plain, neutral background with the
+       colour living only on the cards themselves. Kept opacity: 0 always instead of removing the
+       block, in case this ambient look is wanted back for a different screen later. */
     .trainer-ambient {
       position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
       opacity: 0; transition: opacity 0.9s ease;
     }
-    body.in-trainer .trainer-ambient { opacity: 1; }
     .trainer-ambient span {
       position: absolute; border-radius: 50%; filter: blur(64px);
       animation: orbFloat 18s ease-in-out infinite alternate;
@@ -1312,6 +1314,10 @@
     .trainer-ambient .a1 { width: 340px; height: 340px; background: var(--c-pink); opacity: 0.75; top: 6%; left: -130px; }
     .trainer-ambient .a2 { width: 320px; height: 320px; background: var(--c-lime); opacity: 0.6; top: 42%; right: -120px; animation-delay: -7s; }
     .trainer-ambient .a3 { width: 280px; height: 280px; background: var(--c-berry); opacity: 0.16; bottom: -80px; left: 18%; animation-delay: -12s; }
+
+    /* same reasoning as .trainer-ambient above: keep the trainer's own background plain while
+       studying, and let colour live on the flashcards/list rows instead. */
+    body.in-trainer .glow-spot-left, body.in-trainer .glow-spot-right { display: none; }
 
     #trainer-screen .back-btn {
       display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; margin-bottom: 16px;
@@ -1564,7 +1570,6 @@
     }
 
     /* ============ GLASS LISTS: tabs, All words, Saved ============ */
-    body.glass-bg .trainer-ambient { opacity: 1; }
     .top-tabs {
       background: rgba(255, 255, 255, 0.55); border: 1px solid rgba(255, 255, 255, 0.92);
       -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
@@ -2151,30 +2156,6 @@
       .glow-spot-right {
         bottom: 28%; right: -70px; width: 230px; height: 230px;
         background: radial-gradient(circle, rgba(230, 255, 120, 0.4) 0%, rgba(230, 255, 120, 0) 70%);
-      }
-
-      /* the page background is now a solid lesson colour edge-to-edge (see setThemeColor), so the
-         white-tinted glass on the EN/RU switch and the unselected tab pills — sitting right at the
-         very top of the screen, directly under Safari's own solid-colour bar — read as a pale
-         stripe with a hard seam. Toning the white down to a faint tint lets them blend into
-         whatever colour is behind them instead of standing out as their own separate band. */
-      .lang-switcher {
-        background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.3);
-      }
-      .top-tab, #trainer-screen .tab-btn {
-        background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.28);
-      }
-      .top-tab:hover:not(.active), #trainer-screen .tab-btn:hover:not(.active) {
-        background: rgba(255, 255, 255, 0.3);
-      }
-
-      /* the unselected tab/lang text is a muted brownish-grey, tuned to read on the app's usual
-         near-white background — against a dark lesson colour (page-on-dark, see setThemeColor)
-         that same grey loses contrast, so swap it for a light colour with a soft shadow instead. */
-      body.page-on-dark .top-tab:not(.active),
-      body.page-on-dark #trainer-screen .tab-btn:not(.active),
-      body.page-on-dark .lang-btn:not(.active) {
-        color: rgba(255, 255, 255, 0.92); text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
       }
 
       /* the lesson-open/close fade was still visibly uneven on real hardware (colour reaching
@@ -7676,17 +7657,12 @@ let currentCardIdx = 0;
     { color: 'var(--c-pink)', hex: '#ffc6c6', fg: 'var(--c-berry-dark)', tone: 'light' }
   ];
   const PAGE_BG_HEX = '#faf9f9';
-  function setThemeColor(hex, tone) {
+  function setThemeColor(hex) {
+    // Only Safari's own address-bar/toolbar chrome follows the lesson colour here — the page's
+    // own background stays neutral at all times (tried syncing it to the lesson colour too, but
+    // it read as a big, unwanted colour flood behind the trainer screen instead of a fix).
     const meta = document.getElementById('theme-color-meta');
     if (meta) meta.setAttribute('content', hex);
-    // iOS Safari can briefly reveal whatever's behind fixed-position elements while its own
-    // toolbar animates in/out — syncing the real page background too means that flash matches
-    // the lesson's colour instead of showing plain white underneath it. This only ever happens
-    // on mobile (desktop never showed the seam), so leave desktop's background alone.
-    if (window.matchMedia('(max-width: 700px)').matches) {
-      document.body.style.backgroundColor = hex;
-      document.body.classList.toggle('page-on-dark', tone === 'dark');
-    }
   }
 
   function folderTheme(idx) {
@@ -8298,10 +8274,10 @@ let currentCardIdx = 0;
     currentOpenLessonId = id;
     const theme = folderTheme(idx);
     const el = document.getElementById('lesson-screen');
-    el.style.background = theme.screenBg;
+    el.style.background = theme.solid;
     el.style.color = theme.fg;
-    setThemeColor(theme.hex, theme.tone);
-    el.style.setProperty('--lesson-bg', theme.toColor);
+    setThemeColor(theme.hex);
+    el.style.setProperty('--lesson-bg', theme.solid);
     el.classList.toggle('on-dark', theme.tone === 'dark');
     el.classList.toggle('on-light', theme.tone !== 'dark');
     renderLessonScreen();
