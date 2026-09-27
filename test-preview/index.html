@@ -2147,6 +2147,12 @@
         bottom: 28%; right: -70px; width: 230px; height: 230px;
         background: radial-gradient(circle, rgba(230, 255, 120, 0.4) 0%, rgba(230, 255, 120, 0) 70%);
       }
+
+      /* the lesson-open/close fade was still visibly uneven on real hardware (colour reaching
+         parts of the screen at different moments) — on a phone it's now an instant flat colour
+         swap instead: no fade, no slide-in, nothing left to look unsynced. */
+      .lesson-screen, .lesson-screen.open { transition: none !important; }
+      .lesson-screen.open .lesson-screen-inner { animation: none !important; }
     }
 </style>
 </head>
@@ -2483,7 +2489,7 @@
   <div id="lesson-screen" class="lesson-screen" aria-hidden="true">
     <div class="lesson-screen-inner">
       <div class="lesson-topbar">
-        <button class="lesson-back-btn" id="lesson-back-btn" onclick="closeLesson()">← Lessons</button>
+        <button class="lesson-back-btn" id="lesson-back-btn" onclick="backToLessonsList()">← Lessons</button>
         <button class="lesson-select-btn" id="lesson-select-btn" onclick="toggleLessonSelect()">Select</button>
       </div>
       <div class="lesson-screen-title" id="lesson-screen-title"></div>
@@ -8287,6 +8293,16 @@ let currentCardIdx = 0;
     el.classList.remove('open');
     el.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    // NOTE: colour is deliberately NOT reset here. This also runs when heading into that lesson's
+    // own flashcards (startPractice -> closeLesson, then the trainer screen opens) — resetting to
+    // white at that exact moment is what left a plain white gap under the flashcards on a phone,
+    // since the trainer screen scrolls normally and doesn't cover the full viewport by itself.
+    // The colour only resets once you actually leave the lesson's context — see backToLessonsList
+    // and leaveTrainer below.
+  }
+
+  function backToLessonsList() {
+    closeLesson();
     setThemeColor(PAGE_BG_HEX);
   }
 
@@ -8416,8 +8432,11 @@ let currentCardIdx = 0;
   function leaveTrainer() {
     if (trainerReturnTo.indexOf('lesson:') === 0) {
       showScreen('home');
-      openLesson(trainerReturnTo.slice(7), null);
+      openLesson(trainerReturnTo.slice(7), null); // sets its own colour back
     } else {
+      // heading to All words / Saved / Home — none of those are a single lesson's colour, so
+      // this is where the page colour actually goes back to neutral (see closeLesson's own note)
+      setThemeColor(PAGE_BG_HEX);
       showScreen(trainerReturnTo);
     }
   }
@@ -8460,7 +8479,7 @@ let currentCardIdx = 0;
     const modal = document.getElementById('learn-modal-overlay');
     if (modal && modal.classList.contains('show')) { closeLearnModal(); return; }
     const ls = document.getElementById('lesson-screen');
-    if (ls && ls.classList.contains('open')) closeLesson();
+    if (ls && ls.classList.contains('open')) backToLessonsList();
   });
 
   function goHome() {
