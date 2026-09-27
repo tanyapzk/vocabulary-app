@@ -10,7 +10,7 @@
        page, which is why it filled in late and in patches, and stayed the wrong colour after
        leaving a lesson. Giving it an explicit value (kept in sync from JS below) fixes that. -->
   <meta name="theme-color" id="theme-color-meta" content="#faf9f9">
-  <title>Vocabulary Practice</title>
+  <title>Vocab Drill</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1129,7 +1129,7 @@
     #flashcards .flashcard-wrapper {
       position: absolute; left: 0; right: 0; top: 0; height: 440px; margin: 0; z-index: 3;
       perspective: 1400px; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
-      outline: none; will-change: transform; -webkit-backface-visibility: hidden; backface-visibility: hidden;
+      outline: none; will-change: transform;
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
     }
     /* while an actual swipe is in progress: freeze the card's own flip transition so the
@@ -1179,6 +1179,13 @@
     #flashcards .card-back .card-flip-indicator { background: rgba(183, 26, 63, 0.08); border-color: rgba(183, 26, 63, 0.2); color: var(--c-berry); }
 
     #flashcards .term { color: var(--c-white); font-size: 2.4rem; letter-spacing: -0.5px; text-shadow: 0 4px 18px rgba(138, 16, 43, 0.35); }
+    /* long idioms ("to think outside the box") wrap to two lines at the default size and crowd
+       the audio icon underneath — shrink the term itself instead of letting the layout get
+       cramped. The extra class always outweighs any of the width-based .term rules above/below
+       (same ID + one more class = higher specificity), so this works at every breakpoint without
+       needing its own copy inside each @media block. */
+    #flashcards .term.term-long { font-size: 1.8rem; }
+    #flashcards .term.term-xlong { font-size: 1.4rem; }
     #flashcards #fc-term div { color: var(--c-white) !important; }
     #flashcards #fc-term img { border-color: rgba(255, 255, 255, 0.75) !important; width: 170px !important; height: 170px !important; }
     #flashcards .card-front .audio-icon-btn {
@@ -1347,6 +1354,22 @@
       box-shadow: 0 6px 16px rgba(183, 26, 63, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
     #trainer-screen .tab-content.active { animation: tabIn 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+    /* soft colour glow hugging the exercise block itself (Multiple Choice / Matching /
+       Sentence Builder) — bleeds only slightly past the block's own edges, so it always stays
+       near the middle of the screen with the block, never reaching up toward the header or
+       down toward the bottom the way the old full-screen ambient blobs did. */
+    #trainer-screen .quiz-card, #trainer-screen .match-grid, #trainer-screen .scramble-card {
+      position: relative;
+    }
+    #trainer-screen .quiz-card::before, #trainer-screen .match-grid::before, #trainer-screen .scramble-card::before {
+      content: ''; position: absolute; inset: -14%; z-index: -1; border-radius: 44px;
+      background:
+        radial-gradient(55% 55% at 28% 15%, rgba(183, 26, 63, 0.20), transparent 70%),
+        radial-gradient(55% 55% at 78% 92%, rgba(230, 255, 120, 0.28), transparent 70%);
+      filter: blur(28px);
+      pointer-events: none;
+    }
 
     /* shared glass panels */
     #trainer-screen .quiz-card,
@@ -2233,7 +2256,7 @@
         <div class="trainer-title" id="trainer-title"></div>
         <div class="trainer-subtitle" id="trainer-subtitle"></div>
       </div>
-      <h1>Vocabulary Practice</h1>
+      <h1>Vocab Drill</h1>
       <div class="lang-switcher">
         <button class="lang-btn active" id="btn-lang-en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" id="btn-lang-ru" onclick="setLang('ru')">RU</button>
@@ -2322,13 +2345,13 @@
 
               <div class="links-column" id="fc-links-box">
                 <a id="yg-link-btn" href="#" target="_blank" class="link-sub-btn" onclick="event.stopPropagation()">
-                  <span>YouGlish</span> ↗
+                  <span>YouGlish</span> <svg class="link-arrow-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
                 </a>
                 <a id="cambridge-link-btn" href="#" target="_blank" class="link-sub-btn" onclick="event.stopPropagation()">
-                  <span>Cambridge<span class="dict-long"> Dictionary</span></span> ↗
+                  <span>Cambridge<span class="dict-long"> Dictionary</span></span> <svg class="link-arrow-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
                 </a>
                 <button class="link-sub-btn origin-chip" onclick="openOriginModal(event)">
-                  <span id="origin-btn-text-front">💡 Word Details</span>
+                  <svg class="link-info-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/></svg> <span id="origin-btn-text-front">Word Details</span>
                 </button>
               </div>
               <div class="front-extra" id="fc-front-extra">
@@ -2369,7 +2392,7 @@
 
             <div class="back-footer">
               <button class="origin-toggle-btn" onclick="openOriginModal(event)">
-                <span id="origin-btn-text">💡 Word Details</span>
+                <svg class="link-info-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/></svg> <span id="origin-btn-text">Word Details</span>
               </button>
             </div>
           </div>
@@ -7445,7 +7468,7 @@ const lessons = /*LESSONS_START*/[
       restart: "Restart 🔄",
       know: "✓ I know this",
       dontKnow: "✕ Still learning",
-      originBtn: "💡 Word Details",
+      originBtn: "Word Details",
       hintBtn: "💡 Hint",
       checkBtn: "Check",
       resetBtn: "Reset ↺",
@@ -7522,7 +7545,7 @@ const lessons = /*LESSONS_START*/[
       restart: "Заново 🔄",
       know: "✓ Знаю",
       dontKnow: "✕ Не знаю",
-      originBtn: "💡 Подробнее о слове",
+      originBtn: "Подробнее о слове",
       hintBtn: "💡 Подсказка",
       checkBtn: "Проверить",
       resetBtn: "Сбросить ↺",
@@ -8833,7 +8856,9 @@ let currentCardIdx = 0;
     const nextBtn = document.getElementById('btn-next');
 
     if (currentCardIdx >= fcDeck.length) {
-      document.getElementById('fc-term').innerHTML = `
+      const finishedTermEl = document.getElementById('fc-term');
+      finishedTermEl.classList.remove('term-long', 'term-xlong');
+      finishedTermEl.innerHTML = `
         <img src="https://i.pinimg.com/1200x/ae/5b/a4/ae5ba44a7ff3f49be66d7a89fdb9330a.jpg" alt="Raccoon completed" referrerpolicy="no-referrer" onerror="imgFallback(this, 'raccoon')" style="width: 240px; height: 240px; object-fit: cover; border-radius: 28px; border: 3px solid var(--c-berry); margin-bottom: 14px; display: block; margin-left: auto; margin-right: auto; box-shadow: 0 12px 30px rgba(183, 27, 63, 0.18);">
         <div style="font-size: 1.5rem; font-weight: 800; color: var(--c-berry);">${translations[currentLang].deckFinished}</div>
       `;
@@ -8876,7 +8901,10 @@ let currentCardIdx = 0;
     nextBtn.innerText = translations[currentLang].next;
 
     const item = fcDeck[currentCardIdx];
-    document.getElementById('fc-term').innerText = item.term;
+    const termEl = document.getElementById('fc-term');
+    termEl.innerText = item.term;
+    termEl.classList.toggle('term-long', item.term.length > 14);
+    termEl.classList.toggle('term-xlong', item.term.length > 19);
     (function () {
       const ru = currentLang === 'ru';
       const posRu = { 'noun': 'существительное', 'verb': 'глагол', 'adjective': 'прилагательное', 'adverb': 'наречие', 'phrase': 'фраза', 'idiom': 'идиома', 'noun phrase': 'словосочетание', 'phrasal verb': 'фразовый глагол' };
@@ -9623,7 +9651,10 @@ let currentCardIdx = 0;
     // Real data only: everything here comes from wordStatus (flashcard self-rating), synced via
     // the cloud. There is no per-mode (quiz/matching/scramble) answer history yet, so this tab
     // intentionally does not claim anything beyond what flashcards actually record.
-    const all = allWordsList();
+    // Scoped to whatever's currently being studied (one lesson, saved words, or everything) —
+    // vocabData is the same word list the flashcards/quiz/matching tabs are already using,
+    // rather than always pulling every word from every lesson regardless of context.
+    const all = vocabData;
     let knownCount = 0;
     let reviewCount = 0;
     const reviewWords = [];
@@ -9653,12 +9684,13 @@ let currentCardIdx = 0;
 
     const ru = currentLang === 'ru';
     const total = all.length || 1;
+    const scopeLabel = trainerTitleInfo ? (trainerTitleInfo.label || t(trainerTitleInfo.key)) : '';
     document.getElementById('an-hero-num').innerText = knownCount + ' / ' + all.length;
     document.getElementById('an-hero-label').innerText = ru ? 'слов усвоено' : 'words mastered';
     document.getElementById('an-hero-fill').style.width = Math.round(100 * knownCount / total) + '%';
     document.getElementById('an-hero-sub').innerText = ru
-      ? 'Считаются все слова — из всех уроков вместе'
-      : 'Counts every word, across all lessons together';
+      ? 'Считаются слова из текущего раздела: ' + scopeLabel
+      : 'Counting words in: ' + scopeLabel;
 
     const growthCard = document.getElementById('an-growth-card');
     if (reviewWords.length) {
@@ -9693,8 +9725,8 @@ let currentCardIdx = 0;
   }
 
   function practiceReviewWords() {
-    const words = allWordsList().filter(function (w) { return wordStatus[w.term] === false; });
-    if (words.length) startPractice(words, 'allwords');
+    const words = vocabData.filter(function (w) { return wordStatus[w.term] === false; });
+    if (words.length) startPractice(words, trainerReturnTo);
   }
 
   renderExistingLessonsSummary();
