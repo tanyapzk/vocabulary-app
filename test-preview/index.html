@@ -551,7 +551,7 @@
       justify-content: center; min-height: 74px;
     }
     .match-btn.left-btn { font-weight: 800; color: var(--c-berry); }
-    .match-btn:hover:not(.matched) { border-color: var(--c-berry); background: var(--c-pink-soft); }
+    .match-btn:hover:not(.matched):not(.selected) { border-color: var(--c-berry); background: var(--c-pink-soft); }
     .match-btn.selected { border-color: var(--c-berry); background: var(--c-lime); color: var(--c-berry-dark); font-weight: 800; }
     .match-btn.matched { background: #eef9ed; border-color: #b7e3b3; color: #2b7a24; cursor: default; opacity: 0.7; }
     .match-btn.wrong-match { border-color: #d12e2e; background: #fde8e8; }
@@ -936,7 +936,12 @@
 
     /* FULL-SCREEN LESSON (opens out of the folder) */
     .lesson-screen {
-      position: fixed; inset: 0; z-index: 800; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      /* iOS Safari can size a plain inset:0 fixed element against the "large" viewport (as if the
+         toolbar were already collapsed), leaving real dead space below the sticky CTA once the
+         toolbar is actually showing. An explicit height pinned to the small/stable viewport avoids
+         that mismatch — same fix as --card-h elsewhere in this file. */
+      position: fixed; inset: 0; height: 100vh; height: 100svh;
+      z-index: 800; overflow-y: auto; -webkit-overflow-scrolling: touch;
       opacity: 0; visibility: hidden; pointer-events: none;
       transition:
         clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1),
@@ -981,11 +986,13 @@
     .lesson-word-list .word-row-def { opacity: 0.8; }
     .lesson-word-list .save-btn { color: inherit; }
     /* eye icon: on a themed lesson card (berry/lime/pink), a plain grey icon disappears against the colour,
-       so it inherits the card's own text colour, and the "hidden" state gets a solid green chip that reads on any of them */
+       so the default state still inherits the card's own text colour, but the "hidden" state now
+       uses the same berry/red accent as the All Words / Saved lists (was a green chip, which read
+       as a different, inconsistent design) — the white chip backdrop keeps it legible on any tone. */
     .lesson-word-list .eye-btn { color: inherit; opacity: 0.75; }
     .lesson-word-list .eye-btn:hover { opacity: 1; background: rgba(255, 255, 255, 0.25); }
     .lesson-word-list .eye-btn.is-hidden-btn {
-      opacity: 1; color: #2f6b1f; background: rgba(255, 255, 255, 0.55); border: 1px solid rgba(47, 107, 31, 0.3);
+      opacity: 1; color: var(--c-berry); background: rgba(255, 255, 255, 0.55); border: 1px solid rgba(183, 26, 63, 0.3);
     }
     .lesson-word-list .eye-btn.is-hidden-btn:hover { background: rgba(255, 255, 255, 0.7); }
     .lesson-cta-wrap {
@@ -1461,8 +1468,15 @@
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease, color 0.3s ease,
                   box-shadow 0.35s ease, opacity 0.5s ease, border-color 0.3s ease;
     }
-    #trainer-screen .match-btn:hover:not(.matched) {
-      background: rgba(255, 255, 255, 0.95); border-color: rgba(183, 26, 63, 0.25); transform: translateY(-2px);
+    /* :not(.selected) is the real fix — without it, even a genuine mouse hover on desktop wins
+       over .selected below (:hover:not(.matched) is more specific than .selected alone), turning
+       the tile's background white and swallowing its own white "selected" text. @media (hover:
+       hover) on top of that stops touch devices from getting stuck in :hover after a tap (a known
+       iOS Safari quirk) and showing this same hover style when nothing is actually being pointed at. */
+    @media (hover: hover) {
+      #trainer-screen .match-btn:hover:not(.matched):not(.selected) {
+        background: rgba(255, 255, 255, 0.95); border-color: rgba(183, 26, 63, 0.25); transform: translateY(-2px);
+      }
     }
     #trainer-screen .match-btn.selected {
       background: linear-gradient(135deg, var(--c-berry), #cf3a5f); color: var(--c-white); border-color: transparent;
@@ -1882,6 +1896,9 @@
       color: var(--c-white); cursor: pointer; opacity: 0.85;
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
     }
+    /* the back face (Definition side) has a light background, so a white heart would be
+       invisible there — same berry accent as the rest of the back face's text/links instead. */
+    .card-fav-btn-back { color: var(--c-berry); }
     .card-fav-btn:hover { opacity: 1; transform: scale(1.12); }
     .card-fav-btn.active-fav { opacity: 1; }
     .card-audio-btn {
@@ -1937,10 +1954,14 @@
       box-shadow: 0 8px 20px rgba(138, 16, 43, 0.07);
       animation: tabIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .match-pair .mp-term { font-weight: 800; color: var(--c-berry-dark); }
-    .match-pair .mp-sep { color: var(--c-berry); opacity: 0.5; }
-    .match-pair .mp-def { flex: 1; font-size: 0.88rem; color: var(--c-text); }
-    .match-pair .mp-check { color: var(--c-berry-dark); font-weight: 800; }
+    /* a long idiom on the left (mp-term) used to be free to grab as much width as it wanted,
+       starving mp-def next to it down to almost nothing — with a long definition that meant one
+       word per line instead of the intended single tidy row. Capping the term's share and letting
+       both sides wrap within their own lane keeps this a compact strip at any length. */
+    .match-pair .mp-term { font-weight: 800; color: var(--c-berry-dark); flex: 0 1 40%; }
+    .match-pair .mp-sep { color: var(--c-berry); opacity: 0.5; flex: none; }
+    .match-pair .mp-def { flex: 1 1 0%; min-width: 0; font-size: 0.88rem; color: var(--c-text); }
+    .match-pair .mp-check { color: var(--c-berry-dark); font-weight: 800; flex: none; }
 
     /* ============ SENTENCE BUILDER: drag words into place ============ */
     #trainer-screen .scramble-chip { touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
@@ -2267,6 +2288,7 @@
       <button class="top-tab active" id="top-tab-lessons" onclick="goHome()">Lessons</button>
       <button class="top-tab" id="top-tab-allwords" onclick="showScreen('allwords')">All words</button>
       <button class="top-tab" id="top-tab-saved" onclick="showScreen('saved')">Saved</button>
+      <button class="top-tab" id="top-tab-analytics" onclick="openGlobalAnalytics()">Analytics</button>
     </div>
 
     <div id="home-screen" class="app-screen active">
@@ -2383,6 +2405,7 @@
           </div>
 
           <div class="card-face card-back">
+            <button class="card-fav-btn card-fav-btn-back" id="fc-fav-btn-back" onclick="toggleFavorite(event)" title="Save word" aria-label="Save word"></button>
             <div class="card-flip-indicator">↺</div>
             <div class="card-back-content">
               <img class="fc-word-image" id="fc-word-image" alt="" style="display:none;">
@@ -7714,7 +7737,9 @@ let currentCardIdx = 0;
 
     const wordsWord = currentLang === 'en' ? ' words' : ' слов';
     const items = lessons.map(function (l, i) {
-      return { id: l.id, label: l.label, count: l.words.length, colorIdx: i };
+      const known = l.words.filter(function (w) { return wordStatus[w.term] === true; }).length;
+      const knownPct = l.words.length ? Math.round(100 * known / l.words.length) : 0;
+      return { id: l.id, label: l.label, count: l.words.length, colorIdx: i, knownPct: knownPct };
     });
 
     const filtered = items.filter(function (it) {
@@ -7730,7 +7755,8 @@ let currentCardIdx = 0;
       block.onclick = function () { openLesson(it.id, block); };
       block.innerHTML =
         '<span class="folder-block-label">' + it.label + '</span>' +
-        '<span class="folder-block-count">' + countLabel(it.count) + '</span>';
+        '<span class="folder-block-count">' + countLabel(it.count) + '</span>' +
+        '<span class="folder-block-progress"><span class="folder-block-progress-fill" style="width:' + it.knownPct + '%"></span></span>';
       stack.appendChild(block);
     });
 
@@ -7886,12 +7912,15 @@ let currentCardIdx = 0;
   }
 
   function updateFavoriteButton() {
-    const btn = document.getElementById('fc-fav-btn');
     const item = fcDeck[currentCardIdx];
-    if (!btn || !item) return;
+    if (!item) return;
     const isFav = !!favoriteTerms[item.term];
-    btn.innerHTML = heartIcon(isFav);
-    btn.classList.toggle('active-fav', isFav);
+    ['fc-fav-btn', 'fc-fav-btn-back'].forEach(function (id) {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      btn.innerHTML = heartIcon(isFav);
+      btn.classList.toggle('active-fav', isFav);
+    });
   }
 
   // ---------- word lists ----------
@@ -8530,6 +8559,23 @@ let currentCardIdx = 0;
     showScreen('home');
   }
 
+  // "Analytics" in the home row (Lessons / All words / Saved / Analytics) always covers every
+  // word from every lesson — it reuses the same trainer + Analytics tab that a single lesson's
+  // own Analytics uses, just started with the full word list instead of one lesson's words.
+  function openGlobalAnalytics() {
+    startPractice(allWordsList(), 'allwords');
+    document.querySelectorAll('#trainer-screen .tab-btn').forEach(function (b) { b.classList.remove('active'); });
+    document.querySelectorAll('#trainer-screen .tab-content').forEach(function (c) { c.classList.remove('active'); });
+    const analyticsBtn = document.getElementById('tab-analytics');
+    analyticsBtn.classList.add('active');
+    document.getElementById('analytics').classList.add('active');
+    const tabBar = analyticsBtn.parentElement;
+    if (tabBar && tabBar.scrollWidth > tabBar.clientWidth) {
+      tabBar.scrollTo({ left: analyticsBtn.offsetLeft - (tabBar.clientWidth - analyticsBtn.offsetWidth) / 2, behavior: 'smooth' });
+    }
+    updateAnalyticsUI();
+  }
+
   function focusSearch() {
     showScreen('home');
     const input = document.getElementById('lesson-search');
@@ -8780,9 +8826,11 @@ let currentCardIdx = 0;
     const tabLessonsBtn = document.getElementById('top-tab-lessons');
     const tabAllWordsBtn = document.getElementById('top-tab-allwords');
     const tabSavedBtn = document.getElementById('top-tab-saved');
+    const tabAnalyticsBtn = document.getElementById('top-tab-analytics');
     if (tabLessonsBtn) tabLessonsBtn.innerText = translations[lang].topTabLessons;
     if (tabAllWordsBtn) tabAllWordsBtn.innerText = translations[lang].topTabAllWords;
     if (tabSavedBtn) tabSavedBtn.innerText = translations[lang].topTabSaved;
+    if (tabAnalyticsBtn) tabAnalyticsBtn.innerText = translations[lang].analytics;
     const savedScreen = document.getElementById('saved-screen');
     if (savedScreen && savedScreen.classList.contains('active')) renderSavedList();
     [['allwords-select-btn', 'selectWords'], ['allwords-learn-btn', 'learnWords'], ['saved-learn-btn', 'learnWords'],
@@ -8871,8 +8919,10 @@ let currentCardIdx = 0;
       if (linksBox) linksBox.style.display = 'none';
       if (barsBox) barsBox.style.display = 'none';
       if (knowledgeActions) knowledgeActions.style.display = 'none';
-      const favBtnHidden = document.getElementById('fc-fav-btn');
-      if (favBtnHidden) favBtnHidden.style.display = 'none';
+      ['fc-fav-btn', 'fc-fav-btn-back'].forEach(function (id) {
+        const b = document.getElementById(id);
+        if (b) b.style.display = 'none';
+      });
       // the finished state always shows the front face (see applyStartSide below), so any
       // Definition-first leftovers that only exist on the front (pos/IPA line, front-side
       // example+audio) must be hidden here too, or the last real card bleeds through
@@ -8891,8 +8941,10 @@ let currentCardIdx = 0;
     if (linksBox) linksBox.style.display = 'flex';
     if (barsBox) barsBox.style.display = 'flex';
     if (knowledgeActions) knowledgeActions.style.display = 'grid';
-    const favBtnVisible = document.getElementById('fc-fav-btn');
-    if (favBtnVisible) favBtnVisible.style.display = 'inline-flex';
+    ['fc-fav-btn', 'fc-fav-btn-back'].forEach(function (id) {
+      const b = document.getElementById(id);
+      if (b) b.style.display = 'inline-flex';
+    });
     const metaVisible = document.getElementById('fc-meta');
     if (metaVisible) metaVisible.style.display = '';
     const frontExtraVisible = document.getElementById('fc-front-extra');
