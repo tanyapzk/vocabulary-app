@@ -707,6 +707,34 @@
     }
     .cat-modal-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--c-berry); }
 
+    /* MULTIPLE CHOICE / FLASHCARDS completion popup — click the raccoon, hearts fly, picture
+       changes to say thanks, click again to close. */
+    #completion-popup-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(34, 28, 30, 0.45); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; z-index: 10000;
+      cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    #completion-popup-overlay.show { opacity: 1; pointer-events: auto; }
+    .completion-popup-card {
+      background: var(--c-white); border: 3px solid var(--c-berry); border-radius: 28px;
+      padding: 30px; text-align: center; box-shadow: 0 20px 50px rgba(183, 26, 63, 0.3);
+      transform: scale(0.8); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      max-width: 340px; width: 90%; cursor: default; position: relative;
+    }
+    #completion-popup-overlay.show .completion-popup-card { transform: scale(1); }
+    .completion-popup-card img {
+      width: 160px; height: 160px; object-fit: cover; border-radius: 20px;
+      border: 2.5px solid var(--c-berry); margin-bottom: 16px; cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .completion-popup-card img:hover { transform: scale(1.03); }
+    .completion-popup-card h3 { font-size: 1.2rem; font-weight: 800; color: var(--c-berry); line-height: 1.4; }
+    #heart-canvas {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 10005;
+    }
+
     /* ORIGIN MODAL */
     #origin-modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -1541,16 +1569,16 @@
     }
 
     /* pop-ups: glass cards, calm (no springy) entrance */
-    #big-cat-overlay, #origin-modal-overlay, .learn-modal-overlay {
+    #big-cat-overlay, #origin-modal-overlay, .learn-modal-overlay, #completion-popup-overlay {
       background: rgba(34, 28, 30, 0.28); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
     }
-    .cat-modal-card, .origin-modal-card, .learn-modal-card {
+    .cat-modal-card, .origin-modal-card, .learn-modal-card, .completion-popup-card {
       background: linear-gradient(160deg, rgba(255, 255, 255, 0.86), rgba(255, 243, 244, 0.72));
       border: 1px solid rgba(255, 255, 255, 0.95); border-radius: 30px;
       -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%);
       box-shadow: 0 30px 60px rgba(138, 16, 43, 0.25), inset 0 1px 0 var(--c-white);
     }
-    .cat-modal-card img, .origin-modal-card img {
+    .cat-modal-card img, .origin-modal-card img, .completion-popup-card img {
       border: 2px solid rgba(255, 255, 255, 0.95); box-shadow: 0 10px 24px rgba(138, 16, 43, 0.18);
     }
     #big-cat-overlay .cat-modal-card {
@@ -1899,6 +1927,13 @@
     /* the back face (Definition side) has a light background, so a white heart would be
        invisible there — same berry accent as the rest of the back face's text/links instead. */
     .card-fav-btn-back { color: var(--c-berry); }
+    /* WebKit's backface-visibility:hidden on .card-face is supposed to hide the front face's own
+       heart once the card is rotated to show the back — but on real iOS Safari that 3D culling
+       doesn't reliably happen, so the white front heart can still show through, ghosted on top of
+       the flip arrow. Forcing it hidden by class, driven by JS rather than the browser's 3D
+       compositing, removes it for certain regardless of that platform quirk. */
+    .flashcard.flipped .card-front .card-fav-btn { visibility: hidden; }
+    .flashcard:not(.flipped) .card-back .card-fav-btn { visibility: hidden; }
     .card-fav-btn:hover { opacity: 1; transform: scale(1.12); }
     .card-fav-btn.active-fav { opacity: 1; }
     .card-audio-btn {
@@ -2245,6 +2280,15 @@
     </div>
   </div>
 
+  <canvas id="heart-canvas" aria-hidden="true"></canvas>
+
+  <div id="completion-popup-overlay" onclick="closeCompletionPopup()">
+    <div class="completion-popup-card" onclick="event.stopPropagation()">
+      <img id="popup-img" src="https://i.pinimg.com/736x/ed/d7/9a/edd79a8eabef78c84546802686d99d40.jpg" alt="Completed" referrerpolicy="no-referrer" onclick="handlePopupClick()" onerror="imgFallback(this, 'raccoon')">
+      <h3 id="popup-text">Click me! 🐾</h3>
+    </div>
+  </div>
+
   <div id="origin-modal-overlay" onclick="closeOriginModal()">
     <div class="origin-modal-card" onclick="event.stopPropagation()">
       <h3 id="origin-modal-title">Phrase</h3>
@@ -2489,7 +2533,6 @@
         <div class="quiz-sentence" id="quiz-sentence">...</div>
         <div class="options-grid" id="quiz-options"></div>
         <div id="quiz-finished" style="display:none; text-align:center;">
-          <img src="https://i.pinimg.com/1200x/ae/5b/a4/ae5ba44a7ff3f49be66d7a89fdb9330a.jpg" alt="Raccoon completed" referrerpolicy="no-referrer" onerror="imgFallback(this, 'raccoon')" style="width: 200px; height: 200px; object-fit: cover; border-radius: 28px; border: 3px solid var(--c-berry); margin-bottom: 14px; display: block; margin-left: auto; margin-right: auto; box-shadow: 0 12px 30px rgba(183, 27, 63, 0.18);">
           <div id="quiz-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 6px;">Quiz completed! 🎉</div>
           <div id="quiz-finished-sub" style="color: var(--c-text-muted); font-size: 0.92rem;">Great job — every question answered correctly.</div>
         </div>
@@ -7543,6 +7586,8 @@ const lessons = /*LESSONS_START*/[
       quizFinished: "Nice work! 🎉",
       quizFinishedSub: "Every question answered correctly.",
       nextQuestionBtn: "Next Question →",
+      clickMe: "Click me! 🐾",
+      awesome: "Awesome! ✨",
       allLessons: "📚 All lessons",
       addLessonPill: "+ Add lesson",
       addLessonTitle: "📁 Add new lesson",
@@ -7623,6 +7668,8 @@ const lessons = /*LESSONS_START*/[
       quizFinished: "Отлично! 🎉",
       quizFinishedSub: "Все вопросы отвечены правильно.",
       nextQuestionBtn: "Следующий вопрос →",
+      clickMe: "Нажми на меня! 🐾",
+      awesome: "Потрясающе! ✨",
       allLessons: "📚 Все уроки",
       addLessonPill: "+ Добавить урок",
       addLessonTitle: "📁 Добавить новый урок",
@@ -7682,7 +7729,14 @@ const lessons = /*LESSONS_START*/[
 let currentCardIdx = 0;
   let fcDeck = vocabData.slice();   // cards in the current flashcard round
   let fcRound = 1;
-  const wordStatus = {};
+  // Mastery is a small counter per word (0 = never studied), not a one-shot true/false — one
+  // right answer on flashcards used to be enough to call a word "known", which doesn't hold up
+  // (you can get lucky, or half-remember). Every correct swipe/tap nudges the count up, every
+  // "still learning" nudges it back down (floored at 0); a word only counts as mastered once it's
+  // survived MASTERY_LEVEL correct answers. This is a stepping stone toward real spaced repetition
+  // (interval-based scheduling) later — the level here is exactly what a Leitner-box system needs.
+  const MASTERY_LEVEL = 3;
+  const wordLevel = {};
   const cardElem = document.getElementById('card');
 
   function renderLessonPills() {
@@ -7715,7 +7769,7 @@ let currentCardIdx = 0;
     currentLessonId = id;
     vocabData = getActiveWords();
 
-    resetFlashDeck(true);
+    resetFlashDeck();
     quizIdx = 0;
     scrambleIdx = 0;
     selectedLeft = null;
@@ -7780,7 +7834,7 @@ let currentCardIdx = 0;
 
     const wordsWord = currentLang === 'en' ? ' words' : ' слов';
     const items = lessons.map(function (l, i) {
-      const known = l.words.filter(function (w) { return wordStatus[w.term] === true; }).length;
+      const known = l.words.filter(function (w) { return (wordLevel[w.term] || 0) >= MASTERY_LEVEL; }).length;
       const knownPct = l.words.length ? Math.round(100 * known / l.words.length) : 0;
       return { id: l.id, label: l.label, count: l.words.length, colorIdx: i, knownPct: knownPct };
     });
@@ -7990,13 +8044,10 @@ let currentCardIdx = 0;
   let selectScreen = null;   // null, 'allwords' or 'saved'
   let selectedTerms = {};
 
-  // Real per-word mastery, from the same wordStatus flashcards already write: known -> full green
-  // bar, marked "still learning" -> a low red bar (attempted, not there yet), never studied -> an
-  // empty bar (nothing to show yet, rather than inventing a number).
+  // Real per-word mastery, from the same wordLevel flashcards already write: the bar fills up as
+  // the word survives more correct reviews, full once it reaches MASTERY_LEVEL.
   function wordProgressPct(term) {
-    if (wordStatus[term] === true) return 100;
-    if (wordStatus[term] === false) return 30;
-    return 0;
+    return Math.round(100 * Math.min(wordLevel[term] || 0, MASTERY_LEVEL) / MASTERY_LEVEL);
   }
   function progressLevel(pct) {
     if (pct >= 70) return 'good';
@@ -8526,7 +8577,7 @@ let currentCardIdx = 0;
       trainerTitleInfo = { key: 'topTabAllWords' };
     }
     updateTrainerTitle();
-    resetFlashDeck(true);
+    resetFlashDeck();
     quizIdx = 0;
     scrambleIdx = 0;
     selectedLeft = null;
@@ -8612,9 +8663,9 @@ let currentCardIdx = 0;
     let knownCount = 0;
     const reviewWords = [];
     all.forEach(function (item) {
-      const status = wordStatus[item.term];
-      if (status === true) knownCount++;
-      else if (status === false) reviewWords.push(item);
+      const level = wordLevel[item.term] || 0;
+      if (level >= MASTERY_LEVEL) knownCount++;
+      else if (level > 0) reviewWords.push(item);
     });
 
     const ru = currentLang === 'ru';
@@ -8659,7 +8710,7 @@ let currentCardIdx = 0;
   }
 
   function practiceGlobalReviewWords() {
-    const words = allWordsList().filter(function (w) { return wordStatus[w.term] === false; });
+    const words = allWordsList().filter(function (w) { const lvl = wordLevel[w.term] || 0; return lvl > 0 && lvl < MASTERY_LEVEL; });
     if (words.length) startPractice(words, 'allwords');
   }
 
@@ -9129,25 +9180,26 @@ let currentCardIdx = 0;
     }
   }
 
-  function resetFlashDeck(clearStatus) {
-    if (clearStatus) vocabData.forEach(function (w) { delete wordStatus[w.term]; });
+  function resetFlashDeck() {
+    // deliberately does NOT touch wordLevel — mastery is cumulative across sessions now, so
+    // restarting a deck (to review everything again) shouldn't erase progress already earned.
     fcDeck = vocabData.slice();
     fcRound = 1;
     currentCardIdx = 0;
   }
 
-  // go to the next card; at the end of a round, repeat every word that isn't "I know this" yet
+  // go to the next card; at the end of a round, repeat every word not mastered yet
   function advanceFlashcard() {
     currentCardIdx++;
     if (currentCardIdx >= fcDeck.length) {
-      const again = fcDeck.filter(function (w) { return wordStatus[w.term] !== true; });
+      const again = fcDeck.filter(function (w) { return (wordLevel[w.term] || 0) < MASTERY_LEVEL; });
       if (again.length) {
         fcDeck = again.length > 1 ? shuffleCopy(again) : again;
         fcRound++;
         currentCardIdx = 0;
         showToast(t('repeatRoundToast') + ': ' + again.length);
       } else {
-        currentCardIdx = fcDeck.length;   // every word is known -> deck completed
+        currentCardIdx = fcDeck.length;   // every word is mastered -> deck completed
       }
     }
     updateCard();
@@ -9155,7 +9207,7 @@ let currentCardIdx = 0;
 
   function nextCard() {
     if (currentCardIdx >= fcDeck.length) {   // "Restart" after finishing
-      resetFlashDeck(true);
+      resetFlashDeck();
       updateCard();
       updateAnalyticsUI();
       return;
@@ -9173,7 +9225,8 @@ let currentCardIdx = 0;
   function markKnowledge(isKnown) {
     const item = fcDeck[currentCardIdx];
     if (!item) return;
-    wordStatus[item.term] = isKnown;
+    const cur = wordLevel[item.term] || 0;
+    wordLevel[item.term] = isKnown ? Math.min(cur + 1, MASTERY_LEVEL) : Math.max(cur - 1, 0);
     updateAnalyticsUI();
     scheduleCloudWrite();
     advanceFlashcard();
@@ -9437,6 +9490,55 @@ let currentCardIdx = 0;
     if (el) el.style.width = (total ? Math.min(100, (n / total) * 100) : 0) + '%';
   }
 
+  // ---------- completion popup: click the raccoon, hearts fly, picture changes to say thanks ----------
+  let heartConfetti = null;
+  try {
+    if (typeof confetti === 'function' && confetti.create) {
+      heartConfetti = confetti.create(document.getElementById('heart-canvas'), { resize: true, useWorker: true });
+    }
+  } catch (e) { /* confetti unavailable */ }
+
+  function shootPinkHearts() {
+    if (!heartConfetti) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    try {
+      heartConfetti({
+        particleCount: 60, spread: 80, origin: { y: 0.5 },
+        colors: ['#ff758c', '#ff7eb3', '#ff6b81', '#ffb6c1', '#ffc0cb'],
+        shapes: ['circle'], scalar: 1.4
+      });
+    } catch (e) { /* confetti unavailable */ }
+  }
+
+  let completionStep = 1;
+  const COMPLETION_PACKAGE_IMG = 'https://i.pinimg.com/736x/ed/d7/9a/edd79a8eabef78c84546802686d99d40.jpg';
+  const COMPLETION_HUGS_IMG = 'https://i.pinimg.com/736x/25/7e/59/257e59da988e2d56d4671c1e56bca5b4.jpg';
+
+  function showCompletionPopup() {
+    completionStep = 1;
+    const img = document.getElementById('popup-img');
+    if (img) img.src = COMPLETION_PACKAGE_IMG;
+    document.getElementById('popup-text').innerText = t('clickMe');
+    document.getElementById('completion-popup-overlay').classList.add('show');
+  }
+
+  function handlePopupClick() {
+    const imgEl = document.getElementById('popup-img');
+    const textEl = document.getElementById('popup-text');
+    if (completionStep === 1) {
+      shootPinkHearts();
+      if (imgEl) imgEl.src = COMPLETION_HUGS_IMG;
+      if (textEl) textEl.innerText = t('awesome');
+      completionStep = 2;
+    } else {
+      closeCompletionPopup();
+    }
+  }
+
+  function closeCompletionPopup() {
+    document.getElementById('completion-popup-overlay').classList.remove('show');
+  }
+
   // QUIZ (MULTIPLE CHOICE)
   let quizIdx = 0;
   let quizPool = [...vocabData].sort(() => 0.5 - Math.random());
@@ -9461,9 +9563,9 @@ let currentCardIdx = 0;
         document.getElementById('quiz-finished-title').innerText = translations[currentLang].quizFinished;
         document.getElementById('quiz-finished-sub').innerText = translations[currentLang].quizFinishedSub;
       }
+      showCompletionPopup();
       nextBtn.style.display = 'inline-block';
       nextBtn.innerText = translations[currentLang].restart;
-      celebrate('big');
       return;
     }
 
@@ -9830,9 +9932,10 @@ let currentCardIdx = 0;
 
   // ANALYTICS UI
   function updateAnalyticsUI() {
-    // Real data only: everything here comes from wordStatus (flashcard self-rating), synced via
-    // the cloud. There is no per-mode (quiz/matching/scramble) answer history yet, so this tab
-    // intentionally does not claim anything beyond what flashcards actually record.
+    // Real data only: everything here comes from wordLevel (flashcard self-rating, accumulated
+    // over MASTERY_LEVEL correct answers), synced via the cloud. There is no per-mode
+    // (quiz/matching/scramble) answer history yet, so this tab intentionally does not claim
+    // anything beyond what flashcards actually record.
     // Scoped to whatever's currently being studied (one lesson, saved words, or everything) —
     // vocabData is the same word list the flashcards/quiz/matching tabs are already using,
     // rather than always pulling every word from every lesson regardless of context.
@@ -9844,18 +9947,18 @@ let currentCardIdx = 0;
     pillsContainer.innerHTML = '';
 
     all.forEach(function (item) {
-      const status = wordStatus[item.term];
+      const level = wordLevel[item.term] || 0;
       const pill = document.createElement('div');
 
-      if (status === true) {
+      if (level >= MASTERY_LEVEL) {
         knownCount++;
         pill.className = 'word-pill mastered';
         pill.innerText = `✓ ${item.term}`;
-      } else if (status === false) {
+      } else if (level > 0) {
         reviewCount++;
         reviewWords.push(item);
         pill.className = 'word-pill struggled';
-        pill.innerText = `✕ ${item.term}`;
+        pill.innerText = `${level}/${MASTERY_LEVEL} ${item.term}`;
       } else {
         pill.className = 'word-pill';
         pill.style.background = '#f0ebeb';
@@ -9907,7 +10010,7 @@ let currentCardIdx = 0;
   }
 
   function practiceReviewWords() {
-    const words = vocabData.filter(function (w) { return wordStatus[w.term] === false; });
+    const words = vocabData.filter(function (w) { const lvl = wordLevel[w.term] || 0; return lvl > 0 && lvl < MASTERY_LEVEL; });
     if (words.length) startPractice(words, trainerReturnTo);
   }
 
@@ -9949,7 +10052,7 @@ let currentCardIdx = 0;
 
   function refreshAfterCloudLoad() {
     updateFavoriteButton();
-    // the home screen's lesson progress bars are rendered from wordStatus at render time — on a
+    // the home screen's lesson progress bars are rendered from wordLevel at render time — on a
     // fresh page load they're drawn (at 0%) before this cloud fetch resolves, so without this the
     // real numbers never appear until the user happens to leave and come back to Lessons.
     const homeScreen = document.getElementById('home-screen');
@@ -9970,7 +10073,7 @@ let currentCardIdx = 0;
     cloudFns.setDoc(cloudDocRef, {
       saved: Object.keys(favoriteTerms).filter(function (k) { return favoriteTerms[k]; }),
       hidden: Object.keys(hiddenTerms).filter(function (k) { return hiddenTerms[k]; }),
-      wordStatus: wordStatus,
+      wordLevel: wordLevel,
       updatedAt: cloudFns.serverTimestamp()
     }, { merge: true }).catch(function (e) { console.warn('Cloud write failed, kept locally only:', e); });
   }
@@ -9998,8 +10101,16 @@ let currentCardIdx = 0;
         (data.saved || []).forEach(function (t) { favoriteTerms[t] = true; });
         Object.keys(hiddenTerms).forEach(function (k) { delete hiddenTerms[k]; });
         (data.hidden || []).forEach(function (t) { hiddenTerms[t] = true; });
-        Object.keys(wordStatus).forEach(function (k) { delete wordStatus[k]; });
-        Object.keys(data.wordStatus || {}).forEach(function (t) { wordStatus[t] = data.wordStatus[t]; });
+        Object.keys(wordLevel).forEach(function (k) { delete wordLevel[k]; });
+        if (data.wordLevel) {
+          Object.keys(data.wordLevel).forEach(function (t) { wordLevel[t] = data.wordLevel[t]; });
+        } else if (data.wordStatus) {
+          // one-time upgrade from the old true/false rating to the level system: a word already
+          // marked "known" starts at mastery, "still learning" starts partway there.
+          Object.keys(data.wordStatus).forEach(function (t) {
+            wordLevel[t] = data.wordStatus[t] === true ? MASTERY_LEVEL : 1;
+          });
+        }
         try {
           localStorage.setItem(SAVED_KEY, JSON.stringify(Object.keys(favoriteTerms)));
           localStorage.setItem(HIDDEN_KEY, JSON.stringify(Object.keys(hiddenTerms)));
