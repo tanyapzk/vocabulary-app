@@ -2124,7 +2124,7 @@
     .details-chip.antonym { background: #fdebee; border-color: #f7c1c1; color: #a32d2d; }
 
     /* DEMO: per-word mastery bar in the word lists (fake data via demoProgress) */
-    .word-row-progress { margin-top: 6px; height: 4px; border-radius: 999px; background: rgba(34, 28, 30, 0.08); overflow: hidden; max-width: 220px; }
+    .word-row-progress { display: block; margin-top: 6px; height: 4px; border-radius: 999px; background: rgba(34, 28, 30, 0.08); overflow: hidden; max-width: 220px; }
     .word-row-progress-fill { display: block; height: 100%; border-radius: inherit; }
     .word-row-progress-fill.lvl-good { background: #3b9c2b; }
     .word-row-progress-fill.lvl-mid { background: #e0a828; }
@@ -2288,7 +2288,7 @@
       <button class="top-tab active" id="top-tab-lessons" onclick="goHome()">Lessons</button>
       <button class="top-tab" id="top-tab-allwords" onclick="showScreen('allwords')">All words</button>
       <button class="top-tab" id="top-tab-saved" onclick="showScreen('saved')">Saved</button>
-      <button class="top-tab" id="top-tab-analytics" onclick="openGlobalAnalytics()">Analytics</button>
+      <button class="top-tab" id="top-tab-analytics" onclick="showScreen('analytics')">Analytics</button>
     </div>
 
     <div id="home-screen" class="app-screen active">
@@ -2322,6 +2322,38 @@
       <div class="learn-strip" id="saved-learn-strip"><div class="learn-strip-inner"></div></div>
       <div class="saved-empty" id="saved-empty">No saved words yet.</div>
       <div class="word-list-panel" id="saved-list"></div>
+    </div>
+
+    <div id="analytics-screen" class="app-screen">
+      <div class="analytics-hero">
+        <div class="analytics-hero-row">
+          <div>
+            <div class="analytics-hero-num" id="ga-hero-num">0</div>
+            <div class="analytics-hero-label" id="ga-hero-label">words mastered</div>
+          </div>
+        </div>
+        <div class="analytics-hero-bar"><div class="analytics-hero-bar-fill" id="ga-hero-fill" style="width:0%"></div></div>
+        <div class="analytics-hero-sub" id="ga-hero-sub"></div>
+      </div>
+
+      <div class="analytics-growth" id="ga-growth-card" style="display:none;">
+        <div class="analytics-growth-head">
+          <span class="analytics-growth-ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M12 14l-4-4M12 14l4-4M12 4v4"/></svg>
+          </span>
+          <div class="analytics-growth-title" id="ga-growth-title">Worth another look</div>
+        </div>
+        <div class="analytics-growth-sub" id="ga-growth-sub">Marked "Still learning" on flashcards.</div>
+        <div class="analytics-pill-row" id="ga-growth-pills"></div>
+        <button class="analytics-growth-btn" id="ga-growth-btn" onclick="practiceGlobalReviewWords()">Practice these words →</button>
+      </div>
+
+      <div class="analytics-closing" id="ga-closing">
+        <span class="analytics-closing-ic">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </span>
+        <span id="ga-closing-text"></span>
+      </div>
     </div>
 
     <div id="trainer-screen" class="app-screen">
@@ -2448,14 +2480,19 @@
     <!-- 2. MULTIPLE CHOICE -->
     <div id="quiz" class="tab-content">
       <div class="quiz-card">
-        <div class="quiz-header-row">
+        <div class="quiz-header-row" id="quiz-header-row">
           <div class="quiz-num" id="quiz-progress" style="font-size: 0.82rem; font-weight: 800; color: var(--c-berry);">Question 1 of 14</div>
           <button class="hint-btn" id="quiz-hint-btn" onclick="toggleHint()">💡 Hint</button>
         </div>
-        <div class="mode-progress"><div class="mode-progress-fill" id="quiz-progress-fill"></div></div>
+        <div class="mode-progress" id="quiz-progress-row"><div class="mode-progress-fill" id="quiz-progress-fill"></div></div>
         <div class="hint-box" id="quiz-hint-box">...</div>
         <div class="quiz-sentence" id="quiz-sentence">...</div>
         <div class="options-grid" id="quiz-options"></div>
+        <div id="quiz-finished" style="display:none; text-align:center;">
+          <img src="https://i.pinimg.com/1200x/ae/5b/a4/ae5ba44a7ff3f49be66d7a89fdb9330a.jpg" alt="Raccoon completed" referrerpolicy="no-referrer" onerror="imgFallback(this, 'raccoon')" style="width: 200px; height: 200px; object-fit: cover; border-radius: 28px; border: 3px solid var(--c-berry); margin-bottom: 14px; display: block; margin-left: auto; margin-right: auto; box-shadow: 0 12px 30px rgba(183, 27, 63, 0.18);">
+          <div id="quiz-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 6px;">Quiz completed! 🎉</div>
+          <div id="quiz-finished-sub" style="color: var(--c-text-muted); font-size: 0.92rem;">Great job — every question answered correctly.</div>
+        </div>
       </div>
       <div class="controls" style="justify-content: flex-end;">
         <button class="btn btn-primary" id="quiz-next-btn" style="display:none;" onclick="nextQuestion()">Next Question →</button>
@@ -7503,6 +7540,9 @@ const lessons = /*LESSONS_START*/[
       deckFinished: "Deck completed! 🎉",
       deckFinishedSub: "Great job reviewing your vocabulary.",
       deckFinishedQ: "Would you like to start over?",
+      quizFinished: "Nice work! 🎉",
+      quizFinishedSub: "Every question answered correctly.",
+      nextQuestionBtn: "Next Question →",
       allLessons: "📚 All lessons",
       addLessonPill: "+ Add lesson",
       addLessonTitle: "📁 Add new lesson",
@@ -7580,6 +7620,9 @@ const lessons = /*LESSONS_START*/[
       deckFinished: "Колода завершена! 🎉",
       deckFinishedSub: "Отличная работа по повторению лексики.",
       deckFinishedQ: "Пройти карточки еще раз?",
+      quizFinished: "Отлично! 🎉",
+      quizFinishedSub: "Все вопросы отвечены правильно.",
+      nextQuestionBtn: "Следующий вопрос →",
       allLessons: "📚 Все уроки",
       addLessonPill: "+ Добавить урок",
       addLessonTitle: "📁 Добавить новый урок",
@@ -7947,16 +7990,13 @@ let currentCardIdx = 0;
   let selectScreen = null;   // null, 'allwords' or 'saved'
   let selectedTerms = {};
 
-  // DEMO-ONLY: a fake mastery score per word, so Tanya can see how a progress indicator would look.
-  // Real data will come from the answer history once progress is tracked (see analytics plan).
-  const DEMO_PROGRESS = {};
-  function demoProgress(term) {
-    if (!(term in DEMO_PROGRESS)) {
-      let h = 0;
-      for (let i = 0; i < term.length; i++) h = (h * 31 + term.charCodeAt(i)) >>> 0;
-      DEMO_PROGRESS[term] = h % 101;
-    }
-    return DEMO_PROGRESS[term];
+  // Real per-word mastery, from the same wordStatus flashcards already write: known -> full green
+  // bar, marked "still learning" -> a low red bar (attempted, not there yet), never studied -> an
+  // empty bar (nothing to show yet, rather than inventing a number).
+  function wordProgressPct(term) {
+    if (wordStatus[term] === true) return 100;
+    if (wordStatus[term] === false) return 30;
+    return 0;
   }
   function progressLevel(pct) {
     if (pct >= 70) return 'good';
@@ -7971,6 +8011,7 @@ let currentCardIdx = 0;
       const saved = !!favoriteTerms[item.term];
       const isHidden = !!(opts.hideToggle && hiddenTerms[item.term]);
       const isSel = !!(opts.selectable && selectedTerms[item.term]);
+      const progressPct = wordProgressPct(item.term);
       const row = document.createElement('div');
       row.className = 'word-row' + (opts.selectable ? ' selectable' : '') + (isSel ? ' selected' : '') + (opts.animate ? ' row-in' : '') + (saved ? ' is-saved' : '') + (isHidden ? ' is-hidden' : '');
       if (opts.animate) row.style.setProperty('--i', Math.min(i, 14));
@@ -7979,6 +8020,7 @@ let currentCardIdx = 0;
         '<div class="word-row-text">' +
           '<div class="word-row-term">' + escapeHtml(item.term) + '</div>' +
           '<div class="word-row-def">' + escapeHtml(item.trans[currentLang]) + '</div>' +
+          '<span class="word-row-progress"><span class="word-row-progress-fill lvl-' + progressLevel(progressPct) + '" style="width:' + progressPct + '%"></span></span>' +
         '</div>' +
         '<button class="save-btn' + (saved ? ' saved' : '') + '" title="' + t('saveWord') + '" aria-label="' + t('saveWord') + '" aria-pressed="' + saved + '">' + heartIcon(saved) + '</button>' +
         (opts.hideToggle ? '<button class="eye-btn' + (isHidden ? ' is-hidden-btn' : '') + '" title="' + (isHidden ? t('unhideWord') : t('hideWord')) + '" aria-label="' + (isHidden ? t('unhideWord') : t('hideWord')) + '" aria-pressed="' + isHidden + '">' + eyeIcon(isHidden) + '</button>' : '');
@@ -8516,7 +8558,7 @@ let currentCardIdx = 0;
 
   // ---------- screens + top tabs ----------
   function updateTopTabs() {
-    const map = { 'top-tab-lessons': 'home-screen', 'top-tab-allwords': 'allwords-screen', 'top-tab-saved': 'saved-screen' };
+    const map = { 'top-tab-lessons': 'home-screen', 'top-tab-allwords': 'allwords-screen', 'top-tab-saved': 'saved-screen', 'top-tab-analytics': 'analytics-screen' };
     let anyVisible = false;
     Object.keys(map).forEach(function (tabId) {
       const scr = document.getElementById(map[tabId]);
@@ -8530,7 +8572,7 @@ let currentCardIdx = 0;
   }
 
   function showScreen(name) {
-    const screens = { home: 'home-screen', allwords: 'allwords-screen', saved: 'saved-screen', trainer: 'trainer-screen' };
+    const screens = { home: 'home-screen', allwords: 'allwords-screen', saved: 'saved-screen', trainer: 'trainer-screen', analytics: 'analytics-screen' };
     if (!screens[name]) name = 'home';
     Object.keys(screens).forEach(function (key) {
       const el = document.getElementById(screens[key]);
@@ -8541,8 +8583,9 @@ let currentCardIdx = 0;
     if (name === 'home') renderFolderStack();
     if (name === 'allwords') renderAllWords(true);
     if (name === 'saved') renderSavedList(true);
+    if (name === 'analytics') updateGlobalAnalyticsScreen();
     document.body.classList.toggle('in-trainer', name === 'trainer');
-    document.body.classList.toggle('glass-bg', name === 'trainer' || name === 'allwords' || name === 'saved');
+    document.body.classList.toggle('glass-bg', name === 'trainer' || name === 'allwords' || name === 'saved' || name === 'analytics');
     updateSelectBar();
     updateTopTabs();
   }
@@ -8559,21 +8602,65 @@ let currentCardIdx = 0;
     showScreen('home');
   }
 
-  // "Analytics" in the home row (Lessons / All words / Saved / Analytics) always covers every
-  // word from every lesson — it reuses the same trainer + Analytics tab that a single lesson's
-  // own Analytics uses, just started with the full word list instead of one lesson's words.
-  function openGlobalAnalytics() {
-    startPractice(allWordsList(), 'allwords');
-    document.querySelectorAll('#trainer-screen .tab-btn').forEach(function (b) { b.classList.remove('active'); });
-    document.querySelectorAll('#trainer-screen .tab-content').forEach(function (c) { c.classList.remove('active'); });
-    const analyticsBtn = document.getElementById('tab-analytics');
-    analyticsBtn.classList.add('active');
-    document.getElementById('analytics').classList.add('active');
-    const tabBar = analyticsBtn.parentElement;
-    if (tabBar && tabBar.scrollWidth > tabBar.clientWidth) {
-      tabBar.scrollTo({ left: analyticsBtn.offsetLeft - (tabBar.clientWidth - analyticsBtn.offsetWidth) / 2, behavior: 'smooth' });
+  // "Analytics" in the home row (Lessons / All words / Saved / Analytics) is its own screen, a
+  // peer of those three — not the trainer. It always covers every word from every lesson, shows
+  // the recommendation summary (mastered count + what's worth reviewing) and never the trainer's
+  // own Flashcards/Multiple Choice/Matching/Sentence Builder tabs, which only "practice these
+  // words" below should open.
+  function updateGlobalAnalyticsScreen() {
+    const all = allWordsList();
+    let knownCount = 0;
+    const reviewWords = [];
+    all.forEach(function (item) {
+      const status = wordStatus[item.term];
+      if (status === true) knownCount++;
+      else if (status === false) reviewWords.push(item);
+    });
+
+    const ru = currentLang === 'ru';
+    const total = all.length || 1;
+    document.getElementById('ga-hero-num').innerText = knownCount + ' / ' + all.length;
+    document.getElementById('ga-hero-label').innerText = ru ? 'слов усвоено' : 'words mastered';
+    document.getElementById('ga-hero-fill').style.width = Math.round(100 * knownCount / total) + '%';
+    document.getElementById('ga-hero-sub').innerText = ru
+      ? 'Считаются слова из всех уроков вместе'
+      : 'Counting words across every lesson';
+
+    const growthCard = document.getElementById('ga-growth-card');
+    if (reviewWords.length) {
+      growthCard.style.display = 'block';
+      document.getElementById('ga-growth-title').innerText = ru ? 'Стоит взглянуть ещё раз' : 'Worth another look';
+      document.getElementById('ga-growth-sub').innerText = ru
+        ? 'Отмечено как «ещё учу» на карточках — самое эффективное, на чём сосредоточиться сегодня.'
+        : 'Marked "Still learning" on flashcards — the most useful place to focus today.';
+      const pillRow = document.getElementById('ga-growth-pills');
+      pillRow.innerHTML = '';
+      reviewWords.slice(0, 6).forEach(function (w) {
+        const p = document.createElement('span');
+        p.className = 'word-pill struggled';
+        p.innerText = w.term;
+        pillRow.appendChild(p);
+      });
+      document.getElementById('ga-growth-btn').innerText = ru
+        ? 'Потренировать эти ' + reviewWords.length + ' слов →'
+        : 'Practice these ' + reviewWords.length + ' words →';
+    } else {
+      growthCard.style.display = 'none';
     }
-    updateAnalyticsUI();
+
+    const savedCount = Object.keys(favoriteTerms).filter(function (k) { return favoriteTerms[k]; }).length;
+    document.getElementById('ga-closing-text').innerHTML = ru
+      ? (knownCount > 0
+          ? 'Отличный прогресс — <b>' + knownCount + '</b> слов уже усвоено. Сохранено в избранное: <b>' + savedCount + '</b>.'
+          : 'Пока не отмечено ни одного слова как «знаю» — начни с карточек, и здесь появится прогресс.')
+      : (knownCount > 0
+          ? 'Nice progress — <b>' + knownCount + '</b> words mastered so far. Saved to favourites: <b>' + savedCount + '</b>.'
+          : "No words marked as known yet — start with Flashcards and your progress will show up here.");
+  }
+
+  function practiceGlobalReviewWords() {
+    const words = allWordsList().filter(function (w) { return wordStatus[w.term] === false; });
+    if (words.length) startPractice(words, 'allwords');
   }
 
   function focusSearch() {
@@ -8865,8 +8952,10 @@ let currentCardIdx = 0;
       tabBar.scrollTo({ left: event.target.offsetLeft - (tabBar.clientWidth - event.target.offsetWidth) / 2, behavior: 'smooth' });
     }
     document.getElementById(tabId).classList.add('active');
-    if (tabId === 'matching') startMatchingSession();
-    if (tabId === 'scramble') renderScrambleQuestion();
+    // Matching/Sentence Builder are already built once, up front, in startPractice() — calling
+    // their init again here on every tab switch used to throw away in-progress matches/answers
+    // each time you looked at another mode and came back. Only Analytics needs a fresh render on
+    // every visit, since it reflects whatever's changed since you were last on it.
     if (tabId === 'analytics') updateAnalyticsUI();
   }
 
@@ -9353,16 +9442,48 @@ let currentCardIdx = 0;
   let quizPool = [...vocabData].sort(() => 0.5 - Math.random());
 
   function renderQuizQuestion() {
+    const headerRow = document.getElementById('quiz-header-row');
+    const progressRow = document.getElementById('quiz-progress-row');
+    const hintBox = document.getElementById('quiz-hint-box');
+    const sentence = document.getElementById('quiz-sentence');
+    const optionsGrid = document.getElementById('quiz-options');
+    const finishedBox = document.getElementById('quiz-finished');
+    const nextBtn = document.getElementById('quiz-next-btn');
+
+    if (!quizPool.length || quizIdx >= quizPool.length) {
+      if (headerRow) headerRow.style.display = 'none';
+      if (progressRow) progressRow.style.display = 'none';
+      hintBox.classList.remove('show');
+      sentence.style.display = 'none';
+      optionsGrid.style.display = 'none';
+      if (finishedBox) {
+        finishedBox.style.display = 'block';
+        document.getElementById('quiz-finished-title').innerText = translations[currentLang].quizFinished;
+        document.getElementById('quiz-finished-sub').innerText = translations[currentLang].quizFinishedSub;
+      }
+      nextBtn.style.display = 'inline-block';
+      nextBtn.innerText = translations[currentLang].restart;
+      celebrate('big');
+      return;
+    }
+
+    if (headerRow) headerRow.style.display = '';
+    if (progressRow) progressRow.style.display = '';
+    sentence.style.display = '';
+    optionsGrid.style.display = '';
+    if (finishedBox) finishedBox.style.display = 'none';
+    nextBtn.innerText = translations[currentLang].nextQuestionBtn;
+
     const item = quizPool[quizIdx];
     setModeProgress('quiz-progress-fill', quizIdx + 1, quizPool.length);
-    document.getElementById('quiz-progress').innerText = currentLang === 'en' 
-      ? `Question ${quizIdx + 1} of ${quizPool.length}` 
+    document.getElementById('quiz-progress').innerText = currentLang === 'en'
+      ? `Question ${quizIdx + 1} of ${quizPool.length}`
       : `Вопрос ${quizIdx + 1} из ${quizPool.length}`;
-      
+
     document.getElementById('quiz-sentence').innerHTML = item.blankSentence.replace('___', '<span class="blank">?</span>');
     document.getElementById('quiz-hint-box').innerText = item.trans[currentLang];
     document.getElementById('quiz-hint-box').classList.remove('show');
-    document.getElementById('quiz-next-btn').style.display = 'none';
+    nextBtn.style.display = 'none';
 
     const options = [item.term];
     const others = vocabData.filter(x => x.term !== item.term).sort(() => 0.5 - Math.random());
@@ -9395,7 +9516,16 @@ let currentCardIdx = 0;
   }
 
   function toggleHint() { document.getElementById('quiz-hint-box').classList.toggle('show'); }
-  function nextQuestion() { quizIdx = (quizIdx + 1) % quizPool.length; renderQuizQuestion(); }
+  function nextQuestion() {
+    if (quizIdx >= quizPool.length) {   // "Restart" after finishing
+      quizPool = [...vocabData].sort(() => 0.5 - Math.random());
+      quizIdx = 0;
+      renderQuizQuestion();
+      return;
+    }
+    quizIdx++;
+    renderQuizQuestion();
+  }
 
   // MATCHING
   let selectedLeft = null;
@@ -9819,6 +9949,11 @@ let currentCardIdx = 0;
 
   function refreshAfterCloudLoad() {
     updateFavoriteButton();
+    // the home screen's lesson progress bars are rendered from wordStatus at render time — on a
+    // fresh page load they're drawn (at 0%) before this cloud fetch resolves, so without this the
+    // real numbers never appear until the user happens to leave and come back to Lessons.
+    const homeScreen = document.getElementById('home-screen');
+    if (homeScreen && homeScreen.classList.contains('active')) renderFolderStack();
     const allList = document.getElementById('allwords-list');
     if (allList) renderAllWords(false);
     const savedList = document.getElementById('saved-list');
@@ -9826,6 +9961,8 @@ let currentCardIdx = 0;
     if (typeof currentOpenLessonId !== 'undefined' && currentOpenLessonId) renderLessonScreen();
     const analyticsScreen = document.getElementById('analytics');
     if (analyticsScreen && analyticsScreen.classList.contains('active')) updateAnalyticsUI();
+    const globalAnalyticsScreen = document.getElementById('analytics-screen');
+    if (globalAnalyticsScreen && globalAnalyticsScreen.classList.contains('active')) updateGlobalAnalyticsScreen();
   }
 
   function cloudWriteAll() {
