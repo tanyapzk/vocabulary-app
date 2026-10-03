@@ -2116,7 +2116,7 @@
     /* svh (not dvh) on purpose: dvh tracks Safari's address bar collapsing/expanding as you scroll,
        which was making the card itself visibly grow and shrink; svh is the stable "chrome fully
        shown" height, so the card stays exactly one size regardless of what the browser bar does */
-    #flashcards { --card-h: clamp(360px, calc(100svh - 392px), 440px); }
+    #flashcards { --card-h: clamp(320px, calc(100svh - 448px), 440px); }
     #flashcards .card-stage { height: calc(var(--card-h) + 44px); }
     #flashcards .flashcard-wrapper, #flashcards .stack-card { height: var(--card-h); }
     body.in-trainer { padding-bottom: 24px; }
@@ -2571,16 +2571,8 @@
     .learn-option-all + .learn-option-soft + .learn-option-grid, .learn-option-all + .learn-option-grid { margin-top: 12px; }
     .lesson-count-row-gone { display: none; }
 
-    /* десктоп: открытый урок — поп-ап по центру с размытым фоном (на телефоне остаётся полный экран) */
+    /* экран урока — на весь экран (и на компьютере тоже); цвет — через переменную */
     .lesson-screen { background: var(--lesson-grad, var(--c-bg)); }
-    @media (min-width: 900px) {
-      .lesson-screen { background: rgba(250, 249, 249, 0.35); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); overflow: hidden; }
-      .lesson-screen-inner {
-        background: var(--lesson-grad, var(--c-bg)); max-width: 640px; height: min(86vh, 880px); min-height: 0; margin: 7vh auto 0;
-        border-radius: 32px; overflow-y: auto; box-shadow: 0 30px 70px rgba(138, 16, 43, 0.28); padding: 28px 28px 0;
-        border: 1px solid rgba(255, 255, 255, 0.7);
-      }
-    }
 
     /* Listening: Hint справа сверху, плеер-дорожка, скорость мелким текстом */
     .ls-hint-box { margin: 10px 0 0; }
@@ -2646,6 +2638,61 @@
     .tabs .tab-btn.drill-hidden { display: none; }
     .example-block .example-audio-text, .front-example .example-audio-text { font-style: italic; font-weight: 400; }
     .example-block .example-audio-text em, .front-example .example-audio-text em { font-style: normal; font-weight: 900; }
+
+    /* ===== Раунд 3 ===== */
+    /* блокировка прокрутки страницы, пока открыт Word Info / плеер */
+    body.modal-open { position: fixed; width: 100%; overflow: hidden; }
+    .wi-card, .wi-content, #otg-overlay { overscroll-behavior: contain; }
+    .wi-body { display: block; overflow-y: auto; }
+    .wi-content { padding: 14px 22px 22px; overflow-y: visible; }
+    .wi-card { max-width: 480px; }
+
+    /* верхние вкладки на телефоне: больше воздуха внутри кнопок */
+    .top-tabs { gap: 2px; padding: 4px; overflow-x: auto; scrollbar-width: none; }
+    .top-tabs::-webkit-scrollbar { display: none; }
+    .top-tab { flex: 1 0 auto; padding: 12px 9px; font-size: 0.7rem; letter-spacing: 0; }
+    @media (min-width: 560px) { .top-tab { padding: 11px 14px; font-size: 0.82rem; } }
+
+    /* календарь компактнее */
+    .an-cal { max-width: 224px; gap: 4px; }
+    .an-cal .d { border-radius: 6px; }
+    .an-card .sub:empty { display: none; }
+
+    /* чипы-фильтры истории слов */
+    .an-chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 8px; }
+    .an-chip { border: 1px solid var(--border-color); background: #fff; color: var(--c-text-muted); border-radius: 999px; padding: 6px 12px; font-family: inherit; font-size: 0.72rem; font-weight: 700; cursor: pointer; }
+    .an-chip.on { background: var(--c-berry); border-color: var(--c-berry); color: #fff; }
+
+    /* окно «Learn»: компактные кнопки количества, группа «или выбери» */
+    .learn-count-label { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; color: var(--c-text-muted); text-align: center; margin: 14px 0 8px; }
+    .learn-option-grid { gap: 8px; }
+    .learn-option-grid .learn-option { flex: 0 0 auto; min-width: 54px; padding: 8px 16px; font-size: 0.82rem; border-radius: 999px; }
+    .learn-option-soft { margin-top: 8px; }
+
+    /* подпись оценок не прячется под стопкой карточек */
+    .rating-note { position: relative; z-index: 6; margin: 34px auto 10px; }
+    #fc-rating-actions { position: relative; z-index: 6; }
+
+    /* режим «сначала определение»: больше воздуха на стороне со словом */
+    #flashcards .card-stage.back-first .card-front-content { padding-top: 18px; }
+    #flashcards .card-stage.back-first .term-meta { margin-top: 12px; }
+    #flashcards .card-stage.back-first .front-extra { margin-top: 30px; }
+
+    /* новая карточка не «просвечивает» зеркально: грань, повёрнутая от зрителя, прячется */
+    .card-front-content, .bars-wrapper, .card-back-content, .back-footer, .links-column { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+    .flashcard.flipped .card-front { visibility: hidden; transition: visibility 0s linear 0.3s; }
+    .flashcard:not(.flipped) .card-back { visibility: hidden; transition: visibility 0s linear 0.3s; }
+    .flashcard.no-anim .card-front, .flashcard.no-anim .card-back { transition: none !important; }
+
+    /* Matching: соединённая пара — одна связная строка */
+    .match-pair { align-items: flex-start; }
+    .match-pair .mp-line { flex: 1; min-width: 0; font-size: 0.9rem; line-height: 1.45; }
+    .match-pair .mp-line .mp-term { font-weight: 900; color: var(--c-berry-dark); }
+    .match-pair .mp-def { font-size: 0.88rem; }
+
+    /* Listening: «Correct» сверху, кнопки (Next) ниже — ближе к большому пальцу */
+    .ls-feedback { margin: 12px 0 14px; }
+    .ls-actions { margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -2679,7 +2726,7 @@
   <div id="big-cat-overlay" onclick="closeBigCat()">
     <div class="cat-modal-card" onclick="event.stopPropagation()">
       <img src="https://static.ctclove.ru/uploads/fileskotiki/zaplakannyi.jpg" alt="Sad cat" onerror="imgFallback(this, 'cat')">
-      <h3 id="cat-msg">Oops... Try again! 😿</h3>
+      <h3 id="cat-msg">Oops... Try again!</h3>
     </div>
   </div>
 
@@ -2688,7 +2735,7 @@
   <div id="completion-popup-overlay" onclick="closeCompletionPopup()">
     <div class="completion-popup-card" onclick="event.stopPropagation()">
       <img id="popup-img" src="https://i.pinimg.com/736x/ed/d7/9a/edd79a8eabef78c84546802686d99d40.jpg" alt="Completed" referrerpolicy="no-referrer" onclick="handlePopupClick()" onerror="imgFallback(this, 'raccoon')">
-      <h3 id="popup-text">Click me! 🐾</h3>
+      <h3 id="popup-text">Click me!</h3>
     </div>
   </div>
 
@@ -2697,7 +2744,7 @@
       <div class="wi-top">
         <div class="wi-row1">
           <div><div class="wi-word" id="wi-word"></div><div class="wi-ipa" id="wi-ipa"></div></div>
-          <button class="wi-close" onclick="closeOriginModal()" aria-label="Close">✕</button>
+          <button class="wi-close" id="wi-close" onclick="closeOriginModal()" aria-label="Close"></button>
         </div>
         <div class="wi-sec-title" id="wi-hist-title" style="margin-top:14px"></div>
         <p class="wi-origin" id="wi-origin"></p>
@@ -2712,16 +2759,16 @@
 
   <div id="add-lesson-overlay" onclick="closeAddLesson()">
     <div class="edit-list-card" onclick="event.stopPropagation()">
-      <h3 id="add-lesson-title">📁 Add new lesson</h3>
+      <h3 id="add-lesson-title">Add new lesson</h3>
       <p class="edit-list-hint" id="existing-lessons-summary"></p>
       <input type="text" id="new-lesson-label" class="lesson-label-input" placeholder="Lesson name (e.g. date)">
       <p class="edit-list-hint" id="add-lesson-format-hint">One word per block, blocks separated by a blank line. Wrap the key phrase in **double asterisks** inside the sentence. Fields: term, en, ru, sentence, origin_en, origin_ru (origin is optional).</p>
       <textarea id="add-lesson-textarea" class="edit-list-textarea" spellcheck="false"></textarea>
       <div id="add-lesson-feedback" class="edit-list-feedback"></div>
       <div class="edit-list-actions">
-        <button class="btn btn-primary" onclick="submitNewLesson()" id="add-lesson-submit-btn">✅ Add lesson &amp; practice</button>
-        <button class="btn" onclick="downloadUpdatedSite()" id="add-lesson-download-btn">💾 Download site file</button>
-        <button class="btn" onclick="closeAddLesson()" id="add-lesson-cancel-btn">✕ Cancel</button>
+        <button class="btn btn-primary" onclick="submitNewLesson()" id="add-lesson-submit-btn">Add lesson &amp; practice</button>
+        <button class="btn" onclick="downloadUpdatedSite()" id="add-lesson-download-btn">Download site file</button>
+        <button class="btn" onclick="closeAddLesson()" id="add-lesson-cancel-btn">Cancel</button>
       </div>
     </div>
   </div>
@@ -2805,7 +2852,7 @@
       <div class="an-card"><h2 id="an2-words-title"></h2><div class="sub" id="an2-words-sub"></div><div class="an-three" id="an2-words-three"></div><div class="an-stack" id="an2-stack"></div></div>
       <div class="an-card"><h2 id="an2-time-title"></h2><div class="sub" id="an2-time-sub"></div><div class="an-time3" id="an2-time3"></div><div id="an2-time-bars"></div></div>
       <div class="an-card" id="an2-hard-card"><h2 id="an2-hard-title"></h2><div class="sub" id="an2-hard-sub"></div><div id="an2-hard"></div><button class="glass-btn lime" style="width:100%;margin-top:12px" id="an2-hard-btn" onclick="practiceHard()"></button></div>
-      <div class="an-card"><h2 id="an2-hist-title"></h2><div class="sub" id="an2-hist-sub"></div><div id="an2-words"></div></div>
+      <div class="an-card"><h2 id="an2-hist-title"></h2><div class="sub" id="an2-hist-sub"></div><div class="an-chips" id="an2-filter"></div><div id="an2-words"></div></div>
     </div>
 
     <div id="trainer-screen" class="app-screen">
@@ -2871,9 +2918,9 @@
             <div class="bars-wrapper" id="fc-bars-box">
               <div class="register-container">
                 <div class="register-labels">
-                  <span>🇺🇸 US</span>
+                  <span>US</span>
                   <span>Neutral</span>
-                  <span>🇬🇧 UK</span>
+                  <span>UK</span>
                 </div>
                 <div class="register-bar-track">
                   <div class="register-thumb" id="region-thumb" style="left: 50%;"></div>
@@ -2916,7 +2963,7 @@
 
       <div class="knowledge-actions" id="fc-knowledge-actions">
         <button class="btn-dont-know-action" onclick="swipeOut(-1)">
-          <span id="label-dont-know">✕ Still learning</span>
+          <span id="label-dont-know">Still learning</span>
         </button>
         <button class="btn-know-action" onclick="swipeOut(1)">
           <span id="label-know">✓ I know this</span>
@@ -2945,14 +2992,14 @@
       <div class="quiz-card">
         <div class="quiz-header-row" id="quiz-header-row">
           <div class="quiz-num" id="quiz-progress" style="font-size: 0.82rem; font-weight: 800; color: var(--c-berry);">Question 1 of 14</div>
-          <button class="hint-btn" id="quiz-hint-btn" onclick="toggleHint()">💡 Hint</button>
+          <button class="hint-btn" id="quiz-hint-btn" onclick="toggleHint()">Hint</button>
         </div>
         <div class="mode-progress" id="quiz-progress-row"><div class="mode-progress-fill" id="quiz-progress-fill"></div></div>
         <div class="hint-box" id="quiz-hint-box">...</div>
         <div class="quiz-sentence" id="quiz-sentence">...</div>
         <div class="options-grid" id="quiz-options"></div>
         <div id="quiz-finished" style="display:none; text-align:center;">
-          <div id="quiz-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 6px;">Quiz completed! 🎉</div>
+          <div id="quiz-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 6px;">Quiz completed!</div>
           <div id="quiz-finished-sub" style="color: var(--c-text-muted); font-size: 0.92rem;">Great job — every question answered correctly.</div>
           <div id="quiz-finished-dots" style="margin-top:10px;"></div>
         </div>
@@ -2986,7 +3033,7 @@
           </div>
 
           <div class="sb-hint-row">
-            <button class="hint-btn" id="scramble-hint-btn" onclick="toggleSbHint()">💡 Hint</button>
+            <button class="hint-btn" id="scramble-hint-btn" onclick="toggleSbHint()">Hint</button>
             <button class="example-audio-icon" id="scramble-audio-btn" onclick="playScrambleAudio(event, this)" style="display:none; border:none; background:none; cursor:pointer; flex:none;" title="Listen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></button>
             <div class="sb-hint-box" id="scramble-hint-box"></div>
           </div>
@@ -3000,11 +3047,15 @@
             <button class="btn btn-primary" onclick="checkScrambleAnswer()" id="scramble-check-btn">Check</button>
             <button class="btn btn-primary" onclick="nextScrambleQuestion()" id="scramble-next-btn" style="display:none;">Next →</button>
           </div>
+          <div class="scramble-actions" style="margin-top:10px">
+            <button class="btn" onclick="sbBack()" id="scramble-back-btn" style="display:none;">← Back</button>
+            <button class="btn" onclick="sbSkip()" id="scramble-skip-btn">Skip →</button>
+          </div>
 
           <div id="scramble-feedback" style="margin-top: 14px; font-weight: 700; font-size: 0.95rem; min-height: 24px; text-align: center;"></div>
         </div>
         <div id="scramble-finished" style="display:none; text-align:center;">
-          <div id="scramble-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 6px;">Nice work! 🎉</div>
+          <div id="scramble-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 6px;">Nice work!</div>
           <div id="scramble-finished-sub" style="color: var(--c-text-muted); font-size: 0.92rem;"></div>
           <div id="scramble-finished-dots" style="margin: 10px 0 16px;"></div>
           <button class="btn btn-primary" id="scramble-round-btn" onclick="nextScrambleRound()">Next →</button>
@@ -3016,14 +3067,14 @@
     <div id="listening" class="tab-content">
       <div class="ls-card">
         <div id="ls-main">
-          <div class="quiz-header-row"><div class="quiz-num" id="ls-progress" style="font-size: 0.82rem; font-weight: 800; color: var(--c-berry);">Word 1</div><button class="hint-btn" id="ls-hint-btn" onclick="lsHint()">💡 Hint</button></div>
+          <div class="quiz-header-row"><div class="quiz-num" id="ls-progress" style="font-size: 0.82rem; font-weight: 800; color: var(--c-berry);">Word 1</div><button class="hint-btn" id="ls-hint-btn" onclick="lsHint()">Hint</button></div>
           <div class="mode-progress"><div class="mode-progress-fill" id="ls-progress-fill"></div></div>
           <div class="ls-hint-box" id="ls-hint-box"></div>
           <p class="ls-instr" id="ls-instr"></p>
           <div class="ls-track">
-            <button class="glass-btn round ls-play" id="ls-play" onclick="lsPlay()" aria-label="Play">▶</button>
+            <button class="glass-btn round ls-play" id="ls-play" onclick="lsPlay()" aria-label="Play"></button>
             <div class="wave" id="ls-wave" onclick="lsPlay()" aria-hidden="true"></div>
-            <button class="glass-btn round ls-replay" id="ls-replay-btn" onclick="lsPlay()" aria-label="Replay" title="Replay">↺</button>
+            <button class="glass-btn round ls-replay" id="ls-replay-btn" onclick="lsPlay()" aria-label="Replay" title="Replay"></button>
           </div>
           <div class="ls-speed"><span id="ls-speed-label">Speed</span>
             <button data-rate="0.5" onclick="lsSetSpeed(0.5)">0.5×</button><button class="on" data-rate="1" onclick="lsSetSpeed(1)">1×</button><button data-rate="2" onclick="lsSetSpeed(2)">2×</button></div>
@@ -3031,15 +3082,15 @@
             <input type="text" class="answer-input" id="ls-input" autocomplete="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==='Enter'){lsSolved?lsNext():lsCheck();}">
             <button type="button" class="mic-btn" id="ls-mic" aria-label="Dictate"></button>
           </div>
+          <div class="ls-feedback" id="ls-feedback"></div>
           <div class="ls-actions">
             <button class="btn" id="ls-skip-btn" onclick="lsSkip()">Show answer</button>
             <button class="btn btn-primary" id="ls-check-btn" onclick="lsCheck()">Check</button>
             <button class="btn btn-primary" id="ls-next-btn" onclick="lsNext()" style="display:none">Next →</button>
           </div>
-          <div class="ls-feedback" id="ls-feedback"></div>
         </div>
         <div id="ls-finished" style="display:none; text-align:center;">
-          <div id="ls-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 16px;">Listening complete! 🎉</div>
+          <div id="ls-finished-title" style="font-size: 1.4rem; font-weight: 800; color: var(--c-berry); margin-bottom: 16px;">Listening complete! </div>
           <button class="btn btn-primary" id="ls-restart-btn" onclick="lsRestart()">Restart</button>
         </div>
       </div>
@@ -3053,7 +3104,8 @@
           <div class="mode-progress"><div class="mode-progress-fill" id="pr-progress-fill"></div></div>
           <p class="pr-instr" id="pr-instr" style="margin-top:14px"></p>
           <div class="pr-target" id="pr-target"></div>
-          <div class="pr-meaning" id="pr-meaning"></div>
+          <button class="tool-pill" id="pr-def-btn" onclick="prShowDef()" style="margin-bottom:14px">Show definition</button>
+          <div class="pr-meaning" id="pr-meaning" style="display:none"></div>
           <div class="input-wrap">
             <textarea class="answer-input" id="pr-input" autocapitalize="sentences" spellcheck="false"></textarea>
             <button type="button" class="mic-btn" id="pr-mic" aria-label="Dictate"></button>
@@ -3157,7 +3209,7 @@
   <!-- Learn on the go (настройки + плеер) -->
   <div id="otg-overlay">
     <div class="otg-panel">
-      <button class="glass-btn round otg-close" onclick="closeOtg()" aria-label="Close">✕</button>
+      <button class="glass-btn round otg-close" id="otg-close" onclick="closeOtg()" aria-label="Close"></button>
       <div id="otg-settings">
         <h3 class="otg-title" id="otg-title">Learn on the go</h3>
         <p class="otg-desc" id="otg-desc"></p>
@@ -3175,14 +3227,14 @@
       </div>
       <div id="otg-player">
         <div class="otg-progress" id="otg-progress"></div>
-        <div class="otg-pulse" id="otg-pulse">🔊</div>
+        <div class="otg-pulse" id="otg-pulse"></div>
         <div class="otg-prompt" id="otg-prompt"></div>
         <div class="otg-answer" id="otg-answer"></div>
         <div class="otg-phase" id="otg-phase"></div>
         <div class="otg-controls">
-          <button onclick="otgStep(-1)" aria-label="Previous">⟲</button>
-          <button class="play" id="otg-play" onclick="otgToggle()" aria-label="Pause">❚❚</button>
-          <button onclick="otgStep(1)" aria-label="Next">⟳</button>
+          <button id="otg-prev" onclick="otgStep(-1)" aria-label="Previous"></button>
+          <button class="play" id="otg-play" onclick="otgToggle()" aria-label="Pause"></button>
+          <button id="otg-next" onclick="otgStep(1)" aria-label="Next"></button>
         </div>
         <div class="otg-note">Keep the screen on while listening — browsers may pause audio when the phone locks.</div>
       </div>
@@ -3310,7 +3362,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/slave-away.jpg",
         "audioWord": "audio/word/slave-away.mp3",
         "audioSentence": "audio/sentence/slave-away.mp3",
-        "audioDef": "audio/def/slave-away.mp3"
+        "audioDef": "audio/def/slave-away.mp3",
+        "audioDefRu": "audio/defru/slave-away.mp3"
       },
       {
         "term": "rush around",
@@ -3397,7 +3450,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/rush-around.jpg",
         "audioWord": "audio/word/rush-around.mp3",
         "audioSentence": "audio/sentence/rush-around.mp3",
-        "audioDef": "audio/def/rush-around.mp3"
+        "audioDef": "audio/def/rush-around.mp3",
+        "audioDefRu": "audio/defru/rush-around.mp3"
       },
       {
         "term": "squeeze in",
@@ -3484,7 +3538,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/squeeze-in.jpg",
         "audioWord": "audio/word/squeeze-in.mp3",
         "audioSentence": "audio/sentence/squeeze-in.mp3",
-        "audioDef": "audio/def/squeeze-in.mp3"
+        "audioDef": "audio/def/squeeze-in.mp3",
+        "audioDefRu": "audio/defru/squeeze-in.mp3"
       },
       {
         "term": "be snowed under (with)",
@@ -3572,7 +3627,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/snowed-under.jpg",
         "audioWord": "audio/word/snowed-under.mp3",
         "audioSentence": "audio/sentence/snowed-under.mp3",
-        "audioDef": "audio/def/snowed-under.mp3"
+        "audioDef": "audio/def/snowed-under.mp3",
+        "audioDefRu": "audio/defru/snowed-under.mp3"
       },
       {
         "term": "swamped",
@@ -3658,7 +3714,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/swamped.jpg",
         "audioWord": "audio/word/swamped.mp3",
         "audioSentence": "audio/sentence/swamped.mp3",
-        "audioDef": "audio/def/swamped.mp3"
+        "audioDef": "audio/def/swamped.mp3",
+        "audioDefRu": "audio/defru/swamped.mp3"
       },
       {
         "term": "slammed",
@@ -3746,7 +3803,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/slammed.jpg",
         "audioWord": "audio/word/slammed.mp3",
         "audioSentence": "audio/sentence/slammed.mp3",
-        "audioDef": "audio/def/slammed.mp3"
+        "audioDef": "audio/def/slammed.mp3",
+        "audioDefRu": "audio/defru/slammed.mp3"
       },
       {
         "term": "be up to one's ears in",
@@ -3840,7 +3898,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/up-to-ears.jpg",
         "audioWord": "audio/word/up-to-ears.mp3",
         "audioSentence": "audio/sentence/up-to-ears.mp3",
-        "audioDef": "audio/def/up-to-ears.mp3"
+        "audioDef": "audio/def/up-to-ears.mp3",
+        "audioDefRu": "audio/defru/up-to-ears.mp3"
       },
       {
         "term": "chill out",
@@ -3927,7 +3986,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/chill-out.jpg",
         "audioWord": "audio/word/chill-out.mp3",
         "audioSentence": "audio/sentence/chill-out.mp3",
-        "audioDef": "audio/def/chill-out.mp3"
+        "audioDef": "audio/def/chill-out.mp3",
+        "audioDefRu": "audio/defru/chill-out.mp3"
       },
       {
         "term": "idle away",
@@ -4014,7 +4074,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/idle-away.jpg",
         "audioWord": "audio/word/idle-away.mp3",
         "audioSentence": "audio/sentence/idle-away.mp3",
-        "audioDef": "audio/def/idle-away.mp3"
+        "audioDef": "audio/def/idle-away.mp3",
+        "audioDefRu": "audio/defru/idle-away.mp3"
       },
       {
         "term": "kill time",
@@ -4099,7 +4160,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/kill-time.jpg",
         "audioWord": "audio/word/kill-time.mp3",
         "audioSentence": "audio/sentence/kill-time.mp3",
-        "audioDef": "audio/def/kill-time.mp3"
+        "audioDef": "audio/def/kill-time.mp3",
+        "audioDefRu": "audio/defru/kill-time.mp3"
       },
       {
         "term": "wind down",
@@ -4184,7 +4246,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/wind-down.jpg",
         "audioWord": "audio/word/wind-down.mp3",
         "audioSentence": "audio/sentence/wind-down.mp3",
-        "audioDef": "audio/def/wind-down.mp3"
+        "audioDef": "audio/def/wind-down.mp3",
+        "audioDefRu": "audio/defru/wind-down.mp3"
       },
       {
         "term": "lounge around",
@@ -4271,7 +4334,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/lounge-around.jpg",
         "audioWord": "audio/word/lounge-around.mp3",
         "audioSentence": "audio/sentence/lounge-around.mp3",
-        "audioDef": "audio/def/lounge-around.mp3"
+        "audioDef": "audio/def/lounge-around.mp3",
+        "audioDefRu": "audio/defru/lounge-around.mp3"
       },
       {
         "term": "veg out",
@@ -4357,7 +4421,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/veg-out.jpg",
         "audioWord": "audio/word/veg-out.mp3",
         "audioSentence": "audio/sentence/veg-out.mp3",
-        "audioDef": "audio/def/veg-out.mp3"
+        "audioDef": "audio/def/veg-out.mp3",
+        "audioDefRu": "audio/defru/veg-out.mp3"
       },
       {
         "term": "ease off",
@@ -4442,7 +4507,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/ease-off.jpg",
         "audioWord": "audio/word/ease-off.mp3",
         "audioSentence": "audio/sentence/ease-off.mp3",
-        "audioDef": "audio/def/ease-off.mp3"
+        "audioDef": "audio/def/ease-off.mp3",
+        "audioDefRu": "audio/defru/ease-off.mp3"
       },
       {
         "term": "ease up on",
@@ -4530,7 +4596,8 @@ const lessons = /*LESSONS_START*/[
         "image": "img/ease-up-on.jpg",
         "audioWord": "audio/word/ease-up-on.mp3",
         "audioSentence": "audio/sentence/ease-up-on.mp3",
-        "audioDef": "audio/def/ease-up-on.mp3"
+        "audioDef": "audio/def/ease-up-on.mp3",
+        "audioDefRu": "audio/defru/ease-up-on.mp3"
       }
     ]
   }
@@ -4557,11 +4624,11 @@ const lessons = /*LESSONS_START*/[
       analytics: "Analytics",
       back: "← Back",
       next: "Next →",
-      restart: "Restart 🔄",
+      restart: "Practice again",
       know: "✓ Know",
-      dontKnow: "✕ Still learning",
+      dontKnow: "Still learning",
       originBtn: "Word Details",
-      hintBtn: "💡 Hint",
+      hintBtn: "Hint",
       checkBtn: "Check",
       resetBtn: "Reset ↺",
       scrambleInstruction: "Build the correct sentence:",
@@ -4569,22 +4636,22 @@ const lessons = /*LESSONS_START*/[
       knownLabel: "Mastered Words",
       reviewLabel: "Need Review",
       breakdownTitle: "Word Breakdown",
-      deckFinished: "Deck completed! 🎉",
+      deckFinished: "Deck completed!",
       deckFinishedSub: "Great job reviewing your vocabulary.",
       deckFinishedQ: "Would you like to start over?",
-      quizFinished: "Nice work! 🎉",
+      quizFinished: "Nice work!",
       quizFinishedSub: "Every question answered correctly.",
       nextQuestionBtn: "Next Question →",
-      clickMe: "Click me! 🐾",
-      awesome: "Awesome! ✨",
-      allLessons: "📚 All lessons",
+      clickMe: "Click me!",
+      awesome: "Awesome!",
+      allLessons: "All lessons",
       addLessonPill: "+ Add lesson",
-      addLessonTitle: "📁 Add new lesson",
+      addLessonTitle: "Add new lesson",
       addLessonFormatHint: "One word per block, blocks separated by a blank line. Wrap the key phrase in **double asterisks** inside the sentence. Fields: term, en, ru, sentence, origin_en, origin_ru (origin is optional).",
       lessonLabelPlaceholder: "Lesson name (e.g. date)",
-      addLessonSubmit: "✅ Add lesson & practice",
-      addLessonDownload: "💾 Download site file",
-      addLessonCancel: "✕ Cancel",
+      addLessonSubmit: "Add lesson & practice",
+      addLessonDownload: "Download site file",
+      addLessonCancel: "Cancel",
       existingLessonsPrefix: "Existing lessons: ",
       wordsCountSuffix: " words",
       backToLessons: "← Back",
@@ -4639,11 +4706,11 @@ const lessons = /*LESSONS_START*/[
       analytics: "Аналитика",
       back: "← Назад",
       next: "Дальше →",
-      restart: "Заново 🔄",
+      restart: "Ещё раз",
       know: "✓ Знаю",
-      dontKnow: "✕ Не знаю",
+      dontKnow: "Не знаю",
       originBtn: "Подробнее о слове",
-      hintBtn: "💡 Подсказка",
+      hintBtn: "Подсказка",
       checkBtn: "Проверить",
       resetBtn: "Сбросить ↺",
       scrambleInstruction: "Соберите правильное предложение из слов:",
@@ -4651,22 +4718,22 @@ const lessons = /*LESSONS_START*/[
       knownLabel: "Усвоенные слова",
       reviewLabel: "На повторение",
       breakdownTitle: "Статус слов",
-      deckFinished: "Колода завершена! 🎉",
+      deckFinished: "Колода завершена!",
       deckFinishedSub: "Отличная работа по повторению лексики.",
       deckFinishedQ: "Пройти карточки еще раз?",
-      quizFinished: "Отлично! 🎉",
+      quizFinished: "Отлично!",
       quizFinishedSub: "Все вопросы отвечены правильно.",
       nextQuestionBtn: "Следующий вопрос →",
-      clickMe: "Нажми на меня! 🐾",
-      awesome: "Потрясающе! ✨",
-      allLessons: "📚 Все уроки",
+      clickMe: "Нажми на меня!",
+      awesome: "Потрясающе!",
+      allLessons: "Все уроки",
       addLessonPill: "+ Добавить урок",
-      addLessonTitle: "📁 Добавить новый урок",
+      addLessonTitle: "Добавить новый урок",
       addLessonFormatHint: "Каждое слово - отдельным блоком, блоки разделяйте пустой строкой. Ключевую фразу в примере выделяйте **двумя звёздочками**. Поля: term, en, ru, sentence, origin_en, origin_ru (origin - необязательно).",
       lessonLabelPlaceholder: "Название урока (например, дата)",
-      addLessonSubmit: "✅ Добавить урок и начать",
-      addLessonDownload: "💾 Скачать файл сайта",
-      addLessonCancel: "✕ Отмена",
+      addLessonSubmit: "Добавить урок и начать",
+      addLessonDownload: "Скачать файл сайта",
+      addLessonCancel: "Отмена",
       existingLessonsPrefix: "Уже есть уроки: ",
       wordsCountSuffix: " слов",
       backToLessons: "← Назад",
@@ -4742,7 +4809,7 @@ let currentCardIdx = 0;
     lessons.forEach(function (l) {
       const btn = document.createElement('button');
       btn.className = 'lesson-pill' + (currentLessonId === l.id ? ' active' : '');
-      btn.innerText = '📁 ' + l.label;
+      btn.innerText = '' + l.label;
       btn.onclick = function () { selectLesson(l.id); };
       container.appendChild(btn);
     });
@@ -5000,9 +5067,6 @@ let currentCardIdx = 0;
 
   // Real per-word mastery, from the same wordLevel flashcards already write: the bar fills up as
   // the word survives more correct reviews, full once it reaches MASTERY_LEVEL.
-  function wordProgressPct(term) {
-    return Math.round(100 * Math.min(wordLevel[term] || 0, MASTERY_LEVEL) / MASTERY_LEVEL);
-  }
   function progressLevel(pct) {
     if (pct >= 70) return 'good';
     if (pct >= 35) return 'mid';
@@ -5257,7 +5321,7 @@ let currentCardIdx = 0;
     // uneven (colour reaching the edges at different times, a slow fade-out on the way back) —
     // real hardware just can't repaint that fast. A plain fade is instant and always smooth, so
     // phones get that instead; the grow-from-the-card animation stays for mouse/desktop.
-    const useSimpleFade = sourceEl && window.matchMedia('(max-width: 700px), (min-width: 900px)').matches;
+    const useSimpleFade = sourceEl && window.matchMedia('(max-width: 700px)').matches;
     if (sourceEl && !useSimpleFade) {
       // start clipped to the folder's own rectangle, then grow to the full screen
       const r = sourceEl.getBoundingClientRect();
@@ -5373,10 +5437,6 @@ let currentCardIdx = 0;
   // own Flashcards/Multiple Choice/Matching/Sentence Builder tabs, which only "practice these
   // words" below should open.
 
-  function practiceGlobalReviewWords() {
-    const words = allWordsList().filter(function (w) { const lvl = wordLevel[w.term] || 0; return lvl > 0 && lvl < MASTERY_LEVEL; });
-    if (words.length) startPractice(words, 'allwords');
-  }
 
   function focusSearch() {
     showScreen('home');
@@ -6172,7 +6232,7 @@ let currentCardIdx = 0;
       if (done) {
         const pair = document.createElement('div');
         pair.className = 'match-pair';
-        pair.innerHTML = '<span class="mp-term"></span><span class="mp-sep">—</span><span class="mp-def"></span><span class="mp-check">✓</span>';
+        pair.innerHTML = '<span class="mp-line"><span class="mp-term"></span> — <span class="mp-def"></span></span><span class="mp-check">✓</span>';
         pair.querySelector('.mp-term').innerText = term;
         pair.querySelector('.mp-def').innerText = def;
         done.appendChild(pair);
@@ -6328,88 +6388,7 @@ let currentCardIdx = 0;
 
 
   // ANALYTICS UI
-  function updateAnalyticsUI() {
-    // Real data only: everything here comes from wordLevel (flashcard self-rating, accumulated
-    // over MASTERY_LEVEL correct answers), synced via the cloud. There is no per-mode
-    // (quiz/matching/scramble) answer history yet, so this tab intentionally does not claim
-    // anything beyond what flashcards actually record.
-    // Scoped to whatever's currently being studied (one lesson, saved words, or everything) —
-    // vocabData is the same word list the flashcards/quiz/matching tabs are already using,
-    // rather than always pulling every word from every lesson regardless of context.
-    const all = vocabData;
-    let knownCount = 0;
-    let reviewCount = 0;
-    const reviewWords = [];
-    const pillsContainer = document.getElementById('analytics-word-pills');
-    pillsContainer.innerHTML = '';
 
-    all.forEach(function (item) {
-      const level = wordLevel[item.term] || 0;
-      const pill = document.createElement('div');
-
-      if (level >= MASTERY_LEVEL) {
-        knownCount++;
-        pill.className = 'word-pill mastered';
-        pill.innerText = `✓ ${item.term}`;
-      } else if (level > 0) {
-        reviewCount++;
-        reviewWords.push(item);
-        pill.className = 'word-pill struggled';
-        pill.innerText = `${level}/${MASTERY_LEVEL} ${item.term}`;
-      } else {
-        pill.className = 'word-pill';
-        pill.style.background = '#f0ebeb';
-        pill.innerText = `○ ${item.term}`;
-      }
-      pillsContainer.appendChild(pill);
-    });
-
-    const ru = currentLang === 'ru';
-    const total = all.length || 1;
-    const scopeLabel = trainerTitleInfo ? (trainerTitleInfo.label || t(trainerTitleInfo.key)) : '';
-    document.getElementById('an-hero-num').innerText = knownCount + ' / ' + all.length;
-    document.getElementById('an-hero-label').innerText = ru ? 'слов усвоено' : 'words mastered';
-    document.getElementById('an-hero-fill').style.width = Math.round(100 * knownCount / total) + '%';
-    document.getElementById('an-hero-sub').innerText = ru
-      ? 'Считаются слова из текущего раздела: ' + scopeLabel
-      : 'Counting words in: ' + scopeLabel;
-
-    const growthCard = document.getElementById('an-growth-card');
-    if (reviewWords.length) {
-      growthCard.style.display = 'block';
-      document.getElementById('an-growth-title').innerText = ru ? 'Стоит взглянуть ещё раз' : 'Worth another look';
-      document.getElementById('an-growth-sub').innerText = ru
-        ? 'Отмечено как «ещё учу» на карточках — самое эффективное, на чём сосредоточиться сегодня.'
-        : 'Marked "Still learning" on flashcards — the most useful place to focus today.';
-      const pillRow = document.getElementById('an-growth-pills');
-      pillRow.innerHTML = '';
-      reviewWords.slice(0, 6).forEach(function (w) {
-        const p = document.createElement('span');
-        p.className = 'word-pill struggled';
-        p.innerText = w.term;
-        pillRow.appendChild(p);
-      });
-      document.getElementById('an-growth-btn').innerText = ru
-        ? 'Потренировать эти ' + reviewWords.length + ' слов →'
-        : 'Practice these ' + reviewWords.length + ' words →';
-    } else {
-      growthCard.style.display = 'none';
-    }
-
-    const savedCount = Object.keys(favoriteTerms).filter(function (k) { return favoriteTerms[k]; }).length;
-    document.getElementById('an-closing-text').innerHTML = ru
-      ? (knownCount > 0
-          ? 'Отличный прогресс — <b>' + knownCount + '</b> ' + (ru ? 'слов уже усвоено' : '') + '. Сохранено в избранное: <b>' + savedCount + '</b>.'
-          : 'Пока не отмечено ни одного слова как «знаю» — начни с карточек, и здесь появится прогресс.')
-      : (knownCount > 0
-          ? 'Nice progress — <b>' + knownCount + '</b> words mastered so far. Saved to favourites: <b>' + savedCount + '</b>.'
-          : "No words marked as known yet — start with Flashcards and your progress will show up here.");
-  }
-
-  function practiceReviewWords() {
-    const words = vocabData.filter(function (w) { const lvl = wordLevel[w.term] || 0; return lvl > 0 && lvl < MASTERY_LEVEL; });
-    if (words.length) startPractice(words, trainerReturnTo);
-  }
 
 
   // ============================================================================
@@ -6418,6 +6397,15 @@ let currentCardIdx = 0;
   const L = function (en, ru) { return currentLang === 'ru' ? ru : en; };
   const $id = function (id) { return document.getElementById(id); };
   const ICON_SPEAKER = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  const svgI = function (inner, size, extra) { return '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size + '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"' + (extra || '') + '>' + inner + '</svg>'; };
+  const ICON_PLAY = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+  const ICON_PAUSE = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4.2" height="14" rx="1.3"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.3"/></svg>';
+  const ICON_PREV = svgI('<polygon points="19 19 9 12 19 5 19 19" fill="currentColor"/><line x1="5" y1="19" x2="5" y2="5"/>', 18);
+  const ICON_NEXT = svgI('<polygon points="5 5 15 12 5 19 5 5" fill="currentColor"/><line x1="19" y1="5" x2="19" y2="19"/>', 18);
+  const ICON_REPLAY = svgI('<polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>', 16);
+  const ICON_BULB = svgI('<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>', 15, ' style="margin-right:6px;vertical-align:-2px"');
+  const ICON_CLOSE = svgI('<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>', 16);
+  const ICON_SOUND_BIG = svgI('<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', 30);
   const ICON_MIC = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>';
   Object.assign(translations.en, { know: '✓ Know', learnWords: 'Learn', drillTitle: 'Practice weak spots', topTabReview: 'Review', stillLearningTitle: 'Still learning',
     reviewTitle_due: 'Due today', reviewTitle_learning: 'Still learning', reviewTitle_problem: 'Problem words', reviewTitle_mastered: 'Mastered' });
@@ -6445,6 +6433,7 @@ let currentCardIdx = 0;
       localStorage.setItem(LEVEL_KEY, JSON.stringify(wordLevel));
       localStorage.setItem(SRS_KEY, JSON.stringify(srs));
       localStorage.setItem(ROUNDS_KEY, JSON.stringify(roundState));
+      localStorage.setItem(WP_KEY, JSON.stringify(wp));
       trimActivity();
       localStorage.setItem(ACT_KEY, JSON.stringify(activity));
       localStorage.setItem(ACC_KEY, JSON.stringify(acc));
@@ -6460,24 +6449,45 @@ let currentCardIdx = 0;
   let penalized = {};   // чтобы за одно слово в одном упражнении за занятие снималось не больше одного уровня
 
   // Каждое упражнение пишет сюда: верно — +1 уровень (максимум раз в день на слово), ошибка — −1 уровень.
+
+  // Anki-кнопки: Again — сегодня, Hard — завтра, Good — ~3 дня и дальше растёт, Easy — 7+ и растёт быстрее.
+  function intervalLabel(d) { return d === 0 ? L('today', 'сегодня') : d + L(' d', ' дн'); }
+
+
+
+  // ---------- раунды (Multiple Choice и Sentence Builder — у каждого свой счётчик) ----------
+
+  // ---- состояние слова: new → learning («Still learning») → graduated («Know» + расписание Anki) ----
+  const MASTER_DAYS = 14;     // слово «усвоено», когда интервал повторения дорос до 14 дней
+  function stOf(term) {
+    const e = srs[term];
+    if (e && e.st) return e.st;
+    const lv = wordLevel[term] || 0;   // старые данные (до этой логики)
+    return lv >= MASTERY_LEVEL ? 'graduated' : (lv > 0 ? 'learning' : 'new');
+  }
+  function isGraduated(term) { return stOf(term) === 'graduated'; }
+  function isStillLearning(term) { return stOf(term) === 'learning'; }
+  function isMastered(term) { const e = srs[term]; return stOf(term) === 'graduated' && !!(e && (e.iv || 0) >= MASTER_DAYS); }
+  function isDue(term) { const e = srs[term]; return stOf(term) === 'graduated' && !!(e && e.next && e.next <= todayStr()); }
+  function isProblem(term) { const e = srs[term] || {}; return !isMastered(term) && ((e.err || 0) >= 2 || (e.lapses || 0) >= 2); }
+  // полоска прогресса слова: новое 0, учу 20, дальше растёт вместе с интервалом, 100 — усвоено
+  function wordProgressPct(term) {
+    const st = stOf(term);
+    if (st === 'new') return 0;
+    if (st === 'learning') return 20;
+    const iv = (srs[term] && srs[term].iv) || 0;
+    return iv >= MASTER_DAYS ? 100 : Math.round(35 + Math.min(60, iv * 4.5));
+  }
+
+  // Каждое упражнение пишет сюда. Ошибка у слова в повторении возвращает его на завтра.
   function recordResult(term, correct, kind, soft) {
     const e = srs[term] || (srs[term] = {});
     const today = todayStr();
     if (correct) {
       e.ok = (e.ok || 0) + 1;
-      if (e.up !== today) {
-        wordLevel[term] = Math.min((wordLevel[term] || 0) + 1, MASTERY_LEVEL);
-        e.up = today;
-      }
-      if ((wordLevel[term] || 0) >= MASTERY_LEVEL && !e.next) { e.iv = 1; e.next = addDays(today, 1); }
     } else {
-      const pk = kind + '|' + term;
-      if (!penalized[pk]) {
-        penalized[pk] = true;
-        wordLevel[term] = Math.max((wordLevel[term] || 0) - 1, 0);
-        if (e.up === today) e.up = null;
-      }
       if (!soft) e.err = (e.err || 0) + 1;
+      if (kind !== 'fc' && stOf(term) === 'graduated' && e.next && e.next > addDays(today, 1)) { e.next = addDays(today, 1); }
     }
     e.last = today;
     logEvent(term, kind, correct ? (kind === 'fc' ? 'know' : 'ok') : (kind === 'fc' ? 'learn' : 'bad'));
@@ -6494,69 +6504,57 @@ let currentCardIdx = 0;
     if (grade === 'good') return iv < 3 ? 3 : Math.round(iv * 2);
     return iv < 7 ? 7 : Math.round(iv * 2.5);
   }
-  function intervalLabel(d) { return d === 0 ? L('today', 'сегодня') : d + L(' d', ' дн'); }
 
+  // расписание меняется не чаще одного раза в день на слово (кроме «Again» — забыл, значит вернуть сегодня)
   function rateWord(term, grade) {
     const e = srs[term] || (srs[term] = {});
     const today = todayStr();
+    logEvent(term, 'rate', grade); touchAction(); e.last = today;
+    e.st = 'graduated';
+    if (e.rateDay === today && grade !== 'again') { persistProgress(); return; }
     const iv = nextInterval(term, grade);
-    e.iv = iv; e.next = addDays(today, iv); e.last = today;
-    logEvent(term, 'rate', grade); touchAction();
-    if (grade === 'again') {
-      e.lapses = (e.lapses || 0) + 1;
-      wordLevel[term] = Math.max(Math.min(wordLevel[term] || 0, MASTERY_LEVEL) - 1, 0);
-    } else if (grade === 'good' || grade === 'easy') {
-      if (e.up !== today) { wordLevel[term] = Math.min((wordLevel[term] || 0) + 1, MASTERY_LEVEL); e.up = today; }
-    }
+    e.iv = iv; e.next = addDays(today, iv); e.rateDay = today;
+    if (grade === 'again') e.lapses = (e.lapses || 0) + 1;
     persistProgress();
   }
 
-  function isDue(term) { const e = srs[term]; return !!(e && e.next && e.next <= todayStr()); }
-  function isProblem(term) { const e = srs[term] || {}; return (wordLevel[term] || 0) < MASTERY_LEVEL && ((e.err || 0) >= 2 || (e.lapses || 0) >= 2); }
-  function isStillLearning(term) { const e = srs[term]; return (wordLevel[term] || 0) < MASTERY_LEVEL && ((wordLevel[term] || 0) > 0 || !!(e && e.last)); }
-
-  // ---------- раунды (Multiple Choice и Sentence Builder — у каждого свой счётчик) ----------
-  function roundKey(kind) { return (trainerReturnTo || 'home') + '|' + kind; }
-  function getRound(kind) { const r = roundState[roundKey(kind)]; return (r && r.round) || 1; }
+  // ---- прогресс упражнений ПО СЛОВАМ: сколько кругов слово прошло в каждом упражнении ----
+  // Выбор «Learn» (все / 5 / Still learning) не влияет: в любом наборе сначала идут слова,
+  // которые ещё не пройдены в текущем круге.
+  const WP_KEY = 'vocabWp::' + location.pathname;
+  const wp = loadJson(WP_KEY);
+  function wpGet(kind, term) { return wp[kind + '|' + term] || 0; }
+  function wpInc(kind, term) { wp[kind + '|' + term] = wpGet(kind, term) + 1; persistProgress(); }
   function maxRounds() { let m = 1; vocabData.forEach(function (w) { if (w.rounds && w.rounds.length > m) m = w.rounds.length; }); return Math.min(m, 3); }
-  function setRound(kind, n) { roundState[roundKey(kind)] = { round: n }; persistProgress(); }
+  const curRound = { quiz: 1, scramble: 1, listen: 1, match: 1 };
+  function buildPool(kind) {
+    if (!vocabData.length) return [];
+    const m = Math.min.apply(null, vocabData.map(function (w) { return wpGet(kind, w.term); }));
+    curRound[kind] = (m % maxRounds()) + 1;
+    return shuffleCopy(vocabData.filter(function (w) { return wpGet(kind, w.term) === m; }));
+  }
   function roundData(item, kind) {
-    const r = getRound(kind);
-    const rd = item.rounds && item.rounds[Math.min(r, item.rounds.length) - 1];
+    const r = (wpGet(kind, item.term) % maxRounds());
+    const rd = item.rounds && item.rounds[Math.min(r, item.rounds.length - 1)];
     return rd || item;
   }
   function roundDotsHtml(kind) {
     const m = maxRounds();
     if (m < 2) return '';
-    const cur = getRound(kind);
+    const cur = curRound[kind];
     let h = '<span class="round-dots" aria-label="Round ' + cur + ' of ' + m + '">';
     for (let i = 1; i <= m; i++) h += '<i class="' + (i < cur ? 'done' : (i === cur ? 'cur' : '')) + '"></i>';
     return h + '<span>' + L('Round ', 'Раунд ') + cur + '/' + m + '</span></span>';
   }
   function roundFinishText(kind) {
-    const m = maxRounds(), r = getRound(kind);
+    const m = maxRounds(), r = curRound[kind];
     if (m < 2) return { sub: null, btn: t('restart') };
-    if (r < m) return { sub: L('Round ' + r + ' of ' + m + ' complete — new sentences are waiting in round ' + (r + 1) + '.', 'Раунд ' + r + ' из ' + m + ' пройден — в раунде ' + (r + 1) + ' новые предложения.'), btn: L('Go to round ' + (r + 1) + ' →', 'Перейти к раунду ' + (r + 1) + ' →') };
-    return { sub: L('All ' + m + ' rounds complete — great work!', 'Все ' + m + ' раунда пройдены — отличная работа!'), btn: L('Start over from round 1 ↺', 'Начать с раунда 1 ↺') };
-  }
-  function advanceRound(kind) {
-    const m = maxRounds(), r = getRound(kind);
-    setRound(kind, r < m ? r + 1 : 1);
+    if (r < m) return { sub: L('Round ' + r + ' of ' + m + ' complete — new sentences are waiting in round ' + (r + 1) + '.', 'Раунд ' + r + ' из ' + m + ' пройден — в раунде ' + (r + 1) + ' новые предложения.'), btn: L('Go to round ' + (r + 1), 'Перейти к раунду ' + (r + 1)) };
+    return { sub: L('All ' + m + ' rounds complete — great work!', 'Все ' + m + ' раунда пройдены — отличная работа!'), btn: L('Start over from round 1', 'Начать с раунда 1') };
   }
 
-  // ---------- Flashcards: две фазы (Know / Still learning → Again / Hard / Good / Easy) ----------
-  let fcLearnMarks = {};   // term -> 'know' | 'learn' (последний проход)
-  let fcRated = {};        // слова, уже оценённые кнопками Anki в этом занятии
-  let fcPhase = 'learn';   // 'learn' → 'rate'
-
-  function ratingMode(item) { return !!item && (fcPhase === 'rate' || (wordLevel[item.term] || 0) >= MASTERY_LEVEL) && !fcRated[item.term]; }
-
-  function resetFlashDeck() {
-    // уровни слов не трогаем — прогресс накопительный между занятиями
-    fcDeck = vocabData.slice();
-    fcRound = 1; currentCardIdx = 0;
-    fcLearnMarks = {}; fcRated = {}; fcPhase = 'learn';
-  }
+  // ---- Flashcards ----
+  function ratingMode(item) { return !!item && isGraduated(item.term) && !fcRated[item.term]; }
 
   function advanceFlashcard() {
     currentCardIdx++;
@@ -6567,7 +6565,7 @@ let currentCardIdx = 0;
         fcRound++; currentCardIdx = 0;
         showToast(t('repeatRoundToast') + ': ' + again.length);
       } else {
-        const toRate = vocabData.filter(function (w) { return !fcRated[w.term]; });
+        const toRate = vocabData.filter(function (w) { return !fcRated[w.term] && isGraduated(w.term); });
         if (toRate.length) {
           fcPhase = 'rate'; fcRound++;
           fcDeck = shuffleCopy(toRate); currentCardIdx = 0;
@@ -6583,11 +6581,33 @@ let currentCardIdx = 0;
   function markKnowledge(isKnown) {
     const item = fcDeck[currentCardIdx];
     if (!item) return;
+    const e = srs[item.term] || (srs[item.term] = {});
     fcLearnMarks[item.term] = isKnown ? 'know' : 'learn';
-    if (isKnown) recordResult(item.term, true, 'fc'); else recordResult(item.term, false, 'fc', true);
+    if (isKnown) {   // «Know» выпускает слово в повторение: дальше у него всегда кнопки оценок
+      e.st = 'graduated';
+      if (!e.next) { e.iv = 0; e.next = todayStr(); }
+    } else {
+      e.st = 'learning';
+    }
+    recordResult(item.term, isKnown, 'fc', true);
     updateAnalyticsUI();
     advanceFlashcard();
   }
+
+  // ---------- Flashcards: две фазы (Know / Still learning → Again / Hard / Good / Easy) ----------
+  let fcLearnMarks = {};   // term -> 'know' | 'learn' (последний проход)
+  let fcRated = {};        // слова, уже оценённые кнопками Anki в этом занятии
+  let fcPhase = 'learn';   // 'learn' → 'rate'
+
+
+  function resetFlashDeck() {
+    // уровни слов не трогаем — прогресс накопительный между занятиями
+    fcDeck = vocabData.slice();
+    fcRound = 1; currentCardIdx = 0;
+    fcLearnMarks = {}; fcRated = {}; fcPhase = 'learn';
+  }
+
+
 
   function rateCurrent(grade) {
     if (swipeBusy) return;
@@ -6707,13 +6727,14 @@ let currentCardIdx = 0;
           document.querySelector('.blank').classList.add('filled');
           $id('quiz-next-btn').style.display = 'inline-block';
           celebrate('small', btn);
+          wpInc('quiz', item.term);
           if (!quizMissed) recordResult(item.term, true, 'quiz');
         } else {
           btn.classList.add('wrong');
           btn.disabled = true;
           quizMissed = true;
           recordResult(item.term, false, 'quiz');
-          triggerCatReaction(currentLang === 'en' ? 'Oops... Try again! 😿' : 'Упс... Попробуй еще раз! 😿');
+          triggerCatReaction(currentLang === 'en' ? 'Oops... Try again!' : 'Упс... Попробуй еще раз!');
         }
       };
       container.appendChild(btn);
@@ -6722,8 +6743,7 @@ let currentCardIdx = 0;
 
   function nextQuestion() {
     if (quizIdx >= quizPool.length) {   // кнопка в конце раунда: следующий раунд (или заново после третьего)
-      advanceRound('quiz');
-      quizPool = shuffleCopy(vocabData);
+      quizPool = buildPool('quiz');
       quizIdx = 0;
       renderQuizQuestion();
       return;
@@ -6736,7 +6756,7 @@ let currentCardIdx = 0;
   let matchSets = [], matchSetIdx = 0, matchMiss = {};
 
   function buildMatchSets() {
-    const w = shuffleCopy(vocabData);
+    const w = buildPool('match');
     const n = Math.max(1, Math.ceil(w.length / 5));
     matchSets = []; matchSetIdx = 0; matchMiss = {};
     let i = 0;
@@ -6798,6 +6818,7 @@ let currentCardIdx = 0;
     if (selectedLeft.dataset.key === selectedRight.dataset.key) {
       const term = selectedLeft.dataset.key;
       if (!matchMiss[term]) recordResult(term, true, 'match');
+      wpInc('match', term);
       selectedLeft.classList.remove('selected'); selectedRight.classList.remove('selected');
       selectedLeft.classList.add('matched'); selectedRight.classList.add('matched');
       movePairDown(selectedLeft, selectedRight);
@@ -6805,7 +6826,7 @@ let currentCardIdx = 0;
       if (document.querySelectorAll('.match-btn:not(.matched)').length === 0) {
         const last = matchSetIdx + 1 >= matchSets.length;
         const btn = $id('match-next-btn');
-        btn.innerText = last ? L('Start over 🔄', 'Заново 🔄') : L('Next set →', 'Следующий набор →');
+        btn.innerText = last ? L('Start over', 'Заново') : L('Next set →', 'Следующий набор →');
         btn.style.display = 'inline-block';
         celebrate('big');
       }
@@ -6823,16 +6844,24 @@ let currentCardIdx = 0;
   let sbMissed = false;
   function sbSentenceOf(item) { return roundData(item, 'scramble').scrambleSentence || item.scrambleSentence; }
 
-  function sbHintText(item) {
-    const words = sbSentenceOf(item).split(' ');
-    return L('It starts with “' + words[0].replace(/[^\w'’-]/g, '') + '” and has ' + words.length + ' words.',
-             'Предложение начинается с «' + words[0].replace(/[^\w'’-]/g, '') + '», всего ' + words.length + ' слов.');
-  }
+  // подсказка по ступеням: 1) значение целевой фразы, 2) подставляет первые два слова
+  let sbHintLevel = 0;
   function toggleSbHint() {
     const box = $id('scramble-hint-box'); if (!box) return;
     const item = scramblePool[scrambleIdx]; if (!item) return;
-    box.innerText = sbHintText(item);
-    box.classList.toggle('show');
+    sbHintLevel++;
+    if (sbHintLevel === 1) {
+      box.innerText = L('Meaning of “' + item.term + '”: ', 'Значение «' + item.term + '»: ') + item.trans[currentLang];
+      box.classList.add('show');
+      if (currentOriginalTokens.length > 4) $id('scramble-hint-btn').innerHTML = ICON_BULB + L('More', 'Ещё');
+    } else if (sbHintLevel === 2 && !userAssembledTokens.length) {
+      for (let k = 0; k < 2; k++) {
+        const w = currentOriginalTokens[k];
+        const chip = Array.prototype.find.call(document.querySelectorAll('#scramble-words-bank .scramble-chip'), function (c) { return c.style.display !== 'none' && c.innerText === w; });
+        if (chip) moveWordToAnswer(chip, w);
+      }
+      $id('scramble-hint-btn').disabled = true;
+    }
   }
 
   function renderScrambleQuestion() {
@@ -6856,6 +6885,9 @@ let currentCardIdx = 0;
     setModeProgress('scramble-progress-fill', scrambleIdx + 1, scramblePool.length);
     $id('scramble-progress').innerHTML = (currentLang === 'en' ? 'Task ' + (scrambleIdx + 1) + ' of ' + scramblePool.length : 'Задание ' + (scrambleIdx + 1) + ' из ' + scramblePool.length) + roundDotsHtml('scramble');
     const hb = $id('scramble-hint-box'); if (hb) hb.classList.remove('show');
+    sbHintLevel = 0; const hbtn = $id('scramble-hint-btn'); if (hbtn) { hbtn.disabled = false; hbtn.innerHTML = ICON_BULB + L('Hint', 'Подсказка'); }
+    const sk = $id('scramble-skip-btn'); if (sk) sk.style.display = (scramblePool.length - scrambleIdx > 1) ? '' : 'none';
+    const bk = $id('scramble-back-btn'); if (bk) bk.style.display = sbSkipped.length ? '' : 'none';
     const scrambleAudioBtn = $id('scramble-audio-btn');
     if (scrambleAudioBtn) scrambleAudioBtn.style.display = item.audioBuilder ? 'inline-flex' : 'none';
 
@@ -6890,27 +6922,42 @@ let currentCardIdx = 0;
     if (userSentence === correctSentence) {
       answerBox.classList.add('success-zone');
       feedback.style.color = '#1f6314';
-      feedback.innerText = currentLang === 'en' ? '✨ Perfect sentence order!' : '✨ Отлично! Предложение собрано верно.';
+      feedback.innerText = currentLang === 'en' ? 'Perfect sentence order!' : 'Отлично! Предложение собрано верно.';
       $id('scramble-check-btn').style.display = 'none';
       $id('scramble-next-btn').style.display = 'inline-block';
       celebrate('medium', answerBox);
-      if (item && !sbMissed) recordResult(item.term, true, 'scramble');
+      if (item) { wpInc('scramble', item.term); if (!sbMissed) recordResult(item.term, true, 'scramble'); }
     } else {
       answerBox.classList.remove('shake'); void answerBox.offsetWidth; answerBox.classList.add('shake');
       answerBox.classList.remove('success-zone');
       feedback.style.color = '#991b1b';
-      feedback.innerText = currentLang === 'en' ? '❌ Not quite right. Try arranging again!' : '❌ Порядок слов не совпадает. Попробуйте еще раз!';
+      feedback.innerText = currentLang === 'en' ? 'Not quite right. Try arranging again!' : 'Порядок слов не совпадает. Попробуйте еще раз!';
       sbMissed = true;
       if (item) recordResult(item.term, false, 'scramble');
-      triggerCatReaction(currentLang === 'en' ? 'Wrong word order! 😿' : 'Не тот порядок слов! 😿');
+      triggerCatReaction(currentLang === 'en' ? 'Wrong word order!' : 'Не тот порядок слов!');
     }
   }
 
   function nextScrambleQuestion() { scrambleIdx++; renderScrambleQuestion(); }
+  let sbSkipped = [];
   function nextScrambleRound() {
-    advanceRound('scramble');
-    scramblePool = shuffleCopy(vocabData);
-    scrambleIdx = 0;
+    scramblePool = buildPool('scramble');
+    scrambleIdx = 0; sbSkipped = [];
+    renderScrambleQuestion();
+  }
+  // Skip: предложение уходит в конец круга; Back возвращает последнее пропущенное
+  function sbSkip() {
+    if (scramblePool.length - scrambleIdx <= 1) return;
+    const it = scramblePool.splice(scrambleIdx, 1)[0];
+    scramblePool.push(it); sbSkipped.push(it);
+    renderScrambleQuestion();
+  }
+  function sbBack() {
+    if (!sbSkipped.length) return;
+    const it = sbSkipped.pop();
+    const k = scramblePool.lastIndexOf(it);
+    if (k > -1) scramblePool.splice(k, 1);
+    scramblePool.splice(scrambleIdx, 0, it);
     renderScrambleQuestion();
   }
 
@@ -6958,11 +7005,15 @@ let currentCardIdx = 0;
     const item = fcDeck[currentCardIdx];
     if (item) openWordInfo(item);
   }
-  function closeOriginModal() { $id('origin-modal-overlay').classList.remove('show'); }
+  function closeOriginModal() { $id('origin-modal-overlay').classList.remove('show'); unlockScroll(); }
 
+  let scrollLockY = 0;
+  function lockScroll() { if (document.body.classList.contains('modal-open')) return; scrollLockY = window.scrollY; document.body.style.top = (-scrollLockY) + 'px'; document.body.classList.add('modal-open'); }
+  function unlockScroll() { if (!document.body.classList.contains('modal-open')) return; document.body.classList.remove('modal-open'); document.body.style.top = ''; window.scrollTo(0, scrollLockY); }
   function openWordInfo(item) {
     currentInfoItem = item;
     fillWordInfo(item);
+    lockScroll();
     $id('origin-modal-overlay').classList.add('show');
     const c = $id('wi-content'); if (c) c.scrollTop = 0;
   }
@@ -6994,28 +7045,10 @@ let currentCardIdx = 0;
       const lab = REG_LABELS[ex.reg] ? REG_LABELS[ex.reg][ru ? 1 : 0] : ex.reg;
       return '<div class="wi-ex"><span class="wi-ex-reg">' + lab + '</span><span class="wi-ex-text">' + ex.text + '</span></div>'; }).join('') });
 
-    $id('wi-nav').innerHTML = secs.map(function (s, i) { return '<button class="' + (i === 0 ? 'active' : '') + '" data-target="wi-s-' + s.key + '">' + s.nav + '</button>'; }).join('');
+    $id('wi-nav').style.display = 'none';
     $id('wi-content').innerHTML = secs.map(function (s) { return '<div class="wi-sec" id="wi-s-' + s.key + '"><div class="wi-sec-title">' + s.title + '</div>' + s.html + '</div>'; }).join('')
       || '<p class="wi-text">' + L('No extra details for this word yet.', 'Для этого слова пока нет дополнительной информации.') + '</p>';
-    $id('wi-nav').querySelectorAll('button').forEach(function (b) {
-      b.onclick = function () {
-        $id('wi-nav').querySelectorAll('button').forEach(function (x) { x.classList.toggle('active', x === b); });
-        const target = $id(b.dataset.target), box = $id('wi-content');
-        if (target && box) box.scrollTo({ top: target.offsetTop - box.offsetTop - 4, behavior: 'smooth' });
-      };
-    });
   }
-
-  (function wordInfoScrollSpy() {
-    const box = $id('wi-content'); if (!box) return;
-    box.addEventListener('scroll', function () {
-      const secs = Array.prototype.slice.call(box.querySelectorAll('.wi-sec'));
-      if (!secs.length) return;
-      let cur = secs[0];
-      secs.forEach(function (s) { if (s.offsetTop - box.offsetTop <= box.scrollTop + 24) cur = s; });
-      $id('wi-nav').querySelectorAll('button').forEach(function (b) { b.classList.toggle('active', b.dataset.target === cur.id); });
-    });
-  })();
 
   // ---------- списки слов: аудио, клик → Word Info, поиск, shuffle ----------
   const listQuery = { allwords: '', saved: '', lesson: '' };
@@ -7143,7 +7176,7 @@ let currentCardIdx = 0;
     $id('lesson-screen-title').innerText = lesson.label;
     $id('lesson-screen-count').innerText = countLabel(learnable.length) + (hiddenCount ? ' (' + hiddenCount + ' ' + t('hiddenSuffix') + ')' : '');
     $id('lesson-back-btn').innerText = t('backToLessonsList');
-    $id('lesson-learn-btn').innerText = L('Learn', 'Учить') + ' · ' + learnable.length;
+    $id('lesson-learn-btn').innerText = L('Learn', 'Учить');
     buildWordList($id('lesson-word-list'), prepList('lesson', lesson.words), { selectable: selectScreen === 'lesson', hideToggle: true, onHideChange: function () { renderLessonScreen(); renderAllWords(false); } });
     $id('lesson-count-row').innerHTML = '';
     updateLessonSelectPanel();
@@ -7204,8 +7237,7 @@ let currentCardIdx = 0;
     const q = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
     stack.innerHTML = '';
     const items = lessons.map(function (l, i) {
-      const known = l.words.filter(function (w) { return (wordLevel[w.term] || 0) >= MASTERY_LEVEL; }).length;
-      const knownPct = l.words.length ? Math.round(100 * known / l.words.length) : 0;
+      const knownPct = l.words.length ? Math.round(l.words.reduce(function (a, w) { return a + wordProgressPct(w.term); }, 0) / l.words.length) : 0;
       const hits = q ? l.words.filter(function (w) { return (w.term + ' ' + w.trans.en + ' ' + w.trans.ru).toLowerCase().indexOf(q) !== -1; }) : [];
       const nameHit = !q || l.label.toLowerCase().indexOf(q) !== -1;
       return { id: l.id, label: l.label, count: l.words.length, colorIdx: i, knownPct: knownPct, hits: hits, show: nameHit || hits.length > 0 };
@@ -7270,10 +7302,23 @@ let currentCardIdx = 0;
     }
     return prev[n];
   }
+  // Принимаем фразу и БЕЗ конечного предлога (in, at, with, on, of, for, to…), и без начального «be» / «to» / «to be».
+  const TRAIL_WORDS = ['in', 'at', 'with', 'on', 'of', 'for', 'to', 'from', 'by'];
   function acceptedForms(item) {
     const base = item.term.replace(/\(.*?\)/g, '').replace(/\s+/g, ' ').trim();
     const set = {};
-    (item.forms || []).concat([item.term, base, item.quizAnswer || '']).forEach(function (f) { const n = normText(f); if (n) set[n] = true; });
+    const add = function (f) {
+      let n = normText(f); if (!n) return;
+      set[n] = true;
+      const variants = [n];
+      ['to be ', 'be ', 'to '].forEach(function (p) { if (n.indexOf(p) === 0) variants.push(n.slice(p.length)); });
+      variants.slice().forEach(function (v) {
+        const w = v.split(' ');
+        if (w.length > 1 && TRAIL_WORDS.indexOf(w[w.length - 1]) !== -1) variants.push(w.slice(0, -1).join(' '));
+      });
+      variants.forEach(function (v) { if (v.length >= 3) set[v] = true; });
+    };
+    (item.forms || []).concat([item.term, base, item.quizAnswer || '']).forEach(add);
     return Object.keys(set);
   }
   // принимаем: любую форму слова, начальную форму, предложение целиком, и ответ, в котором эта фраза есть; опечатка в 1–2 буквы не страшна
@@ -7290,11 +7335,13 @@ let currentCardIdx = 0;
     });
   }
   function maskedPhrase(item) {
-    return item.term.replace(/\(.*?\)/g, '').trim().split(' ').map(function (w) { return w.charAt(0) + '·'.repeat(Math.max(0, w.length - 1)); }).join('  ');
+    return item.term.replace(/\(.*?\)/g, '').trim().split(' ').map(function (w) {
+      return '<span style="margin-right:16px;white-space:nowrap">' + escapeHtml(w.charAt(0)) + '_'.repeat(Math.max(0, w.length - 1)) + '</span>';
+    }).join('');
   }
 
   let lsSpeed = 1;
-  function startListening() { lsPool = shuffleCopy(vocabData); lsIdx = 0; renderListening(); }
+  function startListening() { lsPool = buildPool('listen'); lsIdx = 0; renderListening(); }
   (function buildWave() {
     const w = $id('ls-wave'); if (!w) return;
     let h = '';
@@ -7327,8 +7374,8 @@ let currentCardIdx = 0;
   function lsPlay() {
     const item = lsPool[lsIdx]; if (!item) return;
     const wave = $id('ls-wave'); wave.classList.add('playing');
-    const btn = $id('ls-play'); btn.innerText = '❚❚';
-    const done = function () { wave.classList.remove('playing'); btn.innerText = '▶'; };
+    const btn = $id('ls-play'); btn.innerHTML = ICON_PAUSE;
+    const done = function () { wave.classList.remove('playing'); btn.innerHTML = ICON_PLAY; };
     // тот же файл, что и в карточке: предложение озвучено один раз и играет и там, и здесь
     if (item.audioSentence) playRecording(item.audioSentence, lsSpeed).then(done, function () { speak(plain(item.example)); setTimeout(done, 2500); });
     else { speak(plain(item.example)); setTimeout(done, 2500); }
@@ -7336,7 +7383,7 @@ let currentCardIdx = 0;
   function lsHint() {
     const item = lsPool[lsIdx]; if (!item) return;
     const box = $id('ls-hint-box');
-    box.innerHTML = L('Meaning: ', 'Значение: ') + escapeHtml(item.trans[currentLang]) + '<br><span style="letter-spacing:1px">' + escapeHtml(maskedPhrase(item)) + '</span>';
+    box.innerHTML = L('Meaning: ', 'Значение: ') + escapeHtml(item.trans[currentLang]) + '<br><span style="letter-spacing:2px;font-weight:900">' + maskedPhrase(item) + '</span>';
     box.classList.toggle('show');
   }
   function lsCheck() {
@@ -7350,6 +7397,7 @@ let currentCardIdx = 0;
       $id('ls-feedback').innerHTML = L('✓ Correct!', '✓ Верно!') + '<br><span style="font-weight:600;color:var(--c-text)">' + item.example + '</span>';
       $id('ls-check-btn').style.display = 'none'; $id('ls-skip-btn').style.display = 'none'; $id('ls-next-btn').style.display = '';
       celebrate('small', $id('ls-check-btn'));
+      wpInc('listen', item.term);
       if (!lsMissed) recordResult(item.term, true, 'listen');
     } else {
       lsMissed = true;
@@ -7402,7 +7450,7 @@ let currentCardIdx = 0;
     $id('pr-progress').innerText = L('Sentence ' + (prIdx + 1) + ' of ' + prPool.length, 'Предложение ' + (prIdx + 1) + ' из ' + prPool.length);
     setModeProgress('pr-progress-fill', prIdx + 1, prPool.length);
     $id('pr-target').innerText = item.term;
-    $id('pr-meaning').innerText = item.trans[currentLang];
+    $id('pr-meaning').innerText = item.trans[currentLang]; $id('pr-meaning').style.display = 'none'; $id('pr-def-btn').style.display = '';
     const inp = $id('pr-input'); inp.value = ''; inp.disabled = false; inp.className = 'answer-input';
     $id('pr-result').className = 'pr-result'; $id('pr-result').innerHTML = '';
     $id('pr-feedback').innerText = '';
@@ -7440,6 +7488,7 @@ let currentCardIdx = 0;
       $id('pr-feedback').innerText = L('The checker is not available right now. Try again later or skip.', 'Проверка сейчас недоступна. Попробуй позже или пропусти.');
     });
   }
+  function prShowDef() { $id('pr-meaning').style.display = 'block'; $id('pr-def-btn').style.display = 'none'; }
   function prSkip() {
     const item = prPool[prIdx]; if (!item) return;
     prLog.push({ term: item.term, original: '—', corrected: '—', comment: L('Skipped', 'Пропущено'), skipped: true });
@@ -7475,7 +7524,7 @@ let currentCardIdx = 0;
     const due = all.filter(function (w) { return isDue(w.term); });
     const learning = all.filter(function (w) { return isStillLearning(w.term); });
     const problem = all.filter(function (w) { return isProblem(w.term); });
-    const mastered = all.filter(function (w) { return (wordLevel[w.term] || 0) >= MASTERY_LEVEL; });
+    const mastered = all.filter(function (w) { return isMastered(w.term); });
     $id('rv-hero-num').innerText = due.length;
     $id('rv-hero-label').innerText = L('words due today', 'слов на повторение сегодня');
     $id('rv-hero-sub').innerText = due.length ? L('A short review now keeps them from fading.', 'Короткое повторение сейчас — и слова не забудутся.')
@@ -7515,7 +7564,9 @@ let currentCardIdx = 0;
     otgShowSettings();
   }
   function closeOtg() {
-    otg.run++; otg.playing = false;
+    otg.run++; otg.playing = false; otg.legacy = false; otg.counted = false;
+    clearInterval(otgTimer); if (otgAudio) { try { otgAudio.pause(); } catch (e) { /* ignore */ } }
+    try { if ('mediaSession' in navigator) navigator.mediaSession.metadata = null; } catch (e) { /* ignore */ }
     if (audioPlayer) { try { audioPlayer.pause(); } catch (e) { /* ignore */ } }
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     otgReleaseWake();
@@ -7528,7 +7579,7 @@ let currentCardIdx = 0;
   function otgShowSettings() {
     $id('otg-settings').style.display = ''; $id('otg-player').style.display = 'none';
     $id('otg-title').innerText = L('Learn on the go', 'Learn on the go');
-    $id('otg-desc').innerText = L('Listen and try to recall the meaning — or the word itself — before the answer plays.', 'Слушай и вспоминай значение или само слово — до того, как прозвучит ответ.');
+    $id('otg-desc').innerHTML = L('Listen and try to recall the meaning —<br>or the word itself — before the answer plays.', 'Слушай и вспоминай значение —<br>или само слово — до того, как прозвучит ответ.');
     $id('otg-first-word').innerText = L('Word first', 'Сначала слово');
     $id('otg-first-meaning').innerText = L('Meaning first', 'Сначала значение');
     $id('otg-first-word').classList.toggle('active', otg.first === 'word');
@@ -7552,12 +7603,6 @@ let currentCardIdx = 0;
   function otgKeepAwake() { try { if (navigator.wakeLock) navigator.wakeLock.request('screen').then(function (l) { wakeLock = l; }, function () { /* ignore */ }); } catch (e) { /* ignore */ } }
   function otgReleaseWake() { try { if (wakeLock) { wakeLock.release(); wakeLock = null; } } catch (e) { /* ignore */ } }
 
-  function otgStart() {
-    otg.idx = 0; otg.paused = false; touchAction(); persistProgress();
-    $id('otg-settings').style.display = 'none'; $id('otg-player').style.display = 'block';
-    otgKeepAwake();
-    otgPlayCurrent();
-  }
   function otgSleep(ms, run) {
     return new Promise(function (resolve) {
       let left = ms;
@@ -7585,7 +7630,176 @@ let currentCardIdx = 0;
     return speakAsync(item.term.replace(/\(.*?\)/g, ''), 'en-US', 0.85);
   }
 
-  async function otgPlayCurrent() {
+  // ---- Learn on the go: ОДНА непрерывная дорожка (играет при заблокированном экране) ----
+  // Браузер склеивает mp3 слов/определений/примеров + тишину по настройкам + отсчёт 3-2-1 в один звуковой файл,
+  // и проигрывает его обычным <audio> с кнопками на экране блокировки (Media Session).
+  let otgTrack = null, otgAudio = null, otgTimer = null;
+  const OTG_SR = 22050;
+  const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=';
+
+  function wavBlobUrl(f32, sr) {
+    const n = f32.length, buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf);
+    const w = function (o, s) { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+    w(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n * 2, true);
+    for (let i = 0; i < n; i++) { const x = Math.max(-1, Math.min(1, f32[i])); v.setInt16(44 + i * 2, x < 0 ? x * 0x8000 : x * 0x7FFF, true); }
+    return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+  }
+
+  async function otgBuildTrack() {
+    const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    if (!Ctx) throw new Error('no audio context');
+    const ctx = new Ctx(1, OTG_SR, OTG_SR), cache = {}, ru = currentLang === 'ru';
+    const get = async function (path) {
+      if (!path) throw new Error('missing audio');
+      if (cache[path]) return cache[path];
+      const r = await fetch(path); if (!r.ok) throw new Error('404 ' + path);
+      const ab = await r.arrayBuffer();
+      const buf = await new Promise(function (res, rej) { const p = ctx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); });
+      return (cache[path] = buf.getChannelData(0));
+    };
+    const parts = [], segs = [], wordStarts = [];
+    let pos = 0;   // в секундах
+    const addSilence = function (sec, kind, idx) { const n = Math.round(sec * OTG_SR); parts.push({ n: n }); segs.push({ t0: pos, t1: pos + sec, kind: kind, idx: idx }); pos += sec; };
+    const addPcm = function (data, kind, idx) { parts.push({ data: data }); const d = data.length / OTG_SR; segs.push({ t0: pos, t1: pos + d, kind: kind, idx: idx }); pos += d; };
+    const beep = function (hz) { const n = Math.round(0.16 * OTG_SR), d = new Float32Array(n); for (let i = 0; i < n; i++) d[i] = 0.3 * Math.sin(2 * Math.PI * hz * i / OTG_SR) * Math.min(1, i / 300, (n - i) / 300); return d; };
+    // отсчёт 3-2-1 только один раз, перед самым стартом
+    for (let c = 3; c >= 1; c--) { addPcm(beep(c === 1 ? 1175 : 880), 'count', c); addSilence(1 - 0.16, 'count', c); }
+    for (let i = 0; i < otg.wordsList.length; i++) {
+      const w = otg.wordsList[i];
+      const meaning = ru ? w.audioDefRu : w.audioDef;
+      const qPath = otg.first === 'word' ? w.audioWord : meaning, aPath = otg.first === 'word' ? meaning : w.audioWord;
+      wordStarts.push(pos);
+      addPcm(await get(qPath), 'q', i);
+      addSilence(otg.think, 'think', i);
+      addPcm(await get(aPath), 'a', i);
+      if (otg.example && w.audioSentence) { addSilence(0.5, 'a', i); addPcm(await get(w.audioSentence), 'ex', i); }
+      addSilence(otg.gap + 0.3, 'gap', i);
+    }
+    const total = parts.reduce(function (s, p) { return s + (p.data ? p.data.length : p.n); }, 0);
+    const out = new Float32Array(total); let o = 0;
+    parts.forEach(function (p) { if (p.data) { out.set(p.data, o); o += p.data.length; } else o += p.n; });
+    return { url: wavBlobUrl(out, OTG_SR), segs: segs, wordStarts: wordStarts, duration: total / OTG_SR };
+  }
+
+  function otgSetPlayIcon(playing) { $id('otg-play').innerHTML = playing ? ICON_PAUSE : ICON_PLAY; $id('otg-play').setAttribute('aria-label', playing ? 'Pause' : 'Play'); }
+
+  function otgStart() {
+    touchAction(); persistProgress();
+    otg.run++; otg.finished = false; otg.paused = false; otg.idx = 0; otg.legacy = false; otg.counted = false;
+    $id('otg-settings').style.display = 'none'; $id('otg-player').style.display = 'block';
+    $id('otg-progress').innerText = ''; $id('otg-prompt').innerText = L('Preparing the track…', 'Готовлю дорожку…');
+    $id('otg-answer').innerText = ''; $id('otg-phase').innerText = ''; $id('otg-pulse').innerHTML = ICON_SOUND_BIG; otgSetPlayIcon(false);
+    otgKeepAwake();
+    // iOS разрешает play() только из жеста — «будим» аудио-элемент тишиной прямо в нажатии
+    otgAudio = otgAudio || new Audio();
+    otgAudio.src = SILENT_WAV; otgAudio.play().catch(function () { /* ignore */ });
+    const run = otg.run;
+    otgBuildTrack().then(function (tr) {
+      if (run !== otg.run) return;
+      otgTrack = tr;
+      otgAudio.src = tr.url; otgAudio.currentTime = 0;
+      otgAudio.onplay = function () { otgSetPlayIcon(true); };
+      otgAudio.onpause = function () { otgSetPlayIcon(false); };
+      otgAudio.onended = otgFinish;
+      otgAudio.play().catch(function () { otgSetPlayIcon(false); $id('otg-prompt').innerText = L('Tap Play to start', 'Нажми Play, чтобы начать'); });
+      clearInterval(otgTimer); otgTimer = setInterval(otgTick, 200);
+      otgMediaSession();
+    }).catch(function () {
+      if (run !== otg.run) return;
+      otgTrack = null; otg.legacy = true; otgPlayLegacy();   // нет аудиофайлов — запасной вариант голосом браузера
+    });
+  }
+
+  function otgMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({ title: 'Learn on the go', artist: (lessons.find(function (l) { return l.id === currentOpenLessonId; }) || {}).label || '' });
+      navigator.mediaSession.setActionHandler('play', function () { otgToggle(); });
+      navigator.mediaSession.setActionHandler('pause', function () { otgToggle(); });
+      navigator.mediaSession.setActionHandler('previoustrack', function () { otgStep(-1); });
+      navigator.mediaSession.setActionHandler('nexttrack', function () { otgStep(1); });
+    } catch (e) { /* ignore */ }
+  }
+
+  function otgTick() {
+    if (!otgTrack || !otgAudio) return;
+    const t = otgAudio.currentTime;
+    const seg = otgTrack.segs.find(function (s) { return t >= s.t0 && t < s.t1; }) || otgTrack.segs[otgTrack.segs.length - 1];
+    const w = otg.wordsList[seg.kind === 'count' ? 0 : seg.idx]; if (!w) return;
+    const first = otg.first, pulse = $id('otg-pulse');
+    $id('otg-progress').innerText = seg.kind === 'count' ? L('Get ready', 'Приготовься') : L('Word ' + (seg.idx + 1) + ' of ' + otg.wordsList.length, 'Слово ' + (seg.idx + 1) + ' из ' + otg.wordsList.length);
+    if (seg.kind === 'count') {
+      $id('otg-prompt').innerText = ''; $id('otg-answer').innerText = ''; $id('otg-phase').innerText = '';
+      pulse.classList.remove('playing'); pulse.innerHTML = '<span style="font-size:2rem">' + seg.idx + '</span>';
+      return;
+    }
+    const promptText = first === 'word' ? w.term : w.trans[currentLang], answerText = first === 'word' ? w.trans[currentLang] : w.term;
+    $id('otg-prompt').innerText = promptText;
+    const showAns = seg.kind === 'a' || seg.kind === 'ex' || seg.kind === 'gap';
+    $id('otg-answer').innerHTML = showAns ? (escapeHtml(answerText) + (seg.kind === 'ex' ? '<br><span style="font-weight:600;font-size:.85rem">' + w.example + '</span>' : '')) : '';
+    if (seg.kind === 'think') {
+      pulse.classList.remove('playing'); pulse.innerHTML = '<span style="font-size:2rem">' + Math.max(1, Math.ceil(seg.t1 - t)) + '</span>';
+      $id('otg-phase').innerText = L('Think… try to recall', 'Вспоминай…');
+    } else if (seg.kind === 'gap') {
+      pulse.classList.remove('playing'); pulse.innerHTML = ICON_SOUND_BIG; $id('otg-phase').innerText = L('Next word soon…', 'Скоро следующее слово…');
+    } else {
+      pulse.classList.add('playing'); pulse.innerHTML = ICON_SOUND_BIG;
+      $id('otg-phase').innerText = seg.kind === 'q' ? L('Listen…', 'Слушай…') : (seg.kind === 'ex' ? L('Example', 'Пример') : L('Answer', 'Ответ'));
+    }
+  }
+
+  function otgFinish() {
+    clearInterval(otgTimer); otg.run++;
+    $id('otg-prompt').innerText = L('Lesson finished', 'Урок прослушан');
+    $id('otg-answer').innerText = ''; $id('otg-phase').innerText = ''; $id('otg-pulse').innerHTML = svgI('<polyline points="20 6 9 17 4 12"/>', 30); $id('otg-pulse').classList.remove('playing');
+    $id('otg-play').innerHTML = ICON_REPLAY;
+    otg.paused = true; otg.finished = true;
+    otgReleaseWake();
+  }
+
+  function otgToggle() {
+    if (otg.finished) {
+      otg.finished = false; otg.paused = false; $id('otg-play').innerHTML = ICON_PAUSE; otgKeepAwake();
+      if (otg.legacy) { otg.idx = 0; otgPlayLegacy(); }
+      else if (otgAudio && otgTrack) { otgAudio.currentTime = 0; otgAudio.play(); clearInterval(otgTimer); otgTimer = setInterval(otgTick, 200); }
+      return;
+    }
+    if (otg.legacy) { otgToggleLegacy(); return; }
+    if (!otgAudio || !otgTrack) return;
+    if (otgAudio.paused) otgAudio.play(); else otgAudio.pause();
+  }
+
+  function otgStep(d) {
+    if (otg.legacy) { otgStepLegacy(d); return; }
+    if (!otgTrack || !otgAudio) return;
+    const t = otgAudio.currentTime, starts = otgTrack.wordStarts;
+    let cur = 0; starts.forEach(function (s, i) { if (t >= s - 0.01) cur = i; });
+    let target = cur + d;
+    if (d < 0 && t - starts[cur] > 2) target = cur;            // «назад» сначала возвращает к началу слова
+    if (target < 0) target = 0;
+    if (target >= starts.length) { otgAudio.currentTime = Math.max(0, otgTrack.duration - 0.05); return; }
+    otgAudio.currentTime = starts[target];
+    if (otgAudio.paused) otgAudio.play();
+  }
+
+  // ---- запасной вариант (если у слов нет mp3): по таймерам и голос браузера; при блокировке экрана остановится ----
+
+  function otgToggleLegacy() {
+    otg.paused = !otg.paused;
+    otgSetPlayIcon(!otg.paused);
+    if (otg.paused) { if (audioPlayer) { try { audioPlayer.pause(); } catch (e) { /* ignore */ } } if ('speechSynthesis' in window) window.speechSynthesis.pause(); }
+    else { if (audioPlayer && audioPlayer.paused && !audioPlayer.ended) { audioPlayer.play().catch(function () { /* ignore */ }); } if ('speechSynthesis' in window) window.speechSynthesis.resume(); }
+  }
+  function otgStepLegacy(d) {
+    const n = otg.idx + d;
+    if (n < 0 || n >= otg.wordsList.length) return;
+    otg.idx = n; otg.paused = false; otg.finished = false; otgSetPlayIcon(true);
+    if (audioPlayer) { try { audioPlayer.pause(); } catch (e) { /* ignore */ } }
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    otgPlayLegacy();
+  }
+  async function otgPlayLegacy() {
     const run = ++otg.run;
     const item = otg.wordsList[otg.idx];
     if (!item) { otgFinish(); return; }
@@ -7597,19 +7811,24 @@ let currentCardIdx = 0;
     $id('otg-answer').innerText = '';
     const pulse = $id('otg-pulse');
     // 1. вопрос
-    pulse.classList.add('playing'); pulse.innerText = '🔊';
+    if (otg.idx === 0 && !otg.counted) {   // отсчёт 3-2-1 — один раз, перед стартом
+      otg.counted = true;
+      for (let c = 3; c >= 1; c--) { pulse.classList.remove('playing'); pulse.innerHTML = '<span style="font-size:2rem">' + c + '</span>'; $id('otg-prompt').innerText = ''; $id('otg-phase').innerText = L('Get ready', 'Приготовься'); if (!(await otgSleep(1000, run))) return; }
+      $id('otg-prompt').innerText = promptText;
+    }
+    pulse.classList.add('playing'); pulse.innerHTML = ICON_SOUND_BIG;
     $id('otg-phase').innerText = L('Listen…', 'Слушай…');
     await (first === 'word' ? otgSayWord(item) : otgSayMeaning(item));
     pulse.classList.remove('playing');
     if (!(await otgWaitResume(run))) return;
     // 2. время подумать — обратный отсчёт
     for (let s = otg.think; s > 0; s--) {
-      pulse.innerText = s;
+      pulse.innerHTML = '<span style="font-size:2rem">' + s + '</span>';
       $id('otg-phase').innerText = L('Think… try to recall', 'Вспоминай…');
       if (!(await otgSleep(1000, run))) return;
     }
     // 3. ответ
-    pulse.classList.add('playing'); pulse.innerText = '🔊';
+    pulse.classList.add('playing'); pulse.innerHTML = ICON_SOUND_BIG;
     $id('otg-answer').innerText = answerText;
     $id('otg-phase').innerText = L('Answer', 'Ответ');
     await (first === 'word' ? otgSayMeaning(item) : otgSayWord(item));
@@ -7622,34 +7841,10 @@ let currentCardIdx = 0;
     pulse.classList.remove('playing');
     if (!(await otgWaitResume(run))) return;
     $id('otg-phase').innerText = L('Next word soon…', 'Скоро следующее слово…');
-    pulse.innerText = '…';
+    pulse.innerHTML = ICON_SOUND_BIG;
     if (!(await otgSleep(otg.gap * 1000 + 300, run))) return;
     otg.idx++;
-    if (otg.idx >= otg.wordsList.length) otgFinish(); else otgPlayCurrent();
-  }
-  function otgFinish() {
-    otg.run++;
-    $id('otg-prompt').innerText = L('Lesson finished 🎉', 'Урок прослушан 🎉');
-    $id('otg-answer').innerText = ''; $id('otg-phase').innerText = ''; $id('otg-pulse').innerText = '✓';
-    $id('otg-pulse').classList.remove('playing');
-    $id('otg-play').innerText = '↺';
-    otg.paused = true; otg.finished = true;
-    otgReleaseWake();
-  }
-  function otgToggle() {
-    if (otg.finished) { otg.finished = false; otg.paused = false; otg.idx = 0; $id('otg-play').innerText = '❚❚'; otgKeepAwake(); otgPlayCurrent(); return; }
-    otg.paused = !otg.paused;
-    $id('otg-play').innerText = otg.paused ? '▶' : '❚❚';
-    if (otg.paused) { if (audioPlayer) { try { audioPlayer.pause(); } catch (e) { /* ignore */ } } if ('speechSynthesis' in window) window.speechSynthesis.pause(); }
-    else { if (audioPlayer && audioPlayer.paused && !audioPlayer.ended) { audioPlayer.play().catch(function () { /* ignore */ }); } if ('speechSynthesis' in window) window.speechSynthesis.resume(); }
-  }
-  function otgStep(d) {
-    const n = otg.idx + d;
-    if (n < 0 || n >= otg.wordsList.length) return;
-    otg.idx = n; otg.paused = false; otg.finished = false; $id('otg-play').innerText = '❚❚';
-    if (audioPlayer) { try { audioPlayer.pause(); } catch (e) { /* ignore */ } }
-    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-    otgPlayCurrent();
+    if (otg.idx >= otg.wordsList.length) otgFinish(); else otgPlayLegacy();
   }
 
   // ---------- подписи нового интерфейса (EN/RU) ----------
@@ -7660,15 +7855,17 @@ let currentCardIdx = 0;
     set('top-tab-review', L('Review', 'Повторение'));
     set('label-know', L('✓ Know', '✓ Знаю'));
     set('lesson-listen-text', L('Listen', 'Слушать'));
-    set('scramble-hint-btn', L('💡 Hint', '💡 Подсказка'));
+    if (!sbHintLevel) $id('scramble-hint-btn').innerHTML = ICON_BULB + L('Hint', 'Подсказка');
+    $id('quiz-hint-btn').innerHTML = ICON_BULB + t('hintBtn');
     set('scramble-round-btn', roundFinishText('scramble').btn);
     set('ls-instr', L('Listen to the sentence and type the phrase you hear — any form works (or write the whole sentence).', 'Послушай предложение и впиши услышанную фразу — подойдёт любая форма (или всё предложение).'));
-    set('ls-hint-btn', L('💡 Hint', '💡 Подсказка')); set('ls-speed-label', L('Speed', 'Скорость'));
+    $id('ls-hint-btn').innerHTML = ICON_BULB + L('Hint', 'Подсказка'); set('ls-speed-label', L('Speed', 'Скорость'));
     set('ls-check-btn', t('checkBtn')); set('ls-skip-btn', L('Show answer', 'Показать ответ')); set('ls-next-btn', t('next'));
     $id('ls-input').placeholder = L('Type what you hear…', 'Впиши то, что слышишь…');
-    set('ls-finished-title', L('Listening complete! 🎉', 'Аудирование пройдено! 🎉')); set('ls-restart-btn', t('restart'));
+    set('ls-finished-title', L('Listening complete!', 'Аудирование пройдено!')); set('ls-restart-btn', t('restart'));
     set('pr-instr', L('Write your own sentence with this phrase. You can type or use the microphone.', 'Напиши своё предложение с этой фразой. Можно печатать или диктовать в микрофон.'));
     $id('pr-input').placeholder = L('Your sentence…', 'Твоё предложение…');
+    set('pr-def-btn', L('Show definition', 'Показать определение'));
     set('pr-check-btn', L('Check my sentence', 'Проверить предложение')); set('pr-skip-btn', L('Skip', 'Пропустить')); set('pr-next-btn', t('next'));
     set('pr-finish-btn', L('Finish & see table', 'Завершить и открыть таблицу'));
     set('pr-summary-title', L('Your sentences & corrections', 'Твои предложения и исправления'));
@@ -7704,8 +7901,8 @@ let currentCardIdx = 0;
     updateTrainerTitle();
     resetFlashDeck();
     quizIdx = 0; scrambleIdx = 0; selectedLeft = null; selectedRight = null;
-    quizPool = shuffleCopy(vocabData);
-    scramblePool = shuffleCopy(vocabData);
+    quizPool = buildPool('quiz');
+    scramblePool = buildPool('scramble'); sbSkipped = [];
     closeLesson();
     resetTrainerTab();
     showScreen('trainer');
@@ -7805,10 +8002,22 @@ let currentCardIdx = 0;
     return n;
   }
   function streakPhrase(n) {
-    if (n === 0) return L('Start today — it will be day one of your streak!', 'Начни сегодня — это будет первый день твоей серии!');
-    if (n === 1) return L('Day one of your streak — a great start!', 'Первый день серии — отличное начало!');
-    if (n < 7) return L('You have been studying ' + n + ' days in a row — great rhythm, keep it up!', 'Ты занимаешься уже ' + n + ' ' + (n < 5 ? 'дня' : 'дней') + ' подряд — отличный ритм, так держать!');
-    return L(n + ' days in a row — this is already a habit!', n + ' дней подряд — это уже привычка!');
+    const P = [
+      ['Start today — it will be day one', 'Начни сегодня — это будет день первый'],
+      ['Day one is done. Back tomorrow?', 'Первый день сделан. Завтра продолжим?'],
+      ['A good start', 'Хорошее начало'],
+      ['Already a rhythm', 'Уже ритм'],
+      ['Keep the pace', 'Не сбавляй темп'],
+      ['A habit is forming', 'Привычка складывается'],
+      ['One step away from a full week', 'Остался один шаг до недели'],
+      ['A whole week without a break', 'Целая неделя без пропусков']];
+    let p;
+    if (n < P.length) p = P[n];
+    else if (n < 14) p = ['The habit is settling in', 'Привычка закрепляется'];
+    else if (n < 21) p = ['Two weeks — this is a system now', 'Две недели — это уже система'];
+    else if (n < 30) p = ['The words stay for long', 'Слова остаются надолго'];
+    else p = ['A month without a break. Impressive discipline', 'Месяц без пропусков. Впечатляющая дисциплина'];
+    return L(p[0], p[1]);
   }
   function fmtDur(sec) {
     const m = Math.round(sec / 60);
@@ -7818,6 +8027,7 @@ let currentCardIdx = 0;
   }
   function sumSec(days) { let s = 0; for (let i = 0; i < days; i++) { const a = activity[addDays(todayStr(), -i)]; if (a) s += a.sec; } return s; }
 
+  let anFilter = 'all';
   function updateGlobalAnalyticsScreen() {
     const ru = currentLang === 'ru';
     const set = function (id, txt) { const el = $id(id); if (el) el.innerText = txt; };
@@ -7839,13 +8049,13 @@ let currentCardIdx = 0;
       if (lvl) activeDays++;
       cal.insertAdjacentHTML('beforeend', '<div class="d l' + lvl + (i === 29 ? ' today' : '') + '" title="' + key + (mins ? ' · ' + mins + L(' min', ' мин') : '') + '"></div>');
     }
-    set('an2-cal-title', L('Calendar · last 30 days', 'Календарь · последние 30 дней'));
-    set('an2-cal-sub', L('You practised ' + activeDays + ' of the last 30 days', 'Ты занималась ' + activeDays + ' из последних 30 дней'));
+    set('an2-cal-title', L('Last 30 days', 'Последние 30 дней'));
+    set('an2-cal-sub', activeDays + L(' of 30', ' из 30'));
     $id('an2-legend').innerHTML = L('less', 'меньше') + ' <i style="background:var(--c-pink-soft)"></i><i style="background:color-mix(in srgb,var(--c-lime) 40%,white)"></i><i style="background:color-mix(in srgb,var(--c-lime) 75%,white)"></i><i style="background:var(--c-lime)"></i> ' + L('more', 'больше');
     // слова
     const all = allWordsList();
-    const mastered = all.filter(function (w) { return (wordLevel[w.term] || 0) >= MASTERY_LEVEL; }).length;
-    const inprog = all.filter(function (w) { return isStillLearning(w.term); }).length;
+    const mastered = all.filter(function (w) { return isMastered(w.term); }).length;
+    const inprog = all.filter(function (w) { return stOf(w.term) !== 'new' && !isMastered(w.term); }).length;
     const fresh = all.length - mastered - inprog;
     set('an2-words-title', L('Words', 'Слова')); set('an2-words-sub', L('Summary across every lesson', 'Сводка по всем урокам'));
     $id('an2-words-three').innerHTML = '<div><b>' + mastered + '</b><span>' + L('mastered', 'усвоено') + '</span></div><div><b>' + inprog + '</b><span>' + L('in progress', 'в процессе') + '</span></div><div><b>' + fresh + '</b><span>' + L('not started', 'ещё не начато') + '</span></div>';
@@ -7853,7 +8063,7 @@ let currentCardIdx = 0;
     $id('an2-stack').innerHTML = '<i style="width:' + (100 * mastered / tot) + '%;background:#3b9c2b"></i><i style="width:' + (100 * inprog / tot) + '%;background:#e0a828"></i><i style="width:' + (100 * fresh / tot) + '%;background:#d9cfd1"></i>';
     // время
     set('an2-time-title', L('Time on the platform', 'Время на платформе'));
-    set('an2-time-sub', L('Only active time counts (the page is open and you are doing something)', 'Считается только активное время (страница открыта и ты что-то делаешь)'));
+    set('an2-time-sub', '');
     $id('an2-time3').innerHTML = '<div><b>' + fmtDur(sumSec(1)) + '</b><span>' + L('today', 'сегодня') + '</span></div><div><b>' + fmtDur(sumSec(7)) + '</b><span>' + L('this week', 'за неделю') + '</span></div><div><b>' + fmtDur(sumSec(30)) + '</b><span>' + L('this month', 'за месяц') + '</span></div>';
     const per = {};
     for (let i = 0; i < 30; i++) { const a = activity[addDays(todayStr(), -i)]; if (a) Object.keys(a.ex || {}).forEach(function (k) { per[k] = (per[k] || 0) + a.ex[k]; }); }
@@ -7870,23 +8080,27 @@ let currentCardIdx = 0;
     $id('an2-hard-btn').style.display = hard.length ? '' : 'none';
     set('an2-hard-btn', L('Practise these words', 'Повторить эти слова'));
     window.__hardWords = hard;
-    // история каждого слова
-    set('an2-hist-title', L('History of each word', 'История каждого слова')); set('an2-hist-sub', L('Tap a word to see what happened with it', 'Нажми на слово — увидишь, что с ним происходило'));
+    // история слов: чипы-фильтры + раскрывающиеся слова
+    set('an2-hist-title', L('Word history', 'История слов')); set('an2-hist-sub', L('Tap a word to see what happened with it', 'Нажми на слово, чтобы увидеть, что с ним было'));
+    const stateOf = function (w) { return isMastered(w.term) ? 'm' : (stOf(w.term) !== 'new' ? 'p' : 'n'); };
+    const cnt = { all: all.length, m: mastered, p: inprog, n: fresh };
+    const FL = { all: L('All', 'Все'), m: L('Mastered', 'Усвоено'), p: L('In progress', 'В процессе'), n: L('Not started', 'Не начато') };
+    $id('an2-filter').innerHTML = ['all', 'm', 'p', 'n'].map(function (k) { return '<button class="an-chip' + (anFilter === k ? ' on' : '') + '" data-f="' + k + '">' + FL[k] + ' · ' + cnt[k] + '</button>'; }).join('');
+    $id('an2-filter').querySelectorAll('button').forEach(function (b) { b.onclick = function () { anFilter = b.dataset.f; updateGlobalAnalyticsScreen(); }; });
     const R = { ok: L('✓ correct', '✓ верно'), bad: L('✗ mistake', '✗ ошибка'), know: L('Know', 'Знаю'), learn: L('Still learning', 'Ещё учу'), again: L('Again', 'Снова'), hard: L('Hard', 'Трудно'), good: L('Good', 'Хорошо'), easy: L('Easy', 'Легко') };
     const K = { fc: ['Flashcards', 'Карточки'], quiz: EX_NAMES.quiz, match: EX_NAMES.match, listen: EX_NAMES.listen, scramble: EX_NAMES.scramble, rate: ['Review', 'Повторение'] };
     const open = {}; document.querySelectorAll('#an2-words .an-word.open').forEach(function (el) { open[el.dataset.term] = true; });
-    $id('an2-words').innerHTML = all.map(function (w) {
-      const lvl = wordLevel[w.term] || 0, e = srs[w.term] || {};
-      const st = lvl >= MASTERY_LEVEL ? 'm' : (isStillLearning(w.term) ? 'p' : 'n');
+    $id('an2-words').innerHTML = all.filter(function (w) { return anFilter === 'all' || stateOf(w) === anFilter; }).map(function (w) {
+      const e = srs[w.term] || {}, st = stateOf(w);
       const lab = { m: L('mastered', 'усвоено'), p: L('in progress', 'в процессе'), n: L('not started', 'не начато') }[st];
       const evs = (e.hist || []).slice(-12).reverse().map(function (h) {
         const cls = (h.r === 'ok' || h.r === 'know' || h.r === 'good' || h.r === 'easy') ? 'ok' : (h.r === 'bad' || h.r === 'learn' || h.r === 'again') ? 'bad' : 'sr';
         return '<div class="an-ev ' + cls + '"><time>' + h.d.slice(8) + '.' + h.d.slice(5, 7) + '</time><span><b>' + (K[h.k] ? K[h.k][ru ? 1 : 0] : h.k) + '</b> — ' + (R[h.r] || h.r) + '</span></div>';
       }).join('');
       const next = e.next ? '<div class="an-ev sr"><time></time><span>' + L('Next review: ', 'Следующее повторение: ') + e.next.slice(8) + '.' + e.next.slice(5, 7) + '</span></div>' : '';
-      return '<div class="an-word' + (open[w.term] ? ' open' : '') + '" data-term="' + escapeHtml(w.term) + '"><button><span class="t">' + escapeHtml(w.term) + '</span><span class="an-pill ' + st + '">' + lab + ' · ' + Math.min(lvl, MASTERY_LEVEL) + '/' + MASTERY_LEVEL + '</span></button><div class="an-hist">' +
+      return '<div class="an-word' + (open[w.term] ? ' open' : '') + '" data-term="' + escapeHtml(w.term) + '"><button><span class="t">' + escapeHtml(w.term) + '</span><span class="an-pill ' + st + '">' + lab + '</span></button><div class="an-hist">' +
         (evs || '<div class="sub" style="margin:0">' + L('No practice with this word yet.', 'С этим словом пока не занимались.') + '</div>') + next + '</div></div>';
-    }).join('');
+    }).join('') || '<div class="sub" style="margin:0">' + L('No words here yet.', 'Здесь пока пусто.') + '</div>';
     $id('an2-words').querySelectorAll('.an-word > button').forEach(function (b) { b.onclick = function () { b.parentElement.classList.toggle('open'); }; });
   }
   function practiceHard() { if (window.__hardWords && window.__hardWords.length) startPractice(shuffleCopy(window.__hardWords), 'review', 'reviewTitle_problem'); }
@@ -7930,21 +8144,22 @@ let currentCardIdx = 0;
     if (!words || !words.length) return;
     pendingLearn = { words: words, returnTo: returnTo };
     const box = $id('learn-options'); box.innerHTML = '';
-    const allBtn = document.createElement('button');
-    allBtn.className = 'learn-option-all';
-    allBtn.innerHTML = '<span>' + t('allWordsOption') + '</span><span class="learn-option-num">' + words.length + '</span>';
-    allBtn.onclick = function () { chooseLearnCount(words.length); };
-    box.appendChild(allBtn);
+    const opt = function (cls, label, n, fn) {
+      const b = document.createElement('button');
+      b.className = cls; b.innerHTML = '<span>' + label + '</span><span class="learn-option-num">' + n + '</span>';
+      b.onclick = fn; box.appendChild(b);
+    };
+    const go = function (list, titleKey) { const rt = pendingLearn.returnTo; closeLearnModal(); startPractice(shuffleCopy(list), rt, titleKey); };
+    opt('learn-option-all', t('allWordsOption'), words.length, function () { chooseLearnCount(words.length); });
+    const due = words.filter(function (w) { return isDue(w.term); });
     const learning = words.filter(function (w) { return isStillLearning(w.term); });
-    if (learning.length) {
-      const lb = document.createElement('button');
-      lb.className = 'learn-option-all learn-option-soft';
-      lb.innerHTML = '<span>' + L('Still learning', 'Ещё учу') + '</span><span class="learn-option-num">' + learning.length + '</span>';
-      lb.onclick = function () { const rt = pendingLearn.returnTo; closeLearnModal(); startPractice(shuffleCopy(learning), rt, 'stillLearningTitle'); };
-      box.appendChild(lb);
-    }
+    const problem = words.filter(function (w) { return isProblem(w.term); });
+    if (due.length) opt('learn-option-all learn-option-soft', L('Due today', 'На сегодня'), due.length, function () { go(due, 'reviewTitle_due'); });
+    if (learning.length) opt('learn-option-all learn-option-soft', L('Still learning', 'Ещё учу'), learning.length, function () { go(learning, 'stillLearningTitle'); });
+    if (problem.length) opt('learn-option-all learn-option-soft', L('Problem words', 'Проблемные'), problem.length, function () { go(problem, 'reviewTitle_problem'); });
     const counts = [5, 10, 15, 20, 30, 50].filter(function (n) { return n < words.length; });
     if (counts.length) {
+      const lab = document.createElement('div'); lab.className = 'learn-count-label'; lab.innerText = L('or pick how many', 'или выбери, сколько слов'); box.appendChild(lab);
       const grid = document.createElement('div'); grid.className = 'learn-option-grid';
       counts.forEach(function (n) {
         const b = document.createElement('button'); b.className = 'learn-option'; b.innerText = n;
@@ -7962,10 +8177,48 @@ let currentCardIdx = 0;
     openLearnModal(lesson.words.filter(function (w) { return !hiddenTerms[w.term]; }), 'lesson:' + lesson.id);
   }
 
-  // десктоп: клик по размытому фону закрывает урок-поп-ап
-  (function () {
-    const ls = $id('lesson-screen');
-    if (ls) ls.addEventListener('click', function (e) { if (e.target === ls && window.matchMedia('(min-width: 900px)').matches) backToLessonsList(); });
+  // ---------- Analytics внутри занятия (вкладка Analytics в тренере) — по новым состояниям слов ----------
+  function updateAnalyticsUI() {
+    const all = vocabData, ru = currentLang === 'ru';
+    let mastered = 0;
+    const learningWords = [];
+    const pills = $id('analytics-word-pills'); pills.innerHTML = '';
+    all.forEach(function (item) {
+      const pill = document.createElement('div'); const st = stOf(item.term);
+      if (isMastered(item.term)) { mastered++; pill.className = 'word-pill mastered'; pill.innerText = item.term; }
+      else if (st === 'new') { pill.className = 'word-pill'; pill.style.background = '#f0ebeb'; pill.innerText = item.term; }
+      else { if (st === 'learning') learningWords.push(item); pill.className = 'word-pill struggled'; pill.innerText = item.term; }
+      pills.appendChild(pill);
+    });
+    const total = all.length || 1;
+    const scopeLabel = trainerTitleInfo ? (trainerTitleInfo.label || t(trainerTitleInfo.key)) : '';
+    $id('an-hero-num').innerText = mastered + ' / ' + all.length;
+    $id('an-hero-label').innerText = ru ? 'слов усвоено' : 'words mastered';
+    $id('an-hero-fill').style.width = Math.round(100 * mastered / total) + '%';
+    $id('an-hero-sub').innerText = ru ? 'Считаются слова из текущего раздела: ' + scopeLabel : 'Counting words in: ' + scopeLabel;
+    const gc = $id('an-growth-card');
+    if (learningWords.length) {
+      gc.style.display = 'block';
+      $id('an-growth-title').innerText = ru ? 'Стоит взглянуть ещё раз' : 'Worth another look';
+      $id('an-growth-sub').innerText = ru ? 'Отмечено как «ещё учу» — самое полезное, на чём сосредоточиться сегодня.' : 'Marked “Still learning” — the most useful place to focus today.';
+      const row = $id('an-growth-pills'); row.innerHTML = '';
+      learningWords.slice(0, 6).forEach(function (w) { const p = document.createElement('span'); p.className = 'word-pill struggled'; p.innerText = w.term; row.appendChild(p); });
+      $id('an-growth-btn').innerText = ru ? 'Потренировать эти ' + learningWords.length + ' слов' : 'Practice these ' + learningWords.length + ' words';
+    } else { gc.style.display = 'none'; }
+    const savedCount = Object.keys(favoriteTerms).filter(function (k) { return favoriteTerms[k]; }).length;
+    $id('an-closing-text').innerHTML = ru
+      ? (mastered > 0 ? 'Отличный прогресс — <b>' + mastered + '</b> слов усвоено. В избранном: <b>' + savedCount + '</b>.' : 'Пока нет усвоенных слов — начни с карточек, и здесь появится прогресс.')
+      : (mastered > 0 ? 'Nice progress — <b>' + mastered + '</b> words mastered so far. Saved: <b>' + savedCount + '</b>.' : 'No mastered words yet — start with Flashcards and your progress will show up here.');
+  }
+  function practiceReviewWords() { const w = vocabData.filter(function (x) { return isStillLearning(x.term); }); if (w.length) startPractice(w, trainerReturnTo); }
+  function practiceGlobalReviewWords() { const w = allWordsList().filter(function (x) { return isStillLearning(x.term); }); if (w.length) startPractice(w, 'allwords'); }
+
+  // ---------- значки интерфейса: только SVG (никаких эмодзи) ----------
+  (function initIcons() {
+    const put = function (id, html) { const el = $id(id); if (el) el.innerHTML = html; };
+    put('ls-play', ICON_PLAY); put('ls-replay-btn', ICON_REPLAY); put('otg-play', ICON_PAUSE);
+    put('otg-prev', ICON_PREV); put('otg-next', ICON_NEXT); put('otg-close', ICON_CLOSE); put('wi-close', ICON_CLOSE);
+    put('otg-pulse', ICON_SOUND_BIG);
   })();
 
   renderExistingLessonsSummary();
@@ -8031,6 +8284,9 @@ let currentCardIdx = 0;
       wordLevel: wordLevel,
       srs: srs,
       rounds: roundState,
+      wp: wp,
+      activity: activity,
+      acc: acc,
       updatedAt: cloudFns.serverTimestamp()
     }, { merge: true }).catch(function (e) { console.warn('Cloud write failed, kept locally only:', e); });
   }
@@ -8069,6 +8325,9 @@ let currentCardIdx = 0;
           });
         }
         if (data.srs) { Object.keys(srs).forEach(function (k) { delete srs[k]; }); Object.assign(srs, data.srs); }
+        if (data.wp) { Object.keys(wp).forEach(function (k) { delete wp[k]; }); Object.assign(wp, data.wp); }
+        if (data.activity) { Object.keys(activity).forEach(function (k) { delete activity[k]; }); Object.assign(activity, data.activity); }
+        if (data.acc) { Object.keys(acc).forEach(function (k) { delete acc[k]; }); Object.assign(acc, data.acc); }
         if (data.rounds) { Object.keys(roundState).forEach(function (k) { delete roundState[k]; }); Object.assign(roundState, data.rounds); }
         try {
           localStorage.setItem(LEVEL_KEY, JSON.stringify(wordLevel));
