@@ -7731,8 +7731,10 @@ let currentCardIdx = 0;
     });
   }
   function otgSayMeaning(item) {
-    if (currentLang === 'en' && item.audioDef) return playRecording(item.audioDef).catch(function () { return speakAsync(item.trans.en, 'en-US', 0.9); });
-    return speakAsync(item.trans[currentLang], currentLang === 'ru' ? 'ru-RU' : 'en-US', 0.95);
+    // сначала ВСЕГДА записанная озвучка (EN и RU); голос браузера — только если файла нет или он не загрузился
+    const path = currentLang === 'ru' ? item.audioDefRu : item.audioDef;
+    const fallback = function () { return speakAsync(item.trans[currentLang], currentLang === 'ru' ? 'ru-RU' : 'en-US', 0.95); };
+    return path ? playRecording(path).catch(fallback) : fallback();
   }
   function otgSayWord(item) {
     if (item.audioWord) return playRecording(item.audioWord).catch(function () { return speakAsync(item.term.replace(/\(.*?\)/g, ''), 'en-US', 0.85); });
