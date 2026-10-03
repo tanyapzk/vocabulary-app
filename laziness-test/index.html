@@ -2693,6 +2693,43 @@
     /* Listening: «Correct» сверху, кнопки (Next) ниже — ближе к большому пальцу */
     .ls-feedback { margin: 12px 0 14px; }
     .ls-actions { margin-top: 4px; }
+
+    /* ===== Раунд 4 ===== */
+    /* название урока чуть меньше */
+    .lesson-screen .lesson-screen-title { font-size: 1.75rem; line-height: 1.1; margin-top: 20px; letter-spacing: -0.4px; }
+    @media (min-width: 700px) { .lesson-screen .lesson-screen-title { font-size: 2rem; } }
+
+    /* Word Info: одна сплошная лента (шапка не закреплена), окно ниже, чтобы влезало между панелями Safari */
+    #origin-modal-overlay { padding: 70px 14px 70px; align-items: center; }
+    .wi-card { display: block; overflow-y: auto; -webkit-overflow-scrolling: touch; max-height: min(86svh, calc(100svh - 140px)); max-width: 480px; }
+    .wi-body { display: block; overflow: visible; border-top: none; }
+    .wi-content { overflow: visible; padding: 4px 24px 26px; }
+    .wi-top { padding: 22px 24px 8px; }
+    .wi-close { position: sticky; top: 12px; float: right; margin: 12px 12px 0 0; z-index: 3; }
+    .wi-row1 { padding-right: 36px; }
+
+    /* Review: строки-действия + окно со списком */
+    .rv-row { display: flex; align-items: center; gap: 10px; background: #fff; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 12px 12px 12px 14px; margin-bottom: 8px; }
+    #review-screen .rv-row { background: rgba(255, 255, 255, 0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-color: rgba(255, 255, 255, 0.9); }
+    .rv-row.empty { opacity: 0.6; }
+    .rv-row .t { flex: 1; min-width: 0; } .rv-row .t b { display: block; font-size: 0.9rem; font-weight: 900; } .rv-row .t span { font-size: 0.72rem; color: var(--c-text-muted); font-style: italic; }
+    .rv-count { flex: none; font-size: 0.74rem; font-weight: 900; padding: 3px 10px; border-radius: 999px; background: var(--c-pink-soft); color: var(--c-berry); }
+    .rv-learn { flex: none; border: 1px solid rgba(255, 255, 255, 0.8); background: rgba(233, 255, 121, 0.9); color: var(--c-berry-dark); font-family: inherit; font-weight: 900; font-size: 0.78rem; border-radius: 999px; padding: 9px 16px; cursor: pointer; box-shadow: 0 4px 10px rgba(138, 16, 43, 0.1); }
+    .rv-chev { flex: none; width: 30px; height: 30px; border-radius: 50%; border: none; background: var(--c-pink-soft); color: var(--c-berry); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    #rv-sheet-overlay { position: fixed; inset: 0; z-index: 9500; display: none; align-items: flex-end; justify-content: center; background: rgba(138, 16, 43, 0.12); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+    #rv-sheet-overlay.show { display: flex; }
+    .rv-sheet { width: 100%; max-width: 520px; height: min(78svh, 640px); background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(255, 243, 244, 0.95)); border-radius: 28px 28px 0 0; box-shadow: 0 -14px 40px rgba(138, 16, 43, 0.2); padding: 18px 16px 14px; display: flex; flex-direction: column; }
+    .rv-sheet-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .rv-sheet-title { font-size: 1.05rem; font-weight: 900; } .rv-sheet-count { font-size: 0.72rem; color: var(--c-text-muted); font-weight: 700; margin-top: 2px; }
+    .rv-sheet .list-search { margin: 0 0 8px; flex: none; width: 100%; }
+    .rv-sheet-tools { display: flex; gap: 6px; margin-bottom: 6px; flex: none; }
+    .rv-sheet-list { flex: 1; overflow-y: auto; overscroll-behavior: contain; margin: 0 -4px; padding: 0 4px; }
+    .rv-w { display: flex; align-items: center; gap: 12px; padding: 11px 2px; border-bottom: 1px solid var(--border-color); cursor: pointer; }
+    .rv-ck { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--c-berry); position: relative; }
+    .rv-ck.on { background: var(--c-berry); } .rv-ck.on::after { content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+    .rv-w b { font-size: 0.9rem; font-weight: 900; flex: none; max-width: 52%; } .rv-w small { flex: 1; min-width: 0; font-size: 0.72rem; color: var(--c-text-muted); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
+    #rv-sheet-learn { margin-top: 10px; flex: none; }
+    #rv-sheet-learn:disabled { opacity: 0.5; }
 </style>
 </head>
 <body>
@@ -2741,10 +2778,10 @@
 
   <div id="origin-modal-overlay" onclick="closeOriginModal()">
     <div class="wi-card" onclick="event.stopPropagation()">
+      <button class="wi-close" id="wi-close" onclick="closeOriginModal()" aria-label="Close"></button>
       <div class="wi-top">
         <div class="wi-row1">
           <div><div class="wi-word" id="wi-word"></div><div class="wi-ipa" id="wi-ipa"></div></div>
-          <button class="wi-close" id="wi-close" onclick="closeOriginModal()" aria-label="Close"></button>
         </div>
         <div class="wi-sec-title" id="wi-hist-title" style="margin-top:14px"></div>
         <p class="wi-origin" id="wi-origin"></p>
@@ -2851,7 +2888,6 @@
       <div class="an-card"><h2 id="an2-cal-title"></h2><div class="sub" id="an2-cal-sub"></div><div class="an-cal" id="an2-cal"></div><div class="an-legend" id="an2-legend"></div></div>
       <div class="an-card"><h2 id="an2-words-title"></h2><div class="sub" id="an2-words-sub"></div><div class="an-three" id="an2-words-three"></div><div class="an-stack" id="an2-stack"></div></div>
       <div class="an-card"><h2 id="an2-time-title"></h2><div class="sub" id="an2-time-sub"></div><div class="an-time3" id="an2-time3"></div><div id="an2-time-bars"></div></div>
-      <div class="an-card" id="an2-hard-card"><h2 id="an2-hard-title"></h2><div class="sub" id="an2-hard-sub"></div><div id="an2-hard"></div><button class="glass-btn lime" style="width:100%;margin-top:12px" id="an2-hard-btn" onclick="practiceHard()"></button></div>
       <div class="an-card"><h2 id="an2-hist-title"></h2><div class="sub" id="an2-hist-sub"></div><div class="an-chips" id="an2-filter"></div><div id="an2-words"></div></div>
     </div>
 
@@ -3203,6 +3239,19 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Review: окно со списком слов группы -->
+  <div id="rv-sheet-overlay" onclick="if(event.target===this)closeRvSheet()">
+    <div class="rv-sheet">
+      <div class="rv-sheet-head"><div><div class="rv-sheet-title" id="rv-sheet-title"></div><div class="rv-sheet-count" id="rv-sheet-count"></div></div>
+        <button class="glass-btn round" onclick="closeRvSheet()" aria-label="Close" style="width:36px;height:36px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button></div>
+      <input type="search" class="list-search" id="rv-sheet-search" oninput="rvSheetSearch()" autocomplete="off">
+      <div class="rv-sheet-tools"><button class="tool-pill" id="rv-sheet-all" onclick="rvSheetAll()"></button><button class="tool-pill" id="rv-sheet-clear" onclick="rvSheetClear()"></button>
+        <button class="tool-pill icon-only" onclick="rvSheetShuffle()" aria-label="Shuffle" title="Shuffle"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></button></div>
+      <div class="rv-sheet-list" id="rv-sheet-list"></div>
+      <button class="glass-btn lime rv-btn" id="rv-sheet-learn" onclick="rvSheetLearn()"></button>
     </div>
   </div>
 
@@ -5573,29 +5622,6 @@ let currentCardIdx = 0;
   // for words that don't have a recorded file yet.
   let audioPlayer = null;
 
-  function speak(text) {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.81;
-    utterance.pitch = 1.0;
-    const voices = window.speechSynthesis.getVoices();
-    const bestUsVoice = voices.find(v =>
-      (v.lang === 'en-US' || v.lang === 'en_US') && (
-        v.name.includes('Google US English') ||
-        v.name.includes('Aria') ||
-        v.name.includes('Jenny') ||
-        v.name.includes('Samantha') ||
-        v.name.includes('Victoria') ||
-        v.name.includes('Zira') ||
-        v.name.toLowerCase().includes('natural') ||
-        v.name.toLowerCase().includes('female')
-      )
-    ) || voices.find(v => v.lang === 'en-US' || v.lang === 'en_US');
-    if (bestUsVoice) utterance.voice = bestUsVoice;
-    window.speechSynthesis.speak(utterance);
-  }
 
   function playAudio(e) {
     e.stopPropagation();
@@ -6980,15 +7006,46 @@ let currentCardIdx = 0;
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = lang || 'en-US'; u.rate = rate || 0.9;
-      const voices = window.speechSynthesis.getVoices();
-      const v = voices.find(function (x) { return x.lang && x.lang.replace('_', '-').toLowerCase() === (lang || 'en-US').toLowerCase(); });
-      if (v) u.voice = v;
+      const v = bestVoice(lang || 'en-US');
+      if (v) { u.voice = v; u.lang = v.lang; }
       let done = false;
       const fin = function () { if (!done) { done = true; resolve(); } };
       u.onend = fin; u.onerror = fin;
       setTimeout(fin, Math.max(2500, text.length * 110));   // страховка: если голос недоступен, плеер не должен зависнуть
       window.speechSynthesis.speak(u);
     });
+  }
+  // самый естественный из доступных голосов устройства (Premium/Enhanced/Natural, Siri, Google…), без «роботов»
+  function bestVoice(lang) {
+    const voices = (window.speechSynthesis && window.speechSynthesis.getVoices()) || [];
+    const want = (lang || 'en-US').replace('_', '-').toLowerCase(), base = want.slice(0, 2);
+    const bad = /compact|fred|albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|good news|hysterical|junior|kathy|organ|princess|ralph|trinoids|whisper|zarvox|superstar|jester/i;
+    let best = null, bs = -1e9;
+    voices.forEach(function (v) {
+      const l = (v.lang || '').replace('_', '-').toLowerCase();
+      if (l.slice(0, 2) !== base) return;
+      let sc = 0;
+      if (l === want) sc += 30; else if (base === 'en' && l === 'en-gb') sc += 8;
+      if (/premium/i.test(v.name)) sc += 60;
+      if (/enhanced/i.test(v.name)) sc += 50;
+      if (/natural|neural|online/i.test(v.name)) sc += 55;
+      if (/siri/i.test(v.name)) sc += 45;
+      if (/google/i.test(v.name)) sc += 35;
+      if (/samantha|ava|zoe|allison|nicky|aria|jenny|guy|andrew|emma|serena|alex|daniel|karen|milena|yuri|svetlana|dmitry/i.test(v.name)) sc += 20;
+      if (bad.test(v.name)) sc -= 100;
+      if (/\b(eddy|flo|reed|rocko|sandy|shelley|grandma|grandpa)\b/i.test(v.name)) sc -= 15;   // «игровые» варианты системных голосов
+      if (!v.localService) sc += 5;
+      if (sc > bs) { bs = sc; best = v; }
+    });
+    return best;
+  }
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.9; u.pitch = 1;
+    const v = bestVoice('en-US'); if (v) { u.voice = v; u.lang = v.lang; }
+    window.speechSynthesis.speak(u);
   }
   function plain(html) { return String(html || '').replace(/<[^>]+>/g, ''); }
   function playWordAudio(item) {
@@ -7262,6 +7319,12 @@ let currentCardIdx = 0;
   // ---------- общий хелпер: ввод с микрофоном ----------
   const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
   let activeRec = null;
+  function stopMic() {
+    if (activeRec) { try { activeRec.abort(); } catch (e) { /* ignore */ } activeRec = null; }
+    document.querySelectorAll('.mic-btn.rec').forEach(function (b) { b.classList.remove('rec'); });
+  }
+  document.addEventListener('visibilitychange', function () { if (document.hidden) stopMic(); });
+  window.addEventListener('pagehide', stopMic);
   function setupMic(btnId, inputId) {
     const btn = $id(btnId), input = $id(inputId);
     if (!btn || !input) return;
@@ -7269,17 +7332,18 @@ let currentCardIdx = 0;
     btn.classList.add('avail');
     btn.innerHTML = ICON_MIC;
     btn.onclick = function () {
-      if (activeRec) { try { activeRec.stop(); } catch (e) { /* ignore */ } return; }
+      if (activeRec) { stopMic(); return; }
       const rec = new SpeechRec();
-      rec.lang = 'en-US'; rec.interimResults = true; rec.maxAlternatives = 1;
+      rec.lang = 'en-US'; rec.interimResults = true; rec.maxAlternatives = 1; rec.continuous = false;
       activeRec = rec;
       btn.classList.add('rec');
+      let guard = setTimeout(stopMic, 15000);   // автостоп: микрофон не должен «висеть»
       rec.onresult = function (ev) {
         let txt = '';
         for (let i = 0; i < ev.results.length; i++) txt += ev.results[i][0].transcript;
         input.value = txt;
       };
-      const done = function () { btn.classList.remove('rec'); activeRec = null; input.focus(); };
+      const done = function () { clearTimeout(guard); btn.classList.remove('rec'); if (activeRec === rec) activeRec = null; input.focus(); };
       rec.onend = done; rec.onerror = done;
       try { rec.start(); } catch (e) { done(); }
     };
@@ -7387,6 +7451,7 @@ let currentCardIdx = 0;
     box.classList.toggle('show');
   }
   function lsCheck() {
+    stopMic();
     if (lsSolved) return;
     const item = lsPool[lsIdx]; const inp = $id('ls-input');
     if (!inp.value.trim()) return;
@@ -7408,6 +7473,7 @@ let currentCardIdx = 0;
     }
   }
   function lsSkip() {
+    stopMic();
     const item = lsPool[lsIdx]; if (!item || lsSolved) return;
     lsSolved = true; lsMissed = true;
     recordResult(item.term, false, 'listen');
@@ -7416,7 +7482,7 @@ let currentCardIdx = 0;
     $id('ls-feedback').innerHTML = L('Answer: ', 'Ответ: ') + '<br><span style="font-weight:600">' + item.example + '</span>';
     $id('ls-check-btn').style.display = 'none'; $id('ls-skip-btn').style.display = 'none'; $id('ls-next-btn').style.display = '';
   }
-  function lsNext() { lsIdx++; renderListening(); }
+  function lsNext() { stopMic(); lsIdx++; renderListening(); }
   function lsRestart() { startListening(); }
 
   // ---------- Production (пока только оформление; проверка через Claude API подключается позже) ----------
@@ -7459,6 +7525,7 @@ let currentCardIdx = 0;
   }
 
   function prCheck() {
+    stopMic();
     const item = prPool[prIdx]; const inp = $id('pr-input'); const text = inp.value.trim();
     if (!text || prChecked) return;
     if (!acceptedForms(item).some(function (f) { return normText(text).indexOf(f) !== -1; })) {
@@ -7490,11 +7557,12 @@ let currentCardIdx = 0;
   }
   function prShowDef() { $id('pr-meaning').style.display = 'block'; $id('pr-def-btn').style.display = 'none'; }
   function prSkip() {
+    stopMic();
     const item = prPool[prIdx]; if (!item) return;
     prLog.push({ term: item.term, original: '—', corrected: '—', comment: L('Skipped', 'Пропущено'), skipped: true });
     prIdx++; renderProduction();
   }
-  function prNext() { prIdx++; renderProduction(); }
+  function prNext() { stopMic(); prIdx++; renderProduction(); }
   function prFinishNow() { prIdx = prPool.length; renderProduction(); }
 
   function renderProductionSummary() {
@@ -7521,34 +7589,75 @@ let currentCardIdx = 0;
   // ---------- Повторение (Review) ----------
   function renderReview() {
     const all = allWordsList().filter(function (w) { return !hiddenTerms[w.term]; });
-    const due = all.filter(function (w) { return isDue(w.term); });
-    const learning = all.filter(function (w) { return isStillLearning(w.term); });
-    const problem = all.filter(function (w) { return isProblem(w.term); });
-    const mastered = all.filter(function (w) { return isMastered(w.term); });
-    $id('rv-hero-num').innerText = due.length;
+    const groups = {
+      due: all.filter(function (w) { return isDue(w.term); }),
+      learning: all.filter(function (w) { return isStillLearning(w.term); }),
+      problem: all.filter(function (w) { return isProblem(w.term); }),
+      mastered: all.filter(function (w) { return isMastered(w.term); })
+    };
+    rvGroups = groups;
+    $id('rv-hero-num').innerText = groups.due.length;
     $id('rv-hero-label').innerText = L('words due today', 'слов на повторение сегодня');
-    $id('rv-hero-sub').innerText = due.length ? L('A short review now keeps them from fading.', 'Короткое повторение сейчас — и слова не забудутся.')
+    $id('rv-hero-sub').innerText = groups.due.length ? L('A short review now keeps them from fading.', 'Короткое повторение сейчас — и слова не забудутся.')
       : L('Nothing is due today — nice. Come back tomorrow.', 'На сегодня ничего не нужно повторять. Возвращайся завтра.');
-    const blocks = [
-      { title: L('Due today', 'На сегодня'), sub: L('Words whose review time has come (Again / Hard / Good / Easy).', 'Слова, у которых наступило время повторения (Снова / Трудно / Хорошо / Легко).'), words: due, pill: 'struggled', btn: L('Review now', 'Повторить сейчас'), mode: 'due' },
-      { title: L('Still learning', 'Ещё учу'), sub: L('Started but not mastered yet.', 'Уже начатые, но ещё не усвоенные слова.'), words: learning, pill: 'struggled', btn: L('Learn words', 'Учить слова'), mode: 'learning' },
-      { title: L('Problem words', 'Проблемные слова'), sub: L('The ones you miss most often in the exercises.', 'Те, в которых ты чаще всего ошибаешься в упражнениях.'), words: problem, pill: 'struggled', btn: L('Learn words', 'Учить слова'), mode: 'problem' },
-      { title: L('Mastered', 'Усвоено'), sub: L('Words that survived several days of practice.', 'Слова, которые выдержали несколько дней практики.'), words: mastered, pill: 'mastered', btn: null, mode: 'mastered' }
+    const rows = [
+      { key: 'due', title: L('Due today', 'На сегодня'), sub: L('review time has come', 'время повторения наступило'), learn: true },
+      { key: 'learning', title: L('Still learning', 'Ещё учу'), sub: L('started, not mastered yet', 'начатые, но не усвоенные'), learn: true },
+      { key: 'problem', title: L('Problem words', 'Проблемные'), sub: L('most mistakes', 'больше всего ошибок'), learn: true },
+      { key: 'mastered', title: L('Mastered', 'Усвоено'), sub: L('interval of 14+ days', 'интервал от 14 дней'), learn: false }
     ];
-    const host = $id('rv-blocks'); host.innerHTML = attentionBlockHtml();
-    blocks.forEach(function (b) {
-      const div = document.createElement('div'); div.className = 'rv-block';
-      div.innerHTML = '<div class="rv-block-head"><div class="rv-block-title">' + b.title + '</div><span class="rv-count">' + b.words.length + '</span></div>' +
-        '<div class="rv-block-sub">' + b.sub + '</div>' +
-        '<div class="rv-chips">' + (b.words.length ? b.words.map(function (w) { return '<span class="word-pill ' + b.pill + '">' + escapeHtml(w.term) + '</span>'; }).join('') : '<span class="rv-empty">' + L('Nothing here yet.', 'Пока пусто.') + '</span>') + '</div>';
-      if (b.btn && b.words.length) {
-        const btn = document.createElement('button'); btn.className = 'glass-btn lime rv-btn'; btn.innerText = b.btn + ' · ' + b.words.length;
-        btn.onclick = function () { startPractice(shuffleCopy(b.words), 'review', 'reviewTitle_' + b.mode); };
-        div.appendChild(btn);
+    const host = $id('rv-blocks'); host.innerHTML = '';
+    rows.forEach(function (r) {
+      const n = groups[r.key].length;
+      const div = document.createElement('div'); div.className = 'rv-row' + (n ? '' : ' empty');
+      div.innerHTML = '<div class="t"><b>' + r.title + '</b><span>' + r.sub + '</span></div><span class="rv-count">' + n + '</span>' +
+        (n && r.learn ? '<button class="rv-learn">' + L('Learn', 'Учить') + '</button>' : '') +
+        (n ? '<button class="rv-chev" aria-label="' + L('Open list', 'Открыть список') + '">' + svgI('<polyline points="9 6 15 12 9 18"/>', 16) + '</button>' : '');
+      if (n) {
+        const lb = div.querySelector('.rv-learn');
+        if (lb) lb.onclick = function () { startPractice(shuffleCopy(groups[r.key]), 'review', 'reviewTitle_' + r.key); };
+        div.querySelector('.rv-chev').onclick = function () { openRvSheet(r.key, r.title); };
       }
       host.appendChild(div);
     });
+    host.insertAdjacentHTML('beforeend', attentionBlockHtml());
     $id('rv-title').innerText = L('Review', 'Повторение');
+  }
+  let rvGroups = {}, rvSheet = { key: null, sel: {}, q: '', words: [], order: null };
+  function openRvSheet(key, title) {
+    rvSheet = { key: key, sel: {}, q: '', words: rvGroups[key] || [], order: null, title: title };
+    $id('rv-sheet-search').value = '';
+    renderRvSheet();
+    $id('rv-sheet-overlay').classList.add('show'); lockScroll();
+  }
+  function closeRvSheet() { $id('rv-sheet-overlay').classList.remove('show'); unlockScroll(); }
+  function renderRvSheet() {
+    const q = rvSheet.q.trim().toLowerCase();
+    let list = rvSheet.words.filter(function (w) { return !q || (w.term + ' ' + w.trans.en + ' ' + w.trans.ru).toLowerCase().indexOf(q) !== -1; });
+    if (rvSheet.order) { const rk = {}; rvSheet.order.forEach(function (t2, i) { rk[t2] = i; }); list = list.slice().sort(function (a, b) { return (rk[a.term] == null ? 1e6 : rk[a.term]) - (rk[b.term] == null ? 1e6 : rk[b.term]); }); }
+    $id('rv-sheet-title').innerText = rvSheet.title;
+    $id('rv-sheet-count').innerText = countLabel(rvSheet.words.length);
+    $id('rv-sheet-list').innerHTML = list.map(function (w) {
+      const on = !!rvSheet.sel[w.term];
+      return '<div class="rv-w" data-term="' + escapeHtml(w.term) + '"><i class="rv-ck' + (on ? ' on' : '') + '"></i><b>' + escapeHtml(w.term) + '</b><small>' + escapeHtml(w.trans[currentLang]) + '</small></div>';
+    }).join('') || '<div class="sub" style="padding:14px 4px">' + L('Nothing found.', 'Ничего не найдено.') + '</div>';
+    $id('rv-sheet-list').querySelectorAll('.rv-w').forEach(function (el) {
+      el.onclick = function () { const t2 = el.dataset.term; if (rvSheet.sel[t2]) delete rvSheet.sel[t2]; else rvSheet.sel[t2] = true; renderRvSheet(); };
+    });
+    const n = Object.keys(rvSheet.sel).length;
+    const btn = $id('rv-sheet-learn'); btn.disabled = !n; btn.innerText = L('Learn selected', 'Учить выбранные') + (n ? ' · ' + n : '');
+    $id('rv-sheet-all').innerText = L('Select all', 'Выбрать все'); $id('rv-sheet-clear').innerText = L('Clear', 'Сбросить');
+    $id('rv-sheet-search').placeholder = L('Search words…', 'Поиск по словам…');
+  }
+  function rvSheetSearch() { rvSheet.q = $id('rv-sheet-search').value; renderRvSheet(); }
+  function rvSheetAll() { rvSheet.words.forEach(function (w) { rvSheet.sel[w.term] = true; }); renderRvSheet(); }
+  function rvSheetClear() { rvSheet.sel = {}; renderRvSheet(); }
+  function rvSheetShuffle() { rvSheet.order = shuffleCopy(rvSheet.words).map(function (w) { return w.term; }); renderRvSheet(); }
+  function rvSheetLearn() {
+    const words = rvSheet.words.filter(function (w) { return rvSheet.sel[w.term]; });
+    if (!words.length) return;
+    const key = rvSheet.key; closeRvSheet();
+    startPractice(shuffleCopy(words), 'review', 'reviewTitle_' + key);
   }
 
   // ---------- Learn on the go ----------
@@ -7662,9 +7771,8 @@ let currentCardIdx = 0;
     let pos = 0;   // в секундах
     const addSilence = function (sec, kind, idx) { const n = Math.round(sec * OTG_SR); parts.push({ n: n }); segs.push({ t0: pos, t1: pos + sec, kind: kind, idx: idx }); pos += sec; };
     const addPcm = function (data, kind, idx) { parts.push({ data: data }); const d = data.length / OTG_SR; segs.push({ t0: pos, t1: pos + d, kind: kind, idx: idx }); pos += d; };
-    const beep = function (hz) { const n = Math.round(0.16 * OTG_SR), d = new Float32Array(n); for (let i = 0; i < n; i++) d[i] = 0.3 * Math.sin(2 * Math.PI * hz * i / OTG_SR) * Math.min(1, i / 300, (n - i) / 300); return d; };
     // отсчёт 3-2-1 только один раз, перед самым стартом
-    for (let c = 3; c >= 1; c--) { addPcm(beep(c === 1 ? 1175 : 880), 'count', c); addSilence(1 - 0.16, 'count', c); }
+    for (let c = 3; c >= 1; c--) addSilence(1, 'count', c);   // 3-2-1 без звука: только цифры на экране
     for (let i = 0; i < otg.wordsList.length; i++) {
       const w = otg.wordsList[i];
       const meaning = ru ? w.audioDefRu : w.audioDef;
@@ -7931,6 +8039,7 @@ let currentCardIdx = 0;
   }
 
   function showScreen(name) {
+    stopMic();
     const screens = { home: 'home-screen', allwords: 'allwords-screen', saved: 'saved-screen', review: 'review-screen', trainer: 'trainer-screen', analytics: 'analytics-screen' };
     if (!screens[name]) name = 'home';
     Object.keys(screens).forEach(function (key) {
@@ -8072,14 +8181,6 @@ let currentCardIdx = 0;
     $id('an2-time-bars').innerHTML = keys.length ? keys.map(function (k) {
       return '<div class="an-bar"><span class="nm">' + (KIND_NAMES[k] ? KIND_NAMES[k][ru ? 1 : 0] : k) + '</span><span class="tr"><i style="width:' + Math.max(4, 100 * per[k] / mx) + '%"></i></span><span class="v">' + fmtDur(per[k]) + '</span></div>';
     }).join('') : '<div class="sub">' + L('No practice time recorded yet — it starts counting from now.', 'Время занятий пока не записано — подсчёт идёт с этого момента.') + '</div>';
-    // трудные слова
-    const hard = all.filter(function (w) { return (srs[w.term] && srs[w.term].err) > 0; }).sort(function (a, b) { return srs[b.term].err - srs[a.term].err; }).slice(0, 5);
-    set('an2-hard-title', L('Hardest words', 'Самые трудные слова')); set('an2-hard-sub', L('Most mistakes of all time', 'Больше всего ошибок за всё время'));
-    $id('an2-hard').innerHTML = hard.length ? hard.map(function (w) { return '<div class="an-hard"><b>' + escapeHtml(w.term) + '</b><span>' + srs[w.term].err + L(' mistakes', ' ош.') + '</span></div>'; }).join('')
-      : '<div class="sub" style="margin:0">' + L('No mistakes recorded yet.', 'Ошибок пока нет.') + '</div>';
-    $id('an2-hard-btn').style.display = hard.length ? '' : 'none';
-    set('an2-hard-btn', L('Practise these words', 'Повторить эти слова'));
-    window.__hardWords = hard;
     // история слов: чипы-фильтры + раскрывающиеся слова
     set('an2-hist-title', L('Word history', 'История слов')); set('an2-hist-sub', L('Tap a word to see what happened with it', 'Нажми на слово, чтобы увидеть, что с ним было'));
     const stateOf = function (w) { return isMastered(w.term) ? 'm' : (stOf(w.term) !== 'new' ? 'p' : 'n'); };
@@ -8103,7 +8204,6 @@ let currentCardIdx = 0;
     }).join('') || '<div class="sub" style="margin:0">' + L('No words here yet.', 'Здесь пока пусто.') + '</div>';
     $id('an2-words').querySelectorAll('.an-word > button').forEach(function (b) { b.onclick = function () { b.parentElement.classList.toggle('open'); }; });
   }
-  function practiceHard() { if (window.__hardWords && window.__hardWords.length) startPractice(shuffleCopy(window.__hardWords), 'review', 'reviewTitle_problem'); }
 
   // «Обрати внимание на упражнения» (в Review): точность по упражнениям, считаются только те, где хотя бы 10 ответов
   function attentionBlockHtml() {
