@@ -7801,7 +7801,7 @@ let currentCardIdx = 0;
 
   // ---------- Production (пока только оформление; проверка через Claude API подключается позже) ----------
   // Когда будет готов API-прокси, достаточно вписать его адрес сюда — остальной интерфейс уже работает.
-  const PRODUCTION_ENDPOINT = '';
+  const PRODUCTION_ENDPOINT = 'https://vocab-checker.tatyana-rominatanya.workers.dev';
   let prPool = [], prIdx = 0, prLog = [], prChecked = false;
 
   function startProduction() { prPool = shuffleCopy(vocabData); prIdx = 0; prLog = []; renderProduction(); }
