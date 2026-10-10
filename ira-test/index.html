@@ -2731,6 +2731,15 @@
     .rv-w b { font-size: 0.9rem; font-weight: 900; flex: none; max-width: 52%; } .rv-w small { flex: 1; min-width: 0; font-size: 0.72rem; color: var(--c-text-muted); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
     #rv-sheet-learn { margin-top: 10px; flex: none; }
     #rv-sheet-learn:disabled { opacity: 0.5; }
+
+    .pill-btn.with-icon, .listen-cta { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+    .select-bar-actions { flex-wrap: wrap; }
+    .select-bar .select-listen { flex: 1 1 130px; }
+    .select-bar .select-learn { flex: 1 1 130px; }
+    .lsp-actions { flex-wrap: wrap; }
+    .lsp-actions .listen-cta { flex: 1 1 130px; padding: 14px 18px; border-radius: 999px; border: 1.5px solid rgba(138, 16, 43, 0.14); background: rgba(255, 255, 255, 0.7); color: var(--c-berry-dark); font-family: inherit; font-weight: 800; font-size: 0.95rem; cursor: pointer; }
+    .lsp-actions .listen-cta:disabled { opacity: 0.5; cursor: default; }
+    .lsp-actions .learn-cta { flex: 1 1 130px; }
 </style>
 </head>
 <body>
@@ -2846,6 +2855,7 @@
         <div class="list-actions">
           <button class="pill-btn" id="allwords-select-btn" onclick="toggleSelectMode()">Select</button>
           <button class="pill-btn pill-btn-primary" id="allwords-learn-btn" onclick="learnAllWords()">Learn words</button>
+          <button class="pill-btn with-icon" id="allwords-listen-btn" onclick="listenAll('allwords')"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/></svg><span id="allwords-listen-label">Listen</span></button>
         </div>
       </div>
       <div class="learn-strip" id="allwords-learn-strip"><div class="learn-strip-inner"></div></div>
@@ -2863,6 +2873,7 @@
         <div class="list-actions">
           <button class="pill-btn" id="saved-select-btn" onclick="toggleSelectMode()">Select</button>
           <button class="pill-btn pill-btn-primary" id="saved-learn-btn" onclick="learnSavedWords()">Learn words</button>
+          <button class="pill-btn with-icon" id="saved-listen-btn" onclick="listenAll('saved')"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/></svg><span id="saved-listen-label">Listen</span></button>
         </div>
       </div>
       <div class="learn-strip" id="saved-learn-strip"><div class="learn-strip-inner"></div></div>
@@ -3237,6 +3248,7 @@
             <button class="icon-action save-action" id="lesson-save-btn" onclick="saveSelected()"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="lesson-save-label">Save</span></button>
             <button class="icon-action delete-action" id="lesson-delete-btn" onclick="deleteSelected()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"/><path d="M9.88 5.09A9.77 9.77 0 0 1 12 5c5 0 9 4.5 10 7-.32.9-.86 1.86-1.57 2.77M6.6 6.6C4.4 8.05 2.8 10.1 2 12c1 2.5 5 7 10 7 1.29 0 2.5-.3 3.6-.8"/></svg><span id="lesson-delete-label">Hide</span></button>
             <button class="learn-cta" id="lesson-learn-selected-btn" onclick="learnSelected()">Learn selected</button>
+            <button class="listen-cta" id="lesson-listen-selected-btn" onclick="listenSelected()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/></svg><span id="lesson-listen-selected-label">Listen selected</span></button>
           </div>
         </div>
       </div>
@@ -3310,6 +3322,7 @@
       <button class="icon-action save-action" id="select-save-btn" onclick="saveSelected()"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="select-save-label">Save</span></button>
       <button class="icon-action delete-action" id="select-delete-btn" onclick="deleteSelected()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"/><path d="M9.88 5.09A9.77 9.77 0 0 1 12 5c5 0 9 4.5 10 7-.32.9-.86 1.86-1.57 2.77M6.6 6.6C4.4 8.05 2.8 10.1 2 12c1 2.5 5 7 10 7 1.29 0 2.5-.3 3.6-.8"/></svg><span id="select-delete-label">Hide</span></button>
       <button class="pill-btn pill-btn-primary select-learn" id="select-learn-btn" onclick="learnSelected()">Learn selected</button>
+      <button class="pill-btn with-icon select-listen" id="select-listen-btn" onclick="listenSelected()"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.500"/><rect x="17" y="14" width="4" height="6" rx="1.500"/></svg><span id="select-listen-label">Listen selected</span></button>
     </div>
   </div>
 
@@ -14346,7 +14359,7 @@ let currentCardIdx = 0;
     if (delLabel) delLabel.innerText = selectScreen === 'saved' ? t('unsaveLabel') : t('deleteLabel');
     const lessonDelLabel = document.getElementById('lesson-delete-label');
     if (lessonDelLabel) lessonDelLabel.innerText = t('deleteLabel');
-    ['select-learn-btn', 'select-save-btn', 'select-delete-btn'].forEach(function (id) {
+    ['select-learn-btn', 'select-listen-btn', 'select-save-btn', 'select-delete-btn'].forEach(function (id) {
       const b = document.getElementById(id);
       if (b) b.disabled = n === 0;
     });
@@ -14361,7 +14374,7 @@ let currentCardIdx = 0;
     const n = Object.keys(selectedTerms).length;
     const cnt = document.getElementById('lesson-select-count');
     if (cnt) cnt.innerText = t('selectedCount') + ': ' + n;
-    ['lesson-save-btn', 'lesson-delete-btn', 'lesson-learn-selected-btn'].forEach(function (id) {
+    ['lesson-save-btn', 'lesson-delete-btn', 'lesson-learn-selected-btn', 'lesson-listen-selected-btn'].forEach(function (id) {
       const b = document.getElementById(id);
       if (b) b.disabled = on && n === 0;
     });
@@ -14898,7 +14911,8 @@ let currentCardIdx = 0;
      ['stamp-know', 'stampKnow'], ['stamp-learn', 'stampLearn'], ['swipe-hint', 'swipeHint'],
      ['saved-select-btn', 'selectWords'], ['side-word-text', 'wordSide'], ['side-def-text', 'defSide'], ['side-switch-label', 'showFirstLabel'],
      ['swipe-label-left', 'sideLearning'], ['swipe-label-right', 'sideKnow'], ['lesson-select-btn', 'selectWords'],
-     ['lesson-select-cancel', 'cancel'], ['lesson-learn-selected-btn', 'learnSelected']].forEach(function (pair) {
+     ['lesson-select-cancel', 'cancel'], ['lesson-learn-selected-btn', 'learnSelected'],
+     ['allwords-listen-label', 'listenWords'], ['saved-listen-label', 'listenWords'], ['select-listen-label', 'listenSelected'], ['lesson-listen-selected-label', 'listenSelected']].forEach(function (pair) {
       const el = document.getElementById(pair[0]);
       if (el) el.innerText = translations[lang][pair[1]];
     });
@@ -15593,9 +15607,9 @@ let currentCardIdx = 0;
   const ICON_CLOSE = svgI('<line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>', 16);
   const ICON_SOUND_BIG = svgI('<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', 30);
   const ICON_MIC = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>';
-  Object.assign(translations.en, { know: '✓ Know', learnWords: 'Learn', drillTitle: 'Practice weak spots', topTabReview: 'Review', stillLearningTitle: 'Still learning',
+  Object.assign(translations.en, { know: '✓ Know', learnWords: 'Learn', listenWords: 'Listen', listenSelected: 'Listen selected', drillTitle: 'Practice weak spots', topTabReview: 'Review', stillLearningTitle: 'Still learning',
     reviewTitle_due: 'Due today', reviewTitle_learning: 'Still learning', reviewTitle_problem: 'Problem words', reviewTitle_mastered: 'Mastered' });
-  Object.assign(translations.ru, { learnWords: 'Учить', drillTitle: 'Слабые места', topTabReview: 'Повторение', stillLearningTitle: 'Ещё учу',
+  Object.assign(translations.ru, { learnWords: 'Учить', listenWords: 'Слушать', listenSelected: 'Слушать выбранные', drillTitle: 'Слабые места', topTabReview: 'Повторение', stillLearningTitle: 'Ещё учу',
     reviewTitle_due: 'На сегодня', reviewTitle_learning: 'Ещё учу', reviewTitle_problem: 'Проблемные слова', reviewTitle_mastered: 'Усвоено' });
   const REG_LABELS = { formal: ['Formal', 'Формально'], informal: ['Informal', 'Неформально'], spoken: ['Spoken', 'В разговоре'], written: ['Written', 'В тексте'], business: ['Business', 'Деловой'] };
 
@@ -16828,14 +16842,26 @@ let currentCardIdx = 0;
   const otg = { wordsList: [], idx: 0, first: 'word', think: 4, gap: 2, example: true, run: 0, paused: false, playing: false };
   try { const s = JSON.parse(localStorage.getItem('vocabOtg') || '{}'); ['first', 'think', 'gap', 'example'].forEach(function (k) { if (s[k] != null) otg[k] = s[k]; }); } catch (e) { /* ignore */ }
 
-  function openOtg() {
-    const lesson = lessons.find(function (l) { return l.id === currentOpenLessonId; });
-    otg.wordsList = lesson ? lesson.words.filter(function (w) { return !hiddenTerms[w.term]; }) : [];
+  // source: не указан = весь открытый урок; 'allwords' / 'saved' = все слова / избранное; массив = именно эти слова (выбранные)
+  function openOtg(source) {
+    let words;
+    if (Array.isArray(source)) words = source;
+    else if (source === 'allwords') words = studentWordsList();
+    else if (source === 'saved') words = savedWordsList();
+    else { const lesson = lessons.find(function (l) { return l.id === currentOpenLessonId; }); words = lesson ? lesson.words : []; }
+    otg.wordsList = words.filter(function (w) { return !hiddenTerms[w.term]; });
     if (!otg.wordsList.length) return;
     $id('otg-overlay').classList.add('show');
     document.body.style.overflow = 'hidden';
     otgShowSettings();
   }
+  function listenAll(screen) { closeLearnStrips(); openOtg(screen === 'saved' ? 'saved' : 'allwords'); }
+  function listenSelected() {
+    const words = selectedWordsFromScreen();
+    if (!words.length) return;
+    openOtg(words);   // только выбранные; выбор остаётся, чтобы после прослушивания можно было продолжить
+  }
+
   function closeOtg() {
     otg.run++; otg.playing = false; otg.legacy = false; otg.counted = false;
     clearInterval(otgTimer); if (otgAudio) { try { otgAudio.pause(); } catch (e) { /* ignore */ } }
