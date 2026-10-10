@@ -22,6 +22,9 @@
   <meta name="twitter:title" content="Vocab Drill">
   <meta name="twitter:description" content="Флеш-карточки · тесты · практика слов">
   <meta name="twitter:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+  <link rel="apple-touch-icon" href="https://tanyapzk.github.io/vocabulary-app/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="https://tanyapzk.github.io/vocabulary-app/assets/icon-512.png">
+  <meta name="apple-mobile-web-app-title" content="Vocab Drill">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2602,16 +2605,18 @@
     .an-streak .num { font-size: 2.4rem; line-height: 1; }
     .an-streak .num small { font-size: 0.9rem; font-weight: 900; margin-left: 6px; }
     .an-streak .phrase { font-size: 0.9rem; margin-top: 8px; }
-    .an-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; max-width: 420px; }
+    .an-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; }
     .an-cal .dow { text-align: center; font-size: 0.62rem; font-weight: 700; color: var(--c-text-muted); }
-    .an-cal .d { aspect-ratio: 1; border-radius: 7px; background: var(--c-pink-soft); border: 1px solid var(--border-color); }
-    .an-cal .d.l1 { background: color-mix(in srgb, var(--c-lime) 40%, white); border-color: transparent; }
-    .an-cal .d.l2 { background: color-mix(in srgb, var(--c-lime) 75%, white); border-color: transparent; }
-    .an-cal .d.l3 { background: var(--c-lime); border-color: color-mix(in srgb, var(--c-berry) 25%, white); }
+    .an-cal .d { position: relative; aspect-ratio: 1.5; border-radius: 8px; box-sizing: border-box; background: #fff; border: 1px dashed var(--border-color); font-size: 0.66rem; font-weight: 700; color: var(--c-text-muted); display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px 6px; }
+    .an-cal .d.l1 { background: color-mix(in srgb, var(--c-pink) 60%, white); border: none; color: var(--c-berry-dark); }
+    .an-cal .d.l2 { background: var(--c-lime); border: none; color: var(--c-berry-dark); }
+    .an-cal .d.l3 { background: var(--c-berry); border: none; color: #fff; }
     .an-cal .d.today { outline: 2px solid var(--c-berry); outline-offset: 1px; }
     .an-cal .d.empty { visibility: hidden; }
-    .an-legend { display: flex; align-items: center; gap: 5px; font-size: 0.64rem; color: var(--c-text-muted); margin-top: 10px; }
-    .an-legend i { width: 12px; height: 12px; border-radius: 4px; display: block; border: 1px solid var(--border-color); }
+    @media (min-width: 700px) { .an-cal { gap: 7px; } .an-cal .d { aspect-ratio: 1.7; font-size: 0.78rem; padding: 6px 8px; border-radius: 10px; } .an-cal .dow { font-size: 0.72rem; } }
+    .an-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.66rem; font-weight: 700; color: var(--c-text-muted); margin-top: 10px; }
+    .an-legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .an-legend i { width: 16px; height: 12px; border-radius: 4px; display: block; }
     .an-three, .an-time3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; text-align: center; }
     .an-three div { background: var(--c-pink-soft); border-radius: 14px; padding: 10px 4px; }
     .an-three b { display: block; font-size: 1.5rem; font-weight: 900; color: var(--c-berry); }
@@ -2654,8 +2659,6 @@
     @media (min-width: 560px) { .top-tab { padding: 11px 14px; font-size: 0.82rem; } }
 
     /* календарь компактнее */
-    .an-cal { max-width: 224px; gap: 4px; }
-    .an-cal .d { border-radius: 6px; }
     .an-card .sub:empty { display: none; }
 
     /* чипы-фильтры истории слов */
@@ -3159,7 +3162,7 @@
           <h3 id="pr-summary-title">Your sentences &amp; corrections</h3>
           <div class="pr-table-wrap" id="pr-summary-table"></div>
           <div class="pr-actions" style="margin-top:16px">
-            <button class="btn btn-primary" id="pr-copy-btn" onclick="prCopy()">Copy table</button>
+            <button class="btn btn-primary" id="pr-copy-btn" onclick="prCopy()">Copy text</button>
             <button class="btn" id="pr-restart-btn" onclick="prRestart()">Write again</button>
           </div>
         </div>
@@ -3319,6 +3322,3104 @@
   let currentLang = 'en';
 
 const lessons = /*LESSONS_START*/[
+  {
+    "id": "unit-3a",
+    "label": "Unit 3A · Key verbs & collocations",
+    "words": [
+      {
+        "term": "implement changes",
+        "pos": "verb phrase",
+        "ipa": "/ˈɪmpləmɛnt ˈtʃeɪndʒɪz/",
+        "trans": {
+          "en": "to put new changes, a policy or innovations into practice",
+          "ru": "внедрять изменения / политику / нововведения"
+        },
+        "example": "After the audit, the safety team moved quickly to <em>implement changes</em> to the evacuation procedure.",
+        "blankSentence": "After the audit, the safety team moved quickly to ___ to the evacuation procedure.",
+        "quizAnswer": "implement changes",
+        "scrambleSentence": "The department will implement changes to the reporting system next quarter.",
+        "rounds": [
+          {
+            "blankSentence": "After the audit, the safety team moved quickly to ___ to the evacuation procedure.",
+            "quizAnswer": "implement changes",
+            "scrambleSentence": "The department will implement changes to the reporting system next quarter."
+          },
+          {
+            "blankSentence": "It took the board six months to ___ across all regional offices.",
+            "quizAnswer": "implement changes",
+            "scrambleSentence": "We can't just implement changes overnight — people need time to adjust."
+          },
+          {
+            "blankSentence": "The company plans to ___ in the way incidents are reported.",
+            "quizAnswer": "implement changes",
+            "scrambleSentence": "Management was slow to implement changes recommended by the external auditors."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "“Implement” comes from Latin “implere” — “to fill up, to fulfil”. A plan is only on paper until you “fill it up” with real action — that is to implement it.",
+          "ru": "«Implement» — от латинского «implere» — «наполнять, исполнять». План остаётся на бумаге, пока его не «наполнят» действием — это и значит implement."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=implement+changes",
+        "synonyms": [
+          "introduce changes",
+          "put changes into practice",
+          "roll out changes"
+        ],
+        "antonyms": [
+          "scrap changes",
+          "postpone changes"
+        ],
+        "grammar": {
+          "en": "Collocations: implement changes / a policy / a plan / a strategy / innovations. A formal verb used with a plan, rule or system (not with software — compare “install”). Noun: implementation.",
+          "ru": "Сочетания: implement changes / a policy / a plan / a strategy / innovations. Формальный глагол для плана, правила или системы (не для ПО — сравни «install»). Существительное: implementation."
+        },
+        "mnemonic": {
+          "en": "IMPLEMENT = a tool that makes the plan REAL.",
+          "ru": "IMPLEMENT = инструмент, который делает план РЕАЛЬНЫМ."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The committee resolved to <em>implement changes</em> to the safety policy with immediate effect."
+          },
+          {
+            "reg": "informal",
+            "text": "We can't just <em>implement changes</em> overnight — people need time to adjust."
+          },
+          {
+            "reg": "spoken",
+            "text": "How soon can you <em>implement changes</em> to the training programme?"
+          },
+          {
+            "reg": "written",
+            "text": "Management was slow to <em>implement changes</em> recommended by the external auditors."
+          },
+          {
+            "reg": "business",
+            "text": "Before we <em>implement changes</em> to the workflow, let's consult everyone affected."
+          }
+        ],
+        "forms": [
+          "implement changes",
+          "implement a policy",
+          "implement innovations",
+          "implements changes",
+          "implemented changes",
+          "implementing changes",
+          "implement"
+        ],
+        "audioWord": "audio/word/u3-implement-changes.mp3",
+        "audioSentence": "audio/sentence/u3-implement-changes.mp3",
+        "audioDef": "audio/def/u3-implement-changes.mp3",
+        "audioDefRu": "audio/defru/u3-implement-changes.mp3"
+      },
+      {
+        "term": "put something in place",
+        "pos": "phrasal expression",
+        "ipa": "/pʊt ˈsʌmθɪŋ ɪn pleɪs/",
+        "trans": {
+          "en": "to arrange for a system, rule or procedure to exist and start working",
+          "ru": "ввести, наладить (систему, процедуру)"
+        },
+        "example": "We need to <em>put</em> a stricter reporting system <em>in place</em> before the next inspection.",
+        "blankSentence": "We need to ___ a stricter reporting system before the next inspection.",
+        "quizAnswer": "put in place",
+        "scrambleSentence": "The company put a new access policy in place last spring.",
+        "rounds": [
+          {
+            "blankSentence": "We need to ___ a stricter reporting system before the next inspection.",
+            "quizAnswer": "put in place",
+            "scrambleSentence": "The company put a new access policy in place last spring."
+          },
+          {
+            "blankSentence": "A clear escalation procedure was ___ after the incident.",
+            "quizAnswer": "put in place",
+            "scrambleSentence": "We've finally put a proper process in place."
+          },
+          {
+            "blankSentence": "Have the new safeguards been ___ yet?",
+            "quizAnswer": "put in place",
+            "scrambleSentence": "Several measures were put in place to protect sensitive client data."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "Plain English: “put” (Old English “putian”, to push) + “in place” — to set something in its position. “In place” has meant “existing and ready to work” since the 1600s.",
+          "ru": "Простые слова: «put» (староангл. «putian» — ставить) + «in place» — поставить на своё место. «In place» значит «существует и готово работать» с XVII века."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=put+something+in+place",
+        "synonyms": [
+          "set up",
+          "establish",
+          "introduce"
+        ],
+        "antonyms": [
+          "remove",
+          "scrap"
+        ],
+        "grammar": {
+          "en": "Separable: put a system in place / put in place a system. After “in place” you can say “to + do”. Passive is common: Measures were put in place. Opposite idea: “be lacking”.",
+          "ru": "Разделяемый оборот: put a system in place / put in place a system. Пассив частый: Measures were put in place. Противоположная идея: «be lacking» (отсутствовать)."
+        },
+        "mnemonic": {
+          "en": "Think of a puzzle: you PUT the piece IN PLACE and the picture works.",
+          "ru": "Как пазл: ты СТАВИШЬ деталь НА МЕСТО — и картинка работает."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Appropriate controls must be <em>put in place</em> before the facility can reopen."
+          },
+          {
+            "reg": "informal",
+            "text": "We've finally <em>put</em> a proper process <em>in place</em>."
+          },
+          {
+            "reg": "spoken",
+            "text": "What's <em>been put in place</em> since the accident?"
+          },
+          {
+            "reg": "written",
+            "text": "Several measures were <em>put in place</em> to protect sensitive client data."
+          },
+          {
+            "reg": "business",
+            "text": "Please confirm that the new checklist has been <em>put in place</em> in every department."
+          }
+        ],
+        "forms": [
+          "put in place",
+          "put something in place",
+          "puts in place",
+          "put a system in place",
+          "put procedures in place",
+          "putting in place",
+          "in place",
+          "set in place"
+        ],
+        "audioWord": "audio/word/u3-put-in-place.mp3",
+        "audioSentence": "audio/sentence/u3-put-in-place.mp3",
+        "audioDef": "audio/def/u3-put-in-place.mp3",
+        "audioDefRu": "audio/defru/u3-put-in-place.mp3"
+      },
+      {
+        "term": "transform a corporate culture",
+        "pos": "verb phrase",
+        "ipa": "/trænsˈfɔːrm ə ˈkɔːrpərət ˈkʌltʃər/",
+        "trans": {
+          "en": "to change the values, habits and attitudes of a company completely",
+          "ru": "кардинально изменить корпоративную культуру"
+        },
+        "example": "The new CEO set out to <em>transform the corporate culture</em> from top to bottom.",
+        "blankSentence": "The new CEO set out to ___ from top to bottom.",
+        "quizAnswer": "transform the corporate culture",
+        "scrambleSentence": "A strong leader can transform the corporate culture of a whole organisation.",
+        "rounds": [
+          {
+            "blankSentence": "The new CEO set out to ___ from top to bottom.",
+            "quizAnswer": "transform the corporate culture",
+            "scrambleSentence": "A strong leader can transform the corporate culture of a whole organisation."
+          },
+          {
+            "blankSentence": "It takes years to ___ built on fear of mistakes.",
+            "quizAnswer": "transform a corporate culture",
+            "scrambleSentence": "You can't transform a corporate culture just by changing the logo."
+          },
+          {
+            "blankSentence": "Open communication helped them ___ of the safety department.",
+            "quizAnswer": "transform the corporate culture",
+            "scrambleSentence": "The new director transformed the corporate culture of the division within two years."
+          }
+        ],
+        "style": 70,
+        "region": 50,
+        "origin": {
+          "en": "“Transform” is from Latin “transformare” — “to change the shape”: “trans-” (across) + “forma” (shape). “Culture” comes from Latin “colere” — “to cultivate”, like growing a garden.",
+          "ru": "«Transform» — от латинского «transformare» — «менять форму»: «trans-» (через) + «forma» (форма). «Culture» — от латинского «colere» — «возделывать», как сад."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=transform+a+corporate+culture",
+        "synonyms": [
+          "overhaul the culture",
+          "reshape the culture",
+          "revolutionise"
+        ],
+        "antonyms": [
+          "preserve the culture",
+          "maintain"
+        ],
+        "grammar": {
+          "en": "Stronger than “change”: it means a complete, deep change. Pattern: transform X (into Y). Also: a culture of safety / openness. Noun: transformation.",
+          "ru": "Сильнее, чем «change»: полное, глубокое изменение. Модель: transform X (into Y). Также: a culture of safety / openness. Существительное: transformation."
+        },
+        "mnemonic": {
+          "en": "TRANS-FORM: change the FORM, like a caterpillar becoming a butterfly.",
+          "ru": "TRANS-FORM: поменять ФОРМУ, как гусеница, становящаяся бабочкой."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The merger gave the leadership an opportunity to <em>transform the corporate culture</em>."
+          },
+          {
+            "reg": "informal",
+            "text": "You can't <em>transform a corporate culture</em> just by changing the logo."
+          },
+          {
+            "reg": "spoken",
+            "text": "How do you actually <em>transform a corporate culture</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The new director <em>transformed the corporate culture</em> of the division within two years."
+          },
+          {
+            "reg": "business",
+            "text": "Our goal is to <em>transform the corporate culture</em> into one where reporting hazards is welcomed."
+          }
+        ],
+        "forms": [
+          "transform a corporate culture",
+          "transform the corporate culture",
+          "transforms the corporate culture",
+          "transformed the corporate culture",
+          "transforming the corporate culture",
+          "transform corporate culture"
+        ],
+        "audioWord": "audio/word/u3-transform-a-corporate-culture.mp3",
+        "audioSentence": "audio/sentence/u3-transform-a-corporate-culture.mp3",
+        "audioDef": "audio/def/u3-transform-a-corporate-culture.mp3",
+        "audioDefRu": "audio/defru/u3-transform-a-corporate-culture.mp3"
+      },
+      {
+        "term": "carry out research",
+        "pos": "verb phrase",
+        "ipa": "/ˈkæri aʊt rɪˈsɜːrtʃ/",
+        "trans": {
+          "en": "to do a study, check or investigation in an organised way",
+          "ru": "проводить исследование / проверку"
+        },
+        "example": "Before changing the procedure, we need to <em>carry out research</em> into how accidents actually happen.",
+        "blankSentence": "Before changing the procedure, we need to ___ into how accidents actually happen.",
+        "quizAnswer": "carry out research",
+        "scrambleSentence": "An independent agency carried out research on workplace injuries.",
+        "rounds": [
+          {
+            "blankSentence": "Before changing the procedure, we need to ___ into how accidents actually happen.",
+            "quizAnswer": "carry out research",
+            "scrambleSentence": "An independent agency carried out research on workplace injuries."
+          },
+          {
+            "blankSentence": "The inspectors will ___ a full inspection of the site on Monday.",
+            "quizAnswer": "carry out",
+            "scrambleSentence": "We should carry out a quick inspection before the visitors arrive."
+          },
+          {
+            "blankSentence": "Our analysts ___ among employees in twelve offices.",
+            "quizAnswer": "carried out research",
+            "scrambleSentence": "Inspectors carried out a thorough inspection of the fire exits."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "“Carry out” is literally “to carry something from inside to the outside” — to take a task from the plan into real life. The phrasal verb has been used for “perform, complete” since the 1500s.",
+          "ru": "«Carry out» буквально «вынести наружу» — перенести задачу из плана в реальную жизнь. Как «выполнить, завершить» используется с XVI века."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=carry+out+research",
+        "synonyms": [
+          "conduct research",
+          "perform an inspection",
+          "undertake a study"
+        ],
+        "antonyms": [
+          "neglect",
+          "skip"
+        ],
+        "grammar": {
+          "en": "Collocations: carry out research / an inspection / a survey / an investigation / instructions. A bit more formal than “do”. “Conduct” is a close synonym. Separable: carry the research out.",
+          "ru": "Сочетания: carry out research / an inspection / a survey / an investigation / instructions. Чуть формальнее, чем «do». Близкий синоним — «conduct». Разделяемый: carry the research out."
+        },
+        "mnemonic": {
+          "en": "CARRY OUT: take the plan OUT of your head and into the world.",
+          "ru": "CARRY OUT: вынеси план ИЗ головы В мир."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The institute has been commissioned to <em>carry out research</em> on workplace safety standards."
+          },
+          {
+            "reg": "informal",
+            "text": "We should <em>carry out</em> a quick <em>inspection</em> before the visitors arrive."
+          },
+          {
+            "reg": "spoken",
+            "text": "Who's going to <em>carry out</em> the <em>research</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "Inspectors <em>carried out</em> a thorough <em>inspection</em> of the fire exits."
+          },
+          {
+            "reg": "business",
+            "text": "Please <em>carry out research</em> on three possible suppliers and summarise the findings."
+          }
+        ],
+        "forms": [
+          "carry out research",
+          "carry out an inspection",
+          "carries out research",
+          "carried out research",
+          "carrying out research",
+          "carry out"
+        ],
+        "audioWord": "audio/word/u3-carry-out-research.mp3",
+        "audioSentence": "audio/sentence/u3-carry-out-research.mp3",
+        "audioDef": "audio/def/u3-carry-out-research.mp3",
+        "audioDefRu": "audio/defru/u3-carry-out-research.mp3"
+      },
+      {
+        "term": "oversee the implementation (of)",
+        "pos": "verb phrase",
+        "ipa": "/ˌoʊvərˈsiː ði ˌɪmpləmɛnˈteɪʃən/",
+        "trans": {
+          "en": "to supervise how a plan or new system is put into practice",
+          "ru": "контролировать внедрение"
+        },
+        "example": "A senior manager will <em>oversee the implementation of</em> the new safety protocols.",
+        "blankSentence": "A senior manager will ___ the new safety protocols.",
+        "quizAnswer": "oversee the implementation of",
+        "scrambleSentence": "The director personally oversaw the implementation of the new policy.",
+        "rounds": [
+          {
+            "blankSentence": "A senior manager will ___ the new safety protocols.",
+            "quizAnswer": "oversee the implementation of",
+            "scrambleSentence": "The director personally oversaw the implementation of the new policy."
+          },
+          {
+            "blankSentence": "She was hired to ___ of the software across all offices.",
+            "quizAnswer": "oversee the implementation",
+            "scrambleSentence": "Our manager will oversee the implementation, so send her your questions."
+          },
+          {
+            "blankSentence": "Who is going to ___ of these recommendations?",
+            "quizAnswer": "oversee the implementation",
+            "scrambleSentence": "An external consultant oversaw the implementation of the new inspection system."
+          }
+        ],
+        "style": 70,
+        "region": 50,
+        "origin": {
+          "en": "“Oversee” is “over” + “see” — literally “to look over” from above. It comes from Old English “ofersēon”. The overseer is the person who watches and supervises.",
+          "ru": "«Oversee» — «over» + «see», буквально «смотреть сверху». От староангл. «ofersēon». Overseer — тот, кто наблюдает и руководит."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=oversee+the+implementation+(of)",
+        "synonyms": [
+          "supervise",
+          "manage the rollout of",
+          "monitor"
+        ],
+        "antonyms": [
+          "neglect",
+          "ignore"
+        ],
+        "grammar": {
+          "en": "Irregular verb: oversee – oversaw – overseen. Formal. Pattern: oversee + noun (the implementation OF something). Related nouns: oversight, overseer.",
+          "ru": "Неправильный глагол: oversee – oversaw – overseen. Формально. Модель: oversee + существительное (the implementation OF something). Связанные слова: oversight, overseer."
+        },
+        "mnemonic": {
+          "en": "OVER + SEE: watch from OVER the shoulders of everyone doing the work.",
+          "ru": "OVER + SEE: наблюдай СВЕРХУ за теми, кто делает работу."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The steering committee will <em>oversee the implementation of</em> the recovery plan."
+          },
+          {
+            "reg": "informal",
+            "text": "Our manager will <em>oversee the implementation</em>, so send her your questions."
+          },
+          {
+            "reg": "spoken",
+            "text": "Who's <em>overseeing the implementation</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "An external consultant <em>oversaw the implementation of</em> the new inspection system."
+          },
+          {
+            "reg": "business",
+            "text": "I will <em>oversee the implementation</em> of the corrective actions and report weekly."
+          }
+        ],
+        "forms": [
+          "oversee the implementation",
+          "oversee the implementation of",
+          "oversees the implementation",
+          "oversaw the implementation",
+          "overseeing the implementation",
+          "oversee implementation",
+          "oversee"
+        ],
+        "audioWord": "audio/word/u3-oversee-the-implementation.mp3",
+        "audioSentence": "audio/sentence/u3-oversee-the-implementation.mp3",
+        "audioDef": "audio/def/u3-oversee-the-implementation.mp3",
+        "audioDefRu": "audio/defru/u3-oversee-the-implementation.mp3"
+      },
+      {
+        "term": "streamline a process",
+        "pos": "verb phrase",
+        "ipa": "/ˈstriːmlaɪn ə ˈprɑːsɛs/",
+        "trans": {
+          "en": "to make a process simpler and faster by removing unnecessary steps",
+          "ru": "упростить, оптимизировать процесс"
+        },
+        "example": "We are trying to <em>streamline the process</em> for reporting near-miss incidents.",
+        "blankSentence": "We are trying to ___ for reporting near-miss incidents.",
+        "quizAnswer": "streamline the process",
+        "scrambleSentence": "The new software will streamline the whole approval process.",
+        "rounds": [
+          {
+            "blankSentence": "We are trying to ___ for reporting near-miss incidents.",
+            "quizAnswer": "streamline the process",
+            "scrambleSentence": "The new software will streamline the whole approval process."
+          },
+          {
+            "blankSentence": "A single online form helped them ___.",
+            "quizAnswer": "streamline the approval process",
+            "scrambleSentence": "Let's streamline this a bit — we have too many steps."
+          },
+          {
+            "blankSentence": "How can we ___ that involves six different departments?",
+            "quizAnswer": "streamline a process",
+            "scrambleSentence": "Automation streamlined the process and cut the waiting time in half."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "From the noun “streamline” — a smooth shape that lets air or water flow without resistance (1800s, ships and later planes). To streamline a process means to make it flow as smoothly.",
+          "ru": "От существительного «streamline» — обтекаемая форма, позволяющая воздуху или воде течь без сопротивления (XIX век, корабли, позже самолёты). Streamline a process — сделать так, чтобы он «тёк» без помех."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=streamline+a+process",
+        "synonyms": [
+          "simplify",
+          "optimise",
+          "make more efficient"
+        ],
+        "antonyms": [
+          "complicate",
+          "slow down"
+        ],
+        "grammar": {
+          "en": "Regular verb: streamline – streamlined. Collocations: streamline a process / procedures / operations / the workflow. Often paired with “cut costs” and “save time”.",
+          "ru": "Правильный глагол: streamline – streamlined. Сочетания: streamline a process / procedures / operations / the workflow. Часто вместе с «cut costs» и «save time»."
+        },
+        "mnemonic": {
+          "en": "STREAM-LINE: make the process flow like a smooth STREAM, with no rocks.",
+          "ru": "STREAM-LINE: пусть процесс течёт, как гладкий ПОТОК, без камней."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The proposal aims to <em>streamline the process</em> of obtaining safety certificates."
+          },
+          {
+            "reg": "informal",
+            "text": "Let's <em>streamline</em> this a bit — we have too many steps."
+          },
+          {
+            "reg": "spoken",
+            "text": "Can we <em>streamline</em> the process somehow?"
+          },
+          {
+            "reg": "written",
+            "text": "Automation <em>streamlined</em> the process and cut the waiting time in half."
+          },
+          {
+            "reg": "business",
+            "text": "We need to <em>streamline the process</em> before the audit, so everyone knows what to do."
+          }
+        ],
+        "forms": [
+          "streamline a process",
+          "streamline the process",
+          "streamlines the process",
+          "streamlined the process",
+          "streamlining the process",
+          "streamline processes",
+          "streamline"
+        ],
+        "audioWord": "audio/word/u3-streamline-a-process.mp3",
+        "audioSentence": "audio/sentence/u3-streamline-a-process.mp3",
+        "audioDef": "audio/def/u3-streamline-a-process.mp3",
+        "audioDefRu": "audio/defru/u3-streamline-a-process.mp3"
+      },
+      {
+        "term": "access files",
+        "pos": "verb phrase",
+        "ipa": "/ˈæksɛs faɪlz/",
+        "trans": {
+          "en": "to get into a system or folder so that you can open and use information",
+          "ru": "получить доступ к файлам / данным"
+        },
+        "example": "Only authorised employees can <em>access files</em> containing personal data.",
+        "blankSentence": "Only authorised employees can ___ containing personal data.",
+        "quizAnswer": "access files",
+        "scrambleSentence": "Employees can access files from any device after logging in.",
+        "rounds": [
+          {
+            "blankSentence": "Only authorised employees can ___ containing personal data.",
+            "quizAnswer": "access files",
+            "scrambleSentence": "Employees can access files from any device after logging in."
+          },
+          {
+            "blankSentence": "I can't ___ from my laptop while I'm travelling.",
+            "quizAnswer": "access the data",
+            "scrambleSentence": "I can't access the shared files, can you check my permissions?"
+          },
+          {
+            "blankSentence": "Contractors were not allowed to ___ on the internal server.",
+            "quizAnswer": "access files",
+            "scrambleSentence": "The breach allowed hackers to access sensitive data."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “accessus” — “an approach”, from “accedere” — “to come near”. As a verb, “to access” became common with computers in the 1960s: to “come near” and open stored information.",
+          "ru": "От латинского «accessus» — «подход», от «accedere» — «приближаться». Как глагол «to access» стал частым с компьютерами в 1960-х: «подойти» и открыть сохранённые данные."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=access+files",
+        "synonyms": [
+          "open",
+          "retrieve",
+          "get into"
+        ],
+        "antonyms": [
+          "be locked out of"
+        ],
+        "grammar": {
+          "en": "Transitive verb: access + file / data / account, no preposition (NOT “access to the files” as a verb). The noun uses “to”: have access TO files. Stress: ACcess.",
+          "ru": "Переходный глагол: access + file / data / account, без предлога (НЕ «access to the files» как глагол). Существительное с «to»: have access TO files. Ударение: ACcess."
+        },
+        "mnemonic": {
+          "en": "ACCESS = the key that lets you ACCEDE (come near) to the files.",
+          "ru": "ACCESS = ключ, который позволяет «подойти» к файлам."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Users must be authorised in order to <em>access</em> confidential <em>files</em>."
+          },
+          {
+            "reg": "informal",
+            "text": "I can't <em>access</em> the shared <em>files</em>, can you check my permissions?"
+          },
+          {
+            "reg": "spoken",
+            "text": "How do I <em>access files</em> from home?"
+          },
+          {
+            "reg": "written",
+            "text": "The breach allowed hackers to <em>access</em> sensitive <em>data</em>."
+          },
+          {
+            "reg": "business",
+            "text": "Please make sure that only the safety team can <em>access</em> the incident <em>files</em>."
+          }
+        ],
+        "forms": [
+          "access files",
+          "access data",
+          "accesses files",
+          "accessed files",
+          "accessing files",
+          "access the files",
+          "access the data",
+          "access"
+        ],
+        "audioWord": "audio/word/u3-access-files.mp3",
+        "audioSentence": "audio/sentence/u3-access-files.mp3",
+        "audioDef": "audio/def/u3-access-files.mp3",
+        "audioDefRu": "audio/defru/u3-access-files.mp3"
+      },
+      {
+        "term": "look into a situation",
+        "pos": "phrasal verb",
+        "ipa": "/lʊk ˈɪntuː ə ˌsɪtʃuˈeɪʃən/",
+        "trans": {
+          "en": "to investigate a problem or situation to find out the facts",
+          "ru": "разобраться в ситуации / проблеме"
+        },
+        "example": "The compliance officer promised to <em>look into the situation</em> immediately.",
+        "blankSentence": "The compliance officer promised to ___ immediately.",
+        "quizAnswer": "look into the situation",
+        "scrambleSentence": "I'll look into the matter and let you know what I find.",
+        "rounds": [
+          {
+            "blankSentence": "The compliance officer promised to ___ immediately.",
+            "quizAnswer": "look into the situation",
+            "scrambleSentence": "I'll look into the matter and let you know what I find."
+          },
+          {
+            "blankSentence": "We will ___ and get back to you by Friday.",
+            "quizAnswer": "look into the problem",
+            "scrambleSentence": "I'll look into it right away, don't worry."
+          },
+          {
+            "blankSentence": "Could you ___ why the report was never filed?",
+            "quizAnswer": "look into",
+            "scrambleSentence": "An independent panel was set up to look into the problem."
+          }
+        ],
+        "style": 45,
+        "region": 50,
+        "origin": {
+          "en": "A phrasal verb from “look” (Old English “lōcian”, to see) + “into”: you look inside the matter, not only at its surface. It has meant “investigate” since the 1700s.",
+          "ru": "Фразовый глагол: «look» (староангл. «lōcian», смотреть) + «into»: ты смотришь внутрь вопроса, а не только на поверхность. «Investigate» означает с XVIII века."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=look+into+a+situation",
+        "synonyms": [
+          "investigate",
+          "examine",
+          "check out"
+        ],
+        "antonyms": [
+          "ignore",
+          "overlook"
+        ],
+        "grammar": {
+          "en": "Inseparable phrasal verb: look into + noun (NOT “look the problem into”). Compare: look at (view), look for (search), look after (take care of). Past: looked into.",
+          "ru": "Неразделяемый фразовый глагол: look into + существительное (НЕ «look the problem into»). Сравни: look at (смотреть), look for (искать), look after (заботиться). Прошедшее: looked into."
+        },
+        "mnemonic": {
+          "en": "LOOK + INTO: like looking INTO a box, not just at the lid.",
+          "ru": "LOOK + INTO: как заглянуть ВНУТРЬ коробки, а не просто на крышку."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The management has undertaken to <em>look into the situation</em> as a matter of urgency."
+          },
+          {
+            "reg": "informal",
+            "text": "I'll <em>look into it</em> right away, don't worry."
+          },
+          {
+            "reg": "spoken",
+            "text": "Can you <em>look into</em> this for me?"
+          },
+          {
+            "reg": "written",
+            "text": "An independent panel was set up to <em>look into the problem</em>."
+          },
+          {
+            "reg": "business",
+            "text": "We will <em>look into the situation</em> and send you a detailed explanation."
+          }
+        ],
+        "forms": [
+          "look into a situation",
+          "look into the situation",
+          "look into a problem",
+          "look into the problem",
+          "looks into",
+          "looked into",
+          "looking into",
+          "look into"
+        ],
+        "audioWord": "audio/word/u3-look-into-a-situation.mp3",
+        "audioSentence": "audio/sentence/u3-look-into-a-situation.mp3",
+        "audioDef": "audio/def/u3-look-into-a-situation.mp3",
+        "audioDefRu": "audio/defru/u3-look-into-a-situation.mp3"
+      },
+      {
+        "term": "accommodate needs",
+        "pos": "verb + noun",
+        "ipa": "/əˈkɑːmədeɪt niːdz/",
+        "trans": {
+          "en": "to provide what someone needs or asks for, adjusting where necessary",
+          "ru": "учитывать потребности / требования / особые запросы"
+        },
+        "example": "The training programme was redesigned to <em>accommodate</em> the <em>needs</em> of employees with disabilities.",
+        "blankSentence": "The training programme was redesigned to ___ of employees with disabilities.",
+        "quizAnswer": "accommodate the needs",
+        "scrambleSentence": "The company will try to accommodate your special requirements.",
+        "rounds": [
+          {
+            "blankSentence": "The training programme was redesigned to ___ of employees with disabilities.",
+            "quizAnswer": "accommodate the needs",
+            "scrambleSentence": "The company will try to accommodate your special requirements."
+          },
+          {
+            "blankSentence": "We will do our best to ___ for the audit schedule.",
+            "quizAnswer": "accommodate special requests",
+            "scrambleSentence": "We'll try to accommodate your request."
+          },
+          {
+            "blankSentence": "The new office layout can ___ of each team.",
+            "quizAnswer": "accommodate different requirements",
+            "scrambleSentence": "The venue is large enough to accommodate the needs of all participants."
+          }
+        ],
+        "style": 65,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “accommodare” — “to make fit”: “ad-” (to) + “commodus” (suitable). When you accommodate, you adjust things to fit someone's needs. Note the double “c” and double “m”.",
+          "ru": "От латинского «accommodare» — «приспособить»: «ad-» (к) + «commodus» (подходящий). Accommodate — подстроить так, чтобы подошло. Заметь: два «c» и два «m»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=accommodate+needs",
+        "synonyms": [
+          "cater for",
+          "meet",
+          "take into account"
+        ],
+        "antonyms": [
+          "ignore",
+          "disregard"
+        ],
+        "grammar": {
+          "en": "Spelling trap: accommodate (2 c, 2 m). Collocations: accommodate needs / requirements / requests / guests. Noun: accommodation (a place to stay, or an adjustment).",
+          "ru": "Ловушка в написании: accommodate (2 c, 2 m). Сочетания: accommodate needs / requirements / requests / guests. Существительное: accommodation (жильё или приспособление)."
+        },
+        "mnemonic": {
+          "en": "ACCOMMODATE has a ROOM inside: you make ROOM for people's needs.",
+          "ru": "В ACCOMMODATE есть «комната»: ты находишь МЕСТО для чужих потребностей."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The facility has been modified to <em>accommodate</em> a wide range of <em>requirements</em>."
+          },
+          {
+            "reg": "informal",
+            "text": "We'll try to <em>accommodate</em> your <em>request</em>."
+          },
+          {
+            "reg": "spoken",
+            "text": "Can you <em>accommodate</em> a vegetarian guest?"
+          },
+          {
+            "reg": "written",
+            "text": "The venue is large enough to <em>accommodate</em> the <em>needs</em> of all participants."
+          },
+          {
+            "reg": "business",
+            "text": "We are glad to <em>accommodate</em> any special <em>requests</em> from our clients."
+          }
+        ],
+        "forms": [
+          "accommodate needs",
+          "accommodate requirements",
+          "accommodate special requests",
+          "accommodates needs",
+          "accommodated needs",
+          "accommodating needs",
+          "accommodate"
+        ],
+        "audioWord": "audio/word/u3-accommodate-needs.mp3",
+        "audioSentence": "audio/sentence/u3-accommodate-needs.mp3",
+        "audioDef": "audio/def/u3-accommodate-needs.mp3",
+        "audioDefRu": "audio/defru/u3-accommodate-needs.mp3"
+      },
+      {
+        "term": "achieve results",
+        "pos": "verb + noun",
+        "ipa": "/əˈtʃiːv rɪˈzʌlts/",
+        "trans": {
+          "en": "to successfully reach a goal or get the result that you wanted",
+          "ru": "достигать результатов / целей"
+        },
+        "example": "The department managed to <em>achieve</em> excellent <em>results</em> without increasing its budget.",
+        "blankSentence": "The department managed to ___ excellent results without increasing its budget.",
+        "quizAnswer": "achieve",
+        "scrambleSentence": "The team achieved impressive results in just six months.",
+        "rounds": [
+          {
+            "blankSentence": "The department managed to ___ excellent results without increasing its budget.",
+            "quizAnswer": "achieve",
+            "scrambleSentence": "The team achieved impressive results in just six months."
+          },
+          {
+            "blankSentence": "To ___, we need everyone to follow the same procedure.",
+            "quizAnswer": "achieve our targets",
+            "scrambleSentence": "We finally achieved our target!"
+          },
+          {
+            "blankSentence": "They worked hard to ___ set by the board.",
+            "quizAnswer": "achieve the objectives",
+            "scrambleSentence": "The campaign achieved a ten percent reduction in accidents."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "From Old French “achever” — “to finish, to bring to a head”, from “a chief” — “to a head, to an end”. To achieve is to bring something to its end — successfully.",
+          "ru": "От старофранцузского «achever» — «завершить, довести до конца», из «a chief» — «до головы, до конца». Achieve — успешно довести до конца."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=achieve+results",
+        "synonyms": [
+          "accomplish",
+          "attain",
+          "reach"
+        ],
+        "antonyms": [
+          "fail to reach",
+          "miss"
+        ],
+        "grammar": {
+          "en": "Collocations: achieve results / targets / objectives / a goal / success. Not “do results”. Noun: achievement. Often with “aim to” and “manage to”.",
+          "ru": "Сочетания: achieve results / targets / objectives / a goal / success. Не «do results». Существительное: achievement. Часто с «aim to» и «manage to»."
+        },
+        "mnemonic": {
+          "en": "A-CHIEVE: reach the CHIEF point — the top, the goal.",
+          "ru": "A-CHIEVE: дойти до ГЛАВНОЙ точки — вершины, цели."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The organisation has consistently <em>achieved</em> its strategic <em>objectives</em>."
+          },
+          {
+            "reg": "informal",
+            "text": "We finally <em>achieved</em> our <em>target</em>!"
+          },
+          {
+            "reg": "spoken",
+            "text": "How did you <em>achieve</em> such good <em>results</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The campaign <em>achieved</em> a ten percent reduction in accidents."
+          },
+          {
+            "reg": "business",
+            "text": "To <em>achieve</em> these <em>objectives</em>, we need additional funding."
+          }
+        ],
+        "forms": [
+          "achieve results",
+          "achieve targets",
+          "achieve objectives",
+          "achieves results",
+          "achieved results",
+          "achieving results",
+          "achieve"
+        ],
+        "audioWord": "audio/word/u3-achieve-results.mp3",
+        "audioSentence": "audio/sentence/u3-achieve-results.mp3",
+        "audioDef": "audio/def/u3-achieve-results.mp3",
+        "audioDefRu": "audio/defru/u3-achieve-results.mp3"
+      },
+      {
+        "term": "anticipate problems",
+        "pos": "verb + noun",
+        "ipa": "/ænˈtɪsɪpeɪt ˈprɑːbləmz/",
+        "trans": {
+          "en": "to expect and prepare for problems before they happen",
+          "ru": "предвидеть проблемы / трудности / возражения"
+        },
+        "example": "A good safety manager learns to <em>anticipate</em> potential <em>problems</em> before they become incidents.",
+        "blankSentence": "A good safety manager learns to ___ potential problems before they become incidents.",
+        "quizAnswer": "anticipate",
+        "scrambleSentence": "Experienced managers can anticipate problems before they appear.",
+        "rounds": [
+          {
+            "blankSentence": "A good safety manager learns to ___ potential problems before they become incidents.",
+            "quizAnswer": "anticipate",
+            "scrambleSentence": "Experienced managers can anticipate problems before they appear."
+          },
+          {
+            "blankSentence": "We should ___ from the unions and prepare answers.",
+            "quizAnswer": "anticipate objections",
+            "scrambleSentence": "I should have anticipated that problem."
+          },
+          {
+            "blankSentence": "It's hard to ___ in such a complex project.",
+            "quizAnswer": "anticipate difficulties",
+            "scrambleSentence": "The team anticipated several problems and prepared a back-up plan."
+          }
+        ],
+        "style": 70,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “anticipare” — “to take beforehand”: “ante-” (before) + “capere” (to take). You “take” the problem in your mind before it arrives.",
+          "ru": "От латинского «anticipare» — «брать заранее»: «ante-» (до) + «capere» (брать). Ты «берёшь» проблему в уме до того, как она пришла."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=anticipate+problems",
+        "synonyms": [
+          "foresee",
+          "predict",
+          "expect"
+        ],
+        "antonyms": [
+          "be caught off guard by",
+          "overlook"
+        ],
+        "grammar": {
+          "en": "Anticipate ≠ “wait for”: it means expect AND prepare. Collocations: anticipate problems / difficulties / objections / demand. Noun: anticipation. Regular verb.",
+          "ru": "Anticipate ≠ «ждать»: это ожидать И подготовиться. Сочетания: anticipate problems / difficulties / objections / demand. Существительное: anticipation. Правильный глагол."
+        },
+        "mnemonic": {
+          "en": "ANTI-CIPATE: ANTE = before: you CAPture the problem BEFORE it hits.",
+          "ru": "ANTICIPATE: ANTE = до: ты «ловишь» проблему ДО её появления."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The risk assessment is intended to <em>anticipate</em> potential <em>difficulties</em> in the implementation phase."
+          },
+          {
+            "reg": "informal",
+            "text": "I should have <em>anticipated</em> that <em>problem</em>."
+          },
+          {
+            "reg": "spoken",
+            "text": "Can you <em>anticipate</em> any <em>objections</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The team <em>anticipated</em> several <em>problems</em> and prepared a back-up plan."
+          },
+          {
+            "reg": "business",
+            "text": "Please try to <em>anticipate</em> any <em>difficulties</em> and list them in your proposal."
+          }
+        ],
+        "forms": [
+          "anticipate problems",
+          "anticipate difficulties",
+          "anticipate objections",
+          "anticipates problems",
+          "anticipated problems",
+          "anticipating problems",
+          "anticipate"
+        ],
+        "audioWord": "audio/word/u3-anticipate-problems.mp3",
+        "audioSentence": "audio/sentence/u3-anticipate-problems.mp3",
+        "audioDef": "audio/def/u3-anticipate-problems.mp3",
+        "audioDefRu": "audio/defru/u3-anticipate-problems.mp3"
+      },
+      {
+        "term": "facilitate cultural change",
+        "pos": "verb + noun",
+        "ipa": "/fəˈsɪlɪteɪt ˈkʌltʃərəl tʃeɪndʒ/",
+        "trans": {
+          "en": "to make a change easier or more likely to happen",
+          "ru": "способствовать переменам / развитию / росту / продуктивности"
+        },
+        "example": "Open communication can <em>facilitate cultural change</em> within a large organisation.",
+        "blankSentence": "Open communication can ___ within a large organisation.",
+        "quizAnswer": "facilitate cultural change",
+        "scrambleSentence": "Training sessions can facilitate cultural change in the company.",
+        "rounds": [
+          {
+            "blankSentence": "Open communication can ___ within a large organisation.",
+            "quizAnswer": "facilitate cultural change",
+            "scrambleSentence": "Training sessions can facilitate cultural change in the company."
+          },
+          {
+            "blankSentence": "The new software should ___ and improve productivity.",
+            "quizAnswer": "facilitate growth",
+            "scrambleSentence": "Good tools really facilitate productivity."
+          },
+          {
+            "blankSentence": "Workshops were organised to ___ of the middle managers.",
+            "quizAnswer": "facilitate development",
+            "scrambleSentence": "The programme was designed to facilitate professional development."
+          }
+        ],
+        "style": 70,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “facilis” — “easy”, through French “faciliter”. To facilitate means “to make easy”. The same root is in “facility” and “facile”.",
+          "ru": "От латинского «facilis» — «лёгкий», через французское «faciliter». Facilitate — «сделать лёгким». Тот же корень в «facility» и «facile»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=facilitate+cultural+change",
+        "synonyms": [
+          "enable",
+          "promote",
+          "make easier"
+        ],
+        "antonyms": [
+          "hinder",
+          "obstruct"
+        ],
+        "grammar": {
+          "en": "The subject is usually a thing or a method, not the change itself: Communication facilitates change. Collocations: facilitate change / growth / development / productivity / a discussion. A facilitator leads a workshop.",
+          "ru": "Подлежащее обычно вещь или метод: Communication facilitates change. Сочетания: facilitate change / growth / development / productivity / a discussion. Facilitator — ведущий встречи или тренинга."
+        },
+        "mnemonic": {
+          "en": "FACIL-itate = make it FACILe (easy).",
+          "ru": "FACILitate = сделать FACILe (лёгким)."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Executive support is essential to <em>facilitate cultural change</em> at all levels."
+          },
+          {
+            "reg": "informal",
+            "text": "Good tools really <em>facilitate productivity</em>."
+          },
+          {
+            "reg": "spoken",
+            "text": "How can we <em>facilitate</em> this <em>change</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The programme was designed to <em>facilitate</em> professional <em>development</em>."
+          },
+          {
+            "reg": "business",
+            "text": "We would like to <em>facilitate</em> a smoother <em>transition</em> for everyone involved."
+          }
+        ],
+        "forms": [
+          "facilitate cultural change",
+          "facilitate development",
+          "facilitate growth",
+          "facilitate productivity",
+          "facilitates change",
+          "facilitated change",
+          "facilitating change",
+          "facilitate"
+        ],
+        "audioWord": "audio/word/u3-facilitate-cultural-change.mp3",
+        "audioSentence": "audio/sentence/u3-facilitate-cultural-change.mp3",
+        "audioDef": "audio/def/u3-facilitate-cultural-change.mp3",
+        "audioDefRu": "audio/defru/u3-facilitate-cultural-change.mp3"
+      },
+      {
+        "term": "generate enthusiasm",
+        "pos": "verb + noun",
+        "ipa": "/ˈdʒɛnəreɪt ɪnˈθuːziæzəm/",
+        "trans": {
+          "en": "to cause people to feel excited and interested",
+          "ru": "вызывать энтузиазм / интерес, генерировать идеи"
+        },
+        "example": "The new wellbeing programme managed to <em>generate</em> real <em>enthusiasm</em> among the staff.",
+        "blankSentence": "The new wellbeing programme managed to ___ real enthusiasm among the staff.",
+        "quizAnswer": "generate",
+        "scrambleSentence": "A good presentation can generate enthusiasm in the whole team.",
+        "rounds": [
+          {
+            "blankSentence": "The new wellbeing programme managed to ___ real enthusiasm among the staff.",
+            "quizAnswer": "generate",
+            "scrambleSentence": "A good presentation can generate enthusiasm in the whole team."
+          },
+          {
+            "blankSentence": "It is not easy to ___ in compulsory safety training.",
+            "quizAnswer": "generate interest",
+            "scrambleSentence": "We need something to generate some excitement!"
+          },
+          {
+            "blankSentence": "The brainstorming session helped them ___ for the campaign.",
+            "quizAnswer": "generate ideas",
+            "scrambleSentence": "The competition generated a lot of enthusiasm for the safety campaign."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “generare” — “to produce, to give birth to”, from “genus” — “birth, kind”. You “give birth” to enthusiasm in other people. Same root as “generation”.",
+          "ru": "От латинского «generare» — «порождать», от «genus» — «рождение, род». Ты «рождаешь» энтузиазм в других. Тот же корень, что у «generation»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=generate+enthusiasm",
+        "synonyms": [
+          "spark",
+          "stimulate",
+          "create"
+        ],
+        "antonyms": [
+          "kill",
+          "dampen"
+        ],
+        "grammar": {
+          "en": "Collocations: generate enthusiasm / interest / ideas / income / electricity / publicity. Noun: generation (the act of producing) and “a generator”. Regular verb.",
+          "ru": "Сочетания: generate enthusiasm / interest / ideas / income / electricity / publicity. Существительное: generation (создание) и «a generator». Правильный глагол."
+        },
+        "mnemonic": {
+          "en": "GENERATE = a GENERATOR: it produces energy. You produce enthusiasm.",
+          "ru": "GENERATE = ГЕНЕРАТОР: он производит энергию. Ты производишь энтузиазм."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The initiative has generated considerable <em>interest</em> among industry stakeholders."
+          },
+          {
+            "reg": "informal",
+            "text": "We need something to <em>generate</em> some <em>excitement</em>!"
+          },
+          {
+            "reg": "spoken",
+            "text": "How do you <em>generate ideas</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The competition <em>generated</em> a lot of <em>enthusiasm</em> for the safety campaign."
+          },
+          {
+            "reg": "business",
+            "text": "We aim to <em>generate</em> new <em>ideas</em> through regular workshops."
+          }
+        ],
+        "forms": [
+          "generate enthusiasm",
+          "generate interest",
+          "generate ideas",
+          "generates enthusiasm",
+          "generated enthusiasm",
+          "generating enthusiasm",
+          "generate"
+        ],
+        "audioWord": "audio/word/u3-generate-enthusiasm.mp3",
+        "audioSentence": "audio/sentence/u3-generate-enthusiasm.mp3",
+        "audioDef": "audio/def/u3-generate-enthusiasm.mp3",
+        "audioDefRu": "audio/defru/u3-generate-enthusiasm.mp3"
+      },
+      {
+        "term": "exchange information",
+        "pos": "verb + noun",
+        "ipa": "/ɪksˈtʃeɪndʒ ˌɪnfərˈmeɪʃən/",
+        "trans": {
+          "en": "to give information to someone and receive information from them",
+          "ru": "обмениваться информацией / знаниями / идеями / мнениями"
+        },
+        "example": "The conference gives safety professionals a chance to <em>exchange</em> useful <em>information</em>.",
+        "blankSentence": "The conference gives safety professionals a chance to ___ useful information.",
+        "quizAnswer": "exchange",
+        "scrambleSentence": "The two teams meet weekly to exchange information.",
+        "rounds": [
+          {
+            "blankSentence": "The conference gives safety professionals a chance to ___ useful information.",
+            "quizAnswer": "exchange",
+            "scrambleSentence": "The two teams meet weekly to exchange information."
+          },
+          {
+            "blankSentence": "Colleagues from both offices regularly ___ over video calls.",
+            "quizAnswer": "exchange ideas",
+            "scrambleSentence": "Let's exchange phone numbers, just in case."
+          },
+          {
+            "blankSentence": "It's important to ___ before making a final decision.",
+            "quizAnswer": "exchange points of view",
+            "scrambleSentence": "The workshop allowed participants to exchange knowledge and experience."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "From Old French “eschangier”, from Latin “excambiare” — “to change out”: “ex-” (out) + “cambiare” (to barter). Two sides swap things — here, information.",
+          "ru": "От старофранцузского «eschangier», от латинского «excambiare» — «обменять»: «ex-» (из) + «cambiare» (менять). Две стороны меняются — здесь информацией."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=exchange+information",
+        "synonyms": [
+          "share",
+          "swap",
+          "trade"
+        ],
+        "antonyms": [
+          "withhold",
+          "keep to yourself"
+        ],
+        "grammar": {
+          "en": "Needs two sides: exchange information WITH someone / BETWEEN people. Collocations: exchange information / knowledge / ideas / views / contact details. Not “change information”.",
+          "ru": "Нужны две стороны: exchange information WITH someone / BETWEEN people. Сочетания: exchange information / knowledge / ideas / views / contact details. Не «change information»."
+        },
+        "mnemonic": {
+          "en": "EX-CHANGE: information goes OUT and CHANGES places with someone else's.",
+          "ru": "EX-CHANGE: информация уходит и МЕНЯЕТСЯ местами с чужой."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The agencies agreed to <em>exchange information</em> on a regular basis."
+          },
+          {
+            "reg": "informal",
+            "text": "Let's <em>exchange</em> phone numbers, just in case."
+          },
+          {
+            "reg": "spoken",
+            "text": "Did you <em>exchange</em> any <em>ideas</em> with them?"
+          },
+          {
+            "reg": "written",
+            "text": "The workshop allowed participants to <em>exchange</em> <em>knowledge</em> and experience."
+          },
+          {
+            "reg": "business",
+            "text": "We encourage departments to <em>exchange</em> best practices and lessons learned."
+          }
+        ],
+        "forms": [
+          "exchange information",
+          "exchange knowledge",
+          "exchange ideas",
+          "exchange points of view",
+          "exchanges information",
+          "exchanged information",
+          "exchanging information",
+          "exchange"
+        ],
+        "audioWord": "audio/word/u3-exchange-information.mp3",
+        "audioSentence": "audio/sentence/u3-exchange-information.mp3",
+        "audioDef": "audio/def/u3-exchange-information.mp3",
+        "audioDefRu": "audio/defru/u3-exchange-information.mp3"
+      },
+      {
+        "term": "assess progress",
+        "pos": "verb + noun",
+        "ipa": "/əˈsɛs ˈproʊɡrɛs/",
+        "trans": {
+          "en": "to judge how well something is going by looking at it carefully",
+          "ru": "оценивать прогресс / работу / ситуацию"
+        },
+        "example": "Managers meet every quarter to <em>assess progress</em> towards the safety targets.",
+        "blankSentence": "Managers meet every quarter to ___ towards the safety targets.",
+        "quizAnswer": "assess progress",
+        "scrambleSentence": "The board will assess progress at the end of the year.",
+        "rounds": [
+          {
+            "blankSentence": "Managers meet every quarter to ___ towards the safety targets.",
+            "quizAnswer": "assess progress",
+            "scrambleSentence": "The board will assess progress at the end of the year."
+          },
+          {
+            "blankSentence": "An independent consultant will ___ across all departments.",
+            "quizAnswer": "assess performance",
+            "scrambleSentence": "Let's assess the situation first, then decide."
+          },
+          {
+            "blankSentence": "We need to ___ before we decide what to do.",
+            "quizAnswer": "assess the situation",
+            "scrambleSentence": "Inspectors visited the site to assess the level of compliance."
+          }
+        ],
+        "style": 65,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “assidere” — “to sit beside” (a judge who sat beside the ruler to help set the tax). “Assess” first meant to fix an amount for tax and later to judge value in general.",
+          "ru": "От латинского «assidere» — «сидеть рядом» (судья, сидевший рядом с правителем, чтобы назначить налог). «Assess» сначала значило определить сумму налога, потом — оценить в целом."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=assess+progress",
+        "synonyms": [
+          "evaluate",
+          "judge",
+          "review"
+        ],
+        "antonyms": [
+          "ignore",
+          "guess"
+        ],
+        "grammar": {
+          "en": "Collocations: assess progress / performance / risk / damage / a situation / needs. Noun: assessment. Don't confuse with “access” (get into) — different word, similar look.",
+          "ru": "Сочетания: assess progress / performance / risk / damage / a situation / needs. Существительное: assessment. Не путай с «access» (получить доступ) — другое слово, похоже выглядит."
+        },
+        "mnemonic": {
+          "en": "ASSESS: two S's in the middle — Sit and Study the facts before you judge.",
+          "ru": "ASSESS: две «S» посередине — Sit and Study: сядь и изучи факты, прежде чем судить."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The review panel will <em>assess the progress</em> made since the previous audit."
+          },
+          {
+            "reg": "informal",
+            "text": "Let's <em>assess</em> the <em>situation</em> first, then decide."
+          },
+          {
+            "reg": "spoken",
+            "text": "How do you <em>assess</em> your team's <em>performance</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "Inspectors visited the site to <em>assess</em> the level of <em>compliance</em>."
+          },
+          {
+            "reg": "business",
+            "text": "We will <em>assess</em> the <em>progress</em> of each project at the monthly review."
+          }
+        ],
+        "forms": [
+          "assess progress",
+          "assess performance",
+          "assess a situation",
+          "assess the situation",
+          "assesses progress",
+          "assessed progress",
+          "assessing progress",
+          "assess"
+        ],
+        "audioWord": "audio/word/u3-assess-progress.mp3",
+        "audioSentence": "audio/sentence/u3-assess-progress.mp3",
+        "audioDef": "audio/def/u3-assess-progress.mp3",
+        "audioDefRu": "audio/defru/u3-assess-progress.mp3"
+      },
+      {
+        "term": "measure success",
+        "pos": "verb + noun",
+        "ipa": "/ˈmɛʒər səkˈsɛs/",
+        "trans": {
+          "en": "to find out how successful something is by using clear numbers or standards",
+          "ru": "измерять успех / прогресс / продуктивность"
+        },
+        "example": "It is difficult to <em>measure the success</em> of a prevention programme, because the best result is that nothing happens.",
+        "blankSentence": "It is difficult to ___ of a prevention programme, because the best result is that nothing happens.",
+        "quizAnswer": "measure the success",
+        "scrambleSentence": "Companies measure success in different ways.",
+        "rounds": [
+          {
+            "blankSentence": "It is difficult to ___ of a prevention programme, because the best result is that nothing happens.",
+            "quizAnswer": "measure the success",
+            "scrambleSentence": "Companies measure success in different ways."
+          },
+          {
+            "blankSentence": "We use three indicators to ___.",
+            "quizAnswer": "measure productivity",
+            "scrambleSentence": "How do you measure your own success?"
+          },
+          {
+            "blankSentence": "How do you ___ towards a goal like 'a safer culture'?",
+            "quizAnswer": "measure progress",
+            "scrambleSentence": "The new tool lets managers measure productivity in real time."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “mensura” — “a measuring”, from “metiri” — “to measure”. The same root is in “metre”, “dimension” and “immense” (not able to be measured).",
+          "ru": "От латинского «mensura» — «измерение», от «metiri» — «мерить». Тот же корень в «metre», «dimension» и «immense» (неизмеримый)."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=measure+success",
+        "synonyms": [
+          "gauge",
+          "evaluate",
+          "quantify"
+        ],
+        "antonyms": [
+          "guess",
+          "estimate roughly"
+        ],
+        "grammar": {
+          "en": "Collocations: measure success / progress / productivity / performance / results. Noun: a measure (an action) and a measurement (a result). “Measure up to” = be good enough.",
+          "ru": "Сочетания: measure success / progress / productivity / performance / results. Существительные: a measure (мера, действие) и a measurement (результат измерения). «Measure up to» = соответствовать."
+        },
+        "mnemonic": {
+          "en": "MEASURE = put a ruler next to SUCCESS and read the number.",
+          "ru": "MEASURE = приложи линейку к УСПЕХУ и прочитай цифру."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The organisation uses a range of indicators to <em>measure</em> overall <em>performance</em>."
+          },
+          {
+            "reg": "informal",
+            "text": "How do you <em>measure</em> your own <em>success</em>?"
+          },
+          {
+            "reg": "spoken",
+            "text": "We can't really <em>measure</em> that, can we?"
+          },
+          {
+            "reg": "written",
+            "text": "The new tool lets managers <em>measure</em> <em>productivity</em> in real time."
+          },
+          {
+            "reg": "business",
+            "text": "We need clear metrics to <em>measure the progress</em> of this initiative."
+          }
+        ],
+        "forms": [
+          "measure success",
+          "measure progress",
+          "measure productivity",
+          "measure performance",
+          "measures success",
+          "measured success",
+          "measuring success",
+          "measure"
+        ],
+        "audioWord": "audio/word/u3-measure-success.mp3",
+        "audioSentence": "audio/sentence/u3-measure-success.mp3",
+        "audioDef": "audio/def/u3-measure-success.mp3",
+        "audioDefRu": "audio/defru/u3-measure-success.mp3"
+      },
+      {
+        "term": "apply pressure (on someone)",
+        "pos": "verb phrase",
+        "ipa": "/əˈplaɪ ˈprɛʃər/",
+        "trans": {
+          "en": "to try to make someone do something by pushing, persuading or threatening",
+          "ru": "оказывать давление"
+        },
+        "example": "Investors began to <em>apply pressure on</em> the board to improve the company's safety record.",
+        "blankSentence": "Investors began to ___ the board to improve the company's safety record.",
+        "quizAnswer": "apply pressure on",
+        "scrambleSentence": "The union applied pressure on management to change the schedule.",
+        "rounds": [
+          {
+            "blankSentence": "Investors began to ___ the board to improve the company's safety record.",
+            "quizAnswer": "apply pressure on",
+            "scrambleSentence": "The union applied pressure on management to change the schedule."
+          },
+          {
+            "blankSentence": "I don't want to ___, but we really need an answer today.",
+            "quizAnswer": "apply pressure",
+            "scrambleSentence": "Don't apply too much pressure on her, she's new."
+          },
+          {
+            "blankSentence": "The regulator continued to ___ on the company until it complied.",
+            "quizAnswer": "apply pressure",
+            "scrambleSentence": "The media applied heavy pressure on the company after the accident."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "“Apply” comes from Latin “applicare” — “to attach to”: “ad-” (to) + “plicare” (to fold). “Pressure” from Latin “pressura”, from “premere” — “to press”. Literally pressing something onto someone.",
+          "ru": "«Apply» — от латинского «applicare» — «прикладывать»: «ad-» (к) + «plicare» (складывать). «Pressure» — от латинского «pressura», от «premere» — «давить». Буквально — «приложить давление» к человеку."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=apply+pressure+(on+someone)",
+        "synonyms": [
+          "put pressure on",
+          "push",
+          "pressurise"
+        ],
+        "antonyms": [
+          "relieve pressure",
+          "go easy on"
+        ],
+        "grammar": {
+          "en": "Pattern: apply pressure ON someone (TO do something). “Put pressure on” means the same and is more informal. Opposite: take the pressure off. Noun: pressure is uncountable.",
+          "ru": "Модель: apply pressure ON someone (TO do something). «Put pressure on» значит то же и более разговорно. Противоположное: take the pressure off. «Pressure» — неисчисляемое."
+        },
+        "mnemonic": {
+          "en": "APPLY like paint, PRESSURE like a hand: you press on someone to move.",
+          "ru": "APPLY как краску, PRESSURE как руку: ты давишь на человека, чтобы он сдвинулся."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Stakeholders may <em>apply pressure on</em> the government to introduce stricter regulations."
+          },
+          {
+            "reg": "informal",
+            "text": "Don't <em>apply</em> too much <em>pressure on</em> her, she's new."
+          },
+          {
+            "reg": "spoken",
+            "text": "Why are you <em>applying pressure on</em> me?"
+          },
+          {
+            "reg": "written",
+            "text": "The media <em>applied</em> heavy <em>pressure on</em> the company after the accident."
+          },
+          {
+            "reg": "business",
+            "text": "I'd rather not <em>apply pressure on</em> the supplier, but the deadline is firm."
+          }
+        ],
+        "forms": [
+          "apply pressure",
+          "apply pressure on",
+          "applies pressure",
+          "applied pressure",
+          "applying pressure",
+          "put pressure on",
+          "apply pressure on someone"
+        ],
+        "audioWord": "audio/word/u3-apply-pressure.mp3",
+        "audioSentence": "audio/sentence/u3-apply-pressure.mp3",
+        "audioDef": "audio/def/u3-apply-pressure.mp3",
+        "audioDefRu": "audio/defru/u3-apply-pressure.mp3"
+      }
+    ]
+  },
+  {
+    "id": "unit-3b",
+    "label": "Unit 3B · Confused pairs & workplace change",
+    "words": [
+      {
+        "term": "efficient vs effective",
+        "pos": "adjectives (contrast)",
+        "ipa": "/ɪˈfɪʃənt vɜːrsəs ɪˈfɛktɪv/",
+        "trans": {
+          "en": "efficient = working well without wasting time, money or effort; effective = producing the result you wanted",
+          "ru": "продуктивный (без потерь) vs эффективный (даёт результат)"
+        },
+        "example": "The new filing system is <em>efficient</em>, but only the training course was truly <em>effective</em> in reducing errors.",
+        "blankSentence": "The new filing system is ___, but only the training course was truly effective in reducing errors.",
+        "quizAnswer": "efficient",
+        "scrambleSentence": "An efficient system saves time, but only an effective one solves the problem.",
+        "rounds": [
+          {
+            "blankSentence": "The new filing system is ___, but only the training course was truly effective in reducing errors.",
+            "quizAnswer": "efficient",
+            "scrambleSentence": "An efficient system saves time, but only an effective one solves the problem."
+          },
+          {
+            "blankSentence": "The warning signs proved highly ___: injuries fell by a third.",
+            "quizAnswer": "effective",
+            "scrambleSentence": "That's an efficient way to do it — no wasted steps!"
+          },
+          {
+            "blankSentence": "An ___ team finishes the inspection in half the time, without wasting resources.",
+            "quizAnswer": "efficient",
+            "scrambleSentence": "The campaign was effective but not efficient: it cost far too much."
+          }
+        ],
+        "style": 65,
+        "region": 50,
+        "origin": {
+          "en": "Both come from Latin “efficere” — “to bring about, to accomplish”. “Effective” keeps the idea of the result (the effect); “efficient” came to mean doing it well, without waste.",
+          "ru": "Оба слова — от латинского «efficere» — «производить, совершать». «Effective» сохранило идею результата (effect); «efficient» стало значить «делать хорошо и без потерь»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=efficient+vs+effective",
+        "synonyms": [
+          "efficient: economical, well-organised; effective: successful, productive"
+        ],
+        "antonyms": [
+          "inefficient; ineffective"
+        ],
+        "grammar": {
+          "en": "Efficient = HOW you work (no waste). Effective = WHAT you achieve (the goal is reached). A process can be efficient but not effective, and the other way round. Nouns: efficiency, effectiveness.",
+          "ru": "Efficient = КАК ты работаешь (без потерь). Effective = ЧТО ты получаешь (цель достигнута). Процесс может быть efficient, но не effective, и наоборот. Существительные: efficiency, effectiveness."
+        },
+        "mnemonic": {
+          "en": "EFFect = result → EFFective = gives the result. EFFICIENT = no waste of effort (eFFICIENCY = fast and cheap).",
+          "ru": "Effect = результат → effective = даёт результат. Efficient = без потери усилий."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "An <em>efficient</em> worker completes tasks quickly, whereas an <em>effective</em> one achieves the right results."
+          },
+          {
+            "reg": "informal",
+            "text": "That's an <em>efficient</em> way to do it — no wasted steps!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Is this method actually <em>effective</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The campaign was <em>effective</em> but not <em>efficient</em>: it cost far too much."
+          },
+          {
+            "reg": "business",
+            "text": "We need processes that are both <em>efficient</em> and <em>effective</em>."
+          }
+        ],
+        "forms": [
+          "efficient",
+          "effective",
+          "efficient vs effective",
+          "more efficient",
+          "more effective",
+          "highly effective",
+          "highly efficient"
+        ],
+        "audioWord": "audio/word/u3-efficient-vs-effective.mp3",
+        "audioSentence": "audio/sentence/u3-efficient-vs-effective.mp3",
+        "audioDef": "audio/def/u3-efficient-vs-effective.mp3",
+        "audioDefRu": "audio/defru/u3-efficient-vs-effective.mp3"
+      },
+      {
+        "term": "means vs ability",
+        "pos": "nouns (contrast)",
+        "ipa": "/miːnz vɜːrsəs əˈbɪləti/",
+        "trans": {
+          "en": "means = money, resources or a method used to achieve something; ability = the skill or power to do something",
+          "ru": "средства, ресурсы vs способность"
+        },
+        "example": "The company has the <em>means</em> to expand, but it lacks the <em>ability</em> to manage rapid growth.",
+        "blankSentence": "The company has the ___ to expand, but it lacks the ability to manage rapid growth.",
+        "quizAnswer": "means",
+        "scrambleSentence": "She has the ability to explain complex rules in a simple way.",
+        "rounds": [
+          {
+            "blankSentence": "The company has the ___ to expand, but it lacks the ability to manage rapid growth.",
+            "quizAnswer": "means",
+            "scrambleSentence": "She has the ability to explain complex rules in a simple way."
+          },
+          {
+            "blankSentence": "Her ___ to stay calm during emergencies impressed the inspectors.",
+            "quizAnswer": "ability",
+            "scrambleSentence": "He's got the ability, he just needs more experience."
+          },
+          {
+            "blankSentence": "We don't have the ___ to replace all the equipment this year.",
+            "quizAnswer": "means",
+            "scrambleSentence": "A person of modest means may still have exceptional ability."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "“Means” comes from Old French “meien” — “middle, intermediary”: a “means” is what stands between you and the goal. “Ability” is from Latin “habilitas” — “aptness”, from “habilis” — “easy to handle”.",
+          "ru": "«Means» — от старофранцузского «meien» — «посредник, промежуточное»: «means» — то, что стоит между тобой и целью. «Ability» — от латинского «habilitas» — «пригодность», от «habilis» — «удобный, ловкий»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=means+vs+ability",
+        "synonyms": [
+          "means: resources, funds; ability: skill, capacity"
+        ],
+        "antonyms": [
+          "lack of resources; inability"
+        ],
+        "grammar": {
+          "en": "“Means” looks plural but is used with “the means to + verb” (and also “a means of”). It is about resources outside you. “Ability” is inside you: the ability TO do something. Plural: abilities.",
+          "ru": "«Means» выглядит как множественное, но используется как «the means to + глагол» (и «a means of»). Это ресурсы ВНЕ тебя. «Ability» — внутри тебя: the ability TO do something. Множественное: abilities."
+        },
+        "mnemonic": {
+          "en": "MEANS = your WALLET and tools; ABILITY = your BRAIN and hands.",
+          "ru": "MEANS = твой КОШЕЛЁК и инструменты; ABILITY = твоя ГОЛОВА и руки."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The organisation lacks the financial <em>means</em> to implement the proposed measures."
+          },
+          {
+            "reg": "informal",
+            "text": "He's got the <em>ability</em>, he just needs more experience."
+          },
+          {
+            "reg": "spoken",
+            "text": "Do we have the <em>means</em> to do this?"
+          },
+          {
+            "reg": "written",
+            "text": "A person of modest <em>means</em> may still have exceptional <em>ability</em>."
+          },
+          {
+            "reg": "business",
+            "text": "We are looking for people with the <em>ability</em> to work independently."
+          }
+        ],
+        "forms": [
+          "means",
+          "ability",
+          "means vs ability",
+          "the means",
+          "the ability",
+          "financial means",
+          "the ability to"
+        ],
+        "audioWord": "audio/word/u3-means-vs-ability.mp3",
+        "audioSentence": "audio/sentence/u3-means-vs-ability.mp3",
+        "audioDef": "audio/def/u3-means-vs-ability.mp3",
+        "audioDefRu": "audio/defru/u3-means-vs-ability.mp3"
+      },
+      {
+        "term": "procedure vs process",
+        "pos": "nouns (contrast)",
+        "ipa": "/prəˈsiːdʒər vɜːrsəs ˈprɑːsɛs/",
+        "trans": {
+          "en": "procedure = an official, fixed way of doing something; process = a series of steps or actions that lead to a result",
+          "ru": "установленный порядок vs процесс"
+        },
+        "example": "Following the emergency <em>procedure</em> is mandatory, but the approval <em>process</em> itself can be made shorter.",
+        "blankSentence": "Following the emergency ___ is mandatory, but the approval process itself can be made shorter.",
+        "quizAnswer": "procedure",
+        "scrambleSentence": "Every employee must follow the official procedure.",
+        "rounds": [
+          {
+            "blankSentence": "Following the emergency ___ is mandatory, but the approval process itself can be made shorter.",
+            "quizAnswer": "procedure",
+            "scrambleSentence": "Every employee must follow the official procedure."
+          },
+          {
+            "blankSentence": "The approval ___ involves five departments and takes about a month.",
+            "quizAnswer": "process",
+            "scrambleSentence": "What's the procedure if the alarm goes off?"
+          },
+          {
+            "blankSentence": "New employees must learn the safety ___ on their first day.",
+            "quizAnswer": "procedure",
+            "scrambleSentence": "The hiring process consists of three interviews and a practical test."
+          }
+        ],
+        "style": 65,
+        "region": 50,
+        "origin": {
+          "en": "“Procedure” is from Latin “procedere” — “to go forward”, through French “procédure”. “Process” comes from the same Latin root: “processus” — “a going forward”. Today “procedure” means the correct way, “process” — the way things develop.",
+          "ru": "«Procedure» — от латинского «procedere» — «идти вперёд», через французское «procédure». «Process» — из того же корня: «processus» — «движение вперёд». Сегодня «procedure» — правильный установленный порядок, «process» — то, как всё развивается."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=procedure+vs+process",
+        "synonyms": [
+          "procedure: protocol, official method; process: course of action, operation"
+        ],
+        "antonyms": [],
+        "grammar": {
+          "en": "Procedure = rules you MUST follow (a safety procedure, a legal procedure). Process = the steps something goes through (the approval process, the learning process). Use “follow a procedure”, “go through a process”.",
+          "ru": "Procedure = правила, которым НУЖНО следовать (a safety procedure, a legal procedure). Process = шаги, через которые что-то проходит (the approval process, the learning process). Говорим «follow a procedure», «go through a process»."
+        },
+        "mnemonic": {
+          "en": "PROCEDURE = PROCEED by the book. PROCESS = the PROGRESS of things.",
+          "ru": "PROCEDURE = действуй по инструкции. PROCESS = ход событий."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "All staff are required to comply with the established <em>procedure</em> for reporting incidents."
+          },
+          {
+            "reg": "informal",
+            "text": "What's the <em>procedure</em> if the alarm goes off?"
+          },
+          {
+            "reg": "spoken",
+            "text": "It's a long <em>process</em>, but worth it."
+          },
+          {
+            "reg": "written",
+            "text": "The hiring <em>process</em> consists of three interviews and a practical test."
+          },
+          {
+            "reg": "business",
+            "text": "Please review the complaints <em>procedure</em> and tell us whether the <em>process</em> needs improvement."
+          }
+        ],
+        "forms": [
+          "procedure",
+          "process",
+          "procedure vs process",
+          "the procedure",
+          "the process",
+          "safety procedure",
+          "approval process"
+        ],
+        "audioWord": "audio/word/u3-procedure-vs-process.mp3",
+        "audioSentence": "audio/sentence/u3-procedure-vs-process.mp3",
+        "audioDef": "audio/def/u3-procedure-vs-process.mp3",
+        "audioDefRu": "audio/defru/u3-procedure-vs-process.mp3"
+      },
+      {
+        "term": "dynamic vs energetic",
+        "pos": "adjectives (contrast)",
+        "ipa": "/daɪˈnæmɪk vɜːrsəs ˌɛnərˈdʒɛtɪk/",
+        "trans": {
+          "en": "dynamic = full of new ideas, change and forward movement; energetic = having or showing a lot of physical energy",
+          "ru": "динамичный, полный идей vs энергичный"
+        },
+        "example": "She is a <em>dynamic</em> leader with fresh ideas, while her assistant is simply <em>energetic</em> and never stops moving.",
+        "blankSentence": "She is a ___ leader with fresh ideas, while her assistant is simply energetic and never stops moving.",
+        "quizAnswer": "dynamic",
+        "scrambleSentence": "A dynamic team keeps coming up with new ideas.",
+        "rounds": [
+          {
+            "blankSentence": "She is a ___ leader with fresh ideas, while her assistant is simply energetic and never stops moving.",
+            "quizAnswer": "dynamic",
+            "scrambleSentence": "A dynamic team keeps coming up with new ideas."
+          },
+          {
+            "blankSentence": "After the coffee break, the ___ trainer made everyone stand up and move.",
+            "quizAnswer": "energetic",
+            "scrambleSentence": "He's so energetic! Where does he get the energy?"
+          },
+          {
+            "blankSentence": "The company is looking for a ___ manager who can drive change.",
+            "quizAnswer": "dynamic",
+            "scrambleSentence": "The company has a dynamic culture where ideas are tested quickly."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "“Dynamic” comes from Greek “dynamis” — “power, force”. “Energetic” is from Greek “energeia” — “activity, operation” (en- “in” + ergon “work”). Both are about power, but one is about movement of ideas, the other of the body.",
+          "ru": "«Dynamic» — от греческого «dynamis» — «сила, мощь». «Energetic» — от греческого «energeia» — «деятельность» (en- «в» + ergon «работа»). Оба про силу, но один про движение идей, другой про движение тела."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=dynamic+vs+energetic",
+        "synonyms": [
+          "dynamic: go-ahead, innovative; energetic: lively, active"
+        ],
+        "antonyms": [
+          "static; passive; lethargic"
+        ],
+        "grammar": {
+          "en": "Dynamic = forward-thinking, ready for change (a dynamic leader, a dynamic market). Energetic = lots of personal energy, lively (an energetic child). A person can be both. Nouns: dynamism, energy.",
+          "ru": "Dynamic = смотрит вперёд, готов к переменам (a dynamic leader, a dynamic market). Energetic = много личной энергии, живой (an energetic child). Человек может быть и тем, и другим. Существительные: dynamism, energy."
+        },
+        "mnemonic": {
+          "en": "DYNAMIC = DYNAMite ideas. ENERGETIC = ENERGY in the body.",
+          "ru": "DYNAMIC = взрывные идеи. ENERGETIC = энергия в теле."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The organisation is seeking a <em>dynamic</em> individual to lead its safety division."
+          },
+          {
+            "reg": "informal",
+            "text": "He's so <em>energetic</em>! Where does he get the energy?"
+          },
+          {
+            "reg": "spoken",
+            "text": "Are you feeling <em>energetic</em> today?"
+          },
+          {
+            "reg": "written",
+            "text": "The company has a <em>dynamic</em> culture where ideas are tested quickly."
+          },
+          {
+            "reg": "business",
+            "text": "We need a <em>dynamic</em> approach, not just an <em>energetic</em> speaker."
+          }
+        ],
+        "forms": [
+          "dynamic",
+          "energetic",
+          "dynamic vs energetic",
+          "a dynamic",
+          "an energetic",
+          "very dynamic",
+          "very energetic"
+        ],
+        "audioWord": "audio/word/u3-dynamic-vs-energetic.mp3",
+        "audioSentence": "audio/sentence/u3-dynamic-vs-energetic.mp3",
+        "audioDef": "audio/def/u3-dynamic-vs-energetic.mp3",
+        "audioDefRu": "audio/defru/u3-dynamic-vs-energetic.mp3"
+      },
+      {
+        "term": "implement vs install",
+        "pos": "verbs (contrast)",
+        "ipa": "/ˈɪmpləmɛnt vɜːrsəs ɪnˈstɔːl/",
+        "trans": {
+          "en": "implement = to put a plan, policy or system into practice; install = to put equipment or software in place so that it can be used",
+          "ru": "внедрить (систему) vs установить (ПО, оборудование)"
+        },
+        "example": "The IT team will <em>install</em> the new software on Monday, and management will <em>implement</em> the new reporting policy a week later.",
+        "blankSentence": "The IT team will ___ the new software on Monday, and management will implement the new reporting policy a week later.",
+        "quizAnswer": "install",
+        "scrambleSentence": "The technicians installed the equipment, and then the company implemented the new rules.",
+        "rounds": [
+          {
+            "blankSentence": "The IT team will ___ the new software on Monday, and management will implement the new reporting policy a week later.",
+            "quizAnswer": "install",
+            "scrambleSentence": "The technicians installed the equipment, and then the company implemented the new rules."
+          },
+          {
+            "blankSentence": "It took the committee a year to ___ the new fire-safety policy.",
+            "quizAnswer": "implement",
+            "scrambleSentence": "I'll install the update tonight."
+          },
+          {
+            "blankSentence": "Please ___ the fire alarms in the east wing before the inspection.",
+            "quizAnswer": "install",
+            "scrambleSentence": "We can install the new system quickly, but it will take months to implement it properly."
+          }
+        ],
+        "style": 65,
+        "region": 50,
+        "origin": {
+          "en": "“Install” is from Medieval Latin “installare” — “to put into a seat” (in + stallum, “stall, seat”): you seat the equipment where it belongs. “Implement” is from Latin “implere” — “to fulfil”.",
+          "ru": "«Install» — от средневековой латыни «installare» — «посадить на место» (in + stallum, «место, кресло»): ты усаживаешь оборудование на нужное место. «Implement» — от латинского «implere» — «исполнять»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=implement+vs+install",
+        "synonyms": [
+          "implement: carry out, introduce; install: set up, fit"
+        ],
+        "antonyms": [],
+        "grammar": {
+          "en": "Implement = a PLAN, POLICY, STRATEGY, CHANGE (ideas). Install = SOFTWARE, EQUIPMENT, A SYSTEM (things). Don't say “implement the software” or “install a policy”. Nouns: implementation, installation.",
+          "ru": "Implement = ПЛАН, ПОЛИТИКА, СТРАТЕГИЯ, ИЗМЕНЕНИЕ (идеи). Install = ПО, ОБОРУДОВАНИЕ, СИСТЕМА (вещи). Нельзя «implement the software» и «install a policy». Существительные: implementation, installation."
+        },
+        "mnemonic": {
+          "en": "INSTALL = put in a STALL (a place) — a thing. IMPLEMENT = make an idea REAL — a plan.",
+          "ru": "INSTALL = поставить на место — вещь. IMPLEMENT = сделать идею реальной — план."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Specialist engineers were contracted to <em>install</em> the new ventilation system."
+          },
+          {
+            "reg": "informal",
+            "text": "I'll <em>install</em> the update tonight."
+          },
+          {
+            "reg": "spoken",
+            "text": "How long will it take to <em>implement</em> the new policy?"
+          },
+          {
+            "reg": "written",
+            "text": "We can <em>install</em> the new system quickly, but it will take months to <em>implement</em> it properly."
+          },
+          {
+            "reg": "business",
+            "text": "Our plan is to <em>implement</em> the strategy in phases."
+          }
+        ],
+        "forms": [
+          "implement",
+          "install",
+          "implement vs install",
+          "implements",
+          "implemented",
+          "installs",
+          "installed",
+          "installing"
+        ],
+        "audioWord": "audio/word/u3-implement-vs-install.mp3",
+        "audioSentence": "audio/sentence/u3-implement-vs-install.mp3",
+        "audioDef": "audio/def/u3-implement-vs-install.mp3",
+        "audioDefRu": "audio/defru/u3-implement-vs-install.mp3"
+      },
+      {
+        "term": "transform vs change",
+        "pos": "verbs (contrast)",
+        "ipa": "/trænsˈfɔːrm vɜːrsəs tʃeɪndʒ/",
+        "trans": {
+          "en": "transform = to change something completely, so that it becomes very different; change = to make something different, often only partly",
+          "ru": "изменить полностью vs изменить"
+        },
+        "example": "A few small tweaks will <em>change</em> the schedule, but only a new leadership can <em>transform</em> the whole organisation.",
+        "blankSentence": "A few small tweaks will ___ the schedule, but only a new leadership can transform the whole organisation.",
+        "quizAnswer": "change",
+        "scrambleSentence": "A small tweak can change the plan, but a big reform can transform the company.",
+        "rounds": [
+          {
+            "blankSentence": "A few small tweaks will ___ the schedule, but only a new leadership can transform the whole organisation.",
+            "quizAnswer": "change",
+            "scrambleSentence": "A small tweak can change the plan, but a big reform can transform the company."
+          },
+          {
+            "blankSentence": "Could we ___ the inspection date to Thursday?",
+            "quizAnswer": "change",
+            "scrambleSentence": "I'm going to change my password."
+          },
+          {
+            "blankSentence": "The new training completely ___ the way the team handles emergencies.",
+            "quizAnswer": "transformed",
+            "scrambleSentence": "The renovation transformed a gloomy basement into a bright training room."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "“Change” is from Old French “changier”, from Latin “cambiare” — “to exchange”. “Transform” is from Latin “transformare” — “to change the shape”: “trans-” (across) + “forma” (shape). A transformation is a change of form.",
+          "ru": "«Change» — от старофранцузского «changier», от латинского «cambiare» — «обменивать». «Transform» — от латинского «transformare» — «менять форму»: «trans-» (через) + «forma» (форма). Transformation — смена формы."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=transform+vs+change",
+        "synonyms": [
+          "transform: convert, revolutionise; change: alter, modify"
+        ],
+        "antonyms": [
+          "keep the same",
+          "preserve"
+        ],
+        "grammar": {
+          "en": "Change = any difference, big or small (change a date, change your mind). Transform = a complete, dramatic change (transform a business). Pattern: transform X INTO Y; change X TO Y / change FROM X TO Y.",
+          "ru": "Change = любое изменение, большое или малое (change a date, change your mind). Transform = полное, кардинальное изменение (transform a business). Модель: transform X INTO Y; change X TO Y / change FROM X TO Y."
+        },
+        "mnemonic": {
+          "en": "TRANS-FORM = a new FORM (butterfly). CHANGE = just something different (a new shirt).",
+          "ru": "TRANS-FORM = новая ФОРМА (бабочка). CHANGE = просто что-то другое (новая рубашка)."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The reform is expected to <em>transform</em> the entire healthcare system."
+          },
+          {
+            "reg": "informal",
+            "text": "I'm going to <em>change</em> my password."
+          },
+          {
+            "reg": "spoken",
+            "text": "Can we <em>change</em> the date?"
+          },
+          {
+            "reg": "written",
+            "text": "The renovation <em>transformed</em> a gloomy basement into a bright training room."
+          },
+          {
+            "reg": "business",
+            "text": "We may need to <em>change</em> the procedure, but we don't have to <em>transform</em> the whole programme."
+          }
+        ],
+        "forms": [
+          "transform",
+          "change",
+          "transform vs change",
+          "transforms",
+          "transformed",
+          "transforming",
+          "changes",
+          "changed"
+        ],
+        "audioWord": "audio/word/u3-transform-vs-change.mp3",
+        "audioSentence": "audio/sentence/u3-transform-vs-change.mp3",
+        "audioDef": "audio/def/u3-transform-vs-change.mp3",
+        "audioDefRu": "audio/defru/u3-transform-vs-change.mp3"
+      },
+      {
+        "term": "corporate culture",
+        "pos": "noun phrase",
+        "ipa": "/ˈkɔːrpərət ˈkʌltʃər/",
+        "trans": {
+          "en": "the shared values, attitudes and ways of behaving in a company; also called working ethos",
+          "ru": "корпоративная культура / дух компании"
+        },
+        "example": "The company's <em>corporate culture</em> encourages employees to report problems without fear.",
+        "blankSentence": "The company's ___ encourages employees to report problems without fear.",
+        "quizAnswer": "corporate culture",
+        "scrambleSentence": "A positive corporate culture makes employees feel part of the team.",
+        "rounds": [
+          {
+            "blankSentence": "The company's ___ encourages employees to report problems without fear.",
+            "quizAnswer": "corporate culture",
+            "scrambleSentence": "A positive corporate culture makes employees feel part of the team."
+          },
+          {
+            "blankSentence": "A strong ___ helped the team survive the difficult year.",
+            "quizAnswer": "working ethos",
+            "scrambleSentence": "Their corporate culture is really friendly."
+          },
+          {
+            "blankSentence": "Before accepting the job, I wanted to learn more about the ___.",
+            "quizAnswer": "corporate culture",
+            "scrambleSentence": "A blame-free corporate culture leads to more honest reporting of mistakes."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "“Corporate” comes from Latin “corpus” — “body”: a corporation is a “body” of people acting as one. “Ethos” is Greek for “character, habit”. A company's ethos is its character.",
+          "ru": "«Corporate» — от латинского «corpus» — «тело»: корпорация — «тело» людей, действующих как одно. «Ethos» — греческое «характер, обычай». Ethos компании — её характер."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=corporate+culture",
+        "synonyms": [
+          "company culture",
+          "organisational culture",
+          "ethos"
+        ],
+        "antonyms": [],
+        "grammar": {
+          "en": "Uncountable in general (a strong corporate culture). Collocations: change / build / shape / foster a corporate culture; a culture of safety / openness. “Working ethos” is a more formal synonym.",
+          "ru": "В общем смысле неисчисляемое (a strong corporate culture). Сочетания: change / build / shape / foster a corporate culture; a culture of safety / openness. «Working ethos» — более формальный синоним."
+        },
+        "mnemonic": {
+          "en": "CORPORATE = a CORPS (body) of people; CULTURE = their habits.",
+          "ru": "CORPORATE = «корпус» людей; CULTURE = их привычки."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The acquisition raised questions about how the two <em>corporate cultures</em> would blend."
+          },
+          {
+            "reg": "informal",
+            "text": "Their <em>corporate culture</em> is really friendly."
+          },
+          {
+            "reg": "spoken",
+            "text": "What's the <em>culture</em> like at your company?"
+          },
+          {
+            "reg": "written",
+            "text": "A blame-free <em>corporate culture</em> leads to more honest reporting of mistakes."
+          },
+          {
+            "reg": "business",
+            "text": "A strong safety-first <em>corporate culture</em> reduces accidents and protects the company's reputation."
+          }
+        ],
+        "forms": [
+          "corporate culture",
+          "working ethos",
+          "company culture",
+          "the corporate culture",
+          "corporate cultures",
+          "culture"
+        ],
+        "audioWord": "audio/word/u3-corporate-culture.mp3",
+        "audioSentence": "audio/sentence/u3-corporate-culture.mp3",
+        "audioDef": "audio/def/u3-corporate-culture.mp3",
+        "audioDefRu": "audio/defru/u3-corporate-culture.mp3"
+      },
+      {
+        "term": "be rooted in",
+        "pos": "phrase",
+        "ipa": "/bi ˈruːtɪd ɪn/",
+        "trans": {
+          "en": "to have its origin and basic strength in something, especially in the past",
+          "ru": "уходить корнями в (прошлую эпоху)"
+        },
+        "example": "Many of the company's outdated procedures <em>are rooted in</em> a previous era.",
+        "blankSentence": "Many of the company's outdated procedures ___ a previous era.",
+        "quizAnswer": "are rooted in",
+        "scrambleSentence": "Their attitude to safety is rooted in an earlier, stricter age.",
+        "rounds": [
+          {
+            "blankSentence": "Many of the company's outdated procedures ___ a previous era.",
+            "quizAnswer": "are rooted in",
+            "scrambleSentence": "Their attitude to safety is rooted in an earlier, stricter age."
+          },
+          {
+            "blankSentence": "His fear of change ___ a bad experience at his first job.",
+            "quizAnswer": "is rooted in",
+            "scrambleSentence": "Her fear of flying is rooted in a childhood experience."
+          },
+          {
+            "blankSentence": "The tradition ___ the history of the region.",
+            "quizAnswer": "is deeply rooted in",
+            "scrambleSentence": "The company's strong work ethic is rooted in its founder's values."
+          }
+        ],
+        "style": 65,
+        "region": 50,
+        "origin": {
+          "en": "From “root” — Old English “rōt” (via Old Norse “rót”). A plant grows from its root, so something “rooted in” the past grows out of it, like a tree from old soil.",
+          "ru": "От «root» — староангл. «rōt» (через древнескандинавское «rót»). Растение растёт из корня, поэтому то, что «rooted in» прошлом, растёт из него, как дерево из старой почвы."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=be+rooted+in",
+        "synonyms": [
+          "be based on",
+          "stem from",
+          "originate in"
+        ],
+        "antonyms": [
+          "be unrelated to"
+        ],
+        "grammar": {
+          "en": "Usually passive: be rooted IN something (never “rooted at”). Often with “deeply”: deeply rooted in tradition. A related verb: to root (in) and the adjective “deep-rooted”. Related phrase: roots.",
+          "ru": "Обычно пассив: be rooted IN something (никогда «rooted at»). Часто с «deeply»: deeply rooted in tradition. Родственное: прилагательное «deep-rooted». Связанное слово: roots."
+        },
+        "mnemonic": {
+          "en": "ROOT = the part of a tree under the ground, where the story begins.",
+          "ru": "ROOT = корень дерева под землёй, откуда всё начинается."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The current regulations <em>are rooted in</em> legislation dating back to the nineteen-sixties."
+          },
+          {
+            "reg": "informal",
+            "text": "Her fear of flying <em>is rooted in</em> a childhood experience."
+          },
+          {
+            "reg": "spoken",
+            "text": "Where <em>is</em> this habit <em>rooted in</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The company's strong work ethic <em>is rooted in</em> its founder's values."
+          },
+          {
+            "reg": "business",
+            "text": "The problem <em>is rooted in</em> a lack of communication between the departments."
+          }
+        ],
+        "forms": [
+          "be rooted in",
+          "is rooted in",
+          "are rooted in",
+          "was rooted in",
+          "were rooted in",
+          "rooted in",
+          "deeply rooted in",
+          "root in"
+        ],
+        "audioWord": "audio/word/u3-be-rooted-in.mp3",
+        "audioSentence": "audio/sentence/u3-be-rooted-in.mp3",
+        "audioDef": "audio/def/u3-be-rooted-in.mp3",
+        "audioDefRu": "audio/defru/u3-be-rooted-in.mp3"
+      },
+      {
+        "term": "an aversion to change",
+        "pos": "noun phrase",
+        "ipa": "/ən əˈvɜːrʒən tuː tʃeɪndʒ/",
+        "trans": {
+          "en": "a strong dislike of something, especially of new things or changes",
+          "ru": "неприятие перемен"
+        },
+        "example": "Many senior employees showed <em>an aversion to change</em> and kept using the old forms.",
+        "blankSentence": "Many senior employees showed ___ and kept using the old forms.",
+        "quizAnswer": "an aversion to change",
+        "scrambleSentence": "There was a general aversion to change among the long-serving staff.",
+        "rounds": [
+          {
+            "blankSentence": "Many senior employees showed ___ and kept using the old forms.",
+            "quizAnswer": "an aversion to change",
+            "scrambleSentence": "There was a general aversion to change among the long-serving staff."
+          },
+          {
+            "blankSentence": "He has a strong ___ risk of any kind.",
+            "quizAnswer": "aversion to",
+            "scrambleSentence": "She has such an aversion to meetings!"
+          },
+          {
+            "blankSentence": "Management's ___ slowed down every improvement.",
+            "quizAnswer": "aversion to change",
+            "scrambleSentence": "His aversion to change made it hard for him to accept the new software."
+          }
+        ],
+        "style": 70,
+        "region": 50,
+        "origin": {
+          "en": "From Latin “aversio” — “a turning away”, from “avertere” — “to turn away” (a- “away” + vertere “to turn”). Aversion is the feeling that makes you turn away from something.",
+          "ru": "От латинского «aversio» — «отворачивание», от «avertere» — «отворачиваться» (a- «от» + vertere «поворачивать»). Aversion — чувство, из-за которого ты отворачиваешься."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=an+aversion+to+change",
+        "synonyms": [
+          "resistance to change",
+          "dislike of change",
+          "reluctance"
+        ],
+        "antonyms": [
+          "openness to change",
+          "enthusiasm for change"
+        ],
+        "grammar": {
+          "en": "Pattern: an aversion TO something (+ noun / -ing). Not “aversion of” and not “averse of”. The adjective is “averse to” (He is averse to risk). Formal; it is stronger than “dislike”.",
+          "ru": "Модель: an aversion TO something (+ существительное / -ing). Не «aversion of» и не «averse of». Прилагательное — «averse to» (He is averse to risk). Формально; сильнее, чем «dislike»."
+        },
+        "mnemonic": {
+          "en": "A-VERSION: a VERSION of yourself that turns AWAY from new things.",
+          "ru": "A-VERSION: твоя «версия», которая ОТВОРАЧИВАЕТСЯ от нового."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The report highlights a widespread <em>aversion to change</em> within the organisation."
+          },
+          {
+            "reg": "informal",
+            "text": "She has such an <em>aversion to</em> meetings!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Why do people have an <em>aversion to change</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "His <em>aversion to change</em> made it hard for him to accept the new software."
+          },
+          {
+            "reg": "business",
+            "text": "We must understand the staff's <em>aversion to change</em> before announcing any new procedures."
+          }
+        ],
+        "forms": [
+          "an aversion to change",
+          "aversion to change",
+          "aversion to",
+          "have an aversion to change",
+          "have an aversion to",
+          "aversion"
+        ],
+        "audioWord": "audio/word/u3-an-aversion-to-change.mp3",
+        "audioSentence": "audio/sentence/u3-an-aversion-to-change.mp3",
+        "audioDef": "audio/def/u3-an-aversion-to-change.mp3",
+        "audioDefRu": "audio/defru/u3-an-aversion-to-change.mp3"
+      },
+      {
+        "term": "embrace change vs resist change",
+        "pos": "verb phrases (contrast)",
+        "ipa": "/ɪmˈbreɪs tʃeɪndʒ vɜːrsəs rɪˈzɪst tʃeɪndʒ/",
+        "trans": {
+          "en": "embrace change = to accept new ideas and ways of working gladly; resist change = to try to stop changes from happening",
+          "ru": "принимать перемены vs сопротивляться им"
+        },
+        "example": "The younger staff were ready to <em>embrace change</em>, but the veterans tended to <em>resist change</em>.",
+        "blankSentence": "The younger staff were ready to ___, but the veterans tended to resist change.",
+        "quizAnswer": "embrace change",
+        "scrambleSentence": "Successful organisations embrace change instead of resisting it.",
+        "rounds": [
+          {
+            "blankSentence": "The younger staff were ready to ___, but the veterans tended to resist change.",
+            "quizAnswer": "embrace change",
+            "scrambleSentence": "Successful organisations embrace change instead of resisting it."
+          },
+          {
+            "blankSentence": "Some managers still ___ because they fear losing control.",
+            "quizAnswer": "resist change",
+            "scrambleSentence": "Some people just resist change, no matter what."
+          },
+          {
+            "blankSentence": "Companies that ___ usually adapt faster to new regulations.",
+            "quizAnswer": "embrace change",
+            "scrambleSentence": "Employees who resist change often fear losing their jobs or their status."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "“Embrace” comes from Old French “embracier” — “to hold in the arms” (en- “in” + brace “the two arms”). “Resist” is from Latin “resistere” — “to stand against”: “re-” (back) + “sistere” (to stand).",
+          "ru": "«Embrace» — от старофранцузского «embracier» — «держать в объятиях» (en- «в» + brace «две руки»). «Resist» — от латинского «resistere» — «стоять против»: «re-» (назад) + «sistere» (стоять)."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=embrace+change+vs+resist+change",
+        "synonyms": [
+          "embrace: welcome, accept; resist: oppose, fight"
+        ],
+        "antonyms": [
+          "resist / embrace"
+        ],
+        "grammar": {
+          "en": "Embrace = open arms, accept gladly (also: embrace a new idea / technology / culture). Resist = push back (resist change / temptation / pressure). Note: “resist” takes -ing after it: can't resist smiling.",
+          "ru": "Embrace = раскрытые объятия, принять с радостью (также: embrace a new idea / technology / culture). Resist = давить в ответ (resist change / temptation / pressure). Заметь: после «resist» идёт -ing: can't resist smiling."
+        },
+        "mnemonic": {
+          "en": "EMBRACE = a hug (open arms). RESIST = arms crossed, a wall.",
+          "ru": "EMBRACE = объятие (руки раскрыты). RESIST = руки скрещены, стена."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Organisations that <em>embrace change</em> are better positioned to compete."
+          },
+          {
+            "reg": "informal",
+            "text": "Some people just <em>resist change</em>, no matter what."
+          },
+          {
+            "reg": "spoken",
+            "text": "Are you ready to <em>embrace change</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "Employees who <em>resist change</em> often fear losing their jobs or their status."
+          },
+          {
+            "reg": "business",
+            "text": "To succeed, we have to <em>embrace change</em> and encourage our teams to do the same."
+          }
+        ],
+        "forms": [
+          "embrace change",
+          "resist change",
+          "embraces change",
+          "embraced change",
+          "embracing change",
+          "resists change",
+          "resisted change",
+          "resisting change"
+        ],
+        "audioWord": "audio/word/u3-embrace-vs-resist-change.mp3",
+        "audioSentence": "audio/sentence/u3-embrace-vs-resist-change.mp3",
+        "audioDef": "audio/def/u3-embrace-vs-resist-change.mp3",
+        "audioDefRu": "audio/defru/u3-embrace-vs-resist-change.mp3"
+      },
+      {
+        "term": "seamless technology",
+        "pos": "noun phrase",
+        "ipa": "/ˈsiːmləs tɛkˈnɑːlədʒi/",
+        "trans": {
+          "en": "technology that works smoothly, without any visible gaps, breaks or problems",
+          "ru": "бесперебойные технологии / интеграция"
+        },
+        "example": "Employees expect <em>seamless technology</em> that connects all their tools without constant logins.",
+        "blankSentence": "Employees expect ___ that connects all their tools without constant logins.",
+        "quizAnswer": "seamless technology",
+        "scrambleSentence": "Seamless technology lets teams share data without delays.",
+        "rounds": [
+          {
+            "blankSentence": "Employees expect ___ that connects all their tools without constant logins.",
+            "quizAnswer": "seamless technology",
+            "scrambleSentence": "Seamless technology lets teams share data without delays."
+          },
+          {
+            "blankSentence": "The merger required a ___ of two different IT systems.",
+            "quizAnswer": "seamless integration",
+            "scrambleSentence": "Their app is seamless — I love it."
+          },
+          {
+            "blankSentence": "The customer experience should feel completely ___ from start to finish.",
+            "quizAnswer": "seamless",
+            "scrambleSentence": "The upgrade was seamless; nobody noticed any downtime."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "A compound: “seam” (the line where two pieces of cloth are sewn together; Old English “sēam”) + “-less” (without). “Seamless” literally means “with no seams” — you cannot see where the parts join.",
+          "ru": "Составное слово: «seam» (шов, где сшиты две ткани; староангл. «sēam») + «-less» (без). «Seamless» буквально «без швов» — не видно, где части соединены."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=seamless+technology",
+        "synonyms": [
+          "smooth",
+          "uninterrupted",
+          "frictionless"
+        ],
+        "antonyms": [
+          "clunky",
+          "disjointed"
+        ],
+        "grammar": {
+          "en": "Adjective: seamless technology / integration / transition / service. Adverb: seamlessly (it works seamlessly). The opposite idea: “clunky” or “patchy”.",
+          "ru": "Прилагательное: seamless technology / integration / transition / service. Наречие: seamlessly (it works seamlessly). Противоположная идея: «clunky» или «patchy»."
+        },
+        "mnemonic": {
+          "en": "SEAM-LESS: a coat with no visible SEAMS — a technology you cannot see the joins in.",
+          "ru": "SEAM-LESS: пальто без видимых ШВОВ — технология, в которой не видно стыков."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The proposed platform offers <em>seamless integration</em> with existing management systems."
+          },
+          {
+            "reg": "informal",
+            "text": "Their app is <em>seamless</em> — I love it."
+          },
+          {
+            "reg": "spoken",
+            "text": "Is the transition <em>seamless</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The upgrade was <em>seamless</em>; nobody noticed any downtime."
+          },
+          {
+            "reg": "business",
+            "text": "We are investing in <em>seamless technology</em> to reduce errors and save time."
+          }
+        ],
+        "forms": [
+          "seamless technology",
+          "seamless integration",
+          "seamless",
+          "seamless transition",
+          "seamlessly"
+        ],
+        "audioWord": "audio/word/u3-seamless-technology.mp3",
+        "audioSentence": "audio/sentence/u3-seamless-technology.mp3",
+        "audioDef": "audio/def/u3-seamless-technology.mp3",
+        "audioDefRu": "audio/defru/u3-seamless-technology.mp3"
+      },
+      {
+        "term": "morale",
+        "pos": "noun",
+        "ipa": "/məˈræl/",
+        "trans": {
+          "en": "the level of confidence and enthusiasm among a group of people; low morale = people feel discouraged; boost morale = make them feel better",
+          "ru": "моральный дух (низкий / поднять)"
+        },
+        "example": "After the layoffs, <em>morale</em> was low, and management had to find ways to <em>boost</em> it.",
+        "blankSentence": "After the layoffs, ___ was low, and management had to find ways to boost it.",
+        "quizAnswer": "morale",
+        "scrambleSentence": "Good leadership helps to keep morale high.",
+        "rounds": [
+          {
+            "blankSentence": "After the layoffs, ___ was low, and management had to find ways to boost it.",
+            "quizAnswer": "morale",
+            "scrambleSentence": "Good leadership helps to keep morale high."
+          },
+          {
+            "blankSentence": "A small bonus did wonders to ___ in the team.",
+            "quizAnswer": "boost morale",
+            "scrambleSentence": "Team morale is really high at the moment!"
+          },
+          {
+            "blankSentence": "Constant criticism can seriously damage staff ___.",
+            "quizAnswer": "morale",
+            "scrambleSentence": "The company outing was organised to boost morale after a stressful quarter."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "From French “moral” — “the moral spirit” (from Latin “moralis”, “relating to manners”). English borrowed it in the 1700s in the military sense: the confidence of soldiers. Say /məˈræl/, with stress on the second syllable.",
+          "ru": "От французского «moral» — «дух» (от латинского «moralis», «относящийся к нравам»). В английский пришло в XVIII веке в военном смысле: уверенность солдат. Произносится /məˈræl/, ударение на втором слоге."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=morale",
+        "synonyms": [
+          "team spirit",
+          "confidence",
+          "motivation"
+        ],
+        "antonyms": [
+          "despair",
+          "discouragement"
+        ],
+        "grammar": {
+          "en": "Uncountable noun: morale is high / low (not “a morale”). Collocations: boost / raise / improve / damage / undermine morale. Don't confuse with “moral” (right and wrong) and “mural”.",
+          "ru": "Неисчисляемое: morale is high / low (не «a morale»). Сочетания: boost / raise / improve / damage / undermine morale. Не путай с «moral» (мораль) и «mural»."
+        },
+        "mnemonic": {
+          "en": "MORALE = the MOOD of the whole TEAM, like the mood of an army before a march.",
+          "ru": "MORALE = НАСТРОЕНИЕ всей КОМАНДЫ, как у армии перед походом."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Low <em>morale</em> was identified as the principal cause of the high staff turnover."
+          },
+          {
+            "reg": "informal",
+            "text": "Team <em>morale</em> is really high at the moment!"
+          },
+          {
+            "reg": "spoken",
+            "text": "How can we <em>boost morale</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "The company outing was organised to <em>boost morale</em> after a stressful quarter."
+          },
+          {
+            "reg": "business",
+            "text": "Recognition of success is one of the cheapest ways to <em>improve morale</em>."
+          }
+        ],
+        "forms": [
+          "morale",
+          "low morale",
+          "high morale",
+          "boost morale",
+          "boosted morale",
+          "boosting morale",
+          "staff morale",
+          "raise morale"
+        ],
+        "audioWord": "audio/word/u3-morale.mp3",
+        "audioSentence": "audio/sentence/u3-morale.mp3",
+        "audioDef": "audio/def/u3-morale.mp3",
+        "audioDefRu": "audio/defru/u3-morale.mp3"
+      },
+      {
+        "term": "feel valued",
+        "pos": "verb phrase",
+        "ipa": "/fiːl ˈvæljuːd/",
+        "trans": {
+          "en": "to feel that other people appreciate you and what you do",
+          "ru": "чувствовать, что тебя ценят"
+        },
+        "example": "People who <em>feel valued</em> tend to be more committed and more productive.",
+        "blankSentence": "People who ___ tend to be more committed and more productive.",
+        "quizAnswer": "feel valued",
+        "scrambleSentence": "Employees work harder when they feel valued.",
+        "rounds": [
+          {
+            "blankSentence": "People who ___ tend to be more committed and more productive.",
+            "quizAnswer": "feel valued",
+            "scrambleSentence": "Employees work harder when they feel valued."
+          },
+          {
+            "blankSentence": "Staff said they didn't ___ when their ideas were ignored.",
+            "quizAnswer": "feel valued",
+            "scrambleSentence": "I just want to feel valued at work."
+          },
+          {
+            "blankSentence": "A simple thank-you can help colleagues ___.",
+            "quizAnswer": "feel valued",
+            "scrambleSentence": "Regular feedback helps people feel valued and motivated."
+          }
+        ],
+        "style": 40,
+        "region": 50,
+        "origin": {
+          "en": "“Value” is from Old French “value”, from Latin “valere” — “to be strong, to be worth”. “Valued” means “considered important”. “Feel” is from Old English “fēlan” — “to sense, to touch”.",
+          "ru": "«Value» — от старофранцузского «value», от латинского «valere» — «быть сильным, стоить». «Valued» — «считающийся важным». «Feel» — от староангл. «fēlan» — «ощущать»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=feel+valued",
+        "synonyms": [
+          "feel appreciated",
+          "feel respected",
+          "feel recognised"
+        ],
+        "antonyms": [
+          "feel ignored",
+          "feel undervalued"
+        ],
+        "grammar": {
+          "en": "Pattern: feel + adjective: feel valued / respected / safe / confident (NOT “feel valuable” — that means “worth a lot of money”). Opposite: feel undervalued.",
+          "ru": "Модель: feel + прилагательное: feel valued / respected / safe / confident (НЕ «feel valuable» — это «стоить дорого»). Противоположное: feel undervalued."
+        },
+        "mnemonic": {
+          "en": "FEEL + VALUED = you FEEL that you have VALUE for others.",
+          "ru": "FEEL + VALUED = ты ЧУВСТВУЕШЬ, что для других ты ЦЕНЕН."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Research shows that employees who <em>feel valued</em> are significantly less likely to resign."
+          },
+          {
+            "reg": "informal",
+            "text": "I just want to <em>feel valued</em> at work."
+          },
+          {
+            "reg": "spoken",
+            "text": "Do you <em>feel valued</em> in your team?"
+          },
+          {
+            "reg": "written",
+            "text": "Regular feedback helps people <em>feel valued</em> and motivated."
+          },
+          {
+            "reg": "business",
+            "text": "We want every member of staff to <em>feel valued</em> and heard."
+          }
+        ],
+        "forms": [
+          "feel valued",
+          "feels valued",
+          "felt valued",
+          "feeling valued",
+          "to feel valued",
+          "feel appreciated",
+          "feel valuable"
+        ],
+        "audioWord": "audio/word/u3-feel-valued.mp3",
+        "audioSentence": "audio/sentence/u3-feel-valued.mp3",
+        "audioDef": "audio/def/u3-feel-valued.mp3",
+        "audioDefRu": "audio/defru/u3-feel-valued.mp3"
+      },
+      {
+        "term": "apathetic and unmotivated",
+        "pos": "adjective phrase",
+        "ipa": "/ˌæpəˈθɛtɪk ænd ʌnˈmoʊtɪveɪtɪd/",
+        "trans": {
+          "en": "not interested in anything and without any wish to try or to do the job well",
+          "ru": "апатичный, без мотивации"
+        },
+        "example": "After months of being ignored, the team became <em>apathetic and unmotivated</em>.",
+        "blankSentence": "After months of being ignored, the team became ___.",
+        "quizAnswer": "apathetic and unmotivated",
+        "scrambleSentence": "Without feedback, the staff became apathetic and unmotivated.",
+        "rounds": [
+          {
+            "blankSentence": "After months of being ignored, the team became ___.",
+            "quizAnswer": "apathetic and unmotivated",
+            "scrambleSentence": "Without feedback, the staff became apathetic and unmotivated."
+          },
+          {
+            "blankSentence": "He looked ___ during the meeting and never asked a question.",
+            "quizAnswer": "apathetic",
+            "scrambleSentence": "I feel so apathetic and unmotivated lately."
+          },
+          {
+            "blankSentence": "Without clear goals, even good people can become ___.",
+            "quizAnswer": "unmotivated",
+            "scrambleSentence": "Staff who feel ignored often become apathetic and unmotivated."
+          }
+        ],
+        "style": 65,
+        "region": 50,
+        "origin": {
+          "en": "“Apathy” comes from Greek “apatheia” — “without feeling”: “a-” (without) + “pathos” (feeling, suffering). “Unmotivated” is “un-” + “motivated”, from Latin “movere” — “to move”.",
+          "ru": "«Apathy» — от греческого «apatheia» — «бесчувствие»: «a-» (без) + «pathos» (чувство). «Unmotivated» — «un-» + «motivated», от латинского «movere» — «двигать»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=apathetic+and+unmotivated",
+        "synonyms": [
+          "indifferent",
+          "disengaged",
+          "uninterested"
+        ],
+        "antonyms": [
+          "enthusiastic",
+          "motivated"
+        ],
+        "grammar": {
+          "en": "Both are adjectives, often used together. Noun: apathy. “Apathetic about / towards” something. Opposite: enthusiastic, motivated, engaged. Stress: apaTHEtic.",
+          "ru": "Оба — прилагательные, часто вместе. Существительное: apathy. «Apathetic about / towards» something. Противоположное: enthusiastic, motivated, engaged. Ударение: apaTHEtic."
+        },
+        "mnemonic": {
+          "en": "A-PATHY = without PATH: no direction, no drive.",
+          "ru": "A-PATHY = без «пути»: ни направления, ни стремления."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The survey revealed that a significant proportion of employees were <em>apathetic and unmotivated</em>."
+          },
+          {
+            "reg": "informal",
+            "text": "I feel so <em>apathetic and unmotivated</em> lately."
+          },
+          {
+            "reg": "spoken",
+            "text": "Why is he so <em>unmotivated</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "Staff who feel ignored often become <em>apathetic and unmotivated</em>."
+          },
+          {
+            "reg": "business",
+            "text": "We need to re-engage employees who have become <em>apathetic and unmotivated</em>."
+          }
+        ],
+        "forms": [
+          "apathetic and unmotivated",
+          "apathetic",
+          "unmotivated",
+          "apathy",
+          "feel apathetic",
+          "become apathetic"
+        ],
+        "audioWord": "audio/word/u3-apathetic-and-unmotivated.mp3",
+        "audioSentence": "audio/sentence/u3-apathetic-and-unmotivated.mp3",
+        "audioDef": "audio/def/u3-apathetic-and-unmotivated.mp3",
+        "audioDefRu": "audio/defru/u3-apathetic-and-unmotivated.mp3"
+      },
+      {
+        "term": "do the bare minimum",
+        "pos": "idiom",
+        "ipa": "/duː ðə bɛr ˈmɪnɪməm/",
+        "trans": {
+          "en": "to do only the least that is required and nothing more",
+          "ru": "делать необходимый минимум"
+        },
+        "example": "When people feel ignored, they tend to <em>do the bare minimum</em> and no more.",
+        "blankSentence": "When people feel ignored, they tend to ___ and no more.",
+        "quizAnswer": "do the bare minimum",
+        "scrambleSentence": "Some employees do the bare minimum and wait for the end of the day.",
+        "rounds": [
+          {
+            "blankSentence": "When people feel ignored, they tend to ___ and no more.",
+            "quizAnswer": "do the bare minimum",
+            "scrambleSentence": "Some employees do the bare minimum and wait for the end of the day."
+          },
+          {
+            "blankSentence": "He only ___ to keep his job.",
+            "quizAnswer": "does the bare minimum",
+            "scrambleSentence": "I'm just doing the bare minimum this week, I'm exhausted."
+          },
+          {
+            "blankSentence": "If you ___ in training, you will not learn much.",
+            "quizAnswer": "do the bare minimum",
+            "scrambleSentence": "The contractor did the bare minimum to meet the safety requirements."
+          }
+        ],
+        "style": 40,
+        "region": 50,
+        "origin": {
+          "en": "“Bare” comes from Old English “bær” — “naked, uncovered”. So “the bare minimum” is the minimum with nothing added on top — stripped to the bone.",
+          "ru": "«Bare» — от староангл. «bær» — «голый, без покрытия». «The bare minimum» — минимум, к которому ничего не добавлено, «голый» минимум."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=do+the+bare+minimum",
+        "synonyms": [
+          "do the minimum",
+          "do just enough",
+          "go through the motions"
+        ],
+        "antonyms": [
+          "go the extra mile",
+          "give your best"
+        ],
+        "grammar": {
+          "en": "A fixed idiom: do the bare minimum (not “do bare minimum” — keep “the”). Opposite idiom: go the extra mile. Often has a slightly negative tone: lack of effort.",
+          "ru": "Устойчивая идиома: do the bare minimum (не «do bare minimum» — «the» нужно). Противоположная идиома: go the extra mile. Часто с лёгким негативным оттенком: нет усилий."
+        },
+        "mnemonic": {
+          "en": "BARE = naked: the minimum without a single extra thing.",
+          "ru": "BARE = голый: минимум без единой добавки."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Employees who feel undervalued are more likely to <em>do the bare minimum</em>."
+          },
+          {
+            "reg": "informal",
+            "text": "I'm just <em>doing the bare minimum</em> this week, I'm exhausted."
+          },
+          {
+            "reg": "spoken",
+            "text": "Is that all? That's the <em>bare minimum</em>!"
+          },
+          {
+            "reg": "written",
+            "text": "The contractor <em>did the bare minimum</em> to meet the safety requirements."
+          },
+          {
+            "reg": "business",
+            "text": "We don't want people to <em>do the bare minimum</em>; we want them to take ownership."
+          }
+        ],
+        "forms": [
+          "do the bare minimum",
+          "does the bare minimum",
+          "did the bare minimum",
+          "doing the bare minimum",
+          "the bare minimum",
+          "bare minimum"
+        ],
+        "audioWord": "audio/word/u3-do-the-bare-minimum.mp3",
+        "audioSentence": "audio/sentence/u3-do-the-bare-minimum.mp3",
+        "audioDef": "audio/def/u3-do-the-bare-minimum.mp3",
+        "audioDefRu": "audio/defru/u3-do-the-bare-minimum.mp3"
+      },
+      {
+        "term": "a self-perpetuating cycle",
+        "pos": "noun phrase",
+        "ipa": "/ə sɛlf pərˈpɛtʃueɪtɪŋ ˈsaɪkəl/",
+        "trans": {
+          "en": "a situation that keeps repeating itself because each part causes the next",
+          "ru": "замкнутый круг"
+        },
+        "example": "Low morale leads to poor results, which lowers morale further — it becomes <em>a self-perpetuating cycle</em>.",
+        "blankSentence": "Low morale leads to poor results, which lowers morale further — it becomes ___.",
+        "quizAnswer": "a self-perpetuating cycle",
+        "scrambleSentence": "Stress causes errors, and errors cause more stress.",
+        "rounds": [
+          {
+            "blankSentence": "Low morale leads to poor results, which lowers morale further — it becomes ___.",
+            "quizAnswer": "a self-perpetuating cycle",
+            "scrambleSentence": "Stress causes errors, and errors cause more stress."
+          },
+          {
+            "blankSentence": "Poor training causes mistakes, which cause more stress — a ___.",
+            "quizAnswer": "self-perpetuating cycle",
+            "scrambleSentence": "It's a self-perpetuating cycle, isn't it?"
+          },
+          {
+            "blankSentence": "How do we break out of this ___?",
+            "quizAnswer": "self-perpetuating cycle",
+            "scrambleSentence": "Overwork leads to illness, which leads to more overwork for the rest — a self-perpetuating cycle."
+          }
+        ],
+        "style": 70,
+        "region": 50,
+        "origin": {
+          "en": "“Perpetuate” comes from Latin “perpetuare” — “to make continuous”, from “perpetuus” — “continuing throughout”. “Self-” means the cycle keeps itself going. A “cycle” is from Greek “kyklos” — “a circle”.",
+          "ru": "«Perpetuate» — от латинского «perpetuare» — «делать непрерывным», от «perpetuus» — «продолжающийся». «Self-» — цикл поддерживает сам себя. «Cycle» — от греческого «kyklos» — «круг»."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=a+self-perpetuating+cycle",
+        "synonyms": [
+          "vicious circle",
+          "vicious cycle",
+          "downward spiral"
+        ],
+        "antonyms": [
+          "virtuous circle"
+        ],
+        "grammar": {
+          "en": "A formal phrase; synonyms: vicious circle / cycle. Pattern: break / get out of / be caught in a cycle. A positive version is a “virtuous circle”. Stress: perPETuating.",
+          "ru": "Формальная фраза; синонимы: vicious circle / cycle. Модель: break / get out of / be caught in a cycle. Положительная версия — «virtuous circle». Ударение: perPETuating."
+        },
+        "mnemonic": {
+          "en": "SELF + PERPETUATE: it feeds ITSELF, like a snake eating its tail.",
+          "ru": "SELF + PERPETUATE: оно питает САМО СЕБЯ, как змея, кусающая свой хвост."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The report describes a <em>self-perpetuating cycle</em> of under-investment and decline."
+          },
+          {
+            "reg": "informal",
+            "text": "It's a <em>self-perpetuating cycle</em>, isn't it?"
+          },
+          {
+            "reg": "spoken",
+            "text": "How can we break this <em>cycle</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "Overwork leads to illness, which leads to more overwork for the rest — a <em>self-perpetuating cycle</em>."
+          },
+          {
+            "reg": "business",
+            "text": "We must break the <em>self-perpetuating cycle</em> of late reporting and missed deadlines."
+          }
+        ],
+        "forms": [
+          "a self-perpetuating cycle",
+          "self-perpetuating cycle",
+          "self-perpetuating",
+          "vicious cycle",
+          "a vicious circle",
+          "break the cycle"
+        ],
+        "audioWord": "audio/word/u3-a-self-perpetuating-cycle.mp3",
+        "audioSentence": "audio/sentence/u3-a-self-perpetuating-cycle.mp3",
+        "audioDef": "audio/def/u3-a-self-perpetuating-cycle.mp3",
+        "audioDefRu": "audio/defru/u3-a-self-perpetuating-cycle.mp3"
+      },
+      {
+        "term": "cost-saving initiatives",
+        "pos": "noun phrase",
+        "ipa": "/kɔːst ˈseɪvɪŋ ɪˈnɪʃətɪvz/",
+        "trans": {
+          "en": "planned actions or programmes whose purpose is to spend less money",
+          "ru": "меры по экономии"
+        },
+        "example": "The board approved several <em>cost-saving initiatives</em>, including a reduction in business travel.",
+        "blankSentence": "The board approved several ___, including a reduction in business travel.",
+        "quizAnswer": "cost-saving initiatives",
+        "scrambleSentence": "The company introduced several cost-saving initiatives this year.",
+        "rounds": [
+          {
+            "blankSentence": "The board approved several ___, including a reduction in business travel.",
+            "quizAnswer": "cost-saving initiatives",
+            "scrambleSentence": "The company introduced several cost-saving initiatives this year."
+          },
+          {
+            "blankSentence": "Switching to digital forms was one of the cheapest ___.",
+            "quizAnswer": "cost-saving measures",
+            "scrambleSentence": "Any cost-saving ideas? We need them."
+          },
+          {
+            "blankSentence": "We need to be careful that ___ do not reduce safety.",
+            "quizAnswer": "cost-saving measures",
+            "scrambleSentence": "Cost-saving measures should never compromise health and safety standards."
+          }
+        ],
+        "style": 60,
+        "region": 50,
+        "origin": {
+          "en": "“Initiative” is from French “initiative”, from Latin “initium” — “a beginning”. An initiative is a first step to solve a problem. “Cost-saving” = “saving cost” — a compound adjective.",
+          "ru": "«Initiative» — от французского «initiative», от латинского «initium» — «начало». Initiative — первый шаг к решению проблемы. «Cost-saving» = «экономящий затраты» — составное прилагательное."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=cost-saving+initiatives",
+        "synonyms": [
+          "economy measures",
+          "money-saving measures",
+          "efficiency drives"
+        ],
+        "antonyms": [
+          "spending spree",
+          "expansion"
+        ],
+        "grammar": {
+          "en": "Compound adjective with a hyphen: cost-saving (before a noun). Collocations: introduce / launch / propose cost-saving initiatives. Safer synonym: “efficiency measures”. Use “measures” or “initiatives” in the plural.",
+          "ru": "Составное прилагательное с дефисом: cost-saving (перед существительным). Сочетания: introduce / launch / propose cost-saving initiatives. Другое слово: «efficiency measures». «Measures» или «initiatives» обычно во множественном."
+        },
+        "mnemonic": {
+          "en": "COST + SAVING: actions that SAVE money — pennies in the jar.",
+          "ru": "COST + SAVING: действия, которые ЭКОНОМЯТ деньги — монетки в копилке."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The management announced a series of <em>cost-saving initiatives</em> to improve profitability."
+          },
+          {
+            "reg": "informal",
+            "text": "Any <em>cost-saving</em> ideas? We need them."
+          },
+          {
+            "reg": "spoken",
+            "text": "Which <em>cost-saving measures</em> did you try?"
+          },
+          {
+            "reg": "written",
+            "text": "<em>Cost-saving measures</em> should never compromise health and safety standards."
+          },
+          {
+            "reg": "business",
+            "text": "We invite staff to propose <em>cost-saving initiatives</em> in their own departments."
+          }
+        ],
+        "forms": [
+          "cost-saving initiatives",
+          "cost-saving measures",
+          "cost saving initiatives",
+          "cost-saving",
+          "cost-saving initiative",
+          "cost savings"
+        ],
+        "audioWord": "audio/word/u3-cost-saving-initiatives.mp3",
+        "audioSentence": "audio/sentence/u3-cost-saving-initiatives.mp3",
+        "audioDef": "audio/def/u3-cost-saving-initiatives.mp3",
+        "audioDefRu": "audio/defru/u3-cost-saving-initiatives.mp3"
+      },
+      {
+        "term": "move with the times",
+        "pos": "idiom",
+        "ipa": "/muːv wɪð ðə taɪmz/",
+        "trans": {
+          "en": "to change your ideas and ways of working so that they stay modern",
+          "ru": "идти в ногу со временем"
+        },
+        "example": "To survive, the company had to <em>move with the times</em> and digitise its paperwork.",
+        "blankSentence": "To survive, the company had to ___ and digitise its paperwork.",
+        "quizAnswer": "move with the times",
+        "scrambleSentence": "A modern company has to move with the times.",
+        "rounds": [
+          {
+            "blankSentence": "To survive, the company had to ___ and digitise its paperwork.",
+            "quizAnswer": "move with the times",
+            "scrambleSentence": "A modern company has to move with the times."
+          },
+          {
+            "blankSentence": "Organisations that fail to ___ risk being left behind.",
+            "quizAnswer": "move with the times",
+            "scrambleSentence": "Come on, move with the times!"
+          },
+          {
+            "blankSentence": "You have to ___ if you want to stay competitive.",
+            "quizAnswer": "move with the times",
+            "scrambleSentence": "Our training methods needed to move with the times, so we introduced e-learning."
+          }
+        ],
+        "style": 40,
+        "region": 50,
+        "origin": {
+          "en": "The “times” here means the spirit of the era. To “move with” something is to travel alongside it: the world is going forward, and you move together rather than stand still.",
+          "ru": "«Times» здесь — дух эпохи. «Move with» — двигаться рядом: мир идёт вперёд, и ты движешься вместе с ним, а не стоишь на месте."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=move+with+the+times",
+        "synonyms": [
+          "keep up with the times",
+          "keep pace",
+          "modernise"
+        ],
+        "antonyms": [
+          "be behind the times",
+          "live in the past"
+        ],
+        "grammar": {
+          "en": "A fixed idiom: move with the times (always plural “times”). Similar: keep up with the times, be abreast of the times. Opposite: be behind the times, be stuck in the past. Used for people and for companies.",
+          "ru": "Устойчивая идиома: move with the times (всегда «times» во множественном). Похоже: keep up with the times. Противоположное: be behind the times, be stuck in the past. Применяется к людям и компаниям."
+        },
+        "mnemonic": {
+          "en": "TIME is a river: you MOVE WITH the current, not against it.",
+          "ru": "Время — река: ты ПЛЫВЁШЬ ПО течению, а не против."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Organisations must <em>move with the times</em> in order to remain competitive."
+          },
+          {
+            "reg": "informal",
+            "text": "Come on, <em>move with the times</em>!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Is he willing to <em>move with the times</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "Our training methods needed to <em>move with the times</em>, so we introduced e-learning."
+          },
+          {
+            "reg": "business",
+            "text": "We are updating all our templates to <em>move with the times</em>."
+          }
+        ],
+        "forms": [
+          "move with the times",
+          "moves with the times",
+          "moved with the times",
+          "moving with the times",
+          "keep up with the times",
+          "move with time"
+        ],
+        "audioWord": "audio/word/u3-move-with-the-times.mp3",
+        "audioSentence": "audio/sentence/u3-move-with-the-times.mp3",
+        "audioDef": "audio/def/u3-move-with-the-times.mp3",
+        "audioDefRu": "audio/defru/u3-move-with-the-times.mp3"
+      }
+    ]
+  },
   {
     "id": "theory-of-laziness",
     "label": "The Theory of Laziness",
@@ -12957,11 +16058,15 @@ let currentCardIdx = 0;
     $id('pr-copy-btn').style.display = rows.length ? '' : 'none';
   }
   function prCopy() {
-    const tsv = [[L('Word', 'Слово'), L('Your sentence', 'Твоё предложение'), L('Corrected', 'Исправление'), L('Comment', 'Комментарий')].join('\t')]
-      .concat(prLog.map(function (r) { return [r.term, r.original, r.corrected, r.comment].join('\t'); })).join('\n');
-    const ok = function () { showToast(L('Table copied', 'Таблица скопирована')); };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tsv).then(ok, function () { fallbackCopy(tsv); ok(); });
-    else { fallbackCopy(tsv); ok(); }
+    const text = prLog.filter(function (r) { return !r.skipped; }).map(function (r) {
+      return [r.term,
+        L('Mine', 'Моё') + ': ' + r.original,
+        L('Corrected', 'Исправление') + ': ' + r.corrected,
+        L('Comment', 'Комментарий') + ': ' + r.comment].join('\n');
+    }).join('\n\n');
+    const ok = function () { showToast(L('Text copied', 'Текст скопирован')); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, function () { fallbackCopy(text); ok(); });
+    else { fallbackCopy(text); ok(); }
   }
   function fallbackCopy(text) {
     const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -13362,8 +16467,8 @@ let currentCardIdx = 0;
     set('pr-check-btn', L('Check my sentence', 'Проверить предложение')); set('pr-skip-btn', L('Skip', 'Пропустить')); set('pr-next-btn', t('next'));
     set('pr-finish-btn', L('Finish & see table', 'Завершить и открыть таблицу'));
     set('pr-summary-title', L('Your sentences & corrections', 'Твои предложения и исправления'));
-    set('pr-copy-btn', L('Copy table', 'Скопировать таблицу')); set('pr-restart-btn', L('Write again', 'Написать заново'));
-    ['lesson', 'allwords', 'saved'].forEach(function (s) { const el = $id(s + '-search'); if (el) el.placeholder = L('Search words…', 'Поиск по словам…'); });
+    set('pr-copy-btn', L('Copy text', 'Скопировать текст')); set('pr-restart-btn', L('Write again', 'Написать заново'));
+    document.querySelectorAll('.list-search').forEach(function (el) { el.placeholder = L('Search words…', 'Поиск по словам…'); });
     set('quiz-next-btn', t('nextQuestionBtn'));
     if ($id('otg-overlay').classList.contains('show') && $id('otg-settings').style.display !== 'none') otgShowSettings();
     if (document.getElementById('review-screen').classList.contains('active')) renderReview();
@@ -13541,11 +16646,11 @@ let currentCardIdx = 0;
       const mins = a ? Math.round(a.sec / 60) : 0;
       const lvl = isActiveDay(key) ? (mins >= 15 ? 3 : mins >= 5 ? 2 : 1) : 0;
       if (lvl) activeDays++;
-      cal.insertAdjacentHTML('beforeend', '<div class="d l' + lvl + (i === 29 ? ' today' : '') + '" title="' + key + (mins ? ' · ' + mins + L(' min', ' мин') : '') + '"></div>');
+      cal.insertAdjacentHTML('beforeend', '<div class="d l' + lvl + (i === 29 ? ' today' : '') + '" title="' + key + (mins ? ' · ' + mins + L(' min', ' мин') : '') + '">' + Number(key.slice(8)) + '</div>');
     }
     set('an2-cal-title', L('Last 30 days', 'Последние 30 дней'));
     set('an2-cal-sub', activeDays + L(' of 30', ' из 30'));
-    $id('an2-legend').innerHTML = L('less', 'меньше') + ' <i style="background:var(--c-pink-soft)"></i><i style="background:color-mix(in srgb,var(--c-lime) 40%,white)"></i><i style="background:color-mix(in srgb,var(--c-lime) 75%,white)"></i><i style="background:var(--c-lime)"></i> ' + L('more', 'больше');
+    $id('an2-legend').innerHTML = '<span><i style="background:#fff;border:1px dashed var(--border-color)"></i>' + L('no practice', 'не занималась') + '</span><span><i style="background:color-mix(in srgb,var(--c-pink) 60%,white)"></i>' + L('under 5 min', 'до 5 мин') + '</span><span><i style="background:var(--c-lime)"></i>' + L('5–15 min', '5–15 мин') + '</span><span><i style="background:var(--c-berry)"></i>' + L('15+ min', '15+ мин') + '</span>';
     // слова
     const all = allWordsList();
     const mastered = all.filter(function (w) { return isMastered(w.term); }).length;
@@ -13723,6 +16828,16 @@ let currentCardIdx = 0;
     put('otg-prev', ICON_PREV); put('otg-next', ICON_NEXT); put('otg-close', ICON_CLOSE); put('wi-close', ICON_CLOSE);
     put('otg-pulse', ICON_SOUND_BIG);
   })();
+
+
+  // Ярлык на экране «Домой» (standalone): статус-бар iPhone повторял цвет урока и не возвращался в белый.
+  // В таком режиме цвет «шапки» не меняем вообще — всегда нейтральный фон страницы.
+  const IS_STANDALONE = !!(window.navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches));
+  function setThemeColor(hex) {
+    const meta = document.getElementById('theme-color-meta');
+    if (meta) meta.setAttribute('content', IS_STANDALONE ? PAGE_BG_HEX : hex);
+  }
+  if (IS_STANDALONE) setThemeColor(PAGE_BG_HEX);
 
   renderExistingLessonsSummary();
   setLang('en');
