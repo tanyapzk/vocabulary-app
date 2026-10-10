@@ -22,6 +22,9 @@
   <meta name="twitter:title" content="Vocabulary Practice">
   <meta name="twitter:description" content="Kartičky · testy · precvičovanie slov">
   <meta name="twitter:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+  <link rel="apple-touch-icon" href="https://tanyapzk.github.io/vocabulary-app/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="https://tanyapzk.github.io/vocabulary-app/assets/icon-512.png">
+  <meta name="apple-mobile-web-app-title" content="Vocab Drill">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2602,16 +2605,18 @@
     .an-streak .num { font-size: 2.4rem; line-height: 1; }
     .an-streak .num small { font-size: 0.9rem; font-weight: 900; margin-left: 6px; }
     .an-streak .phrase { font-size: 0.9rem; margin-top: 8px; }
-    .an-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; max-width: 420px; }
+    .an-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; }
     .an-cal .dow { text-align: center; font-size: 0.62rem; font-weight: 700; color: var(--c-text-muted); }
-    .an-cal .d { aspect-ratio: 1; border-radius: 7px; background: var(--c-pink-soft); border: 1px solid var(--border-color); }
-    .an-cal .d.l1 { background: color-mix(in srgb, var(--c-lime) 40%, white); border-color: transparent; }
-    .an-cal .d.l2 { background: color-mix(in srgb, var(--c-lime) 75%, white); border-color: transparent; }
-    .an-cal .d.l3 { background: var(--c-lime); border-color: color-mix(in srgb, var(--c-berry) 25%, white); }
+    .an-cal .d { position: relative; aspect-ratio: 1.5; border-radius: 8px; box-sizing: border-box; background: #fff; border: 1px dashed var(--border-color); font-size: 0.66rem; font-weight: 700; color: var(--c-text-muted); display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px 6px; }
+    .an-cal .d.l1 { background: color-mix(in srgb, var(--c-pink) 60%, white); border: none; color: var(--c-berry-dark); }
+    .an-cal .d.l2 { background: var(--c-lime); border: none; color: var(--c-berry-dark); }
+    .an-cal .d.l3 { background: var(--c-berry); border: none; color: #fff; }
     .an-cal .d.today { outline: 2px solid var(--c-berry); outline-offset: 1px; }
     .an-cal .d.empty { visibility: hidden; }
-    .an-legend { display: flex; align-items: center; gap: 5px; font-size: 0.64rem; color: var(--c-text-muted); margin-top: 10px; }
-    .an-legend i { width: 12px; height: 12px; border-radius: 4px; display: block; border: 1px solid var(--border-color); }
+    @media (min-width: 700px) { .an-cal { gap: 7px; } .an-cal .d { aspect-ratio: 1.7; font-size: 0.78rem; padding: 6px 8px; border-radius: 10px; } .an-cal .dow { font-size: 0.72rem; } }
+    .an-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.66rem; font-weight: 700; color: var(--c-text-muted); margin-top: 10px; }
+    .an-legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .an-legend i { width: 16px; height: 12px; border-radius: 4px; display: block; }
     .an-three, .an-time3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; text-align: center; }
     .an-three div { background: var(--c-pink-soft); border-radius: 14px; padding: 10px 4px; }
     .an-three b { display: block; font-size: 1.5rem; font-weight: 900; color: var(--c-berry); }
@@ -2654,8 +2659,6 @@
     @media (min-width: 560px) { .top-tab { padding: 11px 14px; font-size: 0.82rem; } }
 
     /* календарь компактнее */
-    .an-cal { max-width: 224px; gap: 4px; }
-    .an-cal .d { border-radius: 6px; }
     .an-card .sub:empty { display: none; }
 
     /* чипы-фильтры истории слов */
@@ -3159,7 +3162,7 @@
           <h3 id="pr-summary-title">Your sentences &amp; corrections</h3>
           <div class="pr-table-wrap" id="pr-summary-table"></div>
           <div class="pr-actions" style="margin-top:16px">
-            <button class="btn btn-primary" id="pr-copy-btn" onclick="prCopy()">Copy table</button>
+            <button class="btn btn-primary" id="pr-copy-btn" onclick="prCopy()">Copy text</button>
             <button class="btn" id="pr-restart-btn" onclick="prRestart()">Write again</button>
           </div>
         </div>
@@ -3319,6 +3322,1424 @@
   let currentLang = 'en';
 
 const lessons = /*LESSONS_START*/[
+  {
+    "id": "07-10",
+    "label": "07.10",
+    "words": [
+      {
+        "term": "have a lot on someone's plate",
+        "pos": "idiom",
+        "ipa": "/hæv ə lɑːt ɑːn ˈsʌmwʌnz pleɪt/",
+        "trans": {
+          "en": "To have a large amount of work or problems to deal with.",
+          "ru": "mať toho veľa / mať plné ruky práce"
+        },
+        "example": "As a manager, she <em>has a lot on her plate</em> this month.",
+        "blankSentence": "As a manager, she ___ this month.",
+        "quizAnswer": "has a lot on her plate",
+        "scrambleSentence": "The store manager has a lot on her plate before the autumn sale.",
+        "rounds": [
+          {
+            "blankSentence": "As a manager, she ___ this month.",
+            "quizAnswer": "has a lot on her plate",
+            "scrambleSentence": "The store manager has a lot on her plate before the autumn sale."
+          },
+          {
+            "blankSentence": "I can't take on a new task right now — I already ___.",
+            "quizAnswer": "have a lot on my plate",
+            "scrambleSentence": "Sorry, I have a lot on my plate today."
+          },
+          {
+            "blankSentence": "Before the big sale, the whole team ___.",
+            "quizAnswer": "has a lot on its plate",
+            "scrambleSentence": "With the new collection arriving, the staff have a lot on their plates."
+          }
+        ],
+        "style": 30,
+        "region": 50,
+        "origin": {
+          "en": "The picture is a dinner plate that is full of food: too much to eat at once. In the same way, someone with “a lot on their plate” has too many tasks. The idiom became popular in American English in the 1900s.",
+          "ru": "Obraz je plný tanier jedla: toho je naraz priveľa. Rovnako má človek, ktorý „má toho veľa na tanieri“, priveľa úloh. Idióm sa rozšíril v americkej angličtine v 20. storočí."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=have+a+lot+on+someone's+plate",
+        "synonyms": [
+          "be very busy",
+          "be swamped",
+          "have a full schedule"
+        ],
+        "antonyms": [
+          "have nothing to do",
+          "have free time"
+        ],
+        "grammar": {
+          "en": "Change “someone's” to the person: my / her / his / their plate. Past and present: has / had a lot on her plate. It is informal and polite when you explain that you are busy.",
+          "ru": "„Someone's“ meníš podľa osoby: my / her / his / their plate. Čas sa mení v slovese: has / had a lot on her plate. Je to hovorový, ale slušný spôsob, ako vysvetliť, že si zaneprázdnená."
+        },
+        "mnemonic": {
+          "en": "Imagine your lunch plate piled so high that nothing else fits — that is your to-do list.",
+          "ru": "Predstav si tanier s jedlom naloženým tak vysoko, že sa nič ďalšie nezmestí — to je tvoj zoznam úloh."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The director currently <em>has a lot on her plate</em> and cannot attend the meeting."
+          },
+          {
+            "reg": "informal",
+            "text": "Sorry, I <em>have a lot on my plate</em> today."
+          },
+          {
+            "reg": "spoken",
+            "text": "I know you <em>have a lot on your plate</em>, but can we talk for a minute?"
+          },
+          {
+            "reg": "written",
+            "text": "With the new collection arriving, the staff <em>have a lot on their plates</em>."
+          },
+          {
+            "reg": "business",
+            "text": "I understand that you <em>have a lot on your plate</em>; let's move the deadline to Friday."
+          }
+        ],
+        "forms": [
+          "have a lot on someone's plate",
+          "has a lot on her plate",
+          "have a lot on my plate",
+          "have a lot on your plate",
+          "has a lot on his plate",
+          "have a lot on their plate",
+          "a lot on my plate",
+          "a lot on her plate",
+          "has a lot on its plate",
+          "a lot on its plate"
+        ],
+        "audioWord": "audio/word/have-a-lot-on-plate.mp3",
+        "audioSentence": "audio/sentence/have-a-lot-on-plate.mp3",
+        "audioDef": "audio/def/have-a-lot-on-plate.mp3",
+        "audioDefRu": "audio/defru/have-a-lot-on-plate.mp3"
+      },
+      {
+        "term": "a lone wolf",
+        "pos": "idiom",
+        "ipa": "/ə loʊn wʊlf/",
+        "trans": {
+          "en": "A person who prefers to work or be alone rather than with a team.",
+          "ru": "vlk samotár"
+        },
+        "example": "He is <em>a lone wolf</em>, but his individual results are great.",
+        "blankSentence": "He is ___, but his individual results are great.",
+        "quizAnswer": "a lone wolf",
+        "scrambleSentence": "He is a lone wolf and rarely joins our team lunches.",
+        "rounds": [
+          {
+            "blankSentence": "He is ___, but his individual results are great.",
+            "quizAnswer": "a lone wolf",
+            "scrambleSentence": "He is a lone wolf and rarely joins our team lunches."
+          },
+          {
+            "blankSentence": "She prefers to work alone — she is ___.",
+            "quizAnswer": "a lone wolf",
+            "scrambleSentence": "He's a real lone wolf, you know."
+          },
+          {
+            "blankSentence": "It's hard to build a team when one person is ___.",
+            "quizAnswer": "a lone wolf",
+            "scrambleSentence": "Our new colleague is a lone wolf who rarely asks for help."
+          }
+        ],
+        "style": 30,
+        "region": 50,
+        "origin": {
+          "en": "Wolves usually live and hunt in a pack. A wolf that leaves the pack and lives alone is called a “lone wolf”. People use the picture for someone who works alone.",
+          "ru": "Vlky zvyčajne žijú a lovia vo svorke. Vlk, ktorý svorku opustí a žije sám, je „vlk samotár“. Rovnaký obraz používame pre človeka, ktorý pracuje sám."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=a+lone+wolf",
+        "synonyms": [
+          "loner",
+          "independent worker"
+        ],
+        "antonyms": [
+          "a team player"
+        ],
+        "grammar": {
+          "en": "A noun phrase: a lone wolf, plural lone wolves. Opposite: a team player. It can be neutral or slightly negative depending on the context.",
+          "ru": "Podstatné meno: a lone wolf, množné číslo lone wolves. Opak: a team player. Môže znieť neutrálne alebo mierne negatívne podľa situácie."
+        },
+        "mnemonic": {
+          "en": "A wolf standing alone on a hill, away from the pack.",
+          "ru": "Vlk stojí sám na kopci, ďaleko od svorky."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Some employees thrive as <em>lone wolves</em> and prefer independent projects."
+          },
+          {
+            "reg": "informal",
+            "text": "He's a real <em>lone wolf</em>, you know."
+          },
+          {
+            "reg": "spoken",
+            "text": "Are you <em>a lone wolf</em> or a team player?"
+          },
+          {
+            "reg": "written",
+            "text": "Our new colleague is <em>a lone wolf</em> who rarely asks for help."
+          },
+          {
+            "reg": "business",
+            "text": "A <em>lone wolf</em> can be productive, but a store needs people who cooperate."
+          }
+        ],
+        "forms": [
+          "a lone wolf",
+          "lone wolf",
+          "lone wolves",
+          "is a lone wolf",
+          "be a lone wolf",
+          "he's a lone wolf"
+        ],
+        "audioWord": "audio/word/a-lone-wolf.mp3",
+        "audioSentence": "audio/sentence/a-lone-wolf.mp3",
+        "audioDef": "audio/def/a-lone-wolf.mp3",
+        "audioDefRu": "audio/defru/a-lone-wolf.mp3"
+      },
+      {
+        "term": "speak up",
+        "pos": "phrasal verb",
+        "ipa": "/spiːk ʌp/",
+        "trans": {
+          "en": "To express your opinion freely and clearly, especially in a meeting.",
+          "ru": "ozvať sa, povedať svoj názor"
+        },
+        "example": "Don't be afraid to <em>speak up</em> if you have an idea.",
+        "blankSentence": "Don't be afraid to ___ if you have an idea.",
+        "quizAnswer": "speak up",
+        "scrambleSentence": "Please speak up if you disagree with the plan.",
+        "rounds": [
+          {
+            "blankSentence": "Don't be afraid to ___ if you have an idea.",
+            "quizAnswer": "speak up",
+            "scrambleSentence": "Please speak up if you disagree with the plan."
+          },
+          {
+            "blankSentence": "If something is wrong with the schedule, please ___ before Friday.",
+            "quizAnswer": "speak up",
+            "scrambleSentence": "Come on, speak up, we're listening!"
+          },
+          {
+            "blankSentence": "She was shy at first, but now she ___ in every meeting.",
+            "quizAnswer": "speaks up",
+            "scrambleSentence": "He decided to speak up about the unfair schedule."
+          }
+        ],
+        "style": 40,
+        "region": 50,
+        "origin": {
+          "en": "“Speak” (Old English sprecan) + “up”. “Up” here means “louder and more openly”, as if raising your voice and your hand so everyone can hear you.",
+          "ru": "„Speak“ (staroanglicky sprecan) + „up“. „Up“ tu znamená „hlasnejšie a otvorenejšie“, akoby si zdvihla hlas aj ruku, aby ťa všetci počuli."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=speak+up",
+        "synonyms": [
+          "say what you think",
+          "voice your opinion",
+          "talk openly"
+        ],
+        "antonyms": [
+          "keep quiet",
+          "stay silent"
+        ],
+        "grammar": {
+          "en": "Irregular verb: speak – spoke – spoken. It has two meanings: 1) say your opinion openly; 2) talk louder (Speak up, please!). Don't confuse with “speak out” (talk publicly about a problem).",
+          "ru": "Nepravidelné sloveso: speak – spoke – spoken. Má dva významy: 1) povedať otvorene svoj názor; 2) hovoriť hlasnejšie (Speak up, please!). Nepleť si so „speak out“ (verejne hovoriť o probléme)."
+        },
+        "mnemonic": {
+          "en": "Raise your voice UP, and raise your hand UP — now everyone hears you.",
+          "ru": "Zdvihni hlas HORE a ruku HORE — teraz ťa počujú všetci."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Employees are encouraged to <em>speak up</em> when they notice a problem."
+          },
+          {
+            "reg": "informal",
+            "text": "Come on, <em>speak up</em>, we're listening!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Can you <em>speak up</em>? I can't hear you."
+          },
+          {
+            "reg": "written",
+            "text": "He decided to <em>speak up</em> about the unfair schedule."
+          },
+          {
+            "reg": "business",
+            "text": "If you see a safety risk in the store, <em>speak up</em> immediately."
+          }
+        ],
+        "forms": [
+          "speak up",
+          "speaks up",
+          "spoke up",
+          "spoken up",
+          "speaking up",
+          "to speak up"
+        ],
+        "audioWord": "audio/word/speak-up.mp3",
+        "audioSentence": "audio/sentence/speak-up.mp3",
+        "audioDef": "audio/def/speak-up.mp3",
+        "audioDefRu": "audio/defru/speak-up.mp3"
+      },
+      {
+        "term": "blame somebody",
+        "pos": "verb",
+        "ipa": "/bleɪm ˈsʌmbədi/",
+        "trans": {
+          "en": "To say or think that someone is responsible for something bad.",
+          "ru": "viniť niekoho, zvaľovať vinu"
+        },
+        "example": "Don't <em>blame</em> your team members when things go wrong; solve it together.",
+        "blankSentence": "Don't ___ your team members when things go wrong; solve it together.",
+        "quizAnswer": "blame",
+        "scrambleSentence": "Don't blame your colleagues for every small mistake.",
+        "rounds": [
+          {
+            "blankSentence": "Don't ___ your team members when things go wrong; solve it together.",
+            "quizAnswer": "blame",
+            "scrambleSentence": "Don't blame your colleagues for every small mistake."
+          },
+          {
+            "blankSentence": "Nobody should ___ her for the mistake — it was the system.",
+            "quizAnswer": "blame",
+            "scrambleSentence": "Don't blame me, I didn't do it!"
+          },
+          {
+            "blankSentence": "He tried to ___ the new employee for the delay.",
+            "quizAnswer": "blame",
+            "scrambleSentence": "She blamed herself for the missing delivery."
+          }
+        ],
+        "style": 45,
+        "region": 50,
+        "origin": {
+          "en": "From Old French blasmer, “to reproach”, from Latin blasphemare. In English “blame” has meant “to find fault with someone” since the 1200s.",
+          "ru": "Zo starofrancúzskeho blasmer, „vyčítať“, z latinského blasphemare. V angličtine „blame“ znamená „viniť niekoho“ už od 13. storočia."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=blame+somebody",
+        "synonyms": [
+          "accuse",
+          "hold responsible",
+          "criticise"
+        ],
+        "antonyms": [
+          "praise",
+          "excuse"
+        ],
+        "grammar": {
+          "en": "Patterns: blame someone FOR something (blame her for the mistake) and blame something ON someone (blame the delay on him). Also: to blame = responsible (Who is to blame?). Regular verb.",
+          "ru": "Modely: blame someone FOR something (blame her for the mistake) a blame something ON someone (blame the delay on him). Ďalej: to blame = zodpovedný (Who is to blame?). Pravidelné sloveso."
+        },
+        "mnemonic": {
+          "en": "BLAME sounds like “flame”: pointing a flame at someone.",
+          "ru": "BLAME znie ako „flame“ (plameň): akoby si na niekoho namierila plameň."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The report does not <em>blame</em> any individual for the failure."
+          },
+          {
+            "reg": "informal",
+            "text": "Don't <em>blame</em> me, I didn't do it!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Why are you always <em>blaming</em> him?"
+          },
+          {
+            "reg": "written",
+            "text": "She <em>blamed</em> herself for the missing delivery."
+          },
+          {
+            "reg": "business",
+            "text": "Let's not <em>blame</em> anyone — let's find the cause and fix it."
+          }
+        ],
+        "forms": [
+          "blame somebody",
+          "blame",
+          "blames",
+          "blamed",
+          "blaming",
+          "blame someone",
+          "blame him",
+          "blame her",
+          "blame me",
+          "blame them"
+        ],
+        "audioWord": "audio/word/blame-somebody.mp3",
+        "audioSentence": "audio/sentence/blame-somebody.mp3",
+        "audioDef": "audio/def/blame-somebody.mp3",
+        "audioDefRu": "audio/defru/blame-somebody.mp3"
+      },
+      {
+        "term": "stem from",
+        "pos": "phrasal verb",
+        "ipa": "/stɛm frʌm/",
+        "trans": {
+          "en": "To be caused by something or start from something.",
+          "ru": "prameniť z niečoho, pochádzať z"
+        },
+        "example": "Most misunderstandings <em>stem from</em> poor communication.",
+        "blankSentence": "Most misunderstandings ___ poor communication.",
+        "quizAnswer": "stem from",
+        "scrambleSentence": "Many problems in a team stem from a lack of trust.",
+        "rounds": [
+          {
+            "blankSentence": "Most misunderstandings ___ poor communication.",
+            "quizAnswer": "stem from",
+            "scrambleSentence": "Many problems in a team stem from a lack of trust."
+          },
+          {
+            "blankSentence": "Her stress ___ having too many tasks at once.",
+            "quizAnswer": "stems from",
+            "scrambleSentence": "I think the problem stems from the new schedule."
+          },
+          {
+            "blankSentence": "The conflict between the two colleagues ___ a small joke.",
+            "quizAnswer": "stemmed from",
+            "scrambleSentence": "Her anger stemmed from not feeling listened to."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "A “stem” is the main part of a plant from which leaves and flowers grow. If a problem “stems from” something, it grows out of it, like a flower from a stem.",
+          "ru": "„Stem“ je stonka rastliny, z ktorej rastú listy a kvety. Ak problém „stems from“ niečoho, vyrastá z toho, ako kvet zo stonky."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=stem+from",
+        "synonyms": [
+          "come from",
+          "result from",
+          "originate from"
+        ],
+        "antonyms": [
+          "lead to",
+          "cause"
+        ],
+        "grammar": {
+          "en": "Regular verb: stem – stemmed. The problem is the subject: The conflict stems from X. Careful: “stem from” shows the cause; “lead to” shows the result — they are opposites.",
+          "ru": "Pravidelné sloveso: stem – stemmed. Problém je podmet: The conflict stems from X. Pozor: „stem from“ ukazuje príčinu; „lead to“ ukazuje následok — sú to opaky."
+        },
+        "mnemonic": {
+          "en": "A flower grows from its STEM — a problem grows from its cause.",
+          "ru": "Kvet rastie zo STONKY — problém rastie zo svojej príčiny."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The company's difficulties <em>stem from</em> a lack of long-term planning."
+          },
+          {
+            "reg": "informal",
+            "text": "I think the problem <em>stems from</em> the new schedule."
+          },
+          {
+            "reg": "spoken",
+            "text": "Where does this problem <em>stem from</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "Her anger <em>stemmed from</em> not feeling listened to."
+          },
+          {
+            "reg": "business",
+            "text": "Most customer complaints <em>stem from</em> late deliveries."
+          }
+        ],
+        "forms": [
+          "stem from",
+          "stems from",
+          "stemmed from",
+          "stemming from",
+          "stem"
+        ],
+        "audioWord": "audio/word/stem-from.mp3",
+        "audioSentence": "audio/sentence/stem-from.mp3",
+        "audioDef": "audio/def/stem-from.mp3",
+        "audioDefRu": "audio/defru/stem-from.mp3"
+      },
+      {
+        "term": "gossip",
+        "pos": "verb / noun",
+        "ipa": "/ˈɡɑːsɪp/",
+        "trans": {
+          "en": "Talk or rumors about other people's personal lives.",
+          "ru": "klebetiť / klebety"
+        },
+        "example": "It's better not to <em>gossip</em> about colleagues at work.",
+        "blankSentence": "It's better not to ___ about colleagues at work.",
+        "quizAnswer": "gossip",
+        "scrambleSentence": "Please don't gossip about your colleagues during breaks.",
+        "rounds": [
+          {
+            "blankSentence": "It's better not to ___ about colleagues at work.",
+            "quizAnswer": "gossip",
+            "scrambleSentence": "Please don't gossip about your colleagues during breaks."
+          },
+          {
+            "blankSentence": "They stopped talking when I came in — maybe they were ___.",
+            "quizAnswer": "gossiping",
+            "scrambleSentence": "Did you hear the latest gossip?"
+          },
+          {
+            "blankSentence": "Office ___ can quickly spoil the atmosphere in a team.",
+            "quizAnswer": "gossip",
+            "scrambleSentence": "Staff gossip can damage trust inside the team."
+          }
+        ],
+        "style": 30,
+        "region": 50,
+        "origin": {
+          "en": "From Old English godsibb, “a godparent, a close friend”. Friends talked a lot about other people's lives, so the word slowly changed from the person to the talk itself.",
+          "ru": "Zo staroanglického godsibb, „krstný rodič, blízky priateľ“. Priatelia sa veľa rozprávali o živote iných, a tak sa slovo postupne zmenilo z osoby na samotné rozprávanie."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=gossip",
+        "synonyms": [
+          "chat about others",
+          "rumours",
+          "tittle-tattle"
+        ],
+        "antonyms": [
+          "keep quiet about",
+          "respect privacy"
+        ],
+        "grammar": {
+          "en": "It is both a verb (to gossip) and an uncountable noun (some gossip, NOT “a gossip”). Pattern: gossip ABOUT someone. Pronunciation: /ˈɡɑːsɪp/.",
+          "ru": "Je to sloveso (to gossip) aj nepočítateľné podstatné meno (some gossip, NIE „a gossip“). Model: gossip ABOUT someone. Výslovnosť: /ˈɡɑːsɪp/."
+        },
+        "mnemonic": {
+          "en": "GOSSIP: when someone whispers “GOSS-ip” behind a hand.",
+          "ru": "GOSSIP: keď niekto šepká „GOSS-ip“ za dlaňou."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Employees are asked not to engage in <em>gossip</em> about their coworkers."
+          },
+          {
+            "reg": "informal",
+            "text": "Did you hear the latest <em>gossip</em>?"
+          },
+          {
+            "reg": "spoken",
+            "text": "Stop <em>gossiping</em> and get back to work!"
+          },
+          {
+            "reg": "written",
+            "text": "Staff <em>gossip</em> can damage trust inside the team."
+          },
+          {
+            "reg": "business",
+            "text": "If you hear <em>gossip</em> about a colleague, don't repeat it."
+          }
+        ],
+        "forms": [
+          "gossip",
+          "gossips",
+          "gossiped",
+          "gossiping",
+          "to gossip"
+        ],
+        "audioWord": "audio/word/gossip.mp3",
+        "audioSentence": "audio/sentence/gossip.mp3",
+        "audioDef": "audio/def/gossip.mp3",
+        "audioDefRu": "audio/defru/gossip.mp3"
+      },
+      {
+        "term": "get along",
+        "pos": "phrasal verb",
+        "ipa": "/ɡɛt əˈlɔːŋ/",
+        "trans": {
+          "en": "To like each other and be friendly to each other.",
+          "ru": "vychádzať s niekým"
+        },
+        "example": "Do you <em>get along</em> well with your team?",
+        "blankSentence": "Do you ___ well with your team?",
+        "quizAnswer": "get along",
+        "scrambleSentence": "I get along well with most of my colleagues.",
+        "rounds": [
+          {
+            "blankSentence": "Do you ___ well with your team?",
+            "quizAnswer": "get along",
+            "scrambleSentence": "I get along well with most of my colleagues."
+          },
+          {
+            "blankSentence": "The two new employees ___ very well.",
+            "quizAnswer": "get along",
+            "scrambleSentence": "We get along great, actually!"
+          },
+          {
+            "blankSentence": "It is easier to work when everyone ___.",
+            "quizAnswer": "gets along",
+            "scrambleSentence": "She doesn't get along with one of the cashiers."
+          }
+        ],
+        "style": 40,
+        "region": 50,
+        "origin": {
+          "en": "“Get along” combines “get” (to become) and “along” (together with). People who “get along” move forward together in the same direction without conflict.",
+          "ru": "„Get along“ spája „get“ (stať sa) a „along“ (spolu s). Ľudia, ktorí „get along“, idú spolu rovnakým smerom bez konfliktov."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=get+along",
+        "synonyms": [
+          "be on good terms",
+          "be friends",
+          "work well together"
+        ],
+        "antonyms": [
+          "fall out",
+          "clash"
+        ],
+        "grammar": {
+          "en": "Pattern: get along WITH someone. British English often says “get on with”. Both are correct. Different from “get along” = make progress (How are you getting along?).",
+          "ru": "Model: get along WITH someone. Britská angličtina často hovorí „get on with“. Oba tvary sú správne. Nepleť si so „get along“ = robiť pokroky (How are you getting along?)."
+        },
+        "mnemonic": {
+          "en": "Two people walk ALONG the same road side by side.",
+          "ru": "Dvaja ľudia idú spolu po tej istej ceste vedľa seba."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "It is essential that colleagues <em>get along</em> in a small team."
+          },
+          {
+            "reg": "informal",
+            "text": "We <em>get along</em> great, actually!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Do you <em>get along</em> with your boss?"
+          },
+          {
+            "reg": "written",
+            "text": "She doesn't <em>get along</em> with one of the cashiers."
+          },
+          {
+            "reg": "business",
+            "text": "A good manager helps the team to <em>get along</em> and work together."
+          }
+        ],
+        "forms": [
+          "get along",
+          "gets along",
+          "got along",
+          "getting along",
+          "get along with",
+          "get on"
+        ],
+        "audioWord": "audio/word/get-along.mp3",
+        "audioSentence": "audio/sentence/get-along.mp3",
+        "audioDef": "audio/def/get-along.mp3",
+        "audioDefRu": "audio/defru/get-along.mp3"
+      },
+      {
+        "term": "stress someone out",
+        "pos": "phrasal verb",
+        "ipa": "/strɛs ˈsʌmwʌn aʊt/",
+        "trans": {
+          "en": "To make someone feel very nervous and worried.",
+          "ru": "vystresovať niekoho"
+        },
+        "example": "Busy weekends at the store always <em>stress</em> her <em>out</em>.",
+        "blankSentence": "Busy weekends at the store always ___.",
+        "quizAnswer": "stress her out",
+        "scrambleSentence": "Too many tasks at once stress me out.",
+        "rounds": [
+          {
+            "blankSentence": "Busy weekends at the store always ___.",
+            "quizAnswer": "stress her out",
+            "scrambleSentence": "Too many tasks at once stress me out."
+          },
+          {
+            "blankSentence": "Long queues at the till really ___.",
+            "quizAnswer": "stress me out",
+            "scrambleSentence": "Ugh, this deadline is stressing me out!"
+          },
+          {
+            "blankSentence": "Please don't ___ on her first day.",
+            "quizAnswer": "stress the new employee out",
+            "scrambleSentence": "Angry customers can stress the staff out."
+          }
+        ],
+        "style": 25,
+        "region": 50,
+        "origin": {
+          "en": "“Stress” is short for “distress”, from Latin “stringere” (“to draw tight”). Adding “out” makes the feeling complete: you are “pulled tight” until you feel very nervous.",
+          "ru": "„Stress“ je skrátené z „distress“, z latinského „stringere“ („pevne stiahnuť“). „Out“ dopĺňa pocit do konca: si „stiahnutá“, až sa cítiš veľmi nervózna."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=stress+someone+out",
+        "synonyms": [
+          "make nervous",
+          "worry",
+          "overwhelm"
+        ],
+        "antonyms": [
+          "calm down",
+          "relax"
+        ],
+        "grammar": {
+          "en": "Separable: stress someone out (stress her out), not “stress out her”. Often used in the passive-like form “be stressed out” = feel very worried. Informal.",
+          "ru": "Oddeliteľné: stress someone out (stress her out), nie „stress out her“. Často sa používa tvar „be stressed out“ = byť veľmi vystresovaný. Hovorový štýl."
+        },
+        "mnemonic": {
+          "en": "STRESS + OUT: the stress pushes all your calm OUT of you.",
+          "ru": "STRESS + OUT: stres z teba VYTLAČÍ všetok pokoj."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Excessive workloads may <em>stress</em> employees <em>out</em> and reduce productivity."
+          },
+          {
+            "reg": "informal",
+            "text": "Ugh, this deadline is <em>stressing</em> me <em>out</em>!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Don't let it <em>stress</em> you <em>out</em>."
+          },
+          {
+            "reg": "written",
+            "text": "Angry customers can <em>stress</em> the staff <em>out</em>."
+          },
+          {
+            "reg": "business",
+            "text": "A messy stockroom can <em>stress</em> the whole team <em>out</em> before a busy day."
+          }
+        ],
+        "forms": [
+          "stress someone out",
+          "stress out",
+          "stresses me out",
+          "stressed me out",
+          "stressing me out",
+          "stress me out",
+          "stress her out",
+          "stress him out",
+          "stress them out",
+          "stress the new employee out",
+          "stressed out"
+        ],
+        "audioWord": "audio/word/stress-someone-out.mp3",
+        "audioSentence": "audio/sentence/stress-someone-out.mp3",
+        "audioDef": "audio/def/stress-someone-out.mp3",
+        "audioDefRu": "audio/defru/stress-someone-out.mp3"
+      },
+      {
+        "term": "bossy",
+        "pos": "adjective",
+        "ipa": "/ˈbɔːsi/",
+        "trans": {
+          "en": "Always telling people what to do in an annoying way.",
+          "ru": "panovačný, rozkazovačný"
+        },
+        "example": "Nobody likes working with a <em>bossy</em> supervisor.",
+        "blankSentence": "Nobody likes working with a ___ supervisor.",
+        "quizAnswer": "bossy",
+        "scrambleSentence": "He sounds a bit bossy when he gives instructions.",
+        "rounds": [
+          {
+            "blankSentence": "Nobody likes working with a ___ supervisor.",
+            "quizAnswer": "bossy",
+            "scrambleSentence": "He sounds a bit bossy when he gives instructions."
+          },
+          {
+            "blankSentence": "My little sister is very ___ — she always tells everyone what to do.",
+            "quizAnswer": "bossy",
+            "scrambleSentence": "Don't be so bossy!"
+          },
+          {
+            "blankSentence": "I don't want to sound ___, but could you please start on time?",
+            "quizAnswer": "bossy",
+            "scrambleSentence": "A bossy manager makes the team nervous and quiet."
+          }
+        ],
+        "style": 25,
+        "region": 50,
+        "origin": {
+          "en": "From “boss” (from Dutch baas, “master”) + “-y”. A “bossy” person behaves like a boss all the time, even when nobody asked them to.",
+          "ru": "Z „boss“ (z holandského baas, „majster“) + „-y“. „Bossy“ človek sa správa ako šéf stále, aj keď ho o to nikto nepožiadal."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=bossy",
+        "synonyms": [
+          "domineering",
+          "controlling",
+          "pushy"
+        ],
+        "antonyms": [
+          "easygoing",
+          "gentle"
+        ],
+        "grammar": {
+          "en": "An adjective with a negative meaning. Comparative: bossier, the bossiest. A polite phrase: “I don't want to sound bossy, but…”. Not the same as “boss” (a noun).",
+          "ru": "Prídavné meno s negatívnym zafarbením. Komparatív: bossier, the bossiest. Zdvorilá fráza: „I don't want to sound bossy, but…“. Nie je to to isté ako „boss“ (podstatné meno)."
+        },
+        "mnemonic": {
+          "en": "BOSS + Y: a person who acts like the BOSS all day long.",
+          "ru": "BOSS + Y: človek, ktorý sa správa ako ŠÉF celý deň."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Employees often resign because of a <em>bossy</em> and demanding manager."
+          },
+          {
+            "reg": "informal",
+            "text": "Don't be so <em>bossy</em>!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Is she always this <em>bossy</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "A <em>bossy</em> manager makes the team nervous and quiet."
+          },
+          {
+            "reg": "business",
+            "text": "I don't want to be <em>bossy</em>, but I think we should start now."
+          }
+        ],
+        "forms": [
+          "bossy",
+          "a bossy",
+          "so bossy",
+          "very bossy",
+          "too bossy",
+          "bit bossy"
+        ],
+        "audioWord": "audio/word/bossy.mp3",
+        "audioSentence": "audio/sentence/bossy.mp3",
+        "audioDef": "audio/def/bossy.mp3",
+        "audioDefRu": "audio/defru/bossy.mp3"
+      },
+      {
+        "term": "outspoken",
+        "pos": "adjective",
+        "ipa": "/aʊtˈspoʊkən/",
+        "trans": {
+          "en": "Expressing strong opinions very directly without worrying if other people are offended.",
+          "ru": "priamy, otvorený, bez servítky"
+        },
+        "example": "She is <em>outspoken</em> and always says exactly what she thinks.",
+        "blankSentence": "She is ___ and always says exactly what she thinks.",
+        "quizAnswer": "outspoken",
+        "scrambleSentence": "He is very outspoken and does not hide his opinion.",
+        "rounds": [
+          {
+            "blankSentence": "She is ___ and always says exactly what she thinks.",
+            "quizAnswer": "outspoken",
+            "scrambleSentence": "He is very outspoken and does not hide his opinion."
+          },
+          {
+            "blankSentence": "He is an ___ critic of the new rules.",
+            "quizAnswer": "outspoken",
+            "scrambleSentence": "She's so outspoken — I love it!"
+          },
+          {
+            "blankSentence": "Being ___ can help in a meeting, but it can also upset people.",
+            "quizAnswer": "outspoken",
+            "scrambleSentence": "He was outspoken about the problems in the old system."
+          }
+        ],
+        "style": 45,
+        "region": 50,
+        "origin": {
+          "en": "“Out” (outside) + “spoken” (said): someone who says things “out loud” and openly, without keeping them inside. The word has been used since the 1800s.",
+          "ru": "„Out“ (von) + „spoken“ (povedané): človek, ktorý hovorí veci „nahlas“ a otvorene, bez toho, aby ich držal v sebe. Slovo sa používa od 19. storočia."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=outspoken",
+        "synonyms": [
+          "frank",
+          "direct",
+          "blunt"
+        ],
+        "antonyms": [
+          "reserved",
+          "quiet",
+          "tactful"
+        ],
+        "grammar": {
+          "en": "An adjective. It can be positive (honest, brave) or negative (too direct), depending on the situation. Don't confuse with “speak up” (verb) — outspoken describes a person's character.",
+          "ru": "Prídavné meno. Môže byť pozitívne (úprimný, odvážny) alebo negatívne (príliš priamy) podľa situácie. Nepleť si so „speak up“ (sloveso) — outspoken opisuje povahu človeka."
+        },
+        "mnemonic": {
+          "en": "OUT + SPOKEN: the words come OUT of the mouth without a filter.",
+          "ru": "OUT + SPOKEN: slová vychádzajú VON z úst bez filtra."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The director is known for her <em>outspoken</em> views on workplace safety."
+          },
+          {
+            "reg": "informal",
+            "text": "She's so <em>outspoken</em> — I love it!"
+          },
+          {
+            "reg": "spoken",
+            "text": "Are you an <em>outspoken</em> person?"
+          },
+          {
+            "reg": "written",
+            "text": "He was <em>outspoken</em> about the problems in the old system."
+          },
+          {
+            "reg": "business",
+            "text": "Our team values <em>outspoken</em> people who suggest better ways of working."
+          }
+        ],
+        "forms": [
+          "outspoken",
+          "an outspoken",
+          "very outspoken",
+          "so outspoken",
+          "too outspoken"
+        ],
+        "audioWord": "audio/word/outspoken.mp3",
+        "audioSentence": "audio/sentence/outspoken.mp3",
+        "audioDef": "audio/def/outspoken.mp3",
+        "audioDefRu": "audio/defru/outspoken.mp3"
+      },
+      {
+        "term": "at a loss",
+        "pos": "idiom",
+        "ipa": "/æt ə lɔːs/",
+        "trans": {
+          "en": "Not knowing what to do.",
+          "ru": "bezradný, nevedieť si rady"
+        },
+        "example": "When the register froze, she was completely <em>at a loss</em>.",
+        "blankSentence": "When the register froze, she was completely ___.",
+        "quizAnswer": "at a loss",
+        "scrambleSentence": "I am at a loss and don't know how to solve this problem.",
+        "rounds": [
+          {
+            "blankSentence": "When the register froze, she was completely ___.",
+            "quizAnswer": "at a loss",
+            "scrambleSentence": "I am at a loss and don't know how to solve this problem."
+          },
+          {
+            "blankSentence": "I'm ___ — I've tried everything and the printer still doesn't work.",
+            "quizAnswer": "at a loss",
+            "scrambleSentence": "Honestly, I'm at a loss here."
+          },
+          {
+            "blankSentence": "The customer asked a strange question and the new employee was ___.",
+            "quizAnswer": "at a loss",
+            "scrambleSentence": "The staff were at a loss when the system went down."
+          }
+        ],
+        "style": 40,
+        "region": 50,
+        "origin": {
+          "en": "“Loss” here means “not having an answer”, like losing your way. If you are “at a loss”, your ideas have run out and you do not know which direction to go.",
+          "ru": "„Loss“ tu znamená „nemať odpoveď“, ako keď stratíš cestu. Ak si „at a loss“, nápady sa ti minuli a nevieš, ktorým smerom ísť."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=at+a+loss",
+        "synonyms": [
+          "confused",
+          "puzzled",
+          "helpless"
+        ],
+        "antonyms": [
+          "confident",
+          "sure"
+        ],
+        "grammar": {
+          "en": "Always with “a”: at a loss (not “at loss”). After it you can add “for words” (at a loss for words = speechless) or “to + verb” (at a loss to explain). Used with be.",
+          "ru": "Vždy s „a“: at a loss (nie „at loss“). Za ním môže byť „for words“ (at a loss for words = bez slov) alebo „to + sloveso“ (at a loss to explain). Používa sa s be."
+        },
+        "mnemonic": {
+          "en": "You LOSE the way — now you are AT A LOSS in the middle of the forest.",
+          "ru": "STRATÍŠ cestu — a teraz si AT A LOSS uprostred lesa."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The management was <em>at a loss</em> to explain the sudden drop in sales."
+          },
+          {
+            "reg": "informal",
+            "text": "Honestly, I'm <em>at a loss</em> here."
+          },
+          {
+            "reg": "spoken",
+            "text": "Are you <em>at a loss</em> about what to do next?"
+          },
+          {
+            "reg": "written",
+            "text": "The staff were <em>at a loss</em> when the system went down."
+          },
+          {
+            "reg": "business",
+            "text": "If you are ever <em>at a loss</em>, please ask your manager for advice."
+          }
+        ],
+        "forms": [
+          "at a loss",
+          "be at a loss",
+          "am at a loss",
+          "is at a loss",
+          "was at a loss",
+          "were at a loss",
+          "completely at a loss"
+        ],
+        "audioWord": "audio/word/at-a-loss.mp3",
+        "audioSentence": "audio/sentence/at-a-loss.mp3",
+        "audioDef": "audio/def/at-a-loss.mp3",
+        "audioDefRu": "audio/defru/at-a-loss.mp3"
+      },
+      {
+        "term": "take responsibility",
+        "pos": "verb phrase",
+        "ipa": "/teɪk rɪˌspɑːnsəˈbɪləti/",
+        "trans": {
+          "en": "To accept that a duty or problem is your job to solve.",
+          "ru": "vziať na seba zodpovednosť"
+        },
+        "example": "A good leader <em>takes responsibility</em> for the whole store.",
+        "blankSentence": "A good leader ___ for the whole store.",
+        "quizAnswer": "takes responsibility",
+        "scrambleSentence": "A good manager takes responsibility for the team's results.",
+        "rounds": [
+          {
+            "blankSentence": "A good leader ___ for the whole store.",
+            "quizAnswer": "takes responsibility",
+            "scrambleSentence": "A good manager takes responsibility for the team's results."
+          },
+          {
+            "blankSentence": "When the order was late, the manager ___ and apologised.",
+            "quizAnswer": "took responsibility",
+            "scrambleSentence": "I'll take responsibility for this, don't worry."
+          },
+          {
+            "blankSentence": "It's time to ___ for your own mistakes.",
+            "quizAnswer": "take responsibility",
+            "scrambleSentence": "She took responsibility for the error and fixed it immediately."
+          }
+        ],
+        "style": 55,
+        "region": 50,
+        "origin": {
+          "en": "“Responsibility” comes from Latin “respondere” — “to answer”. To “take responsibility” means to be the person who answers when something goes wrong.",
+          "ru": "„Responsibility“ pochádza z latinského „respondere“ — „odpovedať“. „Take responsibility“ znamená byť tým, kto odpovedá, keď sa niečo pokazí."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=take+responsibility",
+        "synonyms": [
+          "accept responsibility",
+          "own it",
+          "be accountable"
+        ],
+        "antonyms": [
+          "blame others",
+          "avoid responsibility"
+        ],
+        "grammar": {
+          "en": "Pattern: take responsibility FOR something. Irregular verb: take – took – taken. The adjective is “responsible”. Often used after a mistake, to be honest and fair.",
+          "ru": "Model: take responsibility FOR something. Nepravidelné sloveso: take – took – taken. Prídavné meno: „responsible“. Často sa používa po chybe, aby sme boli úprimní a férovi."
+        },
+        "mnemonic": {
+          "en": "RESPONSIBILITY = you RESPOND (answer) when someone asks “who did this?”",
+          "ru": "RESPONSIBILITY = ty ODPOVIEŠ, keď sa niekto spýta „kto to urobil?“"
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The chairman has taken full <em>responsibility</em> for the decision."
+          },
+          {
+            "reg": "informal",
+            "text": "I'll <em>take responsibility</em> for this, don't worry."
+          },
+          {
+            "reg": "spoken",
+            "text": "Who's going to <em>take responsibility</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "She <em>took responsibility</em> for the error and fixed it immediately."
+          },
+          {
+            "reg": "business",
+            "text": "Please <em>take responsibility</em> for your own area of the store."
+          }
+        ],
+        "forms": [
+          "take responsibility",
+          "takes responsibility",
+          "took responsibility",
+          "taken responsibility",
+          "taking responsibility",
+          "take responsibility for",
+          "accept responsibility"
+        ],
+        "audioWord": "audio/word/take-responsibility.mp3",
+        "audioSentence": "audio/sentence/take-responsibility.mp3",
+        "audioDef": "audio/def/take-responsibility.mp3",
+        "audioDefRu": "audio/defru/take-responsibility.mp3"
+      },
+      {
+        "term": "in front of",
+        "pos": "preposition phrase",
+        "ipa": "/ɪn frʌnt əv/",
+        "trans": {
+          "en": "Directly before or ahead of someone/something.",
+          "ru": "pred niečím/niekým"
+        },
+        "example": "Never criticize an employee <em>in front of</em> customers.",
+        "blankSentence": "Never criticize an employee ___ customers.",
+        "quizAnswer": "in front of",
+        "scrambleSentence": "Please don't park in front of the entrance.",
+        "rounds": [
+          {
+            "blankSentence": "Never criticize an employee ___ customers.",
+            "quizAnswer": "in front of",
+            "scrambleSentence": "Please don't park in front of the entrance."
+          },
+          {
+            "blankSentence": "There is a long queue ___ the fitting rooms.",
+            "quizAnswer": "in front of",
+            "scrambleSentence": "Who's the guy standing in front of the shop?"
+          },
+          {
+            "blankSentence": "She stood ___ the whole team and gave a short speech.",
+            "quizAnswer": "in front of",
+            "scrambleSentence": "The display in front of the entrance should be changed every week."
+          }
+        ],
+        "style": 30,
+        "region": 50,
+        "origin": {
+          "en": "“Front” comes from Latin “frons” — “forehead, face”. What is “in front of” you is the part that faces you, before your eyes.",
+          "ru": "„Front“ pochádza z latinského „frons“ — „čelo, tvár“. To, čo je „in front of“ tebou, je časť, ktorá je obrátená k tebe, pred tvojimi očami."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=in+front+of",
+        "synonyms": [
+          "before",
+          "ahead of",
+          "facing"
+        ],
+        "antonyms": [
+          "behind",
+          "at the back of"
+        ],
+        "grammar": {
+          "en": "Always “in front OF” + noun / pronoun: in front of the door, in front of me. Opposite: behind. Don't confuse with “opposite” (on the other side) and “in the front” (in the first part).",
+          "ru": "Vždy „in front OF“ + podstatné meno / zámeno: in front of the door, in front of me. Opak: behind. Nepleť si s „opposite“ (oproti) a „in the front“ (vpredu)."
+        },
+        "mnemonic": {
+          "en": "FRONT = the FACE of a thing; IN FRONT OF = right before its face.",
+          "ru": "FRONT = TVÁR veci; IN FRONT OF = hneď pred jej tvárou."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "Employees must not discuss confidential matters <em>in front of</em> customers."
+          },
+          {
+            "reg": "informal",
+            "text": "Who's the guy standing <em>in front of</em> the shop?"
+          },
+          {
+            "reg": "spoken",
+            "text": "I felt embarrassed <em>in front of</em> everyone."
+          },
+          {
+            "reg": "written",
+            "text": "The display <em>in front of</em> the entrance should be changed every week."
+          },
+          {
+            "reg": "business",
+            "text": "Never raise your voice <em>in front of</em> the team."
+          }
+        ],
+        "forms": [
+          "in front of",
+          "front of",
+          "in front"
+        ],
+        "audioWord": "audio/word/in-front-of.mp3",
+        "audioSentence": "audio/sentence/in-front-of.mp3",
+        "audioDef": "audio/def/in-front-of.mp3",
+        "audioDefRu": "audio/defru/in-front-of.mp3"
+      },
+      {
+        "term": "used to be",
+        "pos": "phrase",
+        "ipa": "/juːst tə biː/",
+        "trans": {
+          "en": "Something was true in the past, but is not true now.",
+          "ru": "bývalo, v minulosti bolo"
+        },
+        "example": "Our store <em>used to be</em> smaller, but now we have more space.",
+        "blankSentence": "Our store ___ smaller, but now we have more space.",
+        "quizAnswer": "used to be",
+        "scrambleSentence": "The shop used to be much smaller than it is now.",
+        "rounds": [
+          {
+            "blankSentence": "Our store ___ smaller, but now we have more space.",
+            "quizAnswer": "used to be",
+            "scrambleSentence": "The shop used to be much smaller than it is now."
+          },
+          {
+            "blankSentence": "This building ___ a warehouse before they turned it into a shop.",
+            "quizAnswer": "used to be",
+            "scrambleSentence": "It used to be much quieter here."
+          },
+          {
+            "blankSentence": "She ___ shy, but now she speaks up in every meeting.",
+            "quizAnswer": "used to be",
+            "scrambleSentence": "Our department used to be on the second floor."
+          }
+        ],
+        "style": 35,
+        "region": 50,
+        "origin": {
+          "en": "“Used to” comes from the old verb “use” meaning “to be in the habit of”. “Used to be” describes a past state that has changed.",
+          "ru": "„Used to“ pochádza zo starého slovesa „use“ v zmysle „mať zvyk“. „Used to be“ opisuje minulý stav, ktorý sa zmenil."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=used+to+be",
+        "synonyms": [
+          "was once",
+          "was formerly",
+          "in the past was"
+        ],
+        "antonyms": [
+          "is now",
+          "still is"
+        ],
+        "grammar": {
+          "en": "Pattern: used to + BE / verb: used to be, used to work. Only past (no present). Question and negative: Did you use to…? / I didn't use to… Don't confuse with “be used to” (be familiar with).",
+          "ru": "Model: used to + BE / sloveso: used to be, used to work. Len minulý čas (nie prítomný). Otázka a záporná veta: Did you use to…? / I didn't use to… Nepleť si s „be used to“ (byť zvyknutý)."
+        },
+        "mnemonic": {
+          "en": "USED TO BE = a photo from the past: it WAS like this, but not anymore.",
+          "ru": "USED TO BE = fotka z minulosti: BOLO to takto, ale už nie."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The factory <em>used to be</em> one of the largest employers in the region."
+          },
+          {
+            "reg": "informal",
+            "text": "It <em>used to be</em> much quieter here."
+          },
+          {
+            "reg": "spoken",
+            "text": "What <em>used to be</em> there?"
+          },
+          {
+            "reg": "written",
+            "text": "Our department <em>used to be</em> on the second floor."
+          },
+          {
+            "reg": "business",
+            "text": "This process <em>used to be</em> much slower before we introduced the new system."
+          }
+        ],
+        "forms": [
+          "used to be",
+          "used to",
+          "use to be"
+        ],
+        "audioWord": "audio/word/used-to-be.mp3",
+        "audioSentence": "audio/sentence/used-to-be.mp3",
+        "audioDef": "audio/def/used-to-be.mp3",
+        "audioDefRu": "audio/defru/used-to-be.mp3"
+      },
+      {
+        "term": "challenge",
+        "pos": "noun / verb",
+        "ipa": "/ˈtʃælɪndʒ/",
+        "trans": {
+          "en": "A difficult task that tests your ability and skill.",
+          "ru": "výzva"
+        },
+        "example": "Managing a busy shift is always <em>a challenge</em>.",
+        "blankSentence": "Managing a busy shift is always a ___.",
+        "quizAnswer": "challenge",
+        "scrambleSentence": "Managing a team is a big challenge for a new manager.",
+        "rounds": [
+          {
+            "blankSentence": "Managing a busy shift is always a ___.",
+            "quizAnswer": "challenge",
+            "scrambleSentence": "Managing a team is a big challenge for a new manager."
+          },
+          {
+            "blankSentence": "Learning a new till system was a real ___ for me.",
+            "quizAnswer": "challenge",
+            "scrambleSentence": "That's quite a challenge!"
+          },
+          {
+            "blankSentence": "We face a big ___ before the winter sale.",
+            "quizAnswer": "challenge",
+            "scrambleSentence": "The biggest challenge this month is the shortage of staff."
+          }
+        ],
+        "style": 45,
+        "region": 50,
+        "origin": {
+          "en": "From Old French “chalenge”, “a claim, an accusation”, from Latin “calumnia”. It first meant a dispute; later it became a test of strength or skill that you must meet.",
+          "ru": "Zo starofrancúzskeho „chalenge“, „nárok, obvinenie“, z latinského „calumnia“. Spočiatku to bol spor; neskôr sa z toho stala skúška sily alebo schopností, ktorú musíš zvládnuť."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=challenge",
+        "synonyms": [
+          "difficult task",
+          "test",
+          "problem to solve"
+        ],
+        "antonyms": [
+          "something easy",
+          "routine"
+        ],
+        "grammar": {
+          "en": "A noun (a challenge) and a verb (to challenge someone). Adjective: challenging (difficult, but interesting). Collocations: face / meet / take on a challenge. Often positive.",
+          "ru": "Podstatné meno (a challenge) aj sloveso (to challenge someone). Prídavné meno: challenging (ťažké, ale zaujímavé). Spojenia: face / meet / take on a challenge. Často pozitívne."
+        },
+        "mnemonic": {
+          "en": "CHALLENGE: a mountain in front of you — hard, but you want to climb it.",
+          "ru": "CHALLENGE: hora pred tebou — ťažká, ale chceš na ňu vyliezť."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The project presents a considerable <em>challenge</em> for the whole department."
+          },
+          {
+            "reg": "informal",
+            "text": "That's quite a <em>challenge</em>!"
+          },
+          {
+            "reg": "spoken",
+            "text": "I love a good <em>challenge</em>."
+          },
+          {
+            "reg": "written",
+            "text": "The biggest <em>challenge</em> this month is the shortage of staff."
+          },
+          {
+            "reg": "business",
+            "text": "We see every new customer complaint as a <em>challenge</em> to improve."
+          }
+        ],
+        "forms": [
+          "challenge",
+          "a challenge",
+          "challenges",
+          "challenging",
+          "big challenge",
+          "face a challenge"
+        ],
+        "audioWord": "audio/word/challenge.mp3",
+        "audioSentence": "audio/sentence/challenge.mp3",
+        "audioDef": "audio/def/challenge.mp3",
+        "audioDefRu": "audio/defru/challenge.mp3"
+      },
+      {
+        "term": "work on",
+        "pos": "phrasal verb",
+        "ipa": "/wɜːrk ɑːn/",
+        "trans": {
+          "en": "To spend time and effort improving something.",
+          "ru": "pracovať na niečom, zlepšovať niečo"
+        },
+        "example": "I need to <em>work on</em> my presentation skills.",
+        "blankSentence": "I need to ___ my presentation skills.",
+        "quizAnswer": "work on",
+        "scrambleSentence": "I want to work on my English every day.",
+        "rounds": [
+          {
+            "blankSentence": "I need to ___ my presentation skills.",
+            "quizAnswer": "work on",
+            "scrambleSentence": "I want to work on my English every day."
+          },
+          {
+            "blankSentence": "The team is ___ the new window display.",
+            "quizAnswer": "working on",
+            "scrambleSentence": "I'm working on it, give me a minute!"
+          },
+          {
+            "blankSentence": "We should ___ our communication with customers.",
+            "quizAnswer": "work on",
+            "scrambleSentence": "She worked on the report all weekend."
+          }
+        ],
+        "style": 35,
+        "region": 50,
+        "origin": {
+          "en": "“Work” comes from Old English “weorc”, “activity, deed”. “On” shows that your effort goes onto something — you work “on” a project like a builder works on a house.",
+          "ru": "„Work“ pochádza zo staroanglického „weorc“, „činnosť, skutok“. „On“ ukazuje, že tvoje úsilie smeruje na niečo — pracuješ „na“ projekte ako staviteľ na dome."
+        },
+        "cambridge": "https://dictionary.cambridge.org/search/english/direct/?q=work+on",
+        "synonyms": [
+          "improve",
+          "develop",
+          "practise"
+        ],
+        "antonyms": [
+          "ignore",
+          "neglect"
+        ],
+        "grammar": {
+          "en": "Pattern: work ON something (a project, a skill, a problem). Regular verb: work – worked. Compare: work FOR a company, work WITH people. “Work on” = improve or develop something step by step.",
+          "ru": "Model: work ON something (projekt, schopnosť, problém). Pravidelné sloveso: work – worked. Porovnaj: work FOR a company, work WITH people. „Work on“ = zlepšovať alebo rozvíjať niečo krok za krokom."
+        },
+        "mnemonic": {
+          "en": "WORK + ON: put your hands ON the project and keep improving it.",
+          "ru": "WORK + ON: polož ruky NA projekt a zlepšuj ho."
+        },
+        "moreExamples": [
+          {
+            "reg": "formal",
+            "text": "The department is currently <em>working on</em> a new training programme."
+          },
+          {
+            "reg": "informal",
+            "text": "I'm <em>working on</em> it, give me a minute!"
+          },
+          {
+            "reg": "spoken",
+            "text": "What are you <em>working on</em>?"
+          },
+          {
+            "reg": "written",
+            "text": "She <em>worked on</em> the report all weekend."
+          },
+          {
+            "reg": "business",
+            "text": "Please <em>work on</em> the schedule and send it to me by Friday."
+          }
+        ],
+        "forms": [
+          "work on",
+          "works on",
+          "worked on",
+          "working on",
+          "to work on"
+        ],
+        "audioWord": "audio/word/work-on.mp3",
+        "audioSentence": "audio/sentence/work-on.mp3",
+        "audioDef": "audio/def/work-on.mp3",
+        "audioDefRu": "audio/defru/work-on.mp3"
+      }
+    ]
+  },
   {
     "id": "02-10",
     "label": "02.10",
@@ -7640,11 +9061,15 @@ let currentCardIdx = 0;
     $id('pr-copy-btn').style.display = rows.length ? '' : 'none';
   }
   function prCopy() {
-    const tsv = [[L('Word', 'Slovo'), L('Your sentence', 'Tvoja veta'), L('Corrected', 'Oprava'), L('Comment', 'Komentár')].join('\t')]
-      .concat(prLog.map(function (r) { return [r.term, r.original, r.corrected, r.comment].join('\t'); })).join('\n');
-    const ok = function () { showToast(L('Table copied', 'Tabuľka je skopírovaná')); };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(tsv).then(ok, function () { fallbackCopy(tsv); ok(); });
-    else { fallbackCopy(tsv); ok(); }
+    const text = prLog.filter(function (r) { return !r.skipped; }).map(function (r) {
+      return [r.term,
+        L('Mine', 'Moje') + ': ' + r.original,
+        L('Corrected', 'Oprava') + ': ' + r.corrected,
+        L('Comment', 'Komentár') + ': ' + r.comment].join('\n');
+    }).join('\n\n');
+    const ok = function () { showToast(L('Text copied', 'Text je skopírovaný')); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, function () { fallbackCopy(text); ok(); });
+    else { fallbackCopy(text); ok(); }
   }
   function fallbackCopy(text) {
     const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -8045,7 +9470,7 @@ let currentCardIdx = 0;
     set('pr-check-btn', L('Check my sentence', 'Skontrolovať vetu')); set('pr-skip-btn', L('Skip', 'Preskočiť')); set('pr-next-btn', t('next'));
     set('pr-finish-btn', L('Finish & see table', 'Dokončiť a otvoriť tabuľku'));
     set('pr-summary-title', L('Your sentences & corrections', 'Tvoje vety a opravy'));
-    set('pr-copy-btn', L('Copy table', 'Skopírovať tabuľku')); set('pr-restart-btn', L('Write again', 'Napísať znova'));
+    set('pr-copy-btn', L('Copy text', 'Skopírovať text')); set('pr-restart-btn', L('Write again', 'Napísať znova'));
     document.querySelectorAll('.list-search').forEach(function (el) { el.placeholder = L('Search words…', 'Hľadať slová…'); });
     set('quiz-next-btn', t('nextQuestionBtn'));
     if ($id('otg-overlay').classList.contains('show') && $id('otg-settings').style.display !== 'none') otgShowSettings();
@@ -8224,11 +9649,11 @@ let currentCardIdx = 0;
       const mins = a ? Math.round(a.sec / 60) : 0;
       const lvl = isActiveDay(key) ? (mins >= 15 ? 3 : mins >= 5 ? 2 : 1) : 0;
       if (lvl) activeDays++;
-      cal.insertAdjacentHTML('beforeend', '<div class="d l' + lvl + (i === 29 ? ' today' : '') + '" title="' + key + (mins ? ' · ' + mins + L(' min', ' min') : '') + '"></div>');
+      cal.insertAdjacentHTML('beforeend', '<div class="d l' + lvl + (i === 29 ? ' today' : '') + '" title="' + key + (mins ? ' · ' + mins + L(' min', ' min') : '') + '">' + Number(key.slice(8)) + '</div>');
     }
     set('an2-cal-title', L('Last 30 days', 'Posledných 30 dní'));
     set('an2-cal-sub', activeDays + L(' of 30', ' z 30'));
-    $id('an2-legend').innerHTML = L('less', 'menej') + ' <i style="background:var(--c-pink-soft)"></i><i style="background:color-mix(in srgb,var(--c-lime) 40%,white)"></i><i style="background:color-mix(in srgb,var(--c-lime) 75%,white)"></i><i style="background:var(--c-lime)"></i> ' + L('more', 'viac');
+    $id('an2-legend').innerHTML = '<span><i style="background:#fff;border:1px dashed var(--border-color)"></i>' + L('no practice', 'bez cvičenia') + '</span><span><i style="background:color-mix(in srgb,var(--c-pink) 60%,white)"></i>' + L('under 5 min', 'do 5 min') + '</span><span><i style="background:var(--c-lime)"></i>' + L('5–15 min', '5–15 min') + '</span><span><i style="background:var(--c-berry)"></i>' + L('15+ min', '15+ min') + '</span>';
     // слова
     const all = allWordsList();
     const mastered = all.filter(function (w) { return isMastered(w.term); }).length;
@@ -8406,6 +9831,16 @@ let currentCardIdx = 0;
     put('otg-prev', ICON_PREV); put('otg-next', ICON_NEXT); put('otg-close', ICON_CLOSE); put('wi-close', ICON_CLOSE);
     put('otg-pulse', ICON_SOUND_BIG);
   })();
+
+
+  // Ярлык на экране «Домой» (standalone): статус-бар iPhone повторял цвет урока и не возвращался в белый.
+  // В таком режиме цвет «шапки» не меняем вообще — всегда нейтральный фон страницы.
+  const IS_STANDALONE = !!(window.navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches));
+  function setThemeColor(hex) {
+    const meta = document.getElementById('theme-color-meta');
+    if (meta) meta.setAttribute('content', IS_STANDALONE ? PAGE_BG_HEX : hex);
+  }
+  if (IS_STANDALONE) setThemeColor(PAGE_BG_HEX);
 
   renderExistingLessonsSummary();
   setLang('en');
