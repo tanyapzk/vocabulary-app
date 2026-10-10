@@ -20,6 +20,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Vocabulary Practice">
   <meta name="twitter:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+  <link rel="apple-touch-icon" href="https://tanyapzk.github.io/vocabulary-app/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="https://tanyapzk.github.io/vocabulary-app/assets/icon-512.png">
+  <meta name="apple-mobile-web-app-title" content="Vocab Drill">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2600,16 +2603,18 @@
     .an-streak .num { font-size: 2.4rem; line-height: 1; }
     .an-streak .num small { font-size: 0.9rem; font-weight: 900; margin-left: 6px; }
     .an-streak .phrase { font-size: 0.9rem; margin-top: 8px; }
-    .an-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; max-width: 420px; }
+    .an-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; width: 100%; }
     .an-cal .dow { text-align: center; font-size: 0.62rem; font-weight: 700; color: var(--c-text-muted); }
-    .an-cal .d { aspect-ratio: 1; border-radius: 7px; background: var(--c-pink-soft); border: 1px solid var(--border-color); }
-    .an-cal .d.l1 { background: color-mix(in srgb, var(--c-lime) 40%, white); border-color: transparent; }
-    .an-cal .d.l2 { background: color-mix(in srgb, var(--c-lime) 75%, white); border-color: transparent; }
-    .an-cal .d.l3 { background: var(--c-lime); border-color: color-mix(in srgb, var(--c-berry) 25%, white); }
+    .an-cal .d { position: relative; aspect-ratio: 1.5; border-radius: 8px; box-sizing: border-box; background: #fff; border: 1px dashed var(--border-color); font-size: 0.66rem; font-weight: 700; color: var(--c-text-muted); display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px 6px; }
+    .an-cal .d.l1 { background: color-mix(in srgb, var(--c-pink) 60%, white); border: none; color: var(--c-berry-dark); }
+    .an-cal .d.l2 { background: var(--c-lime); border: none; color: var(--c-berry-dark); }
+    .an-cal .d.l3 { background: var(--c-berry); border: none; color: #fff; }
     .an-cal .d.today { outline: 2px solid var(--c-berry); outline-offset: 1px; }
     .an-cal .d.empty { visibility: hidden; }
-    .an-legend { display: flex; align-items: center; gap: 5px; font-size: 0.64rem; color: var(--c-text-muted); margin-top: 10px; }
-    .an-legend i { width: 12px; height: 12px; border-radius: 4px; display: block; border: 1px solid var(--border-color); }
+    @media (min-width: 700px) { .an-cal { gap: 7px; } .an-cal .d { aspect-ratio: 1.7; font-size: 0.78rem; padding: 6px 8px; border-radius: 10px; } .an-cal .dow { font-size: 0.72rem; } }
+    .an-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 0.66rem; font-weight: 700; color: var(--c-text-muted); margin-top: 10px; }
+    .an-legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .an-legend i { width: 16px; height: 12px; border-radius: 4px; display: block; }
     .an-three, .an-time3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; text-align: center; }
     .an-three div { background: var(--c-pink-soft); border-radius: 14px; padding: 10px 4px; }
     .an-three b { display: block; font-size: 1.5rem; font-weight: 900; color: var(--c-berry); }
@@ -2652,8 +2657,6 @@
     @media (min-width: 560px) { .top-tab { padding: 11px 14px; font-size: 0.82rem; } }
 
     /* календарь компактнее */
-    .an-cal { max-width: 224px; gap: 4px; }
-    .an-cal .d { border-radius: 6px; }
     .an-card .sub:empty { display: none; }
 
     /* чипы-фильтры истории слов */
@@ -17319,11 +17322,11 @@ let currentCardIdx = 0;
       const mins = a ? Math.round(a.sec / 60) : 0;
       const lvl = isActiveDay(key) ? (mins >= 15 ? 3 : mins >= 5 ? 2 : 1) : 0;
       if (lvl) activeDays++;
-      cal.insertAdjacentHTML('beforeend', '<div class="d l' + lvl + (i === 29 ? ' today' : '') + '" title="' + key + (mins ? ' · ' + mins + L(' min', ' мин') : '') + '"></div>');
+      cal.insertAdjacentHTML('beforeend', '<div class="d l' + lvl + (i === 29 ? ' today' : '') + '" title="' + key + (mins ? ' · ' + mins + L(' min', ' мин') : '') + '">' + Number(key.slice(8)) + '</div>');
     }
     set('an2-cal-title', L('Last 30 days', 'Последние 30 дней'));
     set('an2-cal-sub', activeDays + L(' of 30', ' из 30'));
-    $id('an2-legend').innerHTML = L('less', 'меньше') + ' <i style="background:var(--c-pink-soft)"></i><i style="background:color-mix(in srgb,var(--c-lime) 40%,white)"></i><i style="background:color-mix(in srgb,var(--c-lime) 75%,white)"></i><i style="background:var(--c-lime)"></i> ' + L('more', 'больше');
+    $id('an2-legend').innerHTML = '<span><i style="background:#fff;border:1px dashed var(--border-color)"></i>' + L('no practice', 'не занималась') + '</span><span><i style="background:color-mix(in srgb,var(--c-pink) 60%,white)"></i>' + L('under 5 min', 'до 5 мин') + '</span><span><i style="background:var(--c-lime)"></i>' + L('5–15 min', '5–15 мин') + '</span><span><i style="background:var(--c-berry)"></i>' + L('15+ min', '15+ мин') + '</span>';
     // слова
     const all = allWordsList();
     const mastered = all.filter(function (w) { return isMastered(w.term); }).length;
@@ -17501,6 +17504,16 @@ let currentCardIdx = 0;
     put('otg-prev', ICON_PREV); put('otg-next', ICON_NEXT); put('otg-close', ICON_CLOSE); put('wi-close', ICON_CLOSE);
     put('otg-pulse', ICON_SOUND_BIG);
   })();
+
+
+  // Ярлык на экране «Домой» (standalone): статус-бар iPhone повторял цвет урока и не возвращался в белый.
+  // В таком режиме цвет «шапки» не меняем вообще — всегда нейтральный фон страницы.
+  const IS_STANDALONE = !!(window.navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches));
+  function setThemeColor(hex) {
+    const meta = document.getElementById('theme-color-meta');
+    if (meta) meta.setAttribute('content', IS_STANDALONE ? PAGE_BG_HEX : hex);
+  }
+  if (IS_STANDALONE) setThemeColor(PAGE_BG_HEX);
 
   renderExistingLessonsSummary();
   setLang('en');
