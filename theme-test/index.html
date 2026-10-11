@@ -2753,9 +2753,9 @@
       background-position: 44% 0px, 82% 6px, 63% 18px; }
     body.in-trainer header::before, body.in-trainer header::after { display: none; }
 
-    /* нижняя волна с силуэтом (картинка Тани decor/village.png) в конце страницы */
-    .container { margin-bottom: 56px; }
-    .spooky-foot { position: relative; align-self: stretch; margin: auto -16px -100px; height: calc(min(595px, 100vw) * 0.1832 + 78px); pointer-events: none; z-index: 0; }
+    /* нижняя волна с силуэтом (картинка Тани decor/village.png) закреплена внизу экрана (плашкой), клики проходят сквозь неё */
+    body { padding-bottom: calc(min(595px, 100vw) * 0.1832 + 120px); }
+    .spooky-foot { position: fixed; left: 0; right: 0; bottom: 0; height: calc(min(595px, 100vw) * 0.1832 + 70px); pointer-events: none; z-index: 5; }
     .spooky-foot .sf-wave { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
     .spooky-foot .sf-ground { position: absolute; left: 0; right: 0; bottom: 0; height: calc(min(595px, 100vw) * 0.0185); background: #0e0a0c; }
     .spooky-foot img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: min(595px, 100vw); height: auto; display: block; }
