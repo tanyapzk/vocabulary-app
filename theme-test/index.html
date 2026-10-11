@@ -2743,13 +2743,14 @@
 
     /* шапка (тест, палитра C): паутина слева и три летучие мыши (картинки Тани, decor/*.png) */
     header { position: relative; }
-    header::before { content: ''; position: absolute; left: -26px; top: -34px; width: 205px; height: 139px; pointer-events: none; opacity: .9;
+    header h1 { position: relative; z-index: 2; }
+    header::before { z-index: 0; content: ''; position: absolute; left: -26px; top: -34px; width: 205px; height: 139px; pointer-events: none; opacity: .9;
       background: url("decor/web.png") no-repeat 0 0 / 100% auto; }
-    header::after { content: ''; position: absolute; left: 0; right: 0; top: -28px; height: 76px; pointer-events: none;
+    header::after { z-index: 3; content: ''; position: absolute; left: 0; right: 0; top: -28px; height: 76px; pointer-events: none;
       background-image: url("decor/bat-a.png"), url("decor/bat-b.png"), url("decor/bat-c.png");
       background-repeat: no-repeat;
       background-size: 40px auto, 30px auto, 22px auto;
-      background-position: 46% 0px, 63% 22px, 70px 2px; }
+      background-position: 44% 0px, 82% 6px, 192px 44px; }
     body.in-trainer header::before, body.in-trainer header::after { display: none; }
 </style>
 </head>
