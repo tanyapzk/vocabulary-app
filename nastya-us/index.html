@@ -16872,8 +16872,10 @@ let currentCardIdx = 0;
   // В таком режиме цвет «шапки» не меняем вообще — всегда нейтральный фон страницы.
   const IS_STANDALONE = !!(window.navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches));
   function setThemeColor(hex) {
+    // Цвет верхней полосы iPhone ВСЕГДА нейтральный (цвет фона страницы). Раньше он менялся на цвет открытого урока
+    // и «залипал» (зелёная шапка после урока с зелёным градиентом) — это было и в Safari, и в режиме иконки на экране.
     const meta = document.getElementById('theme-color-meta');
-    if (meta) meta.setAttribute('content', IS_STANDALONE ? PAGE_BG_HEX : hex);
+    if (meta) meta.setAttribute('content', PAGE_BG_HEX);
   }
   if (IS_STANDALONE) setThemeColor(PAGE_BG_HEX);
 

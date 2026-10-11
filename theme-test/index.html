@@ -2752,14 +2752,6 @@
       background-size: 40px auto, 30px auto, 22px auto;
       background-position: 44% 0px, 82% 6px, 63% 18px; }
     body.in-trainer header::before, body.in-trainer header::after { display: none; }
-
-    /* нижняя волна с силуэтом (картинка Тани decor/village.png) закреплена внизу экрана (плашкой), клики проходят сквозь неё */
-    body { padding-bottom: calc(min(595px, 100vw) * 0.1832 + 120px); }
-    .spooky-foot { position: fixed; left: 0; right: 0; bottom: 0; height: calc(min(595px, 100vw) * 0.1832 + 70px); pointer-events: none; z-index: 5; }
-    .spooky-foot .sf-wave { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
-    .spooky-foot .sf-ground { position: absolute; left: 0; right: 0; bottom: 0; height: calc(min(595px, 100vw) * 0.0185); background: #0e0a0c; }
-    .spooky-foot img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: min(595px, 100vw); height: auto; display: block; }
-    body.in-trainer .spooky-foot { display: none; }
 </style>
 </head>
 <body>
@@ -3236,16 +3228,6 @@
       </div>
     </div>
     </div>
-  </div>
-
-  <div class="spooky-foot" aria-hidden="true">
-    <svg class="sf-wave" viewBox="0 0 500 100" preserveAspectRatio="none">
-      <defs><linearGradient id="sfg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E9BCC9"/><stop offset="0.55" stop-color="#F4C28A"/><stop offset="1" stop-color="#F0A858"/></linearGradient></defs>
-      <path d="M0 34 Q80 6 170 26 T340 22 T500 14 V100 H0Z" fill="#D9B6CB" opacity=".6"/>
-      <path d="M0 46 Q90 18 190 38 T380 34 T500 26 V100 H0Z" fill="url(#sfg)"/>
-    </svg>
-    <div class="sf-ground"></div>
-    <img src="decor/village.png" alt="">
   </div>
 
   <!-- full-screen lesson (opens out of the folder) -->
@@ -17566,8 +17548,10 @@ let currentCardIdx = 0;
   // В таком режиме цвет «шапки» не меняем вообще — всегда нейтральный фон страницы.
   const IS_STANDALONE = !!(window.navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches));
   function setThemeColor(hex) {
+    // Цвет верхней полосы iPhone ВСЕГДА нейтральный (цвет фона страницы). Раньше он менялся на цвет открытого урока
+    // и «залипал» (зелёная шапка после урока с зелёным градиентом) — это было и в Safari, и в режиме иконки на экране.
     const meta = document.getElementById('theme-color-meta');
-    if (meta) meta.setAttribute('content', IS_STANDALONE ? PAGE_BG_HEX : hex);
+    if (meta) meta.setAttribute('content', PAGE_BG_HEX);
   }
   if (IS_STANDALONE) setThemeColor(PAGE_BG_HEX);
 
