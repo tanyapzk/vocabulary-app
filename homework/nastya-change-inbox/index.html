@@ -153,6 +153,12 @@ textarea{width:100%;min-height:200px;font:inherit;font-size:15px;line-height:1.6
 .pop b{font-family:var(--display);font-size:24px;font-weight:400;line-height:1.1}
 .pop .ru{font-size:13px;color:var(--muted)}
 .pop .ex{font-size:14px;border-top:1px solid var(--line);padding-top:8px}
+.pop .top{display:flex;align-items:center;gap:10px}
+.snd{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--panel-2);color:var(--accent);display:grid;place-items:center;flex:none;padding:0;transition:background .25s var(--ease),border-color .25s var(--ease)}
+.snd:hover,.snd.on{background:var(--accent-soft);border-color:var(--accent)}
+.snd svg{width:18px;height:18px}
+.pop .exr{display:flex;align-items:flex-start;gap:10px;border-top:1px solid var(--line);padding-top:8px}
+.pop .exr .ex{border:0;padding:0;flex:1}
 .pop .ex em{font-style:normal;background:var(--hl);padding:0 2px;border-radius:2px}
 
 @media (max-width:1060px){
@@ -433,6 +439,7 @@ const IC_PLAY='<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColo
 let speaking=false, audioEl=null;
 function toggleVoice(){
  if(speaking){ stopVoice(); return; }
+ stopPopAudio();
  const slow=$('slow')&&$('slow').getAttribute('aria-pressed')==="true";
  const a=new Audio('audio/chris.mp3'); a.playbackRate=slow?0.82:1; a.preservesPitch=true; audioEl=a;
  const fail=()=>{ stopVoice(); const t=$('tr'); if(t) t.hidden=false; const n=$('vnote'); if(n) n.textContent="The audio could not be loaded, so read the message instead."; };
@@ -445,17 +452,28 @@ function stopVoice(){ if(audioEl){ audioEl.onended=null; audioEl.onerror=null; t
 
 /* ---------- glossary popover ---------- */
 const pop=$('pop');
+let popAudio=null;
+function stopPopAudio(){ if(popAudio){ popAudio.onended=null; try{popAudio.pause();}catch(e){} popAudio=null; } pop.querySelectorAll('.snd.on').forEach(b=>b.classList.remove('on')); }
+function playPop(btn,file){
+ const was=btn.classList.contains('on'); stopPopAudio(); if(was) return;
+ const a=new Audio('audio/'+file+'.mp3'); popAudio=a; btn.classList.add('on');
+ a.onended=()=>stopPopAudio(); a.onerror=()=>stopPopAudio();
+ const p=a.play(); if(p&&p.catch) p.catch(()=>stopPopAudio());
+}
 function showPop(k,anchor){
- const g=G[k]; if(!g) return;
- pop.innerHTML=`<b>${g.w}</b><span>${g.d}</span><span class="ru">${g.ru}</span><span class="ex">${g.ex}</span>`;
+ const g=G[k]; if(!g) return; stopPopAudio(); stopVoice();
+ const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4z" fill="currentColor"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+ pop.innerHTML=`<div class="top"><button type="button" class="snd" data-a="w-${k}" aria-label="Listen to the word">${SPK}</button><b>${g.w}</b></div><span>${g.d}</span><span class="ru">${g.ru}</span><div class="exr"><button type="button" class="snd" data-a="e-${k}" aria-label="Listen to the example">${SPK}</button><span class="ex">${g.ex}</span></div>`;
+ pop.querySelectorAll('.snd').forEach(b=>b.addEventListener('click',()=>playPop(b,b.dataset.a)));
  pop.hidden=false;
  const r=anchor.getBoundingClientRect(); const pw=pop.offsetWidth, ph=pop.offsetHeight;
  let x=Math.min(Math.max(16,r.left),window.innerWidth-pw-16); let y=r.bottom+8; if(y+ph>window.innerHeight-12) y=Math.max(12,r.top-ph-8);
  pop.style.left=x+"px"; pop.style.top=y+"px";
+ playPop(pop.querySelector('.snd[data-a^="w-"]'),'w-'+k);
 }
-document.addEventListener('click',e=>{ const w=e.target.closest('[data-g]'); if(w){ e.stopPropagation(); showPop(w.dataset.g,w); return; } if(!e.target.closest('#pop')) pop.hidden=true; });
-document.addEventListener('keydown',e=>{ if(e.key==="Escape") pop.hidden=true; });
-document.addEventListener('scroll',()=>{pop.hidden=true;},true);
+document.addEventListener('click',e=>{ const w=e.target.closest('[data-g]'); if(w){ e.stopPropagation(); showPop(w.dataset.g,w); return; } if(!e.target.closest('#pop')){ pop.hidden=true; stopPopAudio(); } });
+document.addEventListener('keydown',e=>{ if(e.key==="Escape"){ pop.hidden=true; stopPopAudio(); } });
+document.addEventListener('scroll',()=>{pop.hidden=true; stopPopAudio();},true);
 $('railWords').innerHTML=railOrder.map(k=>`<button type="button" class="wchip" data-g="${k}">${G[k].w}</button>`).join("");
 
 /* ---------- copy answers ---------- */
