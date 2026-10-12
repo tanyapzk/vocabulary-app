@@ -195,7 +195,7 @@ textarea{width:100%;min-height:200px;font:inherit;font-size:15px;line-height:1.6
       <div class="bar"><i id="progBar"></i></div>
     </div>
     <div class="words-wrap" style="display:grid;gap:8px">
-      <h4>Words of the week</h4>
+      <h4>Phrases of the week</h4>
       <div class="words" id="railWords"></div>
     </div>
     <div class="rail-foot">
@@ -223,23 +223,29 @@ const $=id=>document.getElementById(id);
 
 /* ---------- glossary ---------- */
 const G={
- transform:{w:"transform",d:"to change something completely, so it looks or works very differently",ru:"кардинально изменить",ex:"Leadership wants to <em>transform</em> the way we work."},
- implement:{w:"implement",d:"to start using a new plan, system or rule",ru:"внедрить",ex:"We'll <em>implement</em> the new system in January."},
- inplace:{w:"put something in place",d:"to set up a rule, system or process so it starts working",ru:"ввести, наладить",ex:"We need to <em>put</em> a clear process <em>in place</em> first."},
- procedure:{w:"a procedure",d:"the official way of doing something, step by step",ru:"процедура, установленный порядок",ex:"Follow the new approval <em>procedure</em> for every purchase."},
- process:{w:"a process",d:"a series of actions that takes time and leads to a result",ru:"процесс",ex:"Changing a culture is a long <em>process</em>."},
- embrace:{w:"embrace change",d:"to accept change happily and with enthusiasm",ru:"принимать перемены с готовностью",ex:"Some people <em>embrace change</em> right away."},
- resist:{w:"resist change",d:"to try to stop change or not accept it",ru:"сопротивляться переменам",ex:"It's normal to <em>resist change</em> at first."},
- objections:{w:"anticipate objections",d:"to expect that people will disagree, and prepare for it",ru:"предвидеть возражения",ex:"We <em>anticipate</em> some <em>objections</em> from the sales team."},
- efficient:{w:"efficient",d:"working well without wasting time, money or energy",ru:"продуктивный, без лишних затрат",ex:"The new tool makes us more <em>efficient</em>: less admin."},
- effective:{w:"effective",d:"producing the result you want",ru:"эффективный, дающий результат",ex:"The training was really <em>effective</em>: everyone got it."},
- accommodate:{w:"accommodate needs",d:"to change your plans to fit what someone needs",ru:"учитывать потребности",ex:"We want to <em>accommodate the needs</em> of working parents."},
- assess:{w:"assess",d:"to look at something carefully and judge it",ru:"оценить",ex:"Managers will <em>assess</em> how each team works now."},
- facilitate:{w:"facilitate",d:"to make a process easier or help it happen",ru:"содействовать, облегчить",ex:"Training will <em>facilitate</em> a smooth transition."},
- morale:{w:"morale",d:"how confident and positive people in a group feel",ru:"моральный дух",ex:"<em>Morale</em> has been low since the budget cuts."},
- means:{w:"the means",d:"the money or resources you need to do something",ru:"средства, ресурсы",ex:"We don't have the <em>means</em> to hire more people."}
+ transform:{w:"transform the corporate culture",d:"to change how a whole company thinks and works, completely",ru:"кардинально изменить корпоративную культуру",ex:"The new CEO set out to <em>transform the corporate culture</em> from top to bottom."},
+ withtimes:{w:"move with the times",d:"to change and use new ideas so you don't become old-fashioned",ru:"идти в ногу со временем",ex:"To survive, the company had to <em>move with the times</em> and digitise its paperwork."},
+ implement:{w:"implement changes",d:"to start putting new plans or rules into practice",ru:"внедрять изменения",ex:"After the audit, the safety team moved quickly to <em>implement changes</em> to the evacuation procedure."},
+ inplace:{w:"put something in place",d:"to set up a system or rule so that it starts working",ru:"ввести, наладить (систему, процедуру)",ex:"We need to <em>put</em> a stricter reporting system <em>in place</em> before the next inspection."},
+ oversee:{w:"oversee the implementation",d:"to supervise how a plan is put into action",ru:"контролировать внедрение",ex:"A senior manager will <em>oversee the implementation</em> of the new safety protocols."},
+ streamline:{w:"streamline a process",d:"to make a process simpler, faster and less complicated",ru:"упростить, оптимизировать процесс",ex:"We are trying to <em>streamline the process</em> for reporting near-miss incidents."},
+ embrace:{w:"embrace change",d:"to accept change happily and with enthusiasm",ru:"принимать перемены с готовностью",ex:"The younger staff were ready to <em>embrace change</em>, but the veterans tended to resist change."},
+ resist:{w:"resist change",d:"to try to stop change or refuse to accept it",ru:"сопротивляться переменам",ex:"The younger staff were ready to embrace change, but the veterans tended to <em>resist change</em>."},
+ aversion:{w:"an aversion to change",d:"a strong dislike of change",ru:"неприятие перемен",ex:"Many senior employees showed <em>an aversion to change</em> and kept using the old forms."},
+ anticipate:{w:"anticipate problems",d:"to expect difficulties before they happen and prepare for them",ru:"предвидеть проблемы",ex:"A good safety manager learns to <em>anticipate</em> potential <em>problems</em> before they become incidents."},
+ efficient:{w:"efficient",d:"working well without wasting time, money or energy",ru:"продуктивный, без лишних затрат",ex:"The new filing system is <em>efficient</em>: it saves us a lot of time."},
+ effective:{w:"effective",d:"producing the result you want",ru:"эффективный, дающий результат",ex:"Only the training course was truly <em>effective</em> in reducing errors."},
+ accommodate:{w:"accommodate needs",d:"to adjust your plans so they fit what people need",ru:"учитывать потребности",ex:"The training programme was redesigned to <em>accommodate the needs</em> of employees with disabilities."},
+ assess:{w:"assess progress",d:"to look carefully at how far something has moved forward",ru:"оценивать прогресс",ex:"Managers meet every quarter to <em>assess progress</em> towards the safety targets."},
+ facilitate:{w:"facilitate cultural change",d:"to make it easier for a company's habits and attitudes to change",ru:"способствовать культурным переменам",ex:"Open communication can <em>facilitate cultural change</em> within a large organisation."},
+ bare:{w:"do the bare minimum",d:"to do only what is absolutely necessary, and nothing more",ru:"делать необходимый минимум",ex:"When people feel ignored, they tend to <em>do the bare minimum</em> and no more."},
+ morale:{w:"boost morale",d:"to make people in a group feel more positive and confident",ru:"поднять моральный дух",ex:"A small team event can <em>boost morale</em> after a stressful month."},
+ generate:{w:"generate enthusiasm",d:"to make people feel excited and interested",ru:"вызывать энтузиазм",ex:"The new wellbeing programme managed to <em>generate</em> real <em>enthusiasm</em> among the staff."},
+ procedure:{w:"procedure (vs process)",d:"the official, step-by-step way of doing something",ru:"установленный порядок",ex:"Following the emergency <em>procedure</em> is mandatory."},
+ process:{w:"process (vs procedure)",d:"a series of actions or changes that takes time",ru:"процесс",ex:"The approval <em>process</em> itself can be made shorter."},
+ means:{w:"the means (vs ability)",d:"the money or resources you need to do something",ru:"средства, ресурсы",ex:"The company has <em>the means</em> to expand, but it lacks the ability to manage rapid growth."}
 };
-const railOrder=["transform","implement","inplace","procedure","embrace","resist","objections","efficient","effective","accommodate","assess","facilitate","morale","means"];
+const railOrder=["transform","withtimes","implement","inplace","oversee","streamline","embrace","resist","aversion","anticipate","efficient","effective","accommodate","assess","facilitate","bare","morale","generate","procedure","process","means"];
 const W=(k,t)=>`<button type="button" class="w" data-g="${k}">${t||G[k].w}</button>`;
 
 /* ---------- state ---------- */
@@ -250,13 +256,14 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
 
 /* ---------- quiz data ---------- */
 const HRQ=[
- {q:"What will the company do in January?",o:["Start using a new system and new procedures","Move to a new office","Hire a new leadership team"],a:0},
+ {q:"What will the company do in January?",o:["Implement changes and put a new system in place","Move to a new office","Hire a new leadership team"],a:0},
  {q:"How does Dana expect people to react?",o:["Differently: some will like it, some won't","Everyone will be excited","Nobody will like it"],a:0},
  {q:"In Dana's email, “more efficient” means…",o:["spending less time on admin","getting better results","working longer hours"],a:0},
- {q:"What will managers do first?",o:["Look at how each team works right now","Choose new team members","Cancel hybrid work"],a:0},
- {q:"Why does Dana mention morale?",o:["People haven't been feeling very positive lately","Morale is the name of the new system","She wants people to work harder"],a:0}
+ {q:"What will managers do in the next few weeks?",o:["Assess progress in each team","Choose new team members","Cancel hybrid work"],a:0},
+ {q:"Why does Dana mention morale?",o:["People haven't been feeling very positive lately","Morale is the name of the new system","She wants people to work harder"],a:0},
+ {q:"What does Dana say people tend to do when they feel ignored?",o:["The bare minimum","Work longer hours","Leave the company"],a:0}
 ];
-const JESS=[["implement","to start using a new plan or system"],["put something in place","to set up a rule or process so it works"],["a procedure","the official, step-by-step way of doing something"],["embrace change","to accept change happily"],["anticipate objections","to expect people to disagree and prepare"],["accommodate needs","to adjust plans to fit what people need"],["assess","to look at something carefully and judge it"],["facilitate","to make a process easier"],["morale","how positive people in a group feel"],["transform","to change something completely"]];
+const JESS=[["implement changes","to start using new plans or rules in practice"],["put something in place","to set up a rule or system so it starts working"],["transform the corporate culture","to completely change how a company thinks and behaves"],["streamline a process","to make a process simpler and faster"],["embrace change","to accept change happily"],["anticipate problems","to expect difficulties and prepare for them"],["accommodate needs","to adjust your plans to fit what people need"],["assess progress","to check carefully how far something has moved forward"],["facilitate cultural change","to make it easier for a company's habits and attitudes to change"],["boost morale","to make people feel more positive and motivated"]];
 const CHRIS=[
  {q:"Chris thinks everyone will love the new system on day one.",a:false},
  {q:"Some people are worried the system will mean more work.",a:true},
@@ -265,15 +272,15 @@ const CHRIS=[
  {q:"A more flexible schedule might be possible during the switch.",a:true}
 ];
 const MIKE=[
- {pre:"The new tool should make us more",post:"— we'll spend way less time on paperwork.",o:["efficient","effective"],a:0,fb:"<b>efficient</b> = no wasted time or effort. <b>effective</b> = gets the result you want."},
+ {pre:"The new tool should make our reporting more",post:"— we'll spend way less time on paperwork.",o:["efficient","effective"],a:0,fb:"<b>efficient</b> = no wasted time or effort. <b>effective</b> = gets the result you want."},
  {pre:"The training session was really",post:"— everyone understood the new process.",o:["effective","efficient"],a:0,fb:"The training <b>worked</b> → effective."},
  {pre:"Please follow the new approval",post:"for every purchase over $500.",o:["procedure","process"],a:0,fb:"<b>procedure</b> = the official steps you must follow."},
- {pre:"Changing a company culture is a long",post:".",o:["process","procedure"],a:0,fb:"<b>process</b> = a series of changes over time."},
+ {pre:"Changing a corporate culture is a long",post:".",o:["process","procedure"],a:0,fb:"<b>process</b> = a series of changes over time."},
  {pre:"We don't have the",post:"to hire more people right now. The budget is tight.",o:["means","ability"],a:0,fb:"<b>means</b> = money or resources. <b>ability</b> = skill."},
- {pre:"Leadership wants to",post:"the way we work, not just change a few details.",o:["transform","change"],a:0,fb:"<b>transform</b> = change completely."}
+ {pre:"Leadership wants to",post:"the corporate culture, not just change a few details.",o:["transform","change"],a:0,fb:"<b>transform the corporate culture</b> = change it completely."}
 ];
-const CHRIS_T=["Hey, it's Chris. Quick update on the changes Dana mentioned.","Honestly, I think the new system is going to save us a lot of time, but I don't expect everyone to love it on day one. I know a few people are worried it'll mean more work, not less.","So here's my plan. Next week I'll sit down with each of you, one on one, and assess what's working and what isn't. If you have any concerns, bring them up. I'd rather hear them now than in March.","And if anyone needs a more flexible schedule during the switch, just let me know. We'll do our best to accommodate that. Talk soon."];
-const USED=[["transform",/\btransform/i],["implement",/\bimplement/i],["put in place",/\bin place\b/i],["procedure",/\bprocedure/i],["embrace",/\bembrac/i],["resist",/\bresist/i],["objections",/\bobjection/i],["efficient",/\befficien/i],["effective",/\beffective/i],["accommodate",/\baccommodat/i],["assess",/\bassess/i],["facilitate",/\bfacilitat/i],["morale",/\bmorale\b/i],["means",/\bmeans\b/i]];
+const CHRIS_T=["Hey, it's Chris. Quick update on the changes Dana mentioned.","Honestly, I think the new system is going to streamline our process and save us a lot of time, but I don't expect everyone to embrace change on day one. I know a few people are worried it'll mean more work, not less.","So here's my plan. Next week I'll sit down with each of you, one on one, and assess progress. If you have any concerns, bring them up. I'd rather hear them now than in March, so we can anticipate problems.","And if anyone needs a more flexible schedule during the switch, just let me know. We'll do our best to accommodate your needs. Talk soon."];
+const USED=[["transform the corporate culture",/transform\w*\s+(\w+\s+){0,2}culture/i],["implement changes",/implement\w*\s+(\w+\s+){0,2}changes?/i],["put in place",/\bput\w*\s+(\w+\s+){0,6}in place\b/i],["streamline a process",/streamlin\w*\s+(\w+\s+){0,2}process/i],["embrace change",/embrac\w*\s+(\w+\s+)?change/i],["resist change",/resist\w*\s+(\w+\s+)?change/i],["anticipate problems",/anticipat\w*\s+(\w+\s+){0,2}problems?/i],["accommodate needs",/accommodat\w*\s+(\w+\s+){0,2}needs?/i],["assess progress",/assess\w*\s+(\w+\s+){0,2}progress/i],["facilitate cultural change",/facilitat\w*\s+(\w+\s+){0,2}change/i],["boost morale",/boost\w*\s+(\w+\s+){0,2}morale/i],["generate enthusiasm",/generat\w*\s+(\w+\s+){0,2}enthusiasm/i]];
 
 /* ---------- messages ---------- */
 const M=[
@@ -330,8 +337,8 @@ const VIEWS={
   el.innerHTML=`<p>Hi Nastya,</p>
   <p>This week's homework is a little different. Imagine it's Monday morning, and your company has just announced some big changes. Your inbox is filling up.</p>
   <p>Open each message in order. Some ask you to answer questions, some ask you to help a coworker, and the last one asks for your opinion.</p>
-  <p class="hint"><i></i> Words with a dotted line are new. Click one to see what it means.</p>
-  <p>Try it: ${W("transform")} · ${W("morale")} · ${W("embrace","embrace change")}</p>
+  <p class="hint"><i></i> Phrases with a dotted line are new. Click one to see what it means and hear it.</p>
+  <p>Try it: ${W("transform")} · ${W("morale")} · ${W("embrace")}</p>
   <p>When everything is done, click <b>Copy my answers</b> on the left and paste them into a message to me. Your progress is saved in this browser, so you can stop and come back later.</p>
   <p class="sig">Enjoy,<br>Unit 3 · Change</p>
   ${nextBtn("start")}`;
@@ -339,10 +346,10 @@ const VIEWS={
  },
  hr(el){
   el.innerHTML=`<p>Hi team,</p>
-  <p>As many of you know, leadership has decided to ${W("transform")} the way we work next year. Starting in January, we'll ${W("implement")} a new project management system and ${W("inplace","put a few new procedures in place")} for approvals and reporting.</p>
-  <p>We know change can be hard. Some of you will ${W("embrace","embrace change")} right away, and some of you will ${W("resist","resist it")}, at least at first. That's completely normal. We ${W("objections","anticipate some objections")}, and we want to hear them.</p>
+  <p>As many of you know, leadership has decided to ${W("transform")} next year. We have to ${W("withtimes")}. Starting in January, we'll ${W("implement")} to the way we work and ${W("inplace","put a new project management system in place")}. A senior manager will ${W("oversee")}, and we'll ${W("streamline","streamline the approval process")} so it takes less time.</p>
+  <p>We know change can be hard. Some of you will ${W("embrace")} right away, and some of you will ${W("resist")}, at least at first. ${W("aversion","An aversion to change")} is completely normal. We ${W("anticipate")} and we want to hear about them.</p>
   <p>Our goal is simple: to make our work more ${W("efficient")} (less time on admin) and more ${W("effective")} (better results). We also want to ${W("accommodate","accommodate the needs")} of people with different schedules, so hybrid options will stay.</p>
-  <p>Over the next few weeks, your managers will ${W("assess")} how each team works now, so we can ${W("facilitate")} a smooth transition. We know ${W("morale")} has been a bit low lately, and we really hope these changes help.</p>
+  <p>Over the next few weeks, your managers will ${W("assess")} in each team, so we can ${W("facilitate")}. We know morale has been low lately, and people tend to ${W("bare")} when they feel ignored. We hope these changes will ${W("morale")} and ${W("generate")}.</p>
   <p class="sig">More details soon,<br>Dana Brooks<br>People &amp; Culture</p>
   <section class="task" id="t"><div class="task-h"><h3>Did you get it?</h3><span class="sc" id="sc"></span></div></section>
   ${nextBtn("hr")}`;
@@ -407,10 +414,10 @@ const VIEWS={
  reply(el){
   el.innerHTML=`<p>Hi Nastya,</p>
   <p>Before we meet next week, I'd love to hear your honest take on the changes. Nothing formal, just a few lines:</p>
-  <ul class="prompts"><li>How do you usually react to change at work? Do you ${W("embrace","embrace it")} or ${W("resist","resist it")} a little at first?</li><li>What ${W("objections")} do you think people on our team will have?</li><li>What would help keep ${W("morale")} up during the switch?</li></ul>
+  <ul class="prompts"><li>How do you usually react to change at work? Do you ${W("embrace")} or ${W("resist")} at first?</li><li>What problems do you think we should ${W("anticipate")}?</li><li>What would help ${W("morale")} during the switch?</li></ul>
   <p class="sig">Thanks!<br>Chris</p>
   <section class="task"><div class="task-h"><h3>Reply to Chris</h3><span class="wc" id="wc"></span></div>
-  <label for="replyBox" class="hint">Write about 80–150 words. Try to use at least four of the new words.</label>
+  <label for="replyBox" class="hint">Write about 80–150 words. Try to use at least four of the new phrases.</label>
   <textarea id="replyBox" placeholder="Hi Chris,&#10;&#10;"></textarea>
   <div class="used" id="used"></div></section>`;
   const box=$('replyBox'); box.value=S.reply||"";
