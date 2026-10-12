@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta property="og:title" content="Change Inbox">
+<meta property="og:description" content="Homework: Unit 3, Change.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Change Inbox</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a desktop mail client — folder rail · message list · reading pane; stacks on narrow screens */
+:root{
+  --bg:#ECEBE6; --panel:#FBFAF7; --panel-2:#F4F2EC; --ink:#16181B; --muted:#6C6861; --line:#DCD8CE;
+  --accent:#2338A8; --accent-soft:#E4E8FB; --accent-ink:#FFFFFF;
+  --ok:#25704A; --ok-soft:#E1F1E7; --no:#AE3328; --no-soft:#F8E3E0; --hl:#FFF0B8;
+  --display:"Instrument Serif","Iowan Old Style",Georgia,serif;
+  --sans:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121417; --panel:#1A1D21; --panel-2:#20242A; --ink:#ECEAE4; --muted:#9A968E; --line:#2E333A;
+  --accent:#8EA0FF; --accent-soft:#252C4F; --accent-ink:#0E1022;
+  --ok:#6FCF97; --ok-soft:#1B3326; --no:#F08A7E; --no-soft:#3A2220; --hl:#4A4220; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121417; --panel:#1A1D21; --panel-2:#20242A; --ink:#ECEAE4; --muted:#9A968E; --line:#2E333A;
+  --accent:#8EA0FF; --accent-soft:#252C4F; --accent-ink:#0E1022;
+  --ok:#6FCF97; --ok-soft:#1B3326; --no:#F08A7E; --no-soft:#3A2220; --hl:#4A4220; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.shell{height:100%;padding-inline:16px;padding-block:16px;display:flex}
+.app{flex:1;min-height:0;display:grid;grid-template-columns:210px 340px minmax(0,1fr);background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;max-width:1440px;margin:0 auto;width:100%}
+
+/* rail */
+.rail{background:var(--panel-2);border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:18px;min-width:0;overflow:auto}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand b{font-family:var(--display);font-size:30px;font-weight:400;line-height:1;letter-spacing:-.01em}
+.brand span{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.folders{display:grid;gap:2px}
+.folder{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:8px;font-weight:500;font-size:14px}
+.folder.on{background:var(--panel);box-shadow:0 0 0 1px var(--line)}
+.folder .ct{font-family:var(--mono);font-size:12px;color:var(--accent);font-variant-numeric:tabular-nums}
+.folder.dim{color:var(--muted)}
+.prog{display:grid;gap:8px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.prog-top{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
+.prog-top b{font-family:var(--mono);font-weight:500;font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .6s var(--ease)}
+.btn{border:0;background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px;transition:filter .3s var(--ease),transform .3s var(--ease)}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1px var(--muted)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.rail h4{margin:0;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.words{display:flex;flex-wrap:wrap;gap:5px}
+.wchip{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:3px 7px;font-size:12.5px}
+.wchip:hover{border-color:var(--accent);color:var(--accent)}
+.rail-foot{margin-top:auto;display:grid;gap:8px}
+.copied{font-size:12.5px;color:var(--ok);min-height:1.2em}
+.reset{background:none;border:0;padding:0;font-size:12px;color:var(--muted);text-decoration:underline;justify-self:start}
+
+/* list */
+.list{border-right:1px solid var(--line);display:flex;flex-direction:column;min-width:0;min-height:0}
+.list-head{padding:16px 16px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.list-head h2{margin:0;font-size:15px;font-weight:600}
+.list-head span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.msgs{overflow:auto;flex:1}
+.msg{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:13px 16px;position:relative;transition:background .25s var(--ease)}
+.msg:hover{background:var(--panel-2)}
+.msg.sel{background:var(--accent-soft)}
+.msg .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:600;color:#fff}
+.msg .meta{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.msg .from{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg .time{font-family:var(--mono);font-size:11.5px;color:var(--muted);flex:none}
+.msg .subj{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg .prev{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg.unread .subj{font-weight:600}
+.msg.unread::before{content:"";position:absolute;left:6px;top:24px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.msg .state{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;margin-top:4px;color:var(--muted)}
+.msg .state.done{color:var(--ok)}
+
+/* reader */
+.reader{min-width:0;min-height:0;overflow:auto;background:var(--panel)}
+.letter{max-width:760px;margin:0 auto;padding:32px 40px 64px;display:grid;gap:22px}
+.subject{font-family:var(--display);font-size:clamp(30px,3.2vw,42px);line-height:1.05;font-weight:400;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.hdr{display:flex;gap:12px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.hdr .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:600;color:#fff;flex:none}
+.hdr .who{display:grid;min-width:0}
+.hdr .who b{font-size:15px}
+.hdr .who span{font-size:13px;color:var(--muted)}
+.hdr .when{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.body p{margin:0 0 12px;max-width:66ch}
+.body{font-size:16px}
+.w{background:none;border:0;padding:0 1px;font:inherit;color:inherit;border-bottom:1.5px dotted var(--accent);background-image:linear-gradient(var(--accent-soft),var(--accent-soft));background-size:100% 40%;background-repeat:no-repeat;background-position:0 90%;cursor:help}
+.w:hover{color:var(--accent)}
+.hint{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.hint i{display:inline-block;width:22px;height:0;border-bottom:1.5px dotted var(--accent)}
+
+.task{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:18px 20px;display:grid;gap:14px}
+.task-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.task-h h3{margin:0;font-size:15px;font-weight:600}
+.task-h .sc{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.q{display:grid;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0;padding-top:0}
+.q p{margin:0;font-weight:500}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:7px 12px;font-size:14px;text-align:left;transition:border-color .25s var(--ease),background .25s var(--ease)}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.wrong{background:var(--no-soft);border-color:var(--no);color:var(--no);animation:nudge .3s var(--ease)}
+@keyframes nudge{30%{transform:translateX(-3px)}70%{transform:translateX(3px)}}
+.fb{font-size:13.5px;color:var(--muted)}
+.fb b{color:var(--ink)}
+.match{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) 24px;gap:8px 12px;align-items:center}
+.match .term{font-weight:600}
+.match select{width:100%;font:inherit;font-size:14px;padding:7px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.match select.ok{border-color:var(--ok);background:var(--ok-soft)}
+.match select.bad{border-color:var(--no);background:var(--no-soft)}
+.mk{font-family:var(--mono);font-size:13px}
+.mk.ok{color:var(--ok)} .mk.bad{color:var(--no)}
+.gap{display:inline-block;min-width:90px;border-bottom:1.5px solid var(--muted);text-align:center;font-weight:600;padding:0 4px}
+.gap.filled{border-color:var(--ok);color:var(--ok)}
+
+.voice{display:flex;gap:14px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--panel)}
+.play{width:44px;height:44px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}
+.wave{flex:1;display:flex;gap:3px;align-items:center;height:30px;min-width:0;overflow:hidden}
+.wave i{flex:1;min-width:2px;max-width:5px;border-radius:2px;background:var(--line)}
+.voice.on .wave i{background:var(--accent);animation:bob 1s var(--ease) infinite alternate}
+@keyframes bob{to{transform:scaleY(.4)}}
+.vctl{display:flex;gap:6px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:4px 10px;font-size:12.5px}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.transcript{border-left:2px solid var(--accent);padding:4px 0 4px 14px;color:var(--ink)}
+.transcript p{margin:0 0 8px}
+
+textarea{width:100%;min-height:200px;font:inherit;font-size:15px;line-height:1.6;padding:14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);resize:vertical}
+.used{display:flex;flex-wrap:wrap;gap:6px}
+.used span{font-size:12.5px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);transition:all .3s var(--ease)}
+.used span.on{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.prompts{margin:0;padding-left:20px;display:grid;gap:4px}
+.wc{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.next{justify-self:start}
+.sig{color:var(--muted);font-size:14px}
+
+/* popover */
+.pop{position:fixed;z-index:20;width:300px;max-width:calc(100vw - 32px);background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.16);padding:14px 16px;display:grid;gap:6px}
+.pop b{font-family:var(--display);font-size:24px;font-weight:400;line-height:1.1}
+.pop .ru{font-size:13px;color:var(--muted)}
+.pop .ex{font-size:14px;border-top:1px solid var(--line);padding-top:8px}
+.pop .ex em{font-style:normal;background:var(--hl);padding:0 2px;border-radius:2px}
+
+@media (max-width:1060px){
+  .app{grid-template-columns:300px minmax(0,1fr)}
+  .rail{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--line);flex-direction:row;flex-wrap:wrap;align-items:flex-start}
+  .rail .words-wrap{display:none}
+  .rail-foot{margin-top:0}
+}
+@media (max-width:760px){
+  .shell{height:auto;display:block}
+  .app{display:block}
+  .msgs{max-height:none}
+  .list{border-right:0;border-bottom:1px solid var(--line)}
+  .letter{padding:24px 18px 48px}
+  .match{grid-template-columns:1fr 24px}
+  .match .term{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="app">
+  <aside class="rail">
+    <div class="brand"><b>Inbox</b><span>Unit 3 · Change</span></div>
+    <nav class="folders" aria-label="Folders">
+      <div class="folder on">Inbox <span class="ct" id="unreadCt"></span></div>
+      <div class="folder dim">Sent</div>
+      <div class="folder dim">Drafts</div>
+    </nav>
+    <div class="prog">
+      <div class="prog-top"><span>Homework</span><b id="progTxt">0 / 6</b></div>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+    <div class="words-wrap" style="display:grid;gap:8px">
+      <h4>Words of the week</h4>
+      <div class="words" id="railWords"></div>
+    </div>
+    <div class="rail-foot">
+      <button class="btn" id="copyBtn" type="button">Copy my answers</button>
+      <p class="copied" id="copyMsg" aria-live="polite"></p>
+      <textarea id="copyFallback" hidden readonly aria-label="Your answers"></textarea>
+      <button class="reset" id="resetBtn" type="button">Start over</button>
+    </div>
+  </aside>
+
+  <section class="list" aria-label="Messages">
+    <div class="list-head"><h2>Inbox</h2><span id="todayLbl">Mon</span></div>
+    <div class="msgs" id="msgs"></div>
+  </section>
+
+  <main class="reader" id="reader" aria-live="polite"></main>
+</div>
+</div>
+
+<div class="pop" id="pop" hidden role="dialog" aria-label="Word meaning"></div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+
+/* ---------- glossary ---------- */
+const G={
+ transform:{w:"transform",d:"to change something completely, so it looks or works very differently",ru:"кардинально изменить",ex:"Leadership wants to <em>transform</em> the way we work."},
+ implement:{w:"implement",d:"to start using a new plan, system or rule",ru:"внедрить",ex:"We'll <em>implement</em> the new system in January."},
+ inplace:{w:"put something in place",d:"to set up a rule, system or process so it starts working",ru:"ввести, наладить",ex:"We need to <em>put</em> a clear process <em>in place</em> first."},
+ procedure:{w:"a procedure",d:"the official way of doing something, step by step",ru:"процедура, установленный порядок",ex:"Follow the new approval <em>procedure</em> for every purchase."},
+ process:{w:"a process",d:"a series of actions that takes time and leads to a result",ru:"процесс",ex:"Changing a culture is a long <em>process</em>."},
+ embrace:{w:"embrace change",d:"to accept change happily and with enthusiasm",ru:"принимать перемены с готовностью",ex:"Some people <em>embrace change</em> right away."},
+ resist:{w:"resist change",d:"to try to stop change or not accept it",ru:"сопротивляться переменам",ex:"It's normal to <em>resist change</em> at first."},
+ objections:{w:"anticipate objections",d:"to expect that people will disagree, and prepare for it",ru:"предвидеть возражения",ex:"We <em>anticipate</em> some <em>objections</em> from the sales team."},
+ efficient:{w:"efficient",d:"working well without wasting time, money or energy",ru:"продуктивный, без лишних затрат",ex:"The new tool makes us more <em>efficient</em>: less admin."},
+ effective:{w:"effective",d:"producing the result you want",ru:"эффективный, дающий результат",ex:"The training was really <em>effective</em>: everyone got it."},
+ accommodate:{w:"accommodate needs",d:"to change your plans to fit what someone needs",ru:"учитывать потребности",ex:"We want to <em>accommodate the needs</em> of working parents."},
+ assess:{w:"assess",d:"to look at something carefully and judge it",ru:"оценить",ex:"Managers will <em>assess</em> how each team works now."},
+ facilitate:{w:"facilitate",d:"to make a process easier or help it happen",ru:"содействовать, облегчить",ex:"Training will <em>facilitate</em> a smooth transition."},
+ morale:{w:"morale",d:"how confident and positive people in a group feel",ru:"моральный дух",ex:"<em>Morale</em> has been low since the budget cuts."},
+ means:{w:"the means",d:"the money or resources you need to do something",ru:"средства, ресурсы",ex:"We don't have the <em>means</em> to hire more people."}
+};
+const railOrder=["transform","implement","inplace","procedure","embrace","resist","objections","efficient","effective","accommodate","assess","facilitate","morale","means"];
+const W=(k,t)=>`<button type="button" class="w" data-g="${k}">${t||G[k].w}</button>`;
+
+/* ---------- state ---------- */
+const KEY="change-inbox-u3";
+let S={read:{},ans:{},first:{},reply:""};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) S=Object.assign(S,s);}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
+
+/* ---------- quiz data ---------- */
+const HRQ=[
+ {q:"What will the company do in January?",o:["Start using a new system and new procedures","Move to a new office","Hire a new leadership team"],a:0},
+ {q:"How does Dana expect people to react?",o:["Differently: some will like it, some won't","Everyone will be excited","Nobody will like it"],a:0},
+ {q:"In Dana's email, “more efficient” means…",o:["spending less time on admin","getting better results","working longer hours"],a:0},
+ {q:"What will managers do first?",o:["Look at how each team works right now","Choose new team members","Cancel hybrid work"],a:0},
+ {q:"Why does Dana mention morale?",o:["People haven't been feeling very positive lately","Morale is the name of the new system","She wants people to work harder"],a:0}
+];
+const JESS=[["implement","to start using a new plan or system"],["put something in place","to set up a rule or process so it works"],["a procedure","the official, step-by-step way of doing something"],["embrace change","to accept change happily"],["anticipate objections","to expect people to disagree and prepare"],["accommodate needs","to adjust plans to fit what people need"],["assess","to look at something carefully and judge it"],["facilitate","to make a process easier"],["morale","how positive people in a group feel"],["transform","to change something completely"]];
+const CHRIS=[
+ {q:"Chris thinks everyone will love the new system on day one.",a:false},
+ {q:"Some people are worried the system will mean more work.",a:true},
+ {q:"Chris is going to talk to each person on the team.",a:true},
+ {q:"Chris would prefer to hear concerns later, after the switch.",a:false},
+ {q:"A more flexible schedule might be possible during the switch.",a:true}
+];
+const MIKE=[
+ {pre:"The new tool should make us more",post:"— we'll spend way less time on paperwork.",o:["efficient","effective"],a:0,fb:"<b>efficient</b> = no wasted time or effort. <b>effective</b> = gets the result you want."},
+ {pre:"The training session was really",post:"— everyone understood the new process.",o:["effective","efficient"],a:0,fb:"The training <b>worked</b> → effective."},
+ {pre:"Please follow the new approval",post:"for every purchase over $500.",o:["procedure","process"],a:0,fb:"<b>procedure</b> = the official steps you must follow."},
+ {pre:"Changing a company culture is a long",post:".",o:["process","procedure"],a:0,fb:"<b>process</b> = a series of changes over time."},
+ {pre:"We don't have the",post:"to hire more people right now. The budget is tight.",o:["means","ability"],a:0,fb:"<b>means</b> = money or resources. <b>ability</b> = skill."},
+ {pre:"Leadership wants to",post:"the way we work, not just change a few details.",o:["transform","change"],a:0,fb:"<b>transform</b> = change completely."}
+];
+const CHRIS_T=["Hey, it's Chris. Quick update on the changes Dana mentioned.","Honestly, I think the new system is going to save us a lot of time, but I don't expect everyone to love it on day one. I know a few people are worried it'll mean more work, not less.","So here's my plan. Next week I'll sit down with each of you, one on one, and assess what's working and what isn't. If you have any concerns, bring them up. I'd rather hear them now than in March.","And if anyone needs a more flexible schedule during the switch, just let me know. We'll do our best to accommodate that. Talk soon."];
+const USED=[["transform",/\btransform/i],["implement",/\bimplement/i],["put in place",/\bin place\b/i],["procedure",/\bprocedure/i],["embrace",/\bembrac/i],["resist",/\bresist/i],["objections",/\bobjection/i],["efficient",/\befficien/i],["effective",/\beffective/i],["accommodate",/\baccommodat/i],["assess",/\bassess/i],["facilitate",/\bfacilitat/i],["morale",/\bmorale\b/i],["means",/\bmeans\b/i]];
+
+/* ---------- messages ---------- */
+const M=[
+ {id:"start",from:"Homework",ini:"HW",col:"#16181B",time:"8:02 AM",subj:"Start here: your inbox for this week",prev:"Six messages, one story: change is coming to the office.",role:"Unit 3 · Change"},
+ {id:"hr",from:"Dana Brooks",ini:"DB",col:"#2338A8",time:"9:14 AM",subj:"Heads up: big changes coming in January",prev:"As many of you know, leadership has decided to…",role:"People & Culture"},
+ {id:"jess",from:"Jess Alvarez",ini:"JA",col:"#B5527A",time:"9:31 AM",subj:"ok did you see Dana's email??",prev:"half of those words sound like a TED talk lol",role:"Your coworker"},
+ {id:"chris",from:"Chris Walker",ini:"CW",col:"#25704A",time:"10:05 AM",subj:"Voice message: quick update",prev:"Voice message · 0:45",role:"Your manager"},
+ {id:"mike",from:"Mike Chen",ini:"MC",col:"#A86A16",time:"11:20 AM",subj:"Can you check my email before I send it?",prev:"I always mix these words up…",role:"Your coworker"},
+ {id:"reply",from:"Chris Walker",ini:"CW",col:"#25704A",time:"12:48 PM",subj:"Your take?",prev:"Before we meet next week, I'd love to hear…",role:"Your manager"}
+];
+const isDone=id=>{
+ if(id==="start") return !!S.read.start;
+ if(id==="hr") return HRQ.every((_,i)=>S.ans["hr"+i]===HRQ[i].a);
+ if(id==="jess") return JESS.every((_,i)=>S.ans["j"+i]===i);
+ if(id==="chris") return CHRIS.every((_,i)=>S.ans["c"+i]===CHRIS[i].a);
+ if(id==="mike") return MIKE.every((_,i)=>S.ans["m"+i]===MIKE[i].a);
+ if(id==="reply") return (S.reply||"").trim().split(/\s+/).filter(Boolean).length>=60;
+};
+let cur=null;
+
+function renderList(){
+ const box=$('msgs'); box.innerHTML="";
+ M.forEach(m=>{
+  const b=document.createElement('button'); b.type="button"; b.id="msg-"+m.id;
+  b.className="msg"+(S.read[m.id]?"":" unread")+(cur===m.id?" sel":"");
+  const done=isDone(m.id);
+  b.innerHTML=`<span class="av" style="background:${m.col}">${m.ini}</span><span style="min-width:0;display:grid;gap:1px"><span class="meta"><span class="from">${m.from}</span><span class="time">${m.time}</span></span><span class="subj">${m.subj}</span><span class="prev">${m.prev}</span><span class="state${done?" done":""}">${done?"Done":(S.read[m.id]?"In progress":"New")}</span></span>`;
+  b.addEventListener('click',()=>open(m.id));
+  box.appendChild(b);
+ });
+ const n=M.filter(m=>isDone(m.id)).length;
+ $('progTxt').textContent=`${n} / ${M.length}`; $('progBar').style.width=(n/M.length*100)+"%";
+ const unread=M.filter(m=>!S.read[m.id]).length; $('unreadCt').textContent=unread||"";
+}
+
+function header(m){
+ return `<h1 class="subject">${m.subj}</h1><div class="hdr"><span class="av" style="background:${m.col}">${m.ini}</span><span class="who"><b>${m.from}</b><span>${m.role} · to me</span></span><span class="when">Today, ${m.time}</span></div>`;
+}
+
+function open(id){
+ cur=id; S.read[id]=true; save(); stopVoice();
+ const m=M.find(x=>x.id===id); const r=$('reader');
+ r.innerHTML=`<article class="letter">${header(m)}<div class="body" id="body"></div></article>`;
+ VIEWS[id]($('body'));
+ r.scrollTop=0; renderList();
+}
+
+/* ---------- views ---------- */
+const nextBtn=(id)=>{const i=M.findIndex(m=>m.id===id); if(i<M.length-1) return `<button class="btn ghost next" type="button" data-next="${M[i+1].id}">Next message →</button>`; return "";};
+function wireNext(el){el.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>open(b.dataset.next)));}
+
+const VIEWS={
+ start(el){
+  el.innerHTML=`<p>Hi Nastya,</p>
+  <p>This week's homework is a little different. Imagine it's Monday morning, and your company has just announced some big changes. Your inbox is filling up.</p>
+  <p>Open each message in order. Some ask you to answer questions, some ask you to help a coworker, and the last one asks for your opinion.</p>
+  <p class="hint"><i></i> Words with a dotted line are new. Click one to see what it means.</p>
+  <p>Try it: ${W("transform")} · ${W("morale")} · ${W("embrace","embrace change")}</p>
+  <p>When everything is done, click <b>Copy my answers</b> on the left and paste them into a message to Tanya. Your progress is saved in this browser, so you can stop and come back later.</p>
+  <p class="sig">Enjoy,<br>Unit 3 · Change</p>
+  ${nextBtn("start")}`;
+  wireNext(el); renderList();
+ },
+ hr(el){
+  el.innerHTML=`<p>Hi team,</p>
+  <p>As many of you know, leadership has decided to ${W("transform")} the way we work next year. Starting in January, we'll ${W("implement")} a new project management system and ${W("inplace","put a few new procedures in place")} for approvals and reporting.</p>
+  <p>We know change can be hard. Some of you will ${W("embrace","embrace change")} right away, and some of you will ${W("resist","resist it")}, at least at first. That's completely normal. We ${W("objections","anticipate some objections")}, and we want to hear them.</p>
+  <p>Our goal is simple: to make our work more ${W("efficient")} (less time on admin) and more ${W("effective")} (better results). We also want to ${W("accommodate","accommodate the needs")} of people with different schedules, so hybrid options will stay.</p>
+  <p>Over the next few weeks, your managers will ${W("assess")} how each team works now, so we can ${W("facilitate")} a smooth transition. We know ${W("morale")} has been a bit low lately, and we really hope these changes help.</p>
+  <p class="sig">More details soon,<br>Dana Brooks<br>People &amp; Culture</p>
+  <section class="task" id="t"><div class="task-h"><h3>Did you get it?</h3><span class="sc" id="sc"></span></div></section>
+  ${nextBtn("hr")}`;
+  mcq($('t'),HRQ,"hr",'sc'); wireNext(el);
+ },
+ jess(el){
+  el.innerHTML=`<p>ok did you see Dana's email??</p>
+  <p>I read it twice and I still feel like half of those words came from a TED talk. You're good with this stuff. Can you help me figure out what they actually mean? Just match them for me, please.</p>
+  <p class="sig">— J</p>
+  <section class="task"><div class="task-h"><h3>Match each word to its meaning</h3><span class="sc" id="sc"></span></div><div class="match" id="mt"></div></section>
+  ${nextBtn("jess")}`;
+  const mt=$('mt'); const order=[3,7,0,9,5,1,8,2,6,4];
+  JESS.forEach(([term],i)=>{
+   const t=document.createElement('span'); t.className="term"; t.textContent=term;
+   const s=document.createElement('select'); s.id="jsel"+i; s.setAttribute('aria-label',"Meaning of "+term);
+   s.innerHTML=`<option value="">Choose a meaning…</option>`+order.map(k=>`<option value="${k}">${JESS[k][1]}</option>`).join("");
+   const mk=document.createElement('span'); mk.className="mk";
+   const paint=()=>{ const v=S.ans["j"+i]; s.value=(v===undefined?"":v); s.classList.toggle('ok',v===i); s.classList.toggle('bad',v!==undefined&&v!==i); mk.innerHTML=v===undefined?"":(v===i?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'); mk.className="mk "+(v===undefined?"":(v===i?"ok":"bad")); };
+   s.addEventListener('change',()=>{ if(s.value===""){delete S.ans["j"+i];} else { const v=+s.value; if(S.first["j"+i]===undefined) S.first["j"+i]=(v===i); S.ans["j"+i]=v; } save(); paint(); score(); renderList(); });
+   mt.append(t,s,mk); paint();
+  });
+  const score=()=>{$('sc').textContent=`${JESS.filter((_,i)=>S.ans["j"+i]===i).length} / ${JESS.length} correct`;}; score(); wireNext(el);
+ },
+ chris(el){
+  el.innerHTML=`<div class="voice" id="voice"><button class="play" id="play" type="button" aria-label="Play voice message"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button><div class="wave" aria-hidden="true">${Array.from({length:48},(_,i)=>`<i style="height:${20+Math.round(Math.abs(Math.sin(i*1.7))*70)}%;animation-delay:${(i%8)*0.08}s"></i>`).join("")}</div><div class="vctl"><button class="pill" id="slow" type="button" aria-pressed="false">Slower</button><button class="pill" id="tbtn" type="button" aria-pressed="false">Show text</button></div></div>
+  <p class="hint" id="vnote">Listen first. Open the text only if you need it.</p>
+  <div class="transcript" id="tr" hidden>${CHRIS_T.map(p=>`<p>${p}</p>`).join("")}</div>
+  <section class="task"><div class="task-h"><h3>True or false?</h3><span class="sc" id="sc"></span></div><div id="tf"></div></section>
+  ${nextBtn("chris")}`;
+  $('play').addEventListener('click',toggleVoice);
+  $('slow').addEventListener('click',()=>{ const on=$('slow').getAttribute('aria-pressed')!=="true"; $('slow').setAttribute('aria-pressed',on); if(audioEl){ audioEl.playbackRate=on?0.82:1; } });
+  $('tbtn').addEventListener('click',()=>{ const t=$('tr'); t.hidden=!t.hidden; $('tbtn').setAttribute('aria-pressed',!t.hidden); $('tbtn').textContent=t.hidden?"Show text":"Hide text"; });
+  const tf=$('tf'); CHRIS.forEach((c,i)=>{
+   const d=document.createElement('div'); d.className="q"; d.innerHTML=`<p>${i+1}. ${c.q}</p><div class="opts"></div>`;
+   [true,false].forEach(v=>{ const b=document.createElement('button'); b.type="button"; b.className="opt"; b.id=`c${i}${v}`; b.textContent=v?"True":"False";
+     b.addEventListener('click',()=>{ if(S.ans["c"+i]===c.a) return; if(S.first["c"+i]===undefined) S.first["c"+i]=(v===c.a); if(v===c.a){S.ans["c"+i]=v;} save(); paintTF(d,i,v); score(); renderList(); });
+     d.querySelector('.opts').appendChild(b); });
+   tf.appendChild(d); paintTF(d,i);
+  });
+  function paintTF(d,i,clicked){ const c=CHRIS[i]; d.querySelectorAll('.opt').forEach(b=>{ const v=b.textContent==="True"; b.classList.remove('right','wrong'); if(S.ans["c"+i]===c.a && v===c.a) b.classList.add('right'); else if(clicked!==undefined && v===clicked && v!==c.a){ void b.offsetWidth; b.classList.add('wrong'); } }); }
+  const score=()=>{$('sc').textContent=`${CHRIS.filter((c,i)=>S.ans["c"+i]===c.a).length} / ${CHRIS.length}`;}; score(); wireNext(el);
+ },
+ mike(el){
+  el.innerHTML=`<p>Hey! Can you check this before I send it to the whole team? I always mix these words up and I really don't want to look dumb in front of Dana.</p>
+  <p>Just pick the right word in each sentence. Thank you, I owe you a coffee.</p>
+  <p class="sig">Mike</p>
+  <section class="task" id="t"><div class="task-h"><h3>Pick the right word</h3><span class="sc" id="sc"></span></div></section>
+  ${nextBtn("mike")}`;
+  const t=$('t');
+  MIKE.forEach((q,i)=>{
+   const d=document.createElement('div'); d.className="q";
+   d.innerHTML=`<p>${q.pre} <span class="gap" id="g${i}">&nbsp;</span> ${q.post}</p><div class="opts"></div><p class="fb" hidden></p>`;
+   q.o.forEach((o,k)=>{ const b=document.createElement('button'); b.type="button"; b.className="opt"; b.id=`m${i}o${k}`; b.textContent=o;
+     b.addEventListener('click',()=>{ if(S.ans["m"+i]===q.a) return; if(S.first["m"+i]===undefined) S.first["m"+i]=(k===q.a); if(k===q.a) S.ans["m"+i]=k; save(); paint(k); sc(); renderList(); });
+     d.querySelector('.opts').appendChild(b); });
+   const paint=(clicked)=>{ const ok=S.ans["m"+i]===q.a; d.querySelectorAll('.opt').forEach((b,k)=>{ b.classList.remove('right','wrong'); if(ok&&k===q.a) b.classList.add('right'); else if(clicked===k&&k!==q.a){ void b.offsetWidth; b.classList.add('wrong'); } });
+     const g=d.querySelector('.gap'); g.textContent=ok?q.o[q.a]:" "; g.classList.toggle('filled',ok); const fb=d.querySelector('.fb'); fb.hidden=!ok; fb.innerHTML=q.fb; };
+   t.appendChild(d); paint();
+  });
+  const sc=()=>{$('sc').textContent=`${MIKE.filter((q,i)=>S.ans["m"+i]===q.a).length} / ${MIKE.length}`;}; sc(); wireNext(el);
+ },
+ reply(el){
+  el.innerHTML=`<p>Hi Nastya,</p>
+  <p>Before we meet next week, I'd love to hear your honest take on the changes. Nothing formal, just a few lines:</p>
+  <ul class="prompts"><li>How do you usually react to change at work? Do you ${W("embrace","embrace it")} or ${W("resist","resist it")} a little at first?</li><li>What ${W("objections")} do you think people on our team will have?</li><li>What would help keep ${W("morale")} up during the switch?</li></ul>
+  <p class="sig">Thanks!<br>Chris</p>
+  <section class="task"><div class="task-h"><h3>Reply to Chris</h3><span class="wc" id="wc"></span></div>
+  <label for="replyBox" class="hint">Write about 80–150 words. Try to use at least four of the new words.</label>
+  <textarea id="replyBox" placeholder="Hi Chris,&#10;&#10;"></textarea>
+  <div class="used" id="used"></div></section>`;
+  const box=$('replyBox'); box.value=S.reply||"";
+  const used=$('used'); used.innerHTML=USED.map(([n])=>`<span>${n}</span>`).join("");
+  const upd=()=>{ const v=box.value; S.reply=v; save(); const n=v.trim().split(/\s+/).filter(Boolean).length; $('wc').textContent=`${n} words`;
+    used.querySelectorAll('span').forEach((s,i)=>s.classList.toggle('on',USED[i][1].test(v))); renderList(); };
+  box.addEventListener('input',upd); upd();
+ }
+};
+
+function mcq(root,data,prefix,scId){
+ data.forEach((q,i)=>{
+  const d=document.createElement('div'); d.className="q";
+  d.innerHTML=`<p>${i+1}. ${q.q}</p><div class="opts"></div>`;
+  const order=q.o.map((_,k)=>k); const rot=(i*2+1)%order.length; const ord=order.slice(rot).concat(order.slice(0,rot));
+  ord.forEach(k=>{ const b=document.createElement('button'); b.type="button"; b.className="opt"; b.id=`${prefix}${i}o${k}`; b.textContent=q.o[k];
+   b.addEventListener('click',()=>{ if(S.ans[prefix+i]===q.a) return; if(S.first[prefix+i]===undefined) S.first[prefix+i]=(k===q.a); if(k===q.a) S.ans[prefix+i]=k; save(); paint(k); sc(); renderList(); });
+   d.querySelector('.opts').appendChild(b); });
+  const paint=(clicked)=>{ d.querySelectorAll('.opt').forEach(b=>{ const k=+b.id.split('o').pop(); b.classList.remove('right','wrong'); if(S.ans[prefix+i]===q.a&&k===q.a) b.classList.add('right'); else if(clicked===k&&k!==q.a){ void b.offsetWidth; b.classList.add('wrong'); } }); };
+  root.appendChild(d); paint();
+ });
+ const sc=()=>{$(scId).textContent=`${data.filter((q,i)=>S.ans[prefix+i]===q.a).length} / ${data.length}`;}; sc();
+}
+
+/* ---------- voice: pre-recorded Edge TTS (Andrew), audio/chris.mp3 ---------- */
+const IC_PLAY='<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>', IC_PAUSE='<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>';
+let speaking=false, audioEl=null;
+function toggleVoice(){
+ if(speaking){ stopVoice(); return; }
+ const slow=$('slow')&&$('slow').getAttribute('aria-pressed')==="true";
+ const a=new Audio('audio/chris.mp3'); a.playbackRate=slow?0.82:1; a.preservesPitch=true; audioEl=a;
+ const fail=()=>{ stopVoice(); const t=$('tr'); if(t) t.hidden=false; const n=$('vnote'); if(n) n.textContent="The audio could not be loaded, so read the message instead."; };
+ a.onended=()=>stopVoice(); a.onerror=fail;
+ speaking=true;
+ const vc=$('voice'); if(vc) vc.classList.add('on'); const p=$('play'); if(p){p.innerHTML=IC_PAUSE; p.setAttribute('aria-label','Stop voice message');}
+ const pr=a.play(); if(pr&&pr.catch) pr.catch(fail);
+}
+function stopVoice(){ if(audioEl){ audioEl.onended=null; audioEl.onerror=null; try{audioEl.pause();}catch(e){} audioEl=null; } speaking=false; const vc=$('voice'); if(vc) vc.classList.remove('on'); const p=$('play'); if(p){p.innerHTML=IC_PLAY; p.setAttribute('aria-label','Play voice message');} }
+
+/* ---------- glossary popover ---------- */
+const pop=$('pop');
+function showPop(k,anchor){
+ const g=G[k]; if(!g) return;
+ pop.innerHTML=`<b>${g.w}</b><span>${g.d}</span><span class="ru">${g.ru}</span><span class="ex">${g.ex}</span>`;
+ pop.hidden=false;
+ const r=anchor.getBoundingClientRect(); const pw=pop.offsetWidth, ph=pop.offsetHeight;
+ let x=Math.min(Math.max(16,r.left),window.innerWidth-pw-16); let y=r.bottom+8; if(y+ph>window.innerHeight-12) y=Math.max(12,r.top-ph-8);
+ pop.style.left=x+"px"; pop.style.top=y+"px";
+}
+document.addEventListener('click',e=>{ const w=e.target.closest('[data-g]'); if(w){ e.stopPropagation(); showPop(w.dataset.g,w); return; } if(!e.target.closest('#pop')) pop.hidden=true; });
+document.addEventListener('keydown',e=>{ if(e.key==="Escape") pop.hidden=true; });
+document.addEventListener('scroll',()=>{pop.hidden=true;},true);
+$('railWords').innerHTML=railOrder.map(k=>`<button type="button" class="wchip" data-g="${k}">${G[k].w}</button>`).join("");
+
+/* ---------- copy answers ---------- */
+function summary(){
+ const first=(p,n)=>{let c=0; for(let i=0;i<n;i++) if(S.first[p+i]) c++; return c;};
+ const lines=["Unit 3 · Change — Inbox homework",""];
+ lines.push(`Dana's email (reading): ${first("hr",HRQ.length)}/${HRQ.length} right on the first try`);
+ lines.push(`Jess (word meanings): ${first("j",JESS.length)}/${JESS.length} right on the first try`);
+ lines.push(`Chris's voice message (true/false): ${first("c",CHRIS.length)}/${CHRIS.length} right on the first try`);
+ lines.push(`Mike (word choice): ${first("m",MIKE.length)}/${MIKE.length} right on the first try`);
+ const missed=[]; JESS.forEach(([t],i)=>{ if(S.first["j"+i]===false) missed.push(t); }); MIKE.forEach((q,i)=>{ if(S.first["m"+i]===false) missed.push(q.o[q.a]); });
+ if(missed.length) lines.push(`Words to review: ${missed.join(", ")}`);
+ lines.push("","My reply to Chris:",(S.reply||"").trim()||"(not written yet)");
+ return lines.join("\n");
+}
+$('copyBtn').addEventListener('click',async()=>{
+ const txt=summary(); const fb=$('copyFallback');
+ try{ await navigator.clipboard.writeText(txt); $('copyMsg').textContent="Copied. Paste it into a message to Tanya."; fb.hidden=true; }
+ catch(e){ fb.value=txt; fb.hidden=false; fb.style.minHeight="140px"; fb.focus(); fb.select(); $('copyMsg').textContent="Press Ctrl/Cmd + C to copy."; }
+});
+let resetArmed=false;
+$('resetBtn').addEventListener('click',()=>{
+ if(!resetArmed){ resetArmed=true; $('resetBtn').textContent="Click again to erase all answers"; setTimeout(()=>{resetArmed=false; $('resetBtn').textContent="Start over";},4000); return; }
+ S={read:{},ans:{},first:{},reply:""}; save(); resetArmed=false; $('resetBtn').textContent="Start over"; open("start");
+});
+
+$('todayLbl').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric'});
+open(M.find(m=>!isDone(m.id))?.id||"start");
+})();
+</script>
+</body>
+</html>
