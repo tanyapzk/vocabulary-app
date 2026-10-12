@@ -117,11 +117,19 @@ button:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible
 @keyframes nudge{30%{transform:translateX(-3px)}70%{transform:translateX(3px)}}
 .fb{font-size:13.5px;color:var(--muted)}
 .fb b{color:var(--ink)}
-.match{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr) 24px;gap:8px 12px;align-items:center}
-.match .term{font-weight:600}
-.match select{width:100%;font:inherit;font-size:14px;padding:7px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
-.match select.ok{border-color:var(--ok);background:var(--ok-soft)}
-.match select.bad{border-color:var(--no);background:var(--no-soft)}
+.match{display:grid;gap:12px}
+.match .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);column-gap:clamp(12px,3vw,28px);align-items:start}
+.match .col{display:grid;gap:8px;align-content:start}
+.pairs{display:grid;gap:8px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);border:1px solid var(--ok);background:var(--ok-soft);border-radius:8px;overflow:hidden;animation:pop .35s var(--ease)}
+.pair b{padding:9px 12px;font-size:14px;line-height:1.35;color:var(--ok);border-right:1px solid var(--ok)}
+.pair span{padding:9px 12px;font-size:14px;line-height:1.35;color:var(--ok)}
+@keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+.mi{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:9px 12px;font-size:14px;line-height:1.35;transition:border-color .25s var(--ease),background .25s var(--ease)}
+.mi.term{font-weight:600}
+.mi:hover{border-color:var(--accent)}
+.mi.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent)}
+.mi.bad{border-color:var(--no);background:var(--no-soft);color:var(--no);animation:nudge .3s var(--ease)}
 .mk{font-family:var(--mono);font-size:13px}
 .mk.ok{color:var(--ok)} .mk.bad{color:var(--no)}
 .gap{display:inline-block;min-width:90px;border-bottom:1.5px solid var(--muted);text-align:center;font-weight:600;padding:0 4px}
@@ -174,8 +182,6 @@ textarea{width:100%;min-height:200px;font:inherit;font-size:15px;line-height:1.6
   .msgs{max-height:none}
   .list{border-right:0;border-bottom:1px solid var(--line)}
   .letter{padding:24px 18px 48px}
-  .match{grid-template-columns:1fr 24px}
-  .match .term{grid-column:1/-1}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -256,12 +262,13 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
 
 /* ---------- quiz data ---------- */
 const HRQ=[
- {q:"What will the company do in January?",o:["Implement changes and put a new system in place","Move to a new office","Hire a new leadership team"],a:0},
- {q:"How does Dana expect people to react?",o:["Differently: some will like it, some won't","Everyone will be excited","Nobody will like it"],a:0},
- {q:"In Dana's email, “more efficient” means…",o:["spending less time on admin","getting better results","working longer hours"],a:0},
- {q:"What will managers do in the next few weeks?",o:["Assess progress in each team","Choose new team members","Cancel hybrid work"],a:0},
- {q:"Why does Dana mention morale?",o:["People haven't been feeling very positive lately","Morale is the name of the new system","She wants people to work harder"],a:0},
- {q:"What does Dana say people tend to do when they feel ignored?",o:["The bare minimum","Work longer hours","Leave the company"],a:0}
+ {q:"Why does Dana say the company can't afford not to “move with the times”?",o:["Keeping the old way of working would leave the company behind","The current system is broken and must be replaced at once","Competitors have copied the company's methods"],a:0},
+ {q:"What does Dana suggest about colleagues who push back against the changes?",o:["Their reaction is normal and the company wants to hear it","They will be asked to leave if they don't adapt","They have misunderstood why the changes are needed"],a:0},
+ {q:"How does Dana distinguish between “efficient” and “effective”?",o:["The first is about saving time, the second about outcomes","The first is about quality, the second about speed","They are two ways of saying the same thing"],a:0},
+ {q:"Why will managers review each team in the coming weeks?",o:["So that the cultural shift is smooth rather than imposed","To decide which teams will be made smaller","To choose who will lead the new system"],a:0},
+ {q:"What does Dana imply about the mood in the company right now?",o:["People feel somewhat discouraged","People are angry about the new system","People are looking forward to the changes"],a:0},
+ {q:"What risk does Dana see if people feel ignored?",o:["They will put in only a minimal effort at work","They will refuse to use the new system","They will take more sick leave"],a:0},
+ {q:"What does the last sentence suggest about the success of the changes?",o:["It depends partly on the attitude of the employees","It is already guaranteed","It depends only on the managers"],a:0}
 ];
 const JESS=[["implement changes","to start using new plans or rules in practice"],["put something in place","to set up a rule or system so it starts working"],["transform the corporate culture","to completely change how a company thinks and behaves"],["streamline a process","to make a process simpler and faster"],["embrace change","to accept change happily"],["anticipate problems","to expect difficulties and prepare for them"],["accommodate needs","to adjust your plans to fit what people need"],["assess progress","to check carefully how far something has moved forward"],["facilitate cultural change","to make it easier for a company's habits and attitudes to change"],["boost morale","to make people feel more positive and motivated"]];
 const CHRIS=[
@@ -346,10 +353,10 @@ const VIEWS={
  },
  hr(el){
   el.innerHTML=`<p>Hi team,</p>
-  <p>As many of you know, leadership has decided to ${W("transform")} next year. We have to ${W("withtimes")}. Starting in January, we'll ${W("implement")} to the way we work and ${W("inplace","put a new project management system in place")}. A senior manager will ${W("oversee")}, and we'll ${W("streamline","streamline the approval process")} so it takes less time.</p>
-  <p>We know change can be hard. Some of you will ${W("embrace")} right away, and some of you will ${W("resist")}, at least at first. ${W("aversion","An aversion to change")} is completely normal. We ${W("anticipate")} and we want to hear about them.</p>
-  <p>Our goal is simple: to make our work more ${W("efficient")} (less time on admin) and more ${W("effective")} (better results). We also want to ${W("accommodate","accommodate the needs")} of people with different schedules, so hybrid options will stay.</p>
-  <p>Over the next few weeks, your managers will ${W("assess")} in each team, so we can ${W("facilitate")}. We know morale has been low lately, and people tend to ${W("bare")} when they feel ignored. We hope these changes will ${W("morale")} and ${W("generate")}.</p>
+  <p>As many of you know, leadership has decided to ${W("transform")} next year, and frankly, we can't afford not to ${W("withtimes")}. Starting in January, we'll ${W("implement")} to the way we work and ${W("inplace","put a new project management system in place")}. A senior manager will ${W("oversee")}, and we'll ${W("streamline","streamline the approval process")}, which currently takes far longer than it should.</p>
+  <p>We know change can be hard. Some of you will ${W("embrace")} from day one; others will ${W("resist")}, at least at first. ${W("aversion","An aversion to change")} is completely normal, and we'd rather ${W("anticipate")} than pretend there won't be any. If something worries you, say so.</p>
+  <p>Our aim is to make our work more ${W("efficient")}, with less time lost on admin, and more ${W("effective")}, which is a different thing: it's about results, not speed. We also want to ${W("accommodate","accommodate the needs")} of colleagues with different schedules, so hybrid options will stay.</p>
+  <p>Over the next few weeks, your managers will ${W("assess")} team by team, so we can ${W("facilitate")} rather than force it. We're aware that morale has dipped, and experience shows that people who feel ignored tend to ${W("bare")}. We hope these changes will ${W("morale")} and ${W("generate")}, but that depends on all of you.</p>
   <p class="sig">More details soon,<br>Dana Brooks<br>People &amp; Culture</p>
   <section class="task" id="t"><div class="task-h"><h3>Did you get it?</h3><span class="sc" id="sc"></span></div></section>
   ${nextBtn("hr")}`;
@@ -357,21 +364,33 @@ const VIEWS={
  },
  jess(el){
   el.innerHTML=`<p>ok did you see Dana's email??</p>
-  <p>I read it twice and I still feel like half of those words came from a TED talk. You're good with this stuff. Can you help me figure out what they actually mean? Just match them for me, please.</p>
+  <p>I read it twice and I still feel like half of those phrases came from a TED talk. You're good with this stuff. Can you help me figure out what they actually mean? Just match them for me, please.</p>
   <p class="sig">— J</p>
-  <section class="task"><div class="task-h"><h3>Match each word to its meaning</h3><span class="sc" id="sc"></span></div><div class="match" id="mt"></div></section>
+  <section class="task"><div class="task-h"><h3>Match each phrase to its meaning</h3><span class="sc" id="sc"></span></div><p class="hint">Tap a phrase on the left, then its meaning on the right. A correct pair joins into one strip.</p><div class="match" id="mt"><div class="pairs" id="jp"></div><div class="cols"><div class="col" id="jl"></div><div class="col" id="jr"></div></div></div></section>
   ${nextBtn("jess")}`;
-  const mt=$('mt'); const order=[3,7,0,9,5,1,8,2,6,4];
-  JESS.forEach(([term],i)=>{
-   const t=document.createElement('span'); t.className="term"; t.textContent=term;
-   const s=document.createElement('select'); s.id="jsel"+i; s.setAttribute('aria-label',"Meaning of "+term);
-   s.innerHTML=`<option value="">Choose a meaning…</option>`+order.map(k=>`<option value="${k}">${JESS[k][1]}</option>`).join("");
-   const mk=document.createElement('span'); mk.className="mk";
-   const paint=()=>{ const v=S.ans["j"+i]; s.value=(v===undefined?"":v); s.classList.toggle('ok',v===i); s.classList.toggle('bad',v!==undefined&&v!==i); mk.innerHTML=v===undefined?"":(v===i?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'); mk.className="mk "+(v===undefined?"":(v===i?"ok":"bad")); };
-   s.addEventListener('change',()=>{ if(s.value===""){delete S.ans["j"+i];} else { const v=+s.value; if(S.first["j"+i]===undefined) S.first["j"+i]=(v===i); S.ans["j"+i]=v; } save(); paint(); score(); renderList(); });
-   mt.append(t,s,mk); paint();
-  });
-  const score=()=>{$('sc').textContent=`${JESS.filter((_,i)=>S.ans["j"+i]===i).length} / ${JESS.length} correct`;}; score(); wireNext(el);
+  const P=$('jp'), L=$('jl'), R=$('jr'); const order=[3,7,0,9,5,1,8,2,6,4];
+  let selL=null, selR=null;
+  const score=()=>{$('sc').textContent=`${JESS.filter((_,i)=>S.ans["j"+i]===i).length} / ${JESS.length} matched`;};
+  const matched=i=>S.ans["j"+i]===i;
+  function render(){
+   P.innerHTML=JESS.map((t,i)=>matched(i)?`<div class="pair"><b>${t[0]}</b><span>${t[1]}</span></div>`:"").join("");
+   L.innerHTML=""; R.innerHTML="";
+   JESS.forEach((t,i)=>{ if(matched(i)) return; const b=document.createElement('button'); b.type="button"; b.className="mi term"+(selL===i?" sel":""); b.textContent=t[0]; b.id="jl"+i; b.addEventListener('click',()=>pick('L',i)); L.appendChild(b); });
+   order.forEach(k=>{ if(matched(k)) return; const b=document.createElement('button'); b.type="button"; b.className="mi"+(selR===k?" sel":""); b.textContent=JESS[k][1]; b.id="jr"+k; b.addEventListener('click',()=>pick('R',k)); R.appendChild(b); });
+   score();
+  }
+  function pick(side,k){
+   if(side==='L') selL=(selL===k?null:k); else selR=(selR===k?null:k);
+   if(selL!==null && selR!==null){
+    const i=selL, k2=selR; selL=null; selR=null;
+    if(S.first["j"+i]===undefined) S.first["j"+i]=(k2===i);
+    if(k2===i){ S.ans["j"+i]=i; save(); render(); renderList(); }
+    else { save(); render(); const a=$("jl"+i), b=$("jr"+k2); [a,b].forEach(x=>{ void x.offsetWidth; x.classList.add('bad'); }); setTimeout(()=>{ [a,b].forEach(x=>x&&x.classList.remove('bad')); },500); }
+    return;
+   }
+   render();
+  }
+  render(); wireNext(el);
  },
  chris(el){
   el.innerHTML=`<div class="voice" id="voice"><button class="play" id="play" type="button" aria-label="Play voice message"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button><div class="wave" aria-hidden="true">${Array.from({length:48},(_,i)=>`<i style="height:${20+Math.round(Math.abs(Math.sin(i*1.7))*70)}%;animation-delay:${(i%8)*0.08}s"></i>`).join("")}</div><div class="vctl"><button class="pill" id="slow" type="button" aria-pressed="false">Slower</button><button class="pill" id="tbtn" type="button" aria-pressed="false">Show text</button></div></div>
