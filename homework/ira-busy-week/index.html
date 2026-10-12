@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2B2B2E">
+<title>Busy Week Homework</title>
+<meta property="og:title" content="Busy Week Homework">
+<meta property="og:description" content="Homework: a chat with Tom, Head of Product.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap">
+<style>
+/* Layout: a full-screen messenger chat with "Tom", the boss. Phone-first; centered column on desktop. */
+:root{
+  --ink:#2B2B2E; --soft:#6E6A66; --coral:#FF7A59; --peach:#FFE1D6; --peach-line:#FFC4AE;
+  --page:#E7E3DF; --feed:#F6F4F1; --white:#FFFFFF; --line:#E4DFDA;
+  --font:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.app{height:100%;max-width:560px;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--feed)}
+@media (min-width:600px){body{padding-block:20px}.app{height:calc(100% - 40px);border-radius:26px;overflow:hidden;box-shadow:0 20px 50px rgba(43,43,46,.18)}}
+svg{display:block}
+
+/* header */
+.head{background:var(--ink);color:#fff;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.ava{width:42px;height:42px;border-radius:50%;background:var(--coral);color:var(--ink);display:grid;place-items:center;font-weight:900;font-size:18px;flex:none}
+.who{min-width:0;flex:1}
+.who b{display:block;font-size:16.5px}
+.who small{display:block;opacity:.75;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.restart{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:999px;padding:6px 11px;font-size:13px;font-weight:700;white-space:nowrap}
+.restart.warn{background:var(--coral);border-color:var(--coral);color:var(--ink)}
+.prog{height:4px;background:#45454A}
+.prog i{display:block;height:100%;width:0;background:var(--coral);transition:width .4s ease}
+
+/* feed */
+.feed{overflow-y:auto;padding:16px 12px 8px;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch}
+.day{align-self:center;font-size:12.5px;font-weight:800;color:var(--soft);background:#E9E5E0;border-radius:999px;padding:4px 12px;margin-block:10px 4px;text-align:center}
+.msg{max-width:86%;align-self:flex-start;padding:10px 13px;border-radius:18px 18px 18px 6px;background:var(--white);border:1px solid var(--line);font-size:16px;overflow-wrap:anywhere;animation:pop .25s ease both}
+.msg.me{align-self:flex-end;border-radius:18px 18px 6px 18px;background:var(--peach);border-color:var(--peach-line);white-space:pre-wrap}
+.msg.me.wrongpick{opacity:.6;text-decoration:line-through}
+.msg b{font-weight:800}
+.msg .q{font-weight:800}
+.msg .gap{display:inline-block;min-width:70px;border-bottom:2px dashed var(--soft)}
+.typing{align-self:flex-start;background:var(--white);border:1px solid var(--line);border-radius:18px 18px 18px 6px;padding:12px 14px;display:flex;gap:4px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#B9B3AD;animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* voice message */
+.voice{display:grid;gap:10px;min-width:min(280px,72vw)}
+.vrow{display:flex;align-items:center;gap:10px}
+.vplay{width:44px;height:44px;border-radius:50%;border:none;background:var(--ink);color:#fff;flex:none;display:grid;place-items:center;padding:0}
+.vplay svg{width:18px;height:18px}
+.vplay .ip{display:none}
+.vplay.on .ip{display:block}.vplay.on .iplay{display:none}
+.wave{display:flex;gap:3px;align-items:center;flex:1;min-width:0;height:30px}
+.wave i{flex:1;max-width:4px;border-radius:2px;background:#C9C3BD}
+.wave i.on{background:var(--coral)}
+.vtools{display:flex;flex-wrap:wrap;gap:6px}
+.vtools button{border:1.5px solid var(--line);background:var(--feed);border-radius:999px;padding:5px 11px;font-size:13.5px;font-weight:700}
+.vtools button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.script{display:grid;gap:4px;font-size:15px;background:var(--feed);border-radius:12px;padding:10px 12px}
+
+/* dock */
+.dock{background:var(--white);border-top:1px solid var(--line);padding:10px 10px calc(10px + env(safe-area-inset-bottom,0px));display:grid;gap:10px}
+.quick{display:grid;gap:8px}
+.quick:empty{display:none}
+.quick button{border:2px solid var(--ink);background:var(--white);border-radius:16px;padding:12px 14px;font-size:16px;font-weight:700;text-align:left;min-height:48px;transition:background .2s}
+.quick button:active{background:var(--peach)}
+.quick button.no{border-color:var(--line);color:#B3ADA7;text-decoration:line-through}
+.bar{display:flex;gap:8px;align-items:flex-end}
+.bar textarea{flex:1;min-width:0;font:inherit;font-size:16px;color:var(--ink);border:1.5px solid var(--line);border-radius:20px;padding:11px 14px;resize:none;max-height:160px;min-height:46px;background:var(--feed)}
+.bar textarea:disabled{background:#F1EEEA;color:var(--soft)}
+.send{width:46px;height:46px;border-radius:50%;border:none;background:var(--coral);color:var(--ink);flex:none;display:grid;place-items:center;padding:0}
+.send svg{width:20px;height:20px}
+.send:disabled{background:#E6E1DC;color:#B3ADA7}
+
+/* final card */
+.final{align-self:stretch;background:var(--white);border:2px solid var(--ink);border-radius:20px;padding:16px;display:grid;gap:12px;animation:pop .25s ease both}
+.final h3{margin:0;font-size:19px;font-weight:900}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{background:var(--peach);border-radius:999px;padding:5px 11px;font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.big{border:none;background:var(--coral);color:var(--ink);border-radius:16px;padding:14px;font-size:17px;font-weight:900;min-height:52px}
+.copytext{width:100%;min-height:140px;font:14px/1.4 var(--font);border:1.5px solid var(--line);border-radius:12px;padding:10px;color:var(--ink);background:var(--feed)}
+.ok-note{margin:0;font-weight:800}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="head">
+      <span class="ava" aria-hidden="true">T</span>
+      <div class="who"><b>Tom · Head of Product</b><small id="status">online</small></div>
+      <button type="button" class="restart" id="restart">Start over</button>
+    </div>
+    <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+  </header>
+  <main class="feed" id="feed" aria-live="polite"></main>
+  <div class="dock">
+    <div class="quick" id="quick"></div>
+    <div class="bar">
+      <textarea id="input" rows="1" placeholder="Choose an answer above" disabled aria-label="Your answer"></textarea>
+      <button type="button" class="send" id="sendBtn" disabled aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const feed=$('feed'), quick=$('quick'), input=$('input'), sendBtn=$('sendBtn');
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  /* ---------- content ---------- */
+  const LINES=[
+    ["Tom","Hi Mia, do you have a minute? How's your week going?"],
+    ["Mia","Hi Tom! Honestly, it's very busy. We have the launch of the new winter collection on Friday."],
+    ["Tom","Is everything on track?"],
+    ["Mia","Mostly, yes. The website is ready, but the photos for the coats aren't ready yet. The photographer is sick."],
+    ["Tom","Oh no. What's the plan?"],
+    ["Mia","We can use photos from the last shoot for two days, and add the new photos next week."],
+    ["Tom","Good idea. And what about the return rate for the jackets?"],
+    ["Mia","It's still high, about twenty-five percent. Customers say the sleeves are too short. I sent the customer feedback to the design team yesterday."],
+    ["Tom","Great. Are you coming to the meeting with marketing on Thursday?"],
+    ["Mia","Yes, but I can only stay for thirty minutes. I have a call with the Dubai office at four."],
+    ["Tom","No problem. Good luck with the launch!"]
+  ];
+  const WORDS=[
+    ["launch","the moment a new product or collection goes on sale"],
+    ["collection","a group of clothes designed for one season"],
+    ["return rate","the % of products customers send back"],
+    ["customer feedback","what customers say about a product"],
+    ["on track","going as planned, no problems"],
+    ["deadline","the last day to finish something"],
+    ["priority","the most important thing to do first"],
+    ["stock","the products you have in the warehouse"]
+  ];
+  const S=[]; const say=t=>S.push({t:'say',text:t}); const day=t=>S.push({t:'day',text:t});
+  const mcq=(sec,q,opts)=>S.push({t:'mcq',sec,q,opts});
+  const write=(q,hint)=>S.push({t:'write',q,hint});
+
+  day('Today');
+  say("Hi! It's Tom, your boss for today's homework.");
+  say("What's your name?");
+  S.push({t:'name'});
+  day('Part 1 · Listening');
+  say("Nice to meet you, {name}! I recorded a voice message: my chat with Mia, one of our product managers. Listen to it. You can play it as many times as you want.");
+  S.push({t:'voice'});
+  say("Ready? Let's check what you heard.");
+  mcq('L',"When is the launch of the winter collection?",["on Friday","on Thursday","next week"]);
+  mcq('L',"What isn't ready yet?",["the photos for the coats","the website","the coats"]);
+  mcq('L',"Why not?",["The photographer is sick.","The photographer is on holiday.","There's no money for photos."]);
+  mcq('L',"What's Mia's plan?",["use photos from the last shoot for two days","move the launch to next week","launch without photos"]);
+  mcq('L',"The return rate for the jackets is about…",["25%","15%","35%"]);
+  mcq('L',"What do customers say about the jackets?",["The sleeves are too short.","The colour is wrong.","They're too expensive."]);
+  mcq('L',"Who did Mia send the customer feedback to?",["the design team","the marketing team","Tom"]);
+  mcq('L',"Why can Mia stay only 30 minutes at the meeting?",["She has a call with the Dubai office.","She has a photo shoot.","She has a call with a customer."]);
+  day('Part 2 · Key words');
+  say("Nice work! Now some words for our next lesson. I'll give you a meaning, you choose the word.");
+  const dis=[[2,5,7],[0,6,3],[4,1,6],[5,7,0],[3,2,5],[6,0,1],[7,4,2],[1,3,4]];
+  WORDS.forEach(([w,m],i)=>mcq('W',`Which word means <i>“${m}”</i>?`,[w,...dis[i].map(k=>WORDS[k][0])]));
+  day('Part 3 · Use the words');
+  say("Great! Now complete my sentences.");
+  mcq('G',"Our new summer ___ has 40 dresses and 25 tops.",["collection","stock","deadline"]);
+  mcq('G',"We can't sell the black coats online. We have no ___ in size S.",["stock","launch","priority"]);
+  mcq('G',"The ___ is on the 15th, so all photos must be ready by the 10th.",["launch","return rate","feedback"]);
+  mcq('G',"Customers send back a lot of jeans. The ___ is too high.",["return rate","collection","deadline"]);
+  mcq('G',"Fixing the size chart is our top ___ this week.",["priority","stock","launch"]);
+  mcq('G',"Don't worry, the project is ___. Everything is going as planned.",["on track","on time","on stock"]);
+  mcq('G',"I read the customer ___ every Monday. People love the new bags!",["feedback","priority","deadline"]);
+  mcq('G',"The ___ for the report is Friday, 5 p.m.",["deadline","launch","return rate"]);
+  day('Part 4 · Tell me about your job');
+  say("Last part! Answer in 2–4 sentences. Try to use at least one new word in each answer.");
+  write("What does a product manager do? Explain it simply, like to a friend who doesn't work in fashion.","A product manager…");
+  write("What's the best part of your job? And the most stressful part?","The best part is… The most stressful part is…");
+  write("What are you working on this week?","This week I'm working on…");
+  write("Last one: send me a quick update on one of your projects. Is it on track?","Hi Tom, a quick update on…");
+  day('Done');
+  say("Thank you, {name}! That's all for today.");
+  S.push({t:'end'});
+
+  const ACK=["Correct.","Yes!","Exactly.","Right.","Perfect!","Great.","That's it!","Nice!"];
+  const NOPE=["Hmm, not quite. Try again.","Not this one. One more try?","Almost! Try another answer."];
+
+  /* ---------- state ---------- */
+  const KEY='pm-chat-hw-1';
+  const fresh=()=>({step:0,name:'',ans:{}});
+  let st=fresh();
+  try{ const raw=localStorage.getItem(KEY); if(raw){ const o=JSON.parse(raw); if(o&&typeof o.step==='number'&&o.ans) st=o; } }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} };
+
+  /* ---------- helpers ---------- */
+  const fill=t=>t.replace(/\{name\}/g,esc(st.name||'there'));
+  function scroll(){ requestAnimationFrame(()=>{ feed.scrollTop=feed.scrollHeight; }); }
+  function bubble(html,me,cls){ const d=document.createElement('div'); d.className='msg'+(me?' me':'')+(cls?' '+cls:''); if(me) d.textContent=html; else d.innerHTML=html; feed.appendChild(d); scroll(); return d; }
+  function dayChip(t){ const d=document.createElement('div'); d.className='day'; d.textContent=t; feed.appendChild(d); scroll(); }
+  const qText=s=>s.q.replace('___','<span class="gap">&nbsp;</span>');
+  function setProgress(){ $('prog').style.width=Math.round(100*st.step/(S.length-1))+'%';
+    const sec=S.slice(0,st.step+1).reverse().find(x=>x.t==='day'); $('status').textContent=sec&&sec.text!=='Today'?sec.text:'online'; }
+  function autosize(){ input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,160)+'px'; }
+  function lockInput(ph){ input.disabled=true; sendBtn.disabled=true; input.value=''; input.placeholder=ph||'Choose an answer above'; autosize(); }
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  async function typing(ms){ const t=document.createElement('div'); t.className='typing'; t.innerHTML='<i></i><i></i><i></i>'; feed.appendChild(t); scroll(); await wait(ms); t.remove(); }
+
+  /* ---------- voice message: pre-recorded Edge TTS (Tom = Andrew, Mia = Aria), one mp3 per line ---------- */
+  const IC_PLAY='<svg class="iplay" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+  const IC_PAUSE='<svg class="ip" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>';
+  let rate=1, playing=false, audio=null;
+  function stopAudio(){ playing=false; if(audio){ try{ audio.pause(); }catch(e){} audio.onended=null; audio.onerror=null; audio=null; } }
+  function voiceBubble(){
+    const d=bubble(`<div class="voice"><div class="vrow"><button type="button" class="vplay" aria-label="Play voice message">${IC_PLAY}${IC_PAUSE}</button><span class="wave"></span></div>
+      <div class="vtools"><button type="button" data-r="0.8" aria-pressed="false">Slow</button><button type="button" data-r="1" aria-pressed="true">Normal</button><button type="button" class="tbtn">Show text</button></div>
+      <div class="script" hidden>${LINES.map(([w,t])=>`<span><b>${w}:</b> ${t}</span>`).join('')}</div></div>`);
+    const wave=d.querySelector('.wave'), bars=[];
+    [8,14,20,11,24,16,9,18,22,12,7,17,21,10,6,15,19,9,13,22,8,16,12,20].forEach(h=>{ const i=document.createElement('i'); i.style.height=h+'px'; wave.appendChild(i); bars.push(i); });
+    const btn=d.querySelector('.vplay'), scr=d.querySelector('.script'), tb=d.querySelector('.tbtn');
+    tb.addEventListener('click',()=>{ scr.hidden=!scr.hidden; tb.textContent=scr.hidden?'Show text':'Hide text'; });
+    d.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',()=>{ rate=+b.dataset.r; if(audio) audio.playbackRate=rate; d.querySelectorAll('[data-r]').forEach(x=>x.setAttribute('aria-pressed',x===b)); }));
+    const paint=k=>bars.forEach((b,j)=>b.classList.toggle('on',j<Math.round(bars.length*k/LINES.length)));
+    const setBtn=on=>btn.classList.toggle('on',on);
+    btn.addEventListener('click',()=>{
+      if(playing){ stopAudio(); setBtn(false); return; }
+      stopAudio(); playing=true; setBtn(true); let i=0; paint(0);
+      const fail=()=>{ stopAudio(); setBtn(false); scr.hidden=false; tb.textContent='Hide text'; };
+      const next=()=>{
+        if(!playing) return;
+        if(i>=LINES.length){ stopAudio(); setBtn(false); return; }
+        const a=new Audio('audio/line-'+String(i+1).padStart(2,'0')+'.mp3');
+        audio=a; a.playbackRate=rate; a.preservesPitch=true;
+        a.onended=()=>{ i++; paint(i); setTimeout(next,350); };
+        a.onerror=fail;
+        const p=a.play(); if(p&&p.catch) p.catch(fail);
+      };
+      next();
+    });
+  }
+
+  let gen=0;
+  /* ---------- engine ---------- */
+  function renderPast(i){
+    const s=S[i];
+    if(s.t==='day') dayChip(s.text);
+    else if(s.t==='say') bubble(fill(s.text));
+    else if(s.t==='name') bubble(st.name,true);
+    else if(s.t==='voice') voiceBubble();
+    else if(s.t==='mcq'){ const a=st.ans[i]; bubble(`<span class="q">${qText(s)}</span>`);
+      if(a){ if(!a.firstOk){ bubble(a.first,true,'wrongpick'); bubble(NOPE[i%NOPE.length]); } bubble(s.opts[0],true); bubble(ACK[i%ACK.length]); } }
+    else if(s.t==='write'){ bubble(`<span class="q">${esc(s.q)}</span>`); const a=st.ans[i]; if(a) bubble(a.a,true); }
+  }
+  async function run(live){
+    const my=gen;
+    while(st.step<S.length){
+      if(my!==gen) return;
+      const i=st.step, s=S[i]; setProgress();
+      if(s.t==='day'){ dayChip(s.text); st.step++; continue; }
+      if(s.t==='say'){ if(live) await typing(650); bubble(fill(s.text)); st.step++; save(); continue; }
+      if(s.t==='voice'){ if(live) await typing(500); voiceBubble(); st.step++; save(); continue; }
+      if(s.t==='name'){ await askText('Type your name…',v=>{ st.name=v.slice(0,40); },false); st.step++; save(); live=true; continue; }
+      if(s.t==='mcq'){ if(live) await typing(450); bubble(`<span class="q">${qText(s)}</span>`); await askChoice(i,s); st.step++; save(); live=true; continue; }
+      if(s.t==='write'){ if(live) await typing(600); bubble(`<span class="q">${esc(s.q)}</span>`); await askText(s.hint,v=>{ st.ans[i]={q:s.q,a:v.slice(0,4000)}; },true); st.step++; save(); live=true; continue; }
+      if(s.t==='end'){ setProgress(); finish(); return; }
+    }
+  }
+  function order(i,n){ const o=[...Array(n).keys()]; for(let k=n-1;k>0;k--){ const j=(i*5+k*3+2)%(k+1); [o[k],o[j]]=[o[j],o[k]]; } return o; }
+  function askChoice(i,s){
+    return new Promise(res=>{
+      lockInput(); quick.innerHTML=''; let first=true, busy=false; const myC=gen;
+      order(i,s.opts.length).forEach(k=>{
+        const b=document.createElement('button'); b.type='button'; b.textContent=s.opts[k];
+        b.addEventListener('click',async()=>{
+          if(busy||b.classList.contains('no')) return; busy=true;
+          if(first){ st.ans[i]={sec:s.sec,q:s.q.replace(/<[^>]+>/g,''),first:s.opts[k],firstOk:k===0,correct:s.opts[0]}; first=false; save(); }
+          if(k===0){ if(gen!==myC) return; quick.innerHTML=''; bubble(s.opts[k],true); await typing(350); bubble(ACK[i%ACK.length]); res(); }
+          else { b.classList.add('no'); bubble(s.opts[k],true,'wrongpick'); await typing(300); bubble(NOPE[i%NOPE.length]); busy=false; }
+        });
+        quick.appendChild(b);
+      });
+      scroll();
+    });
+  }
+  function askText(ph,store,multi){
+    return new Promise(res=>{
+      quick.innerHTML=''; input.disabled=false; input.placeholder=ph; input.value=''; autosize();
+      const myG=gen;
+      const upd=()=>{ if(myG!==gen){ input.removeEventListener('input',upd); return; } sendBtn.disabled=!input.value.trim(); autosize(); };
+      const key=e=>{ if(myG!==gen){ input.removeEventListener('keydown',key); return; } if(e.key==='Enter' && (!multi || e.metaKey || e.ctrlKey)){ e.preventDefault(); go(); } };
+      const go=()=>{ if(myG!==gen) return; const v=input.value.trim(); if(!v) return;
+        input.removeEventListener('input',upd); input.removeEventListener('keydown',key); sendBtn.onclick=null;
+        bubble(v,true); store(v); lockInput(); res(); };
+      input.addEventListener('input',upd); input.addEventListener('keydown',key); sendBtn.onclick=go; upd();
+    });
+  }
+
+  /* ---------- final ---------- */
+  function by(sec){ return Object.keys(st.ans).map(Number).sort((a,b)=>a-b).map(k=>st.ans[k]).filter(a=>a.sec===sec); }
+  function score(sec){ const a=by(sec); return [a.filter(x=>x.firstOk).length,a.length]; }
+  function asText(){
+    const L=[`Homework from ${st.name||'Ira'} — ${new Date().toLocaleString('en-GB')}`,''];
+    const block=(title,sec)=>{ const [a,b]=score(sec); L.push(`${title}: ${a}/${b} right first time`);
+      by(sec).forEach((x,k)=>L.push(`${k+1}. ${x.firstOk?'+':'-'} ${x.q.replace('___','…')} — ${x.first}${x.firstOk?'':' (right: '+x.correct+')'}`)); L.push(''); };
+    block('LISTENING','L'); block('KEY WORDS','W'); block('SENTENCES','G');
+    L.push('WRITING:');
+    S.forEach((s,i)=>{ if(s.t==='write'){ const a=st.ans[i]; L.push(`• ${s.q}`,`  ${a?a.a:'(no answer)'}`,''); } });
+    return L.join('\n');
+  }
+  function finish(){
+    quick.innerHTML=''; lockInput('Homework finished');
+    const l=score('L'), w=score('W'), g=score('G');
+    const c=document.createElement('div'); c.className='final';
+    c.innerHTML=`<h3>Your results</h3>
+      <div class="pills"><span class="pill">Listening ${l[0]}/${l[1]}</span><span class="pill">Key words ${w[0]}/${w[1]}</span><span class="pill">Sentences ${g[0]}/${g[1]}</span></div>
+      <p style="margin:0">Last step: copy your answers and send them to Tanya in a message.</p>
+      <button type="button" class="big">Copy my answers</button>
+      <p class="ok-note" aria-live="polite"></p>
+      <textarea class="copytext" readonly aria-label="Your answers"></textarea>`;
+    feed.appendChild(c); scroll();
+    const box=c.querySelector('textarea'), btn=c.querySelector('.big'), note=c.querySelector('.ok-note'); box.value=asText();
+    btn.addEventListener('click',async()=>{
+      try{ await navigator.clipboard.writeText(box.value); btn.textContent='Copied'; note.textContent='Now open your chat with Tanya and paste it there.'; }
+      catch(e){ box.focus(); box.select(); try{ box.setSelectionRange(0,box.value.length); }catch(_){}
+        note.textContent='The text is selected. Tap “Copy” (or press Ctrl+C / ⌘C), then paste it into your chat with Tanya.'; }
+    });
+  }
+
+  /* ---------- restart ---------- */
+  let armed=null;
+  $('restart').addEventListener('click',()=>{
+    const b=$('restart');
+    if(!armed){ b.textContent='Tap again to restart'; b.classList.add('warn'); armed=setTimeout(()=>{ armed=null; b.textContent='Start over'; b.classList.remove('warn'); },3000); return; }
+    clearTimeout(armed); armed=null; stopAudio();
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    gen++; st=fresh(); feed.innerHTML=''; quick.innerHTML=''; lockInput(); b.textContent='Start over'; b.classList.remove('warn');
+    setProgress(); run(true);
+  });
+
+  /* ---------- boot: replay saved progress, then continue ---------- */
+  const resume=st.step;
+  for(let i=0;i<resume && i<S.length;i++) renderPast(i);
+  if(resume>0 && resume<S.length-1) dayChip("Welcome back! Let's continue");
+  run(resume===0);
+})();
+</script>
+</body>
+</html>
