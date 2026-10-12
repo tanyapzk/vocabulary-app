@@ -321,7 +321,7 @@ function header(m){
 }
 
 function open(id){
- cur=id; S.read[id]=true; save(); stopVoice();
+ cur=id; S.read[id]=true; save(); stopVoice(); $('pop').hidden=true; stopPopAudio();
  const m=M.find(x=>x.id===id); const r=$('reader');
  r.innerHTML=`<article class="letter">${header(m)}<div class="body" id="body"></div></article>`;
  VIEWS[id]($('body'));
