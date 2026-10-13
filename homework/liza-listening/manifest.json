@@ -1,0 +1,524 @@
+{
+ "numbers": {
+  "gap": 0,
+  "segs": [
+   {
+    "id": "n1",
+    "f": "audio/n1.mp3",
+    "d": 7.152,
+    "w": "N",
+    "t": "Hello, my surname is Okonkwo. That's O-K-O-N-K-W-O.",
+    "s": 0.0
+   },
+   {
+    "id": "n2",
+    "f": "audio/n2.mp3",
+    "d": 6.552,
+    "w": "N3",
+    "t": "My number is oh seven eight, double three, four six one, nine nine two.",
+    "s": 7.152
+   },
+   {
+    "id": "n3",
+    "f": "audio/n3.mp3",
+    "d": 5.448,
+    "w": "N2",
+    "t": "The ticket costs twenty-four pounds fifty. Sorry, I mean fourteen pounds fifty.",
+    "s": 13.704
+   },
+   {
+    "id": "n4",
+    "f": "audio/n4.mp3",
+    "d": 6.672,
+    "w": "N",
+    "t": "The doors open at quarter to eleven. Actually, no, quarter past eleven.",
+    "s": 19.152
+   },
+   {
+    "id": "n5",
+    "f": "audio/n5.mp3",
+    "d": 5.64,
+    "w": "N3",
+    "t": "The postcode is S-W-eleven, four T-Q.",
+    "s": 25.824
+   },
+   {
+    "id": "n6",
+    "f": "audio/n6.mp3",
+    "d": 6.168,
+    "w": "N2",
+    "t": "The hall holds three hundred and fifty people, not five hundred and thirty, as it says on the website.",
+    "s": 31.464
+   },
+   {
+    "id": "n7",
+    "f": "audio/n7.mp3",
+    "d": 5.28,
+    "w": "N",
+    "t": "The deadline is the twenty-second of November. Not the twelfth.",
+    "s": 37.632
+   },
+   {
+    "id": "n8",
+    "f": "audio/n8.mp3",
+    "d": 7.896,
+    "w": "N3",
+    "t": "You can write to me at e-l-e-n-a dot k underscore events, at mail dot com.",
+    "s": 42.912
+   }
+  ],
+  "total": 50.808
+ },
+ "form": {
+  "gap": 0.5,
+  "segs": [
+   {
+    "id": "f01",
+    "f": "audio/f01.mp3",
+    "d": 4.008,
+    "w": "Hannah",
+    "t": "Good morning, Riverside Arts Centre, Hannah speaking.",
+    "s": 0.0
+   },
+   {
+    "id": "f02",
+    "f": "audio/f02.mp3",
+    "d": 8.784,
+    "w": "Maya",
+    "t": "Hello. I'd like to sign up for the Event Design Workshop, please. I think it's on Wednesday evenings?",
+    "s": 4.508
+   },
+   {
+    "id": "f03",
+    "f": "audio/f03.mp3",
+    "d": 4.824,
+    "w": "Hannah",
+    "t": "It was on Wednesdays last term, but this term it's moved to Thursdays.",
+    "s": 13.792
+   },
+   {
+    "id": "f04",
+    "f": "audio/f04.mp3",
+    "d": 6.696,
+    "w": "Maya",
+    "t": "Thursday, that's fine. And what time does it start? Seven?",
+    "s": 19.116
+   },
+   {
+    "id": "f05",
+    "f": "audio/f05.mp3",
+    "d": 3.744,
+    "w": "Hannah",
+    "t": "Half past six. It finishes at nine.",
+    "s": 26.312
+   },
+   {
+    "id": "f06",
+    "f": "audio/f06.mp3",
+    "d": 5.952,
+    "w": "Maya",
+    "t": "OK. How many sessions are there? I read eight.",
+    "s": 30.556
+   },
+   {
+    "id": "f07",
+    "f": "audio/f07.mp3",
+    "d": 7.848,
+    "w": "Hannah",
+    "t": "It used to be eight, but we've shortened it. It's six sessions now, and the first one is on the fourteenth of January.",
+    "s": 37.008
+   },
+   {
+    "id": "f08",
+    "f": "audio/f08.mp3",
+    "d": 3.48,
+    "w": "Maya",
+    "t": "Great. And how much is it?",
+    "s": 45.356
+   },
+   {
+    "id": "f09",
+    "f": "audio/f09.mp3",
+    "d": 6.504,
+    "w": "Hannah",
+    "t": "The full price is a hundred and twenty pounds, but students get a discount, so for you it's eighty-four.",
+    "s": 49.336
+   },
+   {
+    "id": "f10",
+    "f": "audio/f10.mp3",
+    "d": 6.696,
+    "w": "Maya",
+    "t": "That's good. Where do the sessions take place? Studio Two?",
+    "s": 56.34
+   },
+   {
+    "id": "f11",
+    "f": "audio/f11.mp3",
+    "d": 6.048,
+    "w": "Hannah",
+    "t": "Studio Two is being repaired. You'll be in Studio Four, on the second floor.",
+    "s": 63.536
+   },
+   {
+    "id": "f12",
+    "f": "audio/f12.mp3",
+    "d": 4.824,
+    "w": "Maya",
+    "t": "Studio Four. Do I need to bring anything?",
+    "s": 70.084
+   },
+   {
+    "id": "f13",
+    "f": "audio/f13.mp3",
+    "d": 7.08,
+    "w": "Hannah",
+    "t": "Just a laptop and a sketchbook. We provide markers and pens, but please bring your own sketchbook.",
+    "s": 75.408
+   },
+   {
+    "id": "f14",
+    "f": "audio/f14.mp3",
+    "d": 3.36,
+    "w": "Maya",
+    "t": "Of course. Thank you.",
+    "s": 82.988
+   },
+   {
+    "id": "f15",
+    "f": "audio/f15.mp3",
+    "d": 1.872,
+    "w": "Hannah",
+    "t": "Can I take your name?",
+    "s": 86.848
+   },
+   {
+    "id": "f16",
+    "f": "audio/f16.mp3",
+    "d": 8.352,
+    "w": "Maya",
+    "t": "Yes, it's Maya Aldridge. That's A-L-D-R-I-D-G-E.",
+    "s": 89.22
+   },
+   {
+    "id": "f17",
+    "f": "audio/f17.mp3",
+    "d": 1.92,
+    "w": "Hannah",
+    "t": "And a contact number?",
+    "s": 98.072
+   },
+   {
+    "id": "f18",
+    "f": "audio/f18.mp3",
+    "d": 5.424,
+    "w": "Maya",
+    "t": "It's oh seven nine one one, four oh five, two six eight.",
+    "s": 100.492
+   },
+   {
+    "id": "f19",
+    "f": "audio/f19.mp3",
+    "d": 3.84,
+    "w": "Hannah",
+    "t": "Thank you. And how did you hear about the workshop?",
+    "s": 106.416
+   },
+   {
+    "id": "f20",
+    "f": "audio/f20.mp3",
+    "d": 3.768,
+    "w": "Maya",
+    "t": "I saw a poster at the university library.",
+    "s": 110.756
+   },
+   {
+    "id": "f21",
+    "f": "audio/f21.mp3",
+    "d": 5.496,
+    "w": "Hannah",
+    "t": "Lovely. We'll send you a confirmation email. See you in January!",
+    "s": 115.024
+   }
+  ],
+  "total": 120.52
+ },
+ "notes": {
+  "gap": 0.4,
+  "segs": [
+   {
+    "id": "l1",
+    "f": "audio/l1.mp3",
+    "d": 20.28,
+    "w": "Lecturer",
+    "t": "Good morning, everyone. Today I'd like to talk about pop-up events: short-term experiences that appear in unexpected places and then disappear. The idea is not new, but over the last decade it has become a major tool for brands, artists and even city councils.",
+    "s": 0.0
+   },
+   {
+    "id": "l2",
+    "f": "audio/l2.mp3",
+    "d": 17.4,
+    "w": "Lecturer",
+    "t": "Let's start with the origin. Pop-up shops first appeared in the early two thousands, when retailers realised that a temporary space was far cheaper than a long lease. A shop could open in an empty building for just two weeks, test a product, and leave. Soon the same logic spread to food, with street-food markets, and to culture, with pop-up galleries and cinemas.",
+    "s": 20.68
+   },
+   {
+    "id": "l3",
+    "f": "audio/l3.mp3",
+    "d": 29.592,
+    "w": "Lecturer",
+    "t": "Why do audiences love them? There are three main reasons. First, scarcity: because the event is available for a limited time, people feel they must attend. Second, surprise: nobody expects a concert in a car park or an exhibition in an old swimming pool. And third, social media. Guests share photographs, and that gives the organisers free advertising.",
+    "s": 38.48
+   },
+   {
+    "id": "l4",
+    "f": "audio/l4.mp3",
+    "d": 22.872,
+    "w": "Lecturer",
+    "t": "However, pop-ups bring challenges. The biggest one is permission: organisers often need a licence from the local council, and this can take up to six weeks. Another problem is cost control. Although the space is cheap, building a temporary set can be expensive, so planning the budget carefully is essential.",
+    "s": 68.472
+   },
+   {
+    "id": "l5",
+    "f": "audio/l5.mp3",
+    "d": 17.064,
+    "w": "Lecturer",
+    "t": "Finally, sustainability. A growing number of cities now ask organisers to reuse materials rather than throw them away. In one recent festival in Lisbon, over eighty percent of the decorations were borrowed or recycled.",
+    "s": 91.744
+   },
+   {
+    "id": "l6",
+    "f": "audio/l6.mp3",
+    "d": 10.608,
+    "w": "Lecturer",
+    "t": "So, to sum up, the pop-up model works because it is flexible, but it demands very careful planning. Next week, we'll look at case studies.",
+    "s": 109.208
+   }
+  ],
+  "total": 119.816
+ },
+ "mcq": {
+  "gap": 0.5,
+  "segs": [
+   {
+    "id": "m01",
+    "f": "audio/m01.mp3",
+    "d": 5.208,
+    "w": "Tom",
+    "t": "Hi Priya. Have you seen the feedback on our gala proposal?",
+    "s": 0.0
+   },
+   {
+    "id": "m02",
+    "f": "audio/m02.mp3",
+    "d": 8.304,
+    "w": "Priya",
+    "t": "I have. Overall our tutor was pleased, but she thinks the budget section isn't very realistic.",
+    "s": 5.708
+   },
+   {
+    "id": "m03",
+    "f": "audio/m03.mp3",
+    "d": 4.608,
+    "w": "Tom",
+    "t": "Really? I was sure the timeline was the weak point.",
+    "s": 14.512
+   },
+   {
+    "id": "m04",
+    "f": "audio/m04.mp3",
+    "d": 9.336,
+    "w": "Priya",
+    "t": "No, she said the timeline was clear. What she doesn't believe is that we can find a venue for under two thousand pounds.",
+    "s": 19.62
+   },
+   {
+    "id": "m05",
+    "f": "audio/m05.mp3",
+    "d": 9.192,
+    "w": "Tom",
+    "t": "Fair enough. What if we ask the university to lend us the main hall? Student societies can use it for free.",
+    "s": 29.456
+   },
+   {
+    "id": "m06",
+    "f": "audio/m06.mp3",
+    "d": 10.368,
+    "w": "Priya",
+    "t": "I thought of that too, but it's already booked on the date we chose. The only way would be to change the day of the week, maybe to a Friday.",
+    "s": 39.148
+   },
+   {
+    "id": "m07",
+    "f": "audio/m07.mp3",
+    "d": 8.856,
+    "w": "Tom",
+    "t": "Hmm. The problem is that a lot of students go home on Friday afternoons. We might lose half of our guests.",
+    "s": 50.016
+   },
+   {
+    "id": "m08",
+    "f": "audio/m08.mp3",
+    "d": 15.384,
+    "w": "Priya",
+    "t": "That's true. But if we start at seven and sell tickets early, people could plan ahead. And a Friday makes it easier to get sponsors, because companies are happier to send staff after work.",
+    "s": 59.372
+   },
+   {
+    "id": "m09",
+    "f": "audio/m09.mp3",
+    "d": 5.04,
+    "w": "Tom",
+    "t": "OK, that's a good point. So, who does what?",
+    "s": 75.256
+   },
+   {
+    "id": "m10",
+    "f": "audio/m10.mp3",
+    "d": 5.952,
+    "w": "Priya",
+    "t": "I'll talk to the sponsors if you can design the posters and the online invitation.",
+    "s": 80.796
+   },
+   {
+    "id": "m11",
+    "f": "audio/m11.mp3",
+    "d": 4.608,
+    "w": "Tom",
+    "t": "Deal. I'll send you the first draft by Wednesday.",
+    "s": 87.248
+   },
+   {
+    "id": "m12",
+    "f": "audio/m12.mp3",
+    "d": 8.904,
+    "w": "Priya",
+    "t": "Perfect. I feel much better about it now. Let's meet again on Thursday and see where we are.",
+    "s": 92.356
+   }
+  ],
+  "total": 101.26
+ },
+ "match": {
+  "gap": 0.9,
+  "segs": [
+   {
+    "id": "s1",
+    "f": "audio/s1.mp3",
+    "d": 15.36,
+    "w": "S1",
+    "t": "I used to hate group projects. Everyone talked and nothing happened. Now I know that it's not about who is the smartest. When people tell each other clearly what they're doing, even a weak team can deliver something great.",
+    "s": 0.0
+   },
+   {
+    "id": "s2",
+    "f": "audio/s2.mp3",
+    "d": 18.816,
+    "w": "S2",
+    "t": "Honestly, if I do it myself, it takes two hours. In a group, it takes two days, because we have to agree on everything. I know that's not a popular opinion, but for me, solo work gets better results, and faster.",
+    "s": 16.26
+   },
+   {
+    "id": "s3",
+    "f": "audio/s3.mp3",
+    "d": 17.088,
+    "w": "S3",
+    "t": "At first, I took every comment personally. My manager would say, this section needs rewriting, and I felt terrible. But over time I realised those comments made my work stronger, and now I actually ask for them.",
+    "s": 35.976
+   },
+   {
+    "id": "s4",
+    "f": "audio/s4.mp3",
+    "d": 13.032,
+    "w": "S4",
+    "t": "Our last project worked because our supervisor knew exactly how to divide the tasks. She didn't tell us how to do things, but she made sure everyone knew who was responsible for what. Without her, we'd have been lost.",
+    "s": 53.964
+   }
+  ],
+  "total": 66.996
+ },
+ "dict": {
+  "gap": 0,
+  "segs": [
+   {
+    "id": "d1",
+    "f": "audio/d1.mp3",
+    "d": 6.168,
+    "w": "D",
+    "t": "Registration for the winter workshops will open on the fifth of December and close two weeks later.",
+    "s": 0.0
+   },
+   {
+    "id": "d2",
+    "f": "audio/d2.mp3",
+    "d": 5.784,
+    "w": "D",
+    "t": "Participants who have already paid the deposit are asked to confirm their attendance by email.",
+    "s": 6.168
+   },
+   {
+    "id": "d3",
+    "f": "audio/d3.mp3",
+    "d": 5.952,
+    "w": "D",
+    "t": "The organisers regret to announce that the evening performance has been moved to a larger venue.",
+    "s": 11.952
+   },
+   {
+    "id": "d4",
+    "f": "audio/d4.mp3",
+    "d": 5.88,
+    "w": "D",
+    "t": "Whether the festival makes a profit depends largely on how many tickets are sold in advance.",
+    "s": 17.904
+   },
+   {
+    "id": "d5",
+    "f": "audio/d5.mp3",
+    "d": 5.544,
+    "w": "D",
+    "t": "Unless we receive written permission from the council, we won't be able to use the square.",
+    "s": 23.784
+   }
+  ],
+  "total": 29.328
+ },
+ "speak": {
+  "gap": 0,
+  "segs": [
+   {
+    "id": "q1",
+    "f": "audio/q1.mp3",
+    "d": 7.296,
+    "w": "Q",
+    "t": "Some people say that big festivals do more harm than good to the cities that host them. What's your opinion?",
+    "s": 0.0
+   },
+   {
+    "id": "q2",
+    "f": "audio/q2.mp3",
+    "d": 7.56,
+    "w": "Q",
+    "t": "Do you think it is better to study creative subjects at university, or to learn them by working? Why?",
+    "s": 7.296
+   },
+   {
+    "id": "q3",
+    "f": "audio/q3.mp3",
+    "d": 5.88,
+    "w": "Q",
+    "t": "How important is it for young people to travel or live abroad before they start a career?",
+    "s": 14.856
+   },
+   {
+    "id": "q4",
+    "f": "audio/q4.mp3",
+    "d": 7.296,
+    "w": "Q",
+    "t": "Social media has changed the way events are promoted. Is this change mostly positive or negative?",
+    "s": 20.736
+   }
+  ],
+  "total": 28.032
+ }
+}

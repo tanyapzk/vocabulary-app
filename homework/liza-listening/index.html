@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Listening Homework</title>
+<meta property="og:title" content="Listening homework: Exam Studio">
+<meta property="og:description" content="Exam listening practice with a seekable audio player.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: long page in the Exam Studio style. Each task = left column (number, title, instruction, player) + right column (the task). Sticky top bar. */
+:root{
+  --paper:#F2F3F5; --card:#FFFFFF; --ink:#0E1220; --muted:#5B6172; --line:#D6D9E1;
+  --accent:#2337FF; --on-accent:#FFFFFF; --tint:#E4E7FF;
+  --ok:#0B7F57; --ok-bg:#DDF3EA; --bad:#C7283F; --bad-bg:#FBE3E7;
+  --display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0C0E15; --card:#151824; --ink:#ECEEF5; --muted:#9BA1B4; --line:#272B3A;
+  --accent:#7381FF; --on-accent:#0C0E15; --tint:#1C2147;
+  --ok:#3FCB93; --ok-bg:#12302A; --bad:#FF7487; --bad-bg:#3A1820; color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-padding-top:64px}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;margin:0}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:clamp(16px,3.5vw,48px)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0}
+p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1280px;margin:0 auto;padding:8px clamp(16px,3.5vw,48px);display:flex;gap:6px;align-items:center}
+.logo{font-family:var(--display);font-weight:800;font-size:17px;margin-right:12px;white-space:nowrap}
+.logo span{color:var(--accent)}
+.nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav a{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;padding:6px 9px;white-space:nowrap;border-bottom:2px solid transparent}
+.nav a:hover{color:var(--ink)}
+.nav a.on{color:var(--accent);border-bottom-color:var(--accent)}
+.speeds{display:inline-flex;border:1px solid var(--line);flex:none}
+.speeds button{border:0;background:transparent;padding:6px 9px;font-family:var(--mono);font-size:12px}
+.speeds button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.prog{height:3px;background:var(--line)}
+.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s ease}
+
+/* sections */
+.slide{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.85fr);gap:clamp(24px,4vw,64px);align-items:start;padding-block:clamp(36px,7vh,72px);border-bottom:1px solid var(--line)}
+.side{display:flex;flex-direction:column;gap:16px;min-width:0;position:sticky;top:84px}
+.num{font-family:var(--display);font-weight:800;font-size:clamp(44px,6vw,72px);line-height:.9;color:var(--accent);letter-spacing:-.04em}
+.side h2{font-size:clamp(28px,3.6vw,46px);font-weight:800;line-height:1;letter-spacing:-.035em}
+.intro{color:var(--muted);font-size:16px;max-width:42ch}
+.task{min-width:0;display:flex;flex-direction:column;gap:14px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);padding:2px 8px;color:var(--muted);align-self:flex-start}
+
+/* cover */
+.cover{display:block;padding-block:clamp(40px,10vh,110px) clamp(32px,6vh,64px)}
+.cover h1{font-size:clamp(56px,13vw,150px);font-weight:800;line-height:.88;letter-spacing:-.05em}
+.cover h1 em{font-style:normal;color:var(--accent)}
+.cover .lede{margin-top:26px;font-size:clamp(18px,2.2vw,22px);color:var(--muted);max-width:46ch}
+.plan{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.plan span{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);padding:5px 10px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);padding:9px 16px;font-weight:600;font-size:14px}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{filter:brightness(1.1)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* PLAYER: play/pause that resumes, clickable and draggable track, -5s / +5s, chapter ticks, click a transcript line to jump */
+.pl{border:1.5px solid var(--ink);background:var(--card);padding:12px 14px;display:grid;gap:10px}
+.pl .r1{display:flex;align-items:center;gap:10px}
+.pl .pp{width:46px;height:46px;border:0;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;flex:none}
+.pl .pp svg{width:18px;height:18px}
+.pl .pp .i-pause{display:none}.pl.on .pp .i-play{display:none}.pl.on .pp .i-pause{display:block}
+.pl .sk{width:38px;height:38px;border:1.5px solid var(--line);background:transparent;display:grid;place-items:center;font-family:var(--mono);font-size:11px;flex:none;line-height:1}
+.pl .sk:hover{border-color:var(--ink)}
+.pl .tm{font-family:var(--mono);font-size:13px;margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+.trk{position:relative;height:28px;cursor:pointer;touch-action:none;display:flex;align-items:center}
+.trk .bar{position:absolute;left:0;right:0;height:6px;background:var(--line)}
+.trk .fill{position:absolute;left:0;height:6px;background:var(--accent);width:0}
+.trk .tick{position:absolute;top:50%;width:2px;height:12px;margin-top:-6px;background:var(--muted);opacity:.55}
+.trk .knob{position:absolute;top:50%;width:14px;height:22px;margin:-11px 0 0 -7px;background:var(--ink);border:2px solid var(--card);left:0}
+.trk:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pl.mini{padding:8px 10px;gap:6px}
+.pl.mini .pp{width:38px;height:38px}
+.pl.mini .pp svg{width:14px;height:14px}
+.pl.mini .trk{height:22px}
+.pl.mini .r1{gap:8px}
+.pl.mini .trk{flex:1}
+
+/* transcript */
+details.tx{border-top:1px solid var(--line);padding-top:8px}
+details.tx summary{cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.script{margin-top:10px;display:flex;flex-direction:column;gap:2px;max-height:46vh;overflow:auto;padding-right:8px;font-size:15px}
+.script button{all:unset;box-sizing:border-box;cursor:pointer;padding:5px 8px;border-left:3px solid transparent;display:block}
+.script button:hover{background:var(--tint)}
+.script button.cur{border-left-color:var(--accent);background:var(--tint)}
+.script b{font-family:var(--mono);font-weight:500;font-size:12px;color:var(--accent);margin-right:8px}
+.script .ts{font-family:var(--mono);font-size:11px;color:var(--muted);margin-right:8px}
+
+/* habits */
+.habits{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-top:3px solid var(--ink)}
+.habit{padding:16px 16px 18px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.habit .label{color:var(--accent)}
+.habit h3{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.habit p{font-size:15px;color:var(--muted)}
+
+/* inputs */
+input[type=text]{font:inherit;color:var(--ink);background:var(--card);border:0;border-bottom:2px solid var(--line);padding:7px 6px;width:100%;min-width:0}
+input[type=text]:focus,textarea:focus{outline:none;border-bottom-color:var(--accent)}
+input.ok{border-bottom-color:var(--ok);background:var(--ok-bg)}
+input.bad{border-bottom-color:var(--bad);background:var(--bad-bg)}
+.key{font-family:var(--mono);font-size:12px;color:var(--bad);display:none}
+.show-keys .key{display:block}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;border-top:3px solid var(--ink)}
+.num-item{display:grid;gap:6px;padding:12px 0;border-bottom:1px solid var(--line)}
+.num-item .hint{font-size:13px;color:var(--muted)}
+.num-item .head{display:flex;align-items:center;gap:10px}
+.num-item .head b{font-family:var(--mono);font-weight:500;color:var(--accent);min-width:1.4em}
+
+/* form */
+.formsheet{background:var(--card);border:1px solid var(--line);padding:clamp(16px,2.5vw,26px)}
+.formsheet h3{font-size:22px;font-weight:800;letter-spacing:-.02em;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;padding-bottom:10px;border-bottom:3px solid var(--ink)}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}
+.f-row{display:flex;flex-direction:column;gap:2px;padding:9px 0;border-bottom:1px solid var(--line)}
+.f-row .q{font-size:13px;color:var(--muted)}
+.f-row .q b{font-family:var(--mono);font-weight:500;color:var(--accent);margin-right:6px}
+.f-ans{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.f-ans input{flex:1 1 110px;width:auto}
+.f-ans .key{flex-basis:100%}
+
+/* notes */
+.notes{background:var(--card);border:1px solid var(--line);padding:clamp(16px,2.5vw,26px)}
+.notes h3{font-size:22px;font-weight:800;letter-spacing:-.02em;padding-bottom:10px;border-bottom:3px solid var(--ink);margin-bottom:6px}
+.notes li{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;padding:9px 0;border-bottom:1px solid var(--line)}
+.notes li b{font-family:var(--mono);font-weight:500;color:var(--accent);margin-right:2px}
+.notes li input{width:150px;flex:none}
+.notes li .key{flex-basis:100%}
+
+/* mcq / match */
+.mcq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;margin-bottom:6px;padding:0;line-height:1.25}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:6px 12px;border:1px solid var(--line);margin-bottom:5px;background:var(--card);cursor:pointer;font-size:14px}
+.opt input{margin-top:4px;accent-color:var(--accent)}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg)}
+.pairs{width:100%;border-collapse:collapse;font-size:14px}
+.pairs th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400;padding:6px 8px;border-bottom:2px solid var(--ink)}
+.pairs td{padding:7px 8px;border-bottom:1px solid var(--line)}
+.pairs td:last-child{color:var(--accent);font-weight:600}
+.reveal{display:none}.reveal.open{display:block}
+.stmts{display:grid;grid-template-columns:1fr;border-top:3px solid var(--ink)}
+.stmts div{display:grid;grid-template-columns:30px 1fr;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.stmts b{font-family:var(--mono);color:var(--accent);font-weight:500}
+.spk{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.spk b{font-family:var(--mono);font-weight:500;color:var(--accent)}
+.spk select{border:1.5px solid var(--line);background:var(--card);padding:8px 10px;min-width:5.5rem}
+.spk select.ok{border-color:var(--ok);background:var(--ok-bg)}
+.spk select.bad{border-color:var(--bad);background:var(--bad-bg)}
+
+/* dictation */
+.dict{border-top:3px solid var(--ink)}
+.d-item{display:grid;grid-template-columns:minmax(0,9.5rem) minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.d-item .head{display:flex;gap:8px;align-items:center}
+.d-item .head b{font-family:var(--mono);color:var(--accent);font-weight:500}
+.d-out{grid-column:1 / -1;font-size:16px;line-height:1.6}
+.d-out:empty{display:none}
+.w-ok{color:var(--ok)}
+.w-miss{color:var(--bad);text-decoration:underline wavy;text-underline-offset:4px}
+
+/* speaking */
+.lqs{border-top:3px solid var(--ink)}
+.lq{display:grid;grid-template-columns:minmax(0,10.5rem) minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.lq .hidden-q{font-size:15px;color:var(--muted)}
+.lq .hidden-q.blur{filter:blur(6px);user-select:none}
+.lq.active{background:var(--tint)}
+.clock{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:var(--ink);color:var(--paper);padding:12px 18px}
+.clock .t{font-family:var(--mono);font-size:30px;font-variant-numeric:tabular-nums;line-height:1}
+.clock .what{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.cbar{flex:1 1 120px;height:4px;background:color-mix(in srgb,var(--paper) 25%,transparent)}
+.cbar i{display:block;height:100%;width:0;background:var(--accent)}
+
+/* writing */
+textarea{width:100%;min-height:150px;font:inherit;line-height:1.6;padding:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);resize:vertical}
+.meter{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.log{display:grid;gap:6px}
+.log label{display:flex;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:15px}
+.log input{accent-color:var(--accent)}
+
+/* finish */
+.finish{padding-block:56px 80px}
+.finish h2{font-size:clamp(34px,5vw,60px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.pill{font-family:var(--mono);font-size:12px;border:1px solid var(--ink);padding:5px 10px}
+.copybox{min-height:200px;font-family:var(--mono);font-size:13px}
+.note{font-weight:600;min-height:1.4em}
+.reset{background:none;border:0;text-decoration:underline;color:var(--muted);font-size:13px;padding:0}
+
+@media (max-width:900px){
+  .slide{grid-template-columns:1fr}
+  .side{position:static}
+  .nums,.fgrid,.mcq{grid-template-columns:1fr}
+  .d-item,.lq{grid-template-columns:1fr}
+  .logo{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15L20 12z" fill="currentColor"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4.5" width="4.4" height="15" fill="currentColor"/><rect x="13.6" y="4.5" width="4.4" height="15" fill="currentColor"/></symbol>
+</defs></svg>
+
+<header class="top">
+  <div class="in">
+    <span class="logo">Exam<span>/</span>Studio</span>
+    <nav class="nav" id="nav" aria-label="Tasks">
+      <a href="#t1">1 Habits</a><a href="#t2">2 Numbers</a><a href="#t3">3 Call</a><a href="#t4">4 Lecture</a><a href="#t5">5 Dialogue</a><a href="#t6">6 Speakers</a><a href="#t7">7 Dictation</a><a href="#t8">8 Speak</a><a href="#t9">9 Write</a><a href="#send">Send</a>
+    </nav>
+    <div class="speeds" role="group" aria-label="Audio speed">
+      <button data-rate="0.85" aria-pressed="false">0.85×</button><button data-rate="1" aria-pressed="true">1×</button><button data-rate="1.15" aria-pressed="false">1.15×</button>
+    </div>
+  </div>
+  <div class="prog"><i id="prog"></i></div>
+</header>
+
+<main class="wrap">
+
+<section class="slide cover">
+  <span class="label">Exam Studio · Listening homework</span>
+  <h1 style="margin-top:22px">Listen<br>for the <em>detail.</em></h1>
+  <p class="lede">Eight listening tasks, a little speaking and a short writing task. The player remembers where you paused, and you can click the bar (or any line of the transcript) to jump to that moment.</p>
+  <div class="plan"><span>about 45 minutes</span><span>use headphones</span><span>you can do it in two sessions</span></div>
+</section>
+
+<!-- 1 habits -->
+<section class="slide" id="t1">
+  <div class="side"><span class="num">01</span><h2>Before you start</h2><p class="intro">The five habits from the lesson. Keep them in mind in every task.</p></div>
+  <div class="task">
+    <div class="habits">
+      <div class="habit"><span class="label">Habit 1</span><h3>Read first.</h3><p>Look at the questions before you press play. Predict the type of answer: a number, a name, a noun.</p></div>
+      <div class="habit"><span class="label">Habit 2</span><h3>Expect synonyms.</h3><p>The answer is usually said in different words from the question.</p></div>
+      <div class="habit"><span class="label">Habit 3</span><h3>Wait for the change.</h3><p>"Sorry", "actually", "no, wait": the first thing you hear is often wrong.</p></div>
+      <div class="habit"><span class="label">Habit 4</span><h3>Check the small stuff.</h3><p>Spelling, plurals, numbers and capital letters can cost points.</p></div>
+    </div>
+    <div class="row"><span class="tag">New: the player</span><p class="intro" style="max-width:60ch">Press the square button to play or pause. Pause keeps your place. Click or drag the bar to jump. The ±5 s buttons move a little. Thin marks on the bar show where each speaker's turn begins.</p></div>
+  </div>
+</section>
+
+<!-- 2 numbers -->
+<section class="slide" id="t2">
+  <div class="side"><span class="num">02</span><h2>Names, numbers, letters</h2>
+    <p class="intro">Play each clip as many times as you need and type exactly what you need. Listen for corrections.</p>
+    <div class="row"><button class="btn primary" data-check="numsBox">Check</button><button class="btn" data-keys="numsBox">Show answers</button></div>
+    <p class="label" id="sc2"></p>
+  </div>
+  <div class="task"><div class="nums" id="numsBox"></div></div>
+</section>
+
+<!-- 3 call -->
+<section class="slide" id="t3">
+  <div class="side"><span class="num">03</span><h2>Booking a workshop</h2>
+    <p class="intro">A student phones an arts centre. Read the form first. Write <b>one word or a number</b> in each gap.</p>
+    <div data-player="form"></div>
+    <div class="row"><button class="btn primary" data-check="formBox">Check</button><button class="btn" data-keys="formBox">Answers</button><button class="btn" data-reveal="trapsBox">Traps</button></div>
+    <p class="label" id="sc3"></p>
+    <ul class="reveal" id="trapsBox" style="font-size:14px;display:none"></ul>
+  </div>
+  <div class="task">
+    <div class="formsheet" id="formBox"></div>
+    <details class="tx"><summary>Transcript (open after checking)</summary><div class="script" data-script="form"></div></details>
+  </div>
+</section>
+
+<!-- 4 lecture -->
+<section class="slide" id="t4">
+  <div class="side"><span class="num">04</span><h2>Lecture notes</h2>
+    <p class="intro">Complete the notes. Write <b>one or two words</b> or a number in each gap. The answers come in the same order as the notes.</p>
+    <div data-player="notes"></div>
+    <div class="row"><button class="btn primary" data-check="notesBox">Check</button><button class="btn" data-keys="notesBox">Answers</button></div>
+    <p class="label" id="sc4"></p>
+  </div>
+  <div class="task">
+    <div class="notes" id="notesBox"></div>
+    <details class="tx"><summary>Transcript (open after checking)</summary><div class="script" data-script="notes"></div></details>
+  </div>
+</section>
+
+<!-- 5 dialogue mcq -->
+<section class="slide" id="t5">
+  <div class="side"><span class="num">05</span><h2>Same idea, different words</h2>
+    <p class="intro">Two students discuss a group project. Choose the correct answer. The right answer rarely uses the words you hear.</p>
+    <div data-player="mcq"></div>
+    <div class="row"><button class="btn primary" data-mcq="mcqBox">Check</button><button class="btn" data-reveal="pairsBox">Paraphrase pairs</button></div>
+    <p class="label" id="sc5"></p>
+  </div>
+  <div class="task">
+    <div class="mcq" id="mcqBox"></div>
+    <div class="reveal" id="pairsBox" style="overflow-x:auto"><table class="pairs"><thead><tr><th>You heard</th><th>The answer said</th></tr></thead><tbody>
+      <tr><td>the budget section isn't very realistic</td><td>the financial plan</td></tr>
+      <tr><td>it's already booked on the date we chose</td><td>not free on their chosen day</td></tr>
+      <tr><td>change the day of the week</td><td>changing the day</td></tr>
+      <tr><td>a lot of students go home on Fridays</td><td>many potential guests may be away</td></tr>
+      <tr><td>design the posters and the online invitation</td><td>create promotional material</td></tr>
+      <tr><td>I feel much better about it now</td><td>more confident than before</td></tr>
+    </tbody></table></div>
+    <details class="tx"><summary>Transcript (open after checking)</summary><div class="script" data-script="mcq"></div></details>
+  </div>
+</section>
+
+<!-- 6 matching -->
+<section class="slide" id="t6">
+  <div class="side"><span class="num">06</span><h2>Four opinions</h2>
+    <p class="intro">Four people talk about working in a team. Match each speaker to the statement that best fits. There are <b>two extra</b> statements.</p>
+    <div data-player="match"></div>
+    <div class="row"><button class="btn primary" id="matchCheck">Check</button><button class="btn" data-reveal="matchKey">Key phrases</button></div>
+    <p class="label" id="sc6"></p>
+  </div>
+  <div class="task">
+    <div class="stmts"><div><b>A</b>Teamwork taught me to accept criticism.</div><div><b>B</b>I prefer working alone because it is quicker.</div><div><b>C</b>Deadlines are the biggest source of stress.</div><div><b>D</b>Good communication matters more than talent.</div><div><b>E</b>A strong leader makes teamwork easier.</div><div><b>F</b>Working with friends is a mistake.</div></div>
+    <div id="spkBox"></div>
+    <div class="reveal" id="matchKey"><table class="pairs"><thead><tr><th>Speaker</th><th>Key idea</th></tr></thead><tbody>
+      <tr><td>1</td><td>"when people tell each other clearly what they're doing" → D</td></tr>
+      <tr><td>2</td><td>"solo work gets better results, and faster" → B</td></tr>
+      <tr><td>3</td><td>"those comments made my work stronger" → A</td></tr>
+      <tr><td>4</td><td>"our supervisor knew exactly how to divide the tasks" → E</td></tr>
+    </tbody></table></div>
+    <details class="tx"><summary>Transcript (open after checking)</summary><div class="script" data-script="match"></div></details>
+  </div>
+</section>
+
+<!-- 7 dictation -->
+<section class="slide" id="t7">
+  <div class="side"><span class="num">07</span><h2>Type what you hear</h2>
+    <p class="intro">University-style sentences. Listen, type the whole sentence, then check. Small words like <i>a</i>, <i>the</i> and <i>has been</i> count too.</p>
+    <p class="label" id="sc7"></p>
+  </div>
+  <div class="task"><div class="dict" id="dictBox"></div></div>
+</section>
+
+<!-- 8 speak -->
+<section class="slide" id="t8">
+  <div class="side"><span class="num">08</span><h2>Listen, then answer</h2>
+    <p class="intro">Opinion questions like in speaking exams. Press play, then answer <b>aloud</b> for about 45 seconds: your view, a reason and an example. The text stays hidden until you finish. Record yourself on your phone if you like.</p>
+    <div class="clock" aria-live="polite"><span class="t" id="clkT">0:45</span><span class="cbar"><i id="clkBar"></i></span><span class="what" id="clkW">Ready</span></div>
+  </div>
+  <div class="task"><div class="lqs" id="lqBox"></div></div>
+</section>
+
+<!-- 9 write -->
+<section class="slide" id="t9">
+  <div class="side"><span class="num">09</span><h2>Write it in your own words</h2>
+    <p class="intro">Summarise the lecture from Task 4 in 3–4 sentences (60–80 words). Use <b>your own words</b>: for example "for a limited time" instead of "scarcity". Do not copy the transcript.</p>
+  </div>
+  <div class="task">
+    <textarea id="sum" placeholder="The lecture was about pop-up events…" aria-label="Summary"></textarea>
+    <div class="meter" id="sumMeter"></div>
+    <h4 style="margin-top:12px">Your error log</h4>
+    <p class="intro" style="max-width:none">Look at your mistakes in Tasks 2–7. Tick the reasons that explain most of them.</p>
+    <div class="log" id="log"></div>
+  </div>
+</section>
+
+<!-- send -->
+<section class="finish" id="send">
+  <h2>Done? Send it.</h2>
+  <div class="pills" id="pills"></div>
+  <p class="intro" style="max-width:60ch;margin-bottom:14px">Press the button and paste the text into a message to me. Your progress is saved in this browser, so you can stop and continue later.</p>
+  <div class="row"><button class="btn primary" id="copy">Copy my answers</button><button class="reset" id="reset">Start over</button></div>
+  <p class="note" id="note" aria-live="polite" style="margin-top:12px"></p>
+  <textarea class="copybox" id="copybox" readonly aria-label="Your answers" hidden></textarea>
+</section>
+
+</main>
+
+<script>
+const MAN={"numbers": {"gap": 0, "segs": [{"id": "n1", "f": "audio/n1.mp3", "d": 7.152, "w": "N", "t": "Hello, my surname is Okonkwo. That's O-K-O-N-K-W-O.", "s": 0.0}, {"id": "n2", "f": "audio/n2.mp3", "d": 6.552, "w": "N3", "t": "My number is oh seven eight, double three, four six one, nine nine two.", "s": 7.152}, {"id": "n3", "f": "audio/n3.mp3", "d": 5.448, "w": "N2", "t": "The ticket costs twenty-four pounds fifty. Sorry, I mean fourteen pounds fifty.", "s": 13.704}, {"id": "n4", "f": "audio/n4.mp3", "d": 6.672, "w": "N", "t": "The doors open at quarter to eleven. Actually, no, quarter past eleven.", "s": 19.152}, {"id": "n5", "f": "audio/n5.mp3", "d": 5.64, "w": "N3", "t": "The postcode is S-W-eleven, four T-Q.", "s": 25.824}, {"id": "n6", "f": "audio/n6.mp3", "d": 6.168, "w": "N2", "t": "The hall holds three hundred and fifty people, not five hundred and thirty, as it says on the website.", "s": 31.464}, {"id": "n7", "f": "audio/n7.mp3", "d": 5.28, "w": "N", "t": "The deadline is the twenty-second of November. Not the twelfth.", "s": 37.632}, {"id": "n8", "f": "audio/n8.mp3", "d": 7.896, "w": "N3", "t": "You can write to me at e-l-e-n-a dot k underscore events, at mail dot com.", "s": 42.912}], "total": 50.808}, "form": {"gap": 0.5, "segs": [{"id": "f01", "f": "audio/f01.mp3", "d": 4.008, "w": "Hannah", "t": "Good morning, Riverside Arts Centre, Hannah speaking.", "s": 0.0}, {"id": "f02", "f": "audio/f02.mp3", "d": 8.784, "w": "Maya", "t": "Hello. I'd like to sign up for the Event Design Workshop, please. I think it's on Wednesday evenings?", "s": 4.508}, {"id": "f03", "f": "audio/f03.mp3", "d": 4.824, "w": "Hannah", "t": "It was on Wednesdays last term, but this term it's moved to Thursdays.", "s": 13.792}, {"id": "f04", "f": "audio/f04.mp3", "d": 6.696, "w": "Maya", "t": "Thursday, that's fine. And what time does it start? Seven?", "s": 19.116}, {"id": "f05", "f": "audio/f05.mp3", "d": 3.744, "w": "Hannah", "t": "Half past six. It finishes at nine.", "s": 26.312}, {"id": "f06", "f": "audio/f06.mp3", "d": 5.952, "w": "Maya", "t": "OK. How many sessions are there? I read eight.", "s": 30.556}, {"id": "f07", "f": "audio/f07.mp3", "d": 7.848, "w": "Hannah", "t": "It used to be eight, but we've shortened it. It's six sessions now, and the first one is on the fourteenth of January.", "s": 37.008}, {"id": "f08", "f": "audio/f08.mp3", "d": 3.48, "w": "Maya", "t": "Great. And how much is it?", "s": 45.356}, {"id": "f09", "f": "audio/f09.mp3", "d": 6.504, "w": "Hannah", "t": "The full price is a hundred and twenty pounds, but students get a discount, so for you it's eighty-four.", "s": 49.336}, {"id": "f10", "f": "audio/f10.mp3", "d": 6.696, "w": "Maya", "t": "That's good. Where do the sessions take place? Studio Two?", "s": 56.34}, {"id": "f11", "f": "audio/f11.mp3", "d": 6.048, "w": "Hannah", "t": "Studio Two is being repaired. You'll be in Studio Four, on the second floor.", "s": 63.536}, {"id": "f12", "f": "audio/f12.mp3", "d": 4.824, "w": "Maya", "t": "Studio Four. Do I need to bring anything?", "s": 70.084}, {"id": "f13", "f": "audio/f13.mp3", "d": 7.08, "w": "Hannah", "t": "Just a laptop and a sketchbook. We provide markers and pens, but please bring your own sketchbook.", "s": 75.408}, {"id": "f14", "f": "audio/f14.mp3", "d": 3.36, "w": "Maya", "t": "Of course. Thank you.", "s": 82.988}, {"id": "f15", "f": "audio/f15.mp3", "d": 1.872, "w": "Hannah", "t": "Can I take your name?", "s": 86.848}, {"id": "f16", "f": "audio/f16.mp3", "d": 8.352, "w": "Maya", "t": "Yes, it's Maya Aldridge. That's A-L-D-R-I-D-G-E.", "s": 89.22}, {"id": "f17", "f": "audio/f17.mp3", "d": 1.92, "w": "Hannah", "t": "And a contact number?", "s": 98.072}, {"id": "f18", "f": "audio/f18.mp3", "d": 5.424, "w": "Maya", "t": "It's oh seven nine one one, four oh five, two six eight.", "s": 100.492}, {"id": "f19", "f": "audio/f19.mp3", "d": 3.84, "w": "Hannah", "t": "Thank you. And how did you hear about the workshop?", "s": 106.416}, {"id": "f20", "f": "audio/f20.mp3", "d": 3.768, "w": "Maya", "t": "I saw a poster at the university library.", "s": 110.756}, {"id": "f21", "f": "audio/f21.mp3", "d": 5.496, "w": "Hannah", "t": "Lovely. We'll send you a confirmation email. See you in January!", "s": 115.024}], "total": 120.52}, "notes": {"gap": 0.4, "segs": [{"id": "l1", "f": "audio/l1.mp3", "d": 20.28, "w": "Lecturer", "t": "Good morning, everyone. Today I'd like to talk about pop-up events: short-term experiences that appear in unexpected places and then disappear. The idea is not new, but over the last decade it has become a major tool for brands, artists and even city councils.", "s": 0.0}, {"id": "l2", "f": "audio/l2.mp3", "d": 17.4, "w": "Lecturer", "t": "Let's start with the origin. Pop-up shops first appeared in the early two thousands, when retailers realised that a temporary space was far cheaper than a long lease. A shop could open in an empty building for just two weeks, test a product, and leave. Soon the same logic spread to food, with street-food markets, and to culture, with pop-up galleries and cinemas.", "s": 20.68}, {"id": "l3", "f": "audio/l3.mp3", "d": 29.592, "w": "Lecturer", "t": "Why do audiences love them? There are three main reasons. First, scarcity: because the event is available for a limited time, people feel they must attend. Second, surprise: nobody expects a concert in a car park or an exhibition in an old swimming pool. And third, social media. Guests share photographs, and that gives the organisers free advertising.", "s": 38.48}, {"id": "l4", "f": "audio/l4.mp3", "d": 22.872, "w": "Lecturer", "t": "However, pop-ups bring challenges. The biggest one is permission: organisers often need a licence from the local council, and this can take up to six weeks. Another problem is cost control. Although the space is cheap, building a temporary set can be expensive, so planning the budget carefully is essential.", "s": 68.472}, {"id": "l5", "f": "audio/l5.mp3", "d": 17.064, "w": "Lecturer", "t": "Finally, sustainability. A growing number of cities now ask organisers to reuse materials rather than throw them away. In one recent festival in Lisbon, over eighty percent of the decorations were borrowed or recycled.", "s": 91.744}, {"id": "l6", "f": "audio/l6.mp3", "d": 10.608, "w": "Lecturer", "t": "So, to sum up, the pop-up model works because it is flexible, but it demands very careful planning. Next week, we'll look at case studies.", "s": 109.208}], "total": 119.816}, "mcq": {"gap": 0.5, "segs": [{"id": "m01", "f": "audio/m01.mp3", "d": 5.208, "w": "Tom", "t": "Hi Priya. Have you seen the feedback on our gala proposal?", "s": 0.0}, {"id": "m02", "f": "audio/m02.mp3", "d": 8.304, "w": "Priya", "t": "I have. Overall our tutor was pleased, but she thinks the budget section isn't very realistic.", "s": 5.708}, {"id": "m03", "f": "audio/m03.mp3", "d": 4.608, "w": "Tom", "t": "Really? I was sure the timeline was the weak point.", "s": 14.512}, {"id": "m04", "f": "audio/m04.mp3", "d": 9.336, "w": "Priya", "t": "No, she said the timeline was clear. What she doesn't believe is that we can find a venue for under two thousand pounds.", "s": 19.62}, {"id": "m05", "f": "audio/m05.mp3", "d": 9.192, "w": "Tom", "t": "Fair enough. What if we ask the university to lend us the main hall? Student societies can use it for free.", "s": 29.456}, {"id": "m06", "f": "audio/m06.mp3", "d": 10.368, "w": "Priya", "t": "I thought of that too, but it's already booked on the date we chose. The only way would be to change the day of the week, maybe to a Friday.", "s": 39.148}, {"id": "m07", "f": "audio/m07.mp3", "d": 8.856, "w": "Tom", "t": "Hmm. The problem is that a lot of students go home on Friday afternoons. We might lose half of our guests.", "s": 50.016}, {"id": "m08", "f": "audio/m08.mp3", "d": 15.384, "w": "Priya", "t": "That's true. But if we start at seven and sell tickets early, people could plan ahead. And a Friday makes it easier to get sponsors, because companies are happier to send staff after work.", "s": 59.372}, {"id": "m09", "f": "audio/m09.mp3", "d": 5.04, "w": "Tom", "t": "OK, that's a good point. So, who does what?", "s": 75.256}, {"id": "m10", "f": "audio/m10.mp3", "d": 5.952, "w": "Priya", "t": "I'll talk to the sponsors if you can design the posters and the online invitation.", "s": 80.796}, {"id": "m11", "f": "audio/m11.mp3", "d": 4.608, "w": "Tom", "t": "Deal. I'll send you the first draft by Wednesday.", "s": 87.248}, {"id": "m12", "f": "audio/m12.mp3", "d": 8.904, "w": "Priya", "t": "Perfect. I feel much better about it now. Let's meet again on Thursday and see where we are.", "s": 92.356}], "total": 101.26}, "match": {"gap": 0.9, "segs": [{"id": "s1", "f": "audio/s1.mp3", "d": 15.36, "w": "S1", "t": "I used to hate group projects. Everyone talked and nothing happened. Now I know that it's not about who is the smartest. When people tell each other clearly what they're doing, even a weak team can deliver something great.", "s": 0.0}, {"id": "s2", "f": "audio/s2.mp3", "d": 18.816, "w": "S2", "t": "Honestly, if I do it myself, it takes two hours. In a group, it takes two days, because we have to agree on everything. I know that's not a popular opinion, but for me, solo work gets better results, and faster.", "s": 16.26}, {"id": "s3", "f": "audio/s3.mp3", "d": 17.088, "w": "S3", "t": "At first, I took every comment personally. My manager would say, this section needs rewriting, and I felt terrible. But over time I realised those comments made my work stronger, and now I actually ask for them.", "s": 35.976}, {"id": "s4", "f": "audio/s4.mp3", "d": 13.032, "w": "S4", "t": "Our last project worked because our supervisor knew exactly how to divide the tasks. She didn't tell us how to do things, but she made sure everyone knew who was responsible for what. Without her, we'd have been lost.", "s": 53.964}], "total": 66.996}, "dict": {"gap": 0, "segs": [{"id": "d1", "f": "audio/d1.mp3", "d": 6.168, "w": "D", "t": "Registration for the winter workshops will open on the fifth of December and close two weeks later.", "s": 0.0}, {"id": "d2", "f": "audio/d2.mp3", "d": 5.784, "w": "D", "t": "Participants who have already paid the deposit are asked to confirm their attendance by email.", "s": 6.168}, {"id": "d3", "f": "audio/d3.mp3", "d": 5.952, "w": "D", "t": "The organisers regret to announce that the evening performance has been moved to a larger venue.", "s": 11.952}, {"id": "d4", "f": "audio/d4.mp3", "d": 5.88, "w": "D", "t": "Whether the festival makes a profit depends largely on how many tickets are sold in advance.", "s": 17.904}, {"id": "d5", "f": "audio/d5.mp3", "d": 5.544, "w": "D", "t": "Unless we receive written permission from the council, we won't be able to use the square.", "s": 23.784}], "total": 29.328}, "speak": {"gap": 0, "segs": [{"id": "q1", "f": "audio/q1.mp3", "d": 7.296, "w": "Q", "t": "Some people say that big festivals do more harm than good to the cities that host them. What's your opinion?", "s": 0.0}, {"id": "q2", "f": "audio/q2.mp3", "d": 7.56, "w": "Q", "t": "Do you think it is better to study creative subjects at university, or to learn them by working? Why?", "s": 7.296}, {"id": "q3", "f": "audio/q3.mp3", "d": 5.88, "w": "Q", "t": "How important is it for young people to travel or live abroad before they start a career?", "s": 14.856}, {"id": "q4", "f": "audio/q4.mp3", "d": 7.296, "w": "Q", "t": "Social media has changed the way events are promoted. Is this change mostly positive or negative?", "s": 20.736}], "total": 28.032}};
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmt=s=>{ s=Math.max(0,Math.round(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); };
+  const KEY='liza-listening-hw-1';
+  const fresh=()=>({v:{},m:{},spk:{},sum:'',log:{},res:{}});
+  let S=fresh();
+  try{ const raw=localStorage.getItem(KEY); if(raw){ const o=JSON.parse(raw); if(o&&typeof o==='object') S=Object.assign(fresh(),o); } }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} };
+
+  /* ================= PLAYER ================= */
+  let RATE=1; const players=[];
+  const NAMES={Hannah:'Hannah',Maya:'Maya',Lecturer:'Lecturer',Tom:'Tom',Priya:'Priya',S1:'Speaker 1',S2:'Speaker 2',S3:'Speaker 3',S4:'Speaker 4'};
+  class Player{
+    constructor(task,el,opts){
+      this.segs=MAN[task].segs; this.gap=MAN[task].gap; this.total=MAN[task].total; this.el=el; this.opts=opts||{};
+      this.t=0; this.playing=false; this.audio=new Audio(); this.audio.preload='auto'; this.idx=-1; this.gapTimer=null; this.onEnd=null;
+      this.audio.addEventListener('timeupdate',()=>{ if(this.idx>=0&&this.playing&&!this.inGap){ this.t=this.segs[this.idx].s+this.audio.currentTime; this.ui(); } });
+      this.audio.addEventListener('ended',()=>this.segEnded());
+      this.audio.addEventListener('error',()=>{ this.pause(); this.el.classList.add('err'); });
+      this.build(); players.push(this);
+    }
+    build(){
+      const mini=this.opts.mini;
+      this.el.innerHTML='<div class="pl'+(mini?' mini':'')+'"><div class="r1"><button type="button" class="pp" aria-label="Play or pause"><svg class="i-play"><use href="#i-play"/></svg><svg class="i-pause"><use href="#i-pause"/></svg></button>'+
+        (mini?'':'<button type="button" class="sk" data-d="-5" aria-label="Back 5 seconds">−5</button><button type="button" class="sk" data-d="5" aria-label="Forward 5 seconds">+5</button>')+
+        (mini?'<div class="trk" role="slider" tabindex="0" aria-label="Audio position" aria-valuemin="0" aria-valuemax="'+Math.round(this.total)+'" aria-valuenow="0"><div class="bar"></div><div class="fill"></div><div class="knob"></div></div><span class="tm">0:00 / '+fmt(this.total)+'</span>':'<span class="tm">0:00 / '+fmt(this.total)+'</span>')+
+        '</div>'+(mini?'':'<div class="trk" role="slider" tabindex="0" aria-label="Audio position" aria-valuemin="0" aria-valuemax="'+Math.round(this.total)+'" aria-valuenow="0"><div class="bar"></div><div class="fill"></div><div class="knob"></div></div>')+'</div>';
+      this.root=this.el.firstElementChild; this.trk=this.root.querySelector('.trk'); this.fill=this.root.querySelector('.fill'); this.knob=this.root.querySelector('.knob'); this.tm=this.root.querySelector('.tm');
+      if(!mini && this.segs.length>1){ this.segs.forEach((g,i)=>{ if(i===0) return; const k=document.createElement('i'); k.className='tick'; k.style.left=(g.s/this.total*100)+'%'; this.trk.appendChild(k); }); }
+      this.root.querySelector('.pp').addEventListener('click',()=>this.toggle());
+      this.root.querySelectorAll('.sk').forEach(b=>b.addEventListener('click',()=>this.seek(this.t+(+b.dataset.d))));
+      const pos=e=>{ const r=this.trk.getBoundingClientRect(); return Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*this.total; };
+      let drag=false, was=false;
+      this.trk.addEventListener('pointerdown',e=>{ drag=true; was=this.playing; this.trk.setPointerCapture(e.pointerId); if(was) this.pause(true); this.seek(pos(e),true); });
+      this.trk.addEventListener('pointermove',e=>{ if(drag){ this.seekQuiet(pos(e)); } });
+      this.trk.addEventListener('pointerup',e=>{ if(!drag) return; drag=false; this.seek(pos(e),true); if(was) this.play(); });
+      this.trk.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'){ e.preventDefault(); this.seek(this.t+5); } else if(e.key==='ArrowLeft'){ e.preventDefault(); this.seek(this.t-5); } else if(e.key==='Home'){ this.seek(0); } else if(e.key==='End'){ this.seek(this.total); } });
+      this.ui();
+    }
+    segAt(t){ let i=0; for(let k=0;k<this.segs.length;k++){ if(t>=this.segs[k].s) i=k; } return i; }
+    ui(){
+      const f=this.total?Math.min(1,this.t/this.total):0;
+      this.fill.style.width=(f*100)+'%'; this.knob.style.left=(f*100)+'%'; this.trk.setAttribute('aria-valuenow',Math.round(this.t));
+      this.tm.textContent=fmt(this.t)+' / '+fmt(this.total);
+      this.root.classList.toggle('on',this.playing);
+      const cur=this.segAt(this.t); if(this.onCur) this.onCur(cur,this.t);
+    }
+    load(i,off){
+      const g=this.segs[i];
+      if(this.idx!==i){ this.idx=i; this.audio.src=g.f; }
+      this.audio.playbackRate=RATE; try{ this.audio.preservesPitch=true; }catch(e){}
+      const want=Math.min(off,Math.max(0,g.d-0.05));
+      const set=()=>{ try{ if(Math.abs(this.audio.currentTime-want)>0.25) this.audio.currentTime=want; }catch(e){} };
+      if(this.audio.readyState>=1) set(); else this.audio.addEventListener('loadedmetadata',set,{once:true});
+    }
+    seekQuiet(t){ this.t=Math.max(0,Math.min(this.total,t)); this.ui(); }
+    seek(t,silent){
+      t=Math.max(0,Math.min(this.total,t)); this.t=t; this.clearGap();
+      const i=this.segAt(t), g=this.segs[i], off=t-g.s;
+      if(off<=g.d){ this.load(i,off); this.inGap=false; } else { this.inGap=true; this.idx=i; }
+      this.ui(); if(this.playing&&!silent) this._go();
+    }
+    play(){ if(this.playing) return; players.forEach(p=>{ if(p!==this) p.pause(); });
+      if(this.t>=this.total-0.05){ this.t=0; this.idx=-1; }
+      this.playing=true; this._go(); this.ui(); }
+    pause(keepFlag){ this.audio.pause(); this.clearGap(); this.playing=false; this.ui(); }
+    toggle(){ this.playing?this.pause():this.play(); }
+    _go(){
+      this.clearGap(); const i=this.segAt(this.t), g=this.segs[i], off=this.t-g.s;
+      if(off>g.d){ this.startGap(i); return; }
+      this.inGap=false; this.load(i,off);
+      const p=this.audio.play(); if(p&&p.catch) p.catch(()=>{ this.pause(); });
+    }
+    segEnded(){
+      if(!this.playing) return; const i=this.idx; this.t=this.segs[i].s+this.segs[i].d;
+      if(i>=this.segs.length-1){ this.playing=false; this.t=this.total; this.ui(); if(this.onEnd) this.onEnd(); return; }
+      this.startGap(i);
+    }
+    startGap(i){
+      this.inGap=true; const next=this.segs[i+1], from=this.t, started=performance.now(); const need=(next.s-from);
+      if(need<=0.01||this.gap===0){ this.t=next.s; this.inGap=false; this._go(); return; }
+      this.gapTimer=setInterval(()=>{ const adv=(performance.now()-started)/1000*RATE; this.t=Math.min(next.s,from+adv); this.ui(); if(this.t>=next.s){ this.clearGap(); this.inGap=false; if(this.playing) this._go(); } },40);
+    }
+    clearGap(){ if(this.gapTimer){ clearInterval(this.gapTimer); this.gapTimer=null; } }
+  }
+  const mk=(task,el,opts)=>new Player(task,el,opts);
+  $$('.speeds button').forEach(b=>b.addEventListener('click',()=>{ RATE=parseFloat(b.dataset.rate); players.forEach(p=>{ p.audio.playbackRate=RATE; }); $$('.speeds button').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false')); }));
+
+  /* transcripts: click a line to jump */
+  const P={};
+  function script(task){
+    const box=$('[data-script="'+task+'"]'); if(!box) return; const m=MAN[task];
+    box.innerHTML=m.segs.map((g,i)=>'<button type="button" data-i="'+i+'"><span class="ts">'+fmt(g.s)+'</span><b>'+(NAMES[g.w]||'')+'</b>'+esc(g.t)+'</button>').join('');
+    box.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{ const pl=P[task]; if(!pl) return; const was=pl.playing; pl.seek(m.segs[+b.dataset.i].s,true); if(!pl.playing) pl.play(); else pl._go(); }));
+    const pl=P[task]; if(pl) pl.onCur=(i)=>{ box.querySelectorAll('button').forEach((b,k)=>b.classList.toggle('cur',k===i&&pl.playing)); };
+  }
+  ['form','notes','mcq','match'].forEach(t=>{ const slot=$('[data-player="'+t+'"]'); P[t]=mk(t,slot); script(t); });
+
+  /* ================= checking ================= */
+  const norm=s=>s.toLowerCase().replace(/[£$€\s,]/g,'').replace(/\.$/,'');
+  function checkInput(inp){
+    let v=inp.value; if(!v.trim()){ inp.classList.remove('ok','bad'); return null; }
+    v=inp.dataset.digits?v.replace(/\D/g,''):norm(v);
+    const ok=inp.dataset.answers.split('|').map(norm).includes(v);
+    inp.classList.toggle('ok',ok); inp.classList.toggle('bad',!ok); return ok;
+  }
+  function checkBox(id,scEl,key){
+    const ins=$$('#'+id+' input[data-answers]'); let ok=0, n=ins.length;
+    ins.forEach(i=>{ if(checkInput(i)) ok++; });
+    scEl.textContent=ok+' / '+n+' correct'; S.res[key]=[ok,n]; save(); updateProg(); return ok;
+  }
+  $$('[data-keys]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.keys).classList.toggle('show-keys')));
+  $$('[data-reveal]').forEach(b=>b.addEventListener('click',()=>{ const t=$('#'+b.dataset.reveal); t.classList.toggle('open'); if(t.tagName==='UL') t.style.display=t.classList.contains('open')?'block':'none'; }));
+  function persist(inp){ inp.value=S.v[inp.id]||''; inp.addEventListener('input',()=>{ S.v[inp.id]=inp.value; inp.classList.remove('ok','bad'); save(); updateProg(); }); }
+
+  /* ---- 2 numbers ---- */
+  const NUMS=[["n1","Surname","okonkwo","Okonkwo",0],["n2","Phone number","07833461992","078 33 461 992",1],["n3","Ticket price (£)","14.50|1450","£14.50 (not 24.50)",0],["n4","Doors open at","11.15|11:15|1115|quarterpasteleven|quarter past 11","11.15 (not 10.45)",0],["n5","Postcode","sw114tq","SW11 4TQ",0],["n6","Capacity (people)","350","350 (not 530)",0],["n7","Deadline (date in November)","22|22nd|22november|22ndnovember|twentysecond|twenty-second","22nd (not 12th)",0],["n8","Email address","elena.k_events@mail.com","elena.k_events@mail.com",0]];
+  $('#numsBox').innerHTML=NUMS.map(([id,h,a,k,d],i)=>'<div class="num-item"><div class="head"><b>'+(i+1)+'</b><span data-pl="'+id+'" style="flex:1"></span></div><input type="text" id="'+id+'x" data-answers="'+a+'"'+(d?' data-digits="1"':'')+' aria-label="Answer '+(i+1)+'" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="hint">'+h+'</span><span class="key">'+esc(k)+'</span></div>').join('');
+  NUMS.forEach(([id])=>{ const seg=MAN.numbers.segs.find(s=>s.id===id); const slot=$('[data-pl="'+id+'"]'); MAN[id]={gap:0,total:seg.d,segs:[{id:id,f:seg.f,d:seg.d,w:seg.w,t:seg.t,s:0}]}; P[id]=mk(id,slot,{mini:true}); });
+  $$('#numsBox input').forEach(persist);
+  $('[data-check="numsBox"]').addEventListener('click',()=>checkBox('numsBox',$('#sc2'),'t2'));
+
+  /* ---- 3 form ---- */
+  const F=[["f1","1","Day of workshop","","","thursday","Thursday"],["f2","2","Start time","","pm","6.30|630|6:30|halfpastsix|18.30|1830|6.30pm|6:30pm|630pm","6.30 (not 7)"],["f3","3","Number of sessions","","","6|six","6 (not 8)"],["f4","4","Student price","£","","84|eightyfour|eighty-four","84 (not 120)"],["f5","5","Room","Studio","","4|four|studio4|studiofour","Studio 4 (not 2)"],["f6","6","First session","","January","14|14th|14january|14thjanuary|fourteenth|14thofjanuary","14th January"],["f7","7","Bring a laptop and a","","","sketchbook|sketch book|asketchbook","sketchbook"],["f8","8","Surname","","","aldridge","Aldridge"],["f9","9","Phone","","","07911405268","07911 405 268"],["f10","10","Heard about it from a","","at the university library","poster|aposter|theposter","poster"]];
+  $('#formBox').innerHTML='<h3>Riverside Arts Centre <span class="label">Booking form · Event Design Workshop</span></h3><div class="fgrid">'+F.map(([id,n,q,pre,post,a,k])=>'<div class="f-row"><span class="q"><b>'+n+'</b>'+q+'</span><div class="f-ans">'+(pre?pre+' ':'')+'<input type="text" id="'+id+'" data-answers="'+a+'"'+(id==='f9'?' data-digits="1"':'')+' aria-label="Gap '+n+'" autocomplete="off" autocapitalize="off" spellcheck="false">'+(post?' '+post:'')+'<span class="key">'+esc(k)+'</span></div></div>').join('')+'</div>';
+  $$('#formBox input').forEach(persist);
+  $('[data-check="formBox"]').addEventListener('click',()=>checkBox('formBox',$('#sc3'),'t3'));
+  $('#trapsBox').innerHTML=['<s>Wednesday</s> → Thursday','<s>7 p.m.</s> → half past six','<s>8 sessions</s> → 6','<s>£120</s> → £84 with the student discount','<s>Studio Two</s> → Studio Four','<s>(a)</s> you bring a sketchbook: pens and markers are provided'].map(x=>'<li style="padding:6px 0;border-bottom:1px solid var(--line)">'+x+'</li>').join('');
+
+  /* ---- 4 notes ---- */
+  const N=[["Pop-up events: short-term experiences in","places","unexpected","unexpected"],["First pop-up shops: early","","2000s|two thousands|2000|early2000s","2000s"],["Shops could open for as little as","weeks","two|2","two"],["Idea spread to street food and","","culture|galleries","(see below)"],["Reasons audiences like them: scarcity, surprise and","","socialmedia|social media|socialnetworks","social media"],["Biggest challenge: getting a","from the local council","licence|license","licence"],["It can take up to","weeks","six|6","six"],["Building a temporary","can be expensive","set","set"],["At a festival in Lisbon, over","% of decorations were reused","80|eighty|80%|eightypercent","80"]];
+  N[3]=["Pop-up shops spread to street-food markets and later to","(galleries and cinemas)","culture","culture"];
+  $('#notesBox').innerHTML='<h3>Pop-up events</h3><ul>'+N.map(([pre,post,a,k],i)=>'<li><b>'+(i+1)+'</b>'+esc(pre)+' <input type="text" id="n'+(i+1)+'" data-answers="'+a+'" aria-label="Gap '+(i+1)+'" autocomplete="off" autocapitalize="off" spellcheck="false"> '+esc(post)+'<span class="key">'+esc(k)+'</span></li>').join('')+'</ul>';
+  $$('#notesBox input').forEach(persist);
+  $('[data-check="notesBox"]').addEventListener('click',()=>checkBox('notesBox',$('#sc4'),'t4'));
+
+  /* ---- 5 mcq ---- */
+  const Q=[["What did the tutor criticise?",["The schedule","The financial plan","The length of the proposal"],1],["Why can't they use the main hall?",["It costs too much","It is too small","It is not free on their chosen day"],2],["What does Priya suggest about the date?",["Postponing it by a month","Changing the day of the week","Moving the event outdoors"],1],["What worries Tom about a Friday?",["The hall will be noisy","Many potential guests may be away","Sponsors will be busy"],1],["What will Tom do?",["Contact the sponsors","Book the main hall","Create promotional material"],2],["How does Priya feel at the end?",["More confident than before","Worried about the deadline","Annoyed with the tutor"],0]];
+  $('#mcqBox').innerHTML=Q.map(([q,o],i)=>'<fieldset data-correct="'+Q[i][2]+'"><legend>'+(i+1)+'. '+q+'</legend>'+o.map((t,k)=>'<label class="opt"><input type="radio" name="m'+i+'" value="'+k+'"'+(S.m['m'+i]==k?' checked':'')+'>'+t+'</label>').join('')+'</fieldset>').join('');
+  $$('#mcqBox input').forEach(r=>r.addEventListener('change',()=>{ S.m[r.name]=r.value; save(); updateProg(); }));
+  $('[data-mcq="mcqBox"]').addEventListener('click',()=>{ let ok=0; $$('#mcqBox fieldset').forEach(fs=>{ fs.querySelectorAll('.opt').forEach(o=>o.classList.remove('ok','bad')); const p=fs.querySelector('input:checked'); if(!p) return; const right=fs.querySelector('input[value="'+fs.dataset.correct+'"]').closest('.opt'); if(p.value===fs.dataset.correct){ right.classList.add('ok'); ok++; } else { p.closest('.opt').classList.add('bad'); right.classList.add('ok'); } }); $('#sc5').textContent=ok+' / '+Q.length+' correct'; S.res.t5=[ok,Q.length]; save(); updateProg(); });
+
+  /* ---- 6 matching ---- */
+  const SP=[["s1","D"],["s2","B"],["s3","A"],["s4","E"]];
+  SP.forEach(([id])=>{ const seg=MAN.match.segs.find(s=>s.id===id); MAN['m_'+id]={gap:0,total:seg.d,segs:[{id:id,f:seg.f,d:seg.d,w:seg.w,t:seg.t,s:0}]}; });
+  $('#spkBox').innerHTML=SP.map(([id],i)=>'<div class="spk"><b>Speaker '+(i+1)+'</b><span data-pl="'+id+'"></span><select id="sel'+id+'" aria-label="Statement for speaker '+(i+1)+'"><option value="">–</option>'+['A','B','C','D','E','F'].map(l=>'<option>'+l+'</option>').join('')+'</select></div>').join('');
+  SP.forEach(([id])=>{ P['m_'+id]=mk('m_'+id,$('[data-pl="'+id+'"]'),{mini:true}); const s=$('#sel'+id); s.value=S.spk[id]||''; s.addEventListener('change',()=>{ S.spk[id]=s.value; s.classList.remove('ok','bad'); save(); updateProg(); }); });
+  $('#matchCheck').addEventListener('click',()=>{ let ok=0; SP.forEach(([id,a])=>{ const s=$('#sel'+id); s.classList.remove('ok','bad'); if(!s.value) return; if(s.value===a){ s.classList.add('ok'); ok++; } else s.classList.add('bad'); }); $('#sc6').textContent=ok+' / '+SP.length+' correct'; S.res.t6=[ok,SP.length]; save(); updateProg(); });
+  /* the single "match" player in the side column plays all four speakers in one go */
+
+  /* ---- 7 dictation ---- */
+  const words=s=>s.toLowerCase().replace(/[^a-z0-9' ]/g,' ').split(/\s+/).filter(Boolean);
+  const dictBox=$('#dictBox');
+  MAN.dict.segs.forEach((g,i)=>{
+    MAN['dd'+i]={gap:0,total:g.d,segs:[{id:g.id,f:g.f,d:g.d,w:g.w,t:g.t,s:0}]};
+    const row=document.createElement('div'); row.className='d-item';
+    row.innerHTML='<div class="head"><b>'+(i+1)+'</b><span data-pl="dd'+i+'" style="flex:1"></span></div><input type="text" id="dict'+(i+1)+'" aria-label="Sentence '+(i+1)+'" autocomplete="off" spellcheck="false"><button class="btn">Check</button><div class="d-out"></div>';
+    dictBox.append(row); P['dd'+i]=mk('dd'+i,row.querySelector('[data-pl]'),{mini:true});
+    const inp=row.querySelector('input'); inp.value=S.v['dict'+(i+1)]||''; inp.addEventListener('input',()=>{ S.v['dict'+(i+1)]=inp.value; save(); updateProg(); });
+    row.querySelector('.btn').addEventListener('click',()=>{
+      const target=g.t.split(/\s+/), tw=words(g.t), uw=words(inp.value);
+      const m=tw.length,n=uw.length,L=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+      for(let a=m-1;a>=0;a--)for(let b=n-1;b>=0;b--)L[a][b]=tw[a]===uw[b]?L[a+1][b+1]+1:Math.max(L[a+1][b],L[a][b+1]);
+      const hit=new Array(m).fill(false); let a=0,b=0;
+      while(a<m&&b<n){ if(tw[a]===uw[b]){hit[a]=true;a++;b++;} else if(L[a+1][b]>=L[a][b+1]) a++; else b++; }
+      const out=row.querySelector('.d-out'); out.innerHTML='';
+      target.forEach((w,k)=>{ const sp=document.createElement('span'); sp.className=hit[k]?'w-ok':'w-miss'; sp.textContent=w; out.append(sp,document.createTextNode(' ')); });
+      const sc=document.createElement('span'); sc.className='label'; sc.textContent=' '+hit.filter(Boolean).length+' / '+m+' words'; out.append(sc);
+      S.res['d'+i]=[hit.filter(Boolean).length,m]; save(); dictScore(); updateProg();
+    });
+  });
+  function dictScore(){ const v=Object.keys(S.res).filter(k=>/^d\d$/.test(k)); if(!v.length){ $('#sc7').textContent=''; return; } const a=v.reduce((s,k)=>s+S.res[k][0],0), b=v.reduce((s,k)=>s+S.res[k][1],0); $('#sc7').textContent=a+' / '+b+' words in '+v.length+' checked sentences'; }
+  dictScore();
+
+  /* ---- 8 speak ---- */
+  const clkT=$('#clkT'), clkBar=$('#clkBar'), clkW=$('#clkW'); let clk=null;
+  function startClock(txt){ clearInterval(clk); let left=45; clkT.textContent=fmt(left); clkBar.style.width='0'; clkW.textContent='Speak'; clk=setInterval(()=>{ left--; clkT.textContent=fmt(Math.max(left,0)); clkBar.style.width=((45-left)/45*100)+'%'; if(left<=0){ clearInterval(clk); clk=null; clkW.textContent='Time'; txt.classList.remove('blur'); } },1000); }
+  MAN.speak.segs.forEach((g,i)=>{
+    MAN['sp'+i]={gap:0,total:g.d,segs:[{id:g.id,f:g.f,d:g.d,w:g.w,t:g.t,s:0}]};
+    const row=document.createElement('div'); row.className='lq';
+    row.innerHTML='<div class="head" style="display:flex;gap:8px;align-items:center"><b style="font-family:var(--mono);color:var(--accent);font-weight:500">'+(i+1)+'</b><span data-pl="sp'+i+'" style="flex:1"></span></div><span class="hidden-q blur">'+esc(g.t)+'</span><button class="btn">Show</button>';
+    $('#lqBox').append(row); const pl=mk('sp'+i,row.querySelector('[data-pl]'),{mini:true}); P['sp'+i]=pl; const txt=row.querySelector('.hidden-q');
+    row.querySelector('.btn').addEventListener('click',()=>txt.classList.toggle('blur'));
+    pl.onEnd=()=>{ $$('.lq').forEach(r=>r.classList.toggle('active',r===row)); startClock(txt); };
+    row.querySelector('.pp').addEventListener('click',()=>{ clearInterval(clk); clkT.textContent='0:45'; clkBar.style.width='0'; clkW.textContent='Listen'; });
+  });
+
+  /* ---- 9 write + log ---- */
+  const sum=$('#sum'); sum.value=S.sum||'';
+  const updSum=()=>{ S.sum=sum.value; const w=(sum.value.trim().match(/\S+/g)||[]).length; $('#sumMeter').textContent=w+' words (aim for 60–80)'; save(); updateProg(); }; sum.addEventListener('input',updSum); updSum();
+  const LOG=["I missed numbers, dates or letters","I did not know a word","I knew the word but misspelled it","I heard it, but too slowly to write it down","I lost the place and missed the next answer","I fell for a correction (the first thing I heard was wrong)","I did not recognise a synonym or paraphrase","I made small grammar mistakes (plural, article, tense)"];
+  $('#log').innerHTML=LOG.map((t,i)=>'<label><input type="checkbox" data-i="'+i+'"'+(S.log[i]?' checked':'')+'>'+t+'</label>').join('');
+  $$('#log input').forEach(c=>c.addEventListener('change',()=>{ S.log[c.dataset.i]=c.checked; save(); }));
+
+  /* ---- progress ---- */
+  const secs=['t1','t2','t3','t4','t5','t6','t7','t8','t9','send'].map(id=>document.getElementById(id)), links=$$('#nav a');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const i=secs.indexOf(e.target); links.forEach((l,k)=>l.classList.toggle('on',k===i)); } }),{rootMargin:'-25% 0px -65% 0px'});
+  secs.forEach(s=>io.observe(s));
+  function updateProg(){
+    const filled=ids=>ids.filter(id=>(S.v[id]||'').trim()).length;
+    const n=filled(NUMS.map(x=>x[0]+'x')), f=filled(F.map(x=>x[0])), nn=filled(N.map((_,i)=>'n'+(i+1))), m=Object.keys(S.m).length, sp=Object.values(S.spk).filter(Boolean).length, d=[1,2,3,4,5].filter(i=>(S.v['dict'+i]||'').trim()).length, w=(S.sum||'').trim().split(/\s+/).filter(Boolean).length>=30?1:0;
+    const total=NUMS.length+F.length+N.length+Q.length+SP.length+5+1;
+    $('#prog').style.width=Math.round(100*(n+f+nn+m+sp+d+w)/total)+'%';
+    const r=S.res; const pill=(t,k)=>'<span class="pill">'+t+' '+(r[k]?r[k][0]+'/'+r[k][1]:'–')+'</span>';
+    $('#pills').innerHTML=pill('Numbers','t2')+pill('Call','t3')+pill('Lecture','t4')+pill('Dialogue','t5')+pill('Speakers','t6')+'<span class="pill">Dictation '+d+'/5 typed</span><span class="pill">Summary '+(w?'written':'–')+'</span>';
+  }
+  updateProg();
+
+  /* ---- send ---- */
+  function summary(){
+    const L=['Listening homework · Exam Studio — '+new Date().toLocaleString('en-GB'),''];
+    const r=S.res; const sc=(t,k)=>L.push(t+': '+(r[k]?r[k][0]+'/'+r[k][1]:'(not checked)'));
+    sc('2 Names and numbers','t2'); sc('3 Booking call','t3'); sc('4 Lecture notes','t4'); sc('5 Dialogue (MCQ)','t5'); sc('6 Four opinions','t6');
+    const dk=Object.keys(r).filter(k=>/^d\d$/.test(k)); L.push('7 Dictation: '+(dk.length?dk.reduce((s,k)=>s+r[k][0],0)+'/'+dk.reduce((s,k)=>s+r[k][1],0)+' words':'(not checked)'));
+    L.push('','7 My dictation:'); [1,2,3,4,5].forEach(i=>L.push(i+'. '+((S.v['dict'+i]||'').trim()||'(empty)')));
+    L.push('','9 Summary:',(S.sum||'').trim()||'(empty)','','Error log:');
+    const picked=LOG.filter((_,i)=>S.log[i]); L.push(picked.length?picked.map(t=>'- '+t).join('\n'):'(nothing ticked)');
+    L.push('','8 Speaking: (send the recording separately, if you made one)');
+    return L.join('\n');
+  }
+  $('#copy').addEventListener('click',async()=>{ const txt=summary(), box=$('#copybox'); box.value=txt; try{ await navigator.clipboard.writeText(txt); $('#note').textContent='Copied. Now paste it into a message to me.'; box.hidden=true; }catch(e){ box.hidden=false; box.focus(); box.select(); $('#note').textContent='Select all and copy (Ctrl/Cmd + C), then paste it into a message to me.'; } });
+  let armed=null; $('#reset').addEventListener('click',()=>{ const b=$('#reset'); if(!armed){ b.textContent='Click again to erase everything'; armed=setTimeout(()=>{ armed=null; b.textContent='Start over'; },3500); return; } clearTimeout(armed); try{ localStorage.removeItem(KEY); }catch(e){} location.reload(); });
+})();
+</script>
+</body>
+</html>
