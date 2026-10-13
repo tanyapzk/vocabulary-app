@@ -213,7 +213,7 @@ textarea{min-height:11rem}
 
 <header class="bar">
   <nav class="in" id="nav" aria-label="Sections">
-    <a href="#rules">1 Rules</a><a href="#b">2 Choose</a><a href="#c">3 Gaps</a><a href="#d">4 Spot the error</a><a href="#e">5 Compare</a><a href="#f">6 Write</a><a href="#g">7 Speak</a><a href="#done">Send</a>
+    <a href="#rules">1 Rules</a><a href="#b">2 Choose</a><a href="#c">3 Gaps</a><a href="#d">4 Spot the error</a><a href="#e">5 Compare</a><a href="#f">6 Write</a><a href="#done">Send</a>
   </nav>
   <div class="line"><i id="prog"></i></div>
 </header>
@@ -223,8 +223,8 @@ textarea{min-height:11rem}
 <div class="hero">
   <div>
     <h1><span class="a">Result</span>, <span class="b">process</span> or just the&nbsp;past?</h1>
-    <p>Four tenses, one clear system. First read the rules, then practise with real regulatory situations, then write and speak.</p>
-    <div class="plan"><span>about 35 minutes</span><span>read · choose · type · write</span><span>works on a computer</span></div>
+    <p>Four tenses, one clear system. First read the rules, then practise with real regulatory situations, then write one short text.</p>
+    <div class="plan"><span>about 30 minutes</span><span>read · choose · type · write</span><span>works on a computer</span></div>
   </div>
   <svg viewBox="0 0 260 240" aria-hidden="true"><circle cx="130" cy="120" r="108" fill="var(--teal-soft)"/><circle cx="196" cy="48" r="28" fill="var(--sun)"/><use href="#i-clip" x="84" y="34" width="92" height="105"/><use href="#i-stamp" x="150" y="130" width="70" height="70"/><use href="#i-capsule" x="22" y="154" width="100" height="50" transform="rotate(-14 72 179)"/><use href="#i-pulse" x="150" y="8" width="100" height="40"/></svg>
 </div>
@@ -367,40 +367,12 @@ textarea{min-height:11rem}
 
 <!-- 6 WRITE -->
 <section class="part" id="f">
-  <div class="part-h"><span class="n">6</span><h2>Write</h2><span class="min">≈ 8 min · write</span></div>
-  <p class="lead">Use real details from your job (or invent them). The counters under the text show how many of the target forms you used. They are approximate, so don't write to please the counter: write to be clear.</p>
-
+  <div class="part-h"><span class="n">6</span><h2>Write a short update</h2><span class="min">≈ 4 min · write</span></div>
+  <p class="lead">One short text is enough. Imagine you are writing to your manager about a submission or a response to the authority. Three or four sentences, about 50 words. Use real details or invent them.</p>
   <div class="prompt">
-    <h4>A. A status update to your manager</h4>
-    <p>Write an email about a submission or a response to the authority: what is done, what you are still working on, and how long it has been going. About 100 words.</p>
-    <div class="need"><span class="chip pp">3 × Present Perfect</span><span class="chip pc">3 × Present Perfect Continuous</span><span class="chip">1 × how long / since / for</span><span class="chip">1 × yet</span></div>
-    <textarea data-k="w0" aria-label="Status update" placeholder="Hi …,&#10;&#10;A quick update on …"></textarea>
+    <div class="need"><span class="chip pp">1 × Present Perfect (a result)</span><span class="chip pc">1 × Present Perfect Continuous (an activity)</span><span class="chip">1 × how long / since / for</span></div>
+    <textarea data-k="w0" aria-label="Short update" style="min-height:8rem" placeholder="Hi …, a quick update on …"></textarea>
     <div class="meter" data-for="w0"></div>
-  </div>
-
-  <div class="prompt">
-    <h4>B. Your last three months</h4>
-    <p>What have you achieved (use numbers), and what have you been working on? Add one thing that has been difficult. About 80 words.</p>
-    <div class="need"><span class="chip pp">numbers + Present Perfect</span><span class="chip pc">Present Perfect Continuous for ongoing work</span></div>
-    <textarea data-k="w1" aria-label="Last three months" placeholder="Over the last three months, I've…"></textarea>
-    <div class="meter" data-for="w1"></div>
-  </div>
-
-  <div class="prompt">
-    <h4>C. Explain it to a colleague</h4>
-    <p>Imagine a new colleague asks: "What is the difference between <i>I was preparing the dossier</i> and <i>I've been preparing the dossier</i>?" Answer in 3–4 sentences in your own words. Use an example from your work.</p>
-    <textarea data-k="w2" aria-label="Explain the difference" style="min-height:8rem" placeholder="The difference is…"></textarea>
-    <div class="meter" data-for="w2"></div>
-  </div>
-</section>
-
-<!-- 7 SPEAK -->
-<section class="part" id="g">
-  <div class="part-h"><span class="n">7</span><h2>Speak</h2><span class="min">≈ 2 min · voice</span></div>
-  <div class="card">
-    <p>Record a <b>one-minute voice message</b> to your teacher on your phone. Do not read your texts. Answer the question:</p>
-    <p style="font-family:var(--display);font-weight:800;font-size:1.4rem;line-height:1.25;margin:.7rem 0">"What have you finished this month, and what have you been working on since the beginning of the year?"</p>
-    <p class="label">Use at least: 2 results (with numbers) · 2 ongoing activities · 1 "how long" · 1 sentence in Past Simple with a finished time.</p>
   </div>
 </section>
 
@@ -540,12 +512,12 @@ textarea{min-height:11rem}
     const bd=Object.values(S.b).filter(x=>x&&x.done).length, dd=Object.values(S.d).filter(x=>x&&x.done).length;
     const cf=Object.values(S.c).filter(v=>v&&v.trim()).length;
     const ef=['e0','e1','e2','e3'].filter(k=>(S.t[k]||'').trim()).length;
-    const wf=['w0','w1','w2'].filter(k=>(S.t[k]||'').trim().split(/\s+/).filter(Boolean).length>=20).length;
-    const total=B.length+C.length+D.length+4+3, done=bd+cf+dd+ef+wf;
+    const wf=['w0'].filter(k=>(S.t[k]||'').trim().split(/\s+/).filter(Boolean).length>=15).length;
+    const total=B.length+C.length+D.length+4+1, done=bd+cf+dd+ef+wf;
     $('#prog').style.width=Math.round(100*done/total)+'%';
-    $('#pills').innerHTML='<span class="pill">Choose '+bd+'/'+B.length+'</span><span class="pill">Gaps '+S.cd+'/'+C.length+'</span><span class="pill">Errors '+dd+'/'+D.length+'</span><span class="pill">Four tenses '+ef+'/4</span><span class="pill">Writing '+wf+'/3</span>';
+    $('#pills').innerHTML='<span class="pill">Choose '+bd+'/'+B.length+'</span><span class="pill">Gaps '+S.cd+'/'+C.length+'</span><span class="pill">Errors '+dd+'/'+D.length+'</span><span class="pill">Four tenses '+ef+'/4</span><span class="pill">Writing '+wf+'/1</span>';
   }
-  const secs=['rules','b','c','d','e','f','g','done'].map(id=>document.getElementById(id));
+  const secs=['rules','b','c','d','e','f','done'].map(id=>document.getElementById(id));
   const links=$$('#nav a');
   const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ const i=secs.indexOf(e.target); links.forEach((l,k)=>l.classList.toggle('on',k===i)); } }); },{rootMargin:'-30% 0px -60% 0px'});
   secs.forEach(s=>io.observe(s));
@@ -563,13 +535,12 @@ textarea{min-height:11rem}
     const wrongD=D.map((r,i)=>S.d[i]&&!S.d[i].firstOk?(i+1):null).filter(Boolean); if(wrongD.length) L.push('   Missed at first: '+wrongD.join(', '));
     L.push(''); L.push('5 Four tenses:');
     ['Past Simple','Past Continuous','Present Perfect','Present Perfect Continuous'].forEach((n,i)=>L.push('   '+n+': '+((S.t['e'+i]||'').trim()||'(empty)')));
-    L.push(''); [['w0','A. Status update'],['w1','B. Last three months'],['w2','C. Explain the difference']].forEach(([k,t])=>{ L.push('6 '+t+':'); L.push((S.t[k]||'').trim()||'(empty)'); L.push(''); });
-    L.push('7 Voice message: (send separately)');
+    L.push(''); [['w0','Short update']].forEach(([k,t])=>{ L.push('6 '+t+':'); L.push((S.t[k]||'').trim()||'(empty)'); L.push(''); });
     return L.join('\n');
   }
   $('#copy').addEventListener('click',async()=>{
     const txt=summary(), box=$('#copybox'); box.value=txt;
-    try{ await navigator.clipboard.writeText(txt); $('#note').textContent='Copied. Now paste it into a message to me and send the voice message.'; box.hidden=true; }
+    try{ await navigator.clipboard.writeText(txt); $('#note').textContent='Copied. Now paste it into a message to me.'; box.hidden=true; }
     catch(e){ box.hidden=false; box.focus(); box.select(); $('#note').textContent='Select all and copy (Ctrl/Cmd + C), then paste into a message to me.'; }
   });
   let armed=null;
