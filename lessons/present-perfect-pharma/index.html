@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Result or Process</title>
+<meta property="og:title" content="Result or Process? Present Perfect in pharma English">
+<meta property="og:description" content="Present Perfect vs Present Perfect Continuous: a speaking lesson with pharma examples.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800;9..144,900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+<style>
+/* Layout: a slide deck for screen sharing. One slide at a time: left = title and instruction, right = the task. Arrows / keys / swipe to move. */
+:root{
+  --paper:#F6F8F4; --card:#FFFFFF; --ink:#12332F; --muted:#587068; --line:#D9E3DC;
+  --teal:#1F7A6D; --teal-soft:#D3EEE2; --coral:#F0603F; --coral-soft:#FFE1D6; --sun:#FFD97A; --sun-soft:#FFF3CC;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{font-size:clamp(15px,.5vw + 11px,21px);height:100%}
+body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.5;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+h1,h2,h3,h4,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+em.pp,b.pp{font-style:normal;background:var(--coral-soft);color:#A8321A;padding:0 .25em;border-radius:.35em}
+em.pc,b.pc{font-style:normal;background:var(--teal-soft);color:#0F5A50;padding:0 .25em;border-radius:.35em}
+.label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+svg{display:block}
+.ico{width:1em;height:1em}
+
+/* deck */
+.deck{height:calc(100% - 4.2rem);position:relative}
+.slide{display:none;height:100%;overflow:auto;padding:clamp(1.2rem,3vw,3rem) clamp(1.2rem,4vw,4.5rem);grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);gap:clamp(1.2rem,3vw,3.5rem);align-content:center;position:relative}
+.slide.on{display:grid;animation:rise .6s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.side{display:flex;flex-direction:column;gap:1rem;align-self:center}
+.num{font-family:var(--display);font-weight:900;font-size:clamp(2.4rem,5vw,4.6rem);line-height:1;color:var(--coral)}
+.side h2{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,3vw,2.8rem);line-height:1.08;letter-spacing:-.015em;text-wrap:balance}
+.intro{color:var(--muted);font-size:1.05rem;max-width:34ch;text-wrap:pretty}
+.task{min-width:0;align-self:center;display:flex;flex-direction:column;gap:1rem}
+.soft-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none;z-index:-1}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;height:4.2rem;display:flex;align-items:center;gap:1rem;padding:0 clamp(1rem,3vw,2.5rem);background:color-mix(in srgb,var(--paper) 88%,white);border-top:1px solid var(--line);z-index:5}
+.nbtn{width:2.7rem;height:2.7rem;border-radius:50%;border:2px solid var(--ink);background:var(--card);display:grid;place-items:center;flex:none;transition:background .3s var(--ease),transform .3s var(--ease)}
+.nbtn:hover{background:var(--sun);transform:translateY(-2px)}
+.nbtn:disabled{opacity:.3;pointer-events:none}
+.nbtn svg{width:1.2rem;height:1.2rem}
+.dots{flex:1;display:flex;gap:.35rem;justify-content:center;min-width:0}
+.dots button{flex:1 1 0;max-width:2.4rem;height:.5rem;border:0;border-radius:99px;background:var(--line);padding:0;transition:background .3s var(--ease)}
+.dots button.seen{background:var(--teal-soft)}
+.dots button.on{background:var(--coral)}
+.count{font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);min-width:3.5rem;text-align:right}
+
+/* generic pieces */
+.btn{border:2px solid var(--ink);background:var(--card);border-radius:99px;padding:.5rem 1.1rem;font-weight:600;font-size:.95rem;transition:background .3s var(--ease),transform .3s var(--ease)}
+.btn:hover{background:var(--sun);transform:translateY(-2px)}
+.btn.main{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.main:hover{background:var(--teal)}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1.2rem 1.4rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{border-radius:99px;padding:.25rem .8rem;font-size:.95rem;font-weight:600;background:var(--sun-soft);border:1px solid var(--sun)}
+.chip.pp{background:var(--coral-soft);border-color:#FFB9A4;color:#A8321A}
+.chip.pc{background:var(--teal-soft);border-color:#9ED6C3;color:#0F5A50}
+.say{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;color:var(--coral);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.say svg{width:1.2rem;height:1.2rem}
+.reveal-box{display:none}
+.reveal-box.open{display:block;animation:rise .5s var(--ease) both}
+
+/* 1 cover */
+.cover{grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);align-items:center}
+.cover h1{font-family:var(--display);font-weight:900;font-size:clamp(2.6rem,6.4vw,6rem);line-height:.98;letter-spacing:-.03em;text-wrap:balance}
+.cover h1 .a{color:var(--coral)} .cover h1 .b{color:var(--teal)}
+.cover h1 i{display:block;font-weight:600;font-size:.42em;letter-spacing:0;color:var(--muted);margin:.3em 0}
+.cover .lede{font-size:1.2rem;max-width:36ch;color:var(--muted);margin-top:1.2rem;text-wrap:pretty}
+.cover .art{display:grid;place-items:center}
+.cover .art svg{width:min(100%,30rem);height:auto}
+
+/* 2 questions */
+.qs{counter-reset:q;display:grid;gap:.7rem}
+.qs li{counter-increment:q;display:grid;grid-template-columns:2.4rem 1fr;gap:.9rem;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.8rem 1.1rem;font-size:1.2rem;font-weight:500}
+.qs li::before{content:counter(q);width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;background:var(--sun);font-family:var(--display);font-weight:900}
+
+/* 3 big idea */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+.big{border-radius:1.6rem;padding:1.5rem;display:flex;flex-direction:column;gap:.7rem}
+.big.pp{background:var(--coral-soft);border:2px solid var(--coral)}
+.big.pc{background:var(--teal-soft);border:2px solid var(--teal)}
+.big h3{font-family:var(--display);font-weight:900;font-size:1.9rem;line-height:1;letter-spacing:-.02em}
+.big.pp h3{color:#A8321A} .big.pc h3{color:#0F5A50}
+.big .name{font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
+.big .formula{font-family:var(--display);font-weight:800;font-size:1.25rem;background:var(--card);border-radius:.8rem;padding:.4rem .8rem;align-self:flex-start}
+.big p{font-size:1.02rem;text-wrap:pretty}
+.big .ex{font-style:italic;font-weight:600}
+.timeline{width:100%;height:auto;margin-top:auto}
+.rule{display:flex;gap:1rem;align-items:center;background:var(--ink);color:var(--paper);border-radius:1.2rem;padding:.9rem 1.3rem;font-size:1.1rem}
+.rule b{color:var(--sun)}
+
+/* 4 pairs */
+.pairs{display:grid;gap:.7rem}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.pair div{border-radius:1rem;padding:.7rem 1rem}
+.pair .l{background:var(--coral-soft);border:1.5px solid #FFB9A4}
+.pair .r{background:var(--teal-soft);border:1.5px solid #9ED6C3}
+.pair strong{display:block;font-size:1.12rem;font-weight:600}
+.pair span{font-size:.85rem;color:var(--muted)}
+.pair-h{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;font-weight:700}
+.pair-h span{border-radius:99px;padding:.3rem .9rem;justify-self:start;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.pair-h .l{background:var(--coral);color:#fff}.pair-h .r{background:var(--teal);color:#fff}
+
+/* 5 forms */
+.forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+.forms .card h3{font-family:var(--display);font-weight:800;font-size:1.3rem;margin-bottom:.5rem}
+.forms table{width:100%;border-collapse:collapse;font-size:1rem}
+.forms td{padding:.38rem 0;border-bottom:1px solid var(--line);vertical-align:top}
+.forms td:first-child{color:var(--muted);width:6.5rem;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.signals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.signals h4{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+
+/* 6 exceptions */
+.exc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}
+.ex-card{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem}
+.ex-card .tag{font-family:var(--display);font-weight:900;font-size:1.5rem;line-height:1;color:var(--coral)}
+.ex-card h4{font-size:1.02rem;font-weight:700;line-height:1.25}
+.ex-card p{font-size:.92rem;color:var(--muted);text-wrap:pretty}
+.ex-card .y{color:var(--teal);font-weight:600;font-size:.95rem}
+.ex-card .n{color:#B23A22;font-size:.95rem;text-decoration:line-through;text-decoration-thickness:1.5px}
+
+/* 7 chunks */
+.chunks{display:flex;flex-wrap:wrap;gap:.6rem}
+.chunk{background:var(--card);border:1.5px solid var(--line);border-radius:.9rem;padding:.55rem 1rem;font-size:1.1rem;font-weight:600}
+.chunk:nth-child(3n+1){background:var(--teal-soft);border-color:#9ED6C3}
+.chunk:nth-child(3n+2){background:var(--coral-soft);border-color:#FFB9A4}
+.chunk:nth-child(3n){background:var(--sun-soft);border-color:var(--sun)}
+
+/* 8 quiz */
+.quiz{display:grid;gap:1rem}
+.qcard{background:var(--card);border:1.5px solid var(--line);border-radius:1.4rem;padding:1.5rem 1.7rem;display:grid;gap:1rem}
+.qtop{display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qsent{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.3;text-wrap:balance}
+.qsent .gap{display:inline-block;min-width:3.5em;border-bottom:3px solid var(--coral);text-align:center;font-weight:800}
+.qsent .gap.shown{border-color:var(--teal);color:var(--teal)}
+.qopts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
+.qopts button{border:2px solid var(--line);background:var(--paper);border-radius:1rem;padding:.7rem .6rem;font-weight:700;font-size:.95rem;transition:background .3s var(--ease),border-color .3s var(--ease)}
+.qopts button:hover{border-color:var(--ink)}
+.qopts button.ok{background:var(--teal-soft);border-color:var(--teal)}
+.qopts button.no{background:var(--coral-soft);border-color:var(--coral)}
+.qwhy{font-size:1.02rem;min-height:3.2em;color:var(--muted);text-wrap:pretty}
+.qwhy b{color:var(--ink)}
+.qfoot{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.score{font-weight:700;color:var(--muted)}
+
+/* 9 situations */
+.sits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}
+.sit{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;text-align:left;transition:transform .4s var(--ease),border-color .3s var(--ease)}
+.sit:hover{transform:translateY(-4px);border-color:var(--ink)}
+.sit svg{width:2.6rem;height:2.6rem}
+.sit h4{font-weight:700;font-size:1rem}
+.sit p{font-size:.92rem;color:var(--muted);text-wrap:pretty}
+.sit .model{display:none;font-size:.9rem;border-top:1px dashed var(--line);padding-top:.5rem}
+.sit.open .model{display:block}
+.sit .model b{display:block;margin-bottom:.15rem}
+
+/* 10 interview */
+.qbig{background:var(--sun);border-radius:1.8rem;padding:clamp(1.5rem,3vw,2.6rem);min-height:13rem;display:flex;flex-direction:column;justify-content:space-between;gap:1rem}
+.qbig p{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3.2vw,2.8rem);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+.qbig .follow{font-size:1rem;color:#6B4E00;font-weight:600}
+.timer{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:.7rem 1.1rem}
+.timer .t{font-family:var(--display);font-weight:900;font-size:2rem;font-variant-numeric:tabular-nums;min-width:4.2rem}
+.timer .bar{flex:1 1 8rem;height:.55rem;background:var(--line);border-radius:99px;overflow:hidden}
+.timer .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:99px;transition:width 1s linear}
+
+/* 11 role-play */
+.scen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem}
+.scn{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.6rem}
+.scn h4{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.1}
+.scn li{font-size:.95rem;padding-left:1.1rem;position:relative}
+.scn li::before{content:"";position:absolute;left:0;top:.6em;width:.5rem;height:.5rem;border-radius:50%;background:var(--coral)}
+.scn li.c::before{background:var(--teal)}
+.legend{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.9rem;font-weight:600}
+.legend span::before{content:"";display:inline-block;width:.7rem;height:.7rem;border-radius:50%;margin-right:.4rem;background:var(--coral)}
+.legend span.c::before{background:var(--teal)}
+.phrasebank{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem 1.4rem;font-size:1rem}
+.phrasebank div{border-bottom:1px solid var(--line);padding:.3rem 0}
+
+/* 12 checklist */
+.todo{display:grid;gap:.6rem}
+.todo label{display:grid;grid-template-columns:2rem 1fr;gap:.8rem;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.7rem 1rem;font-size:1.1rem;cursor:pointer;transition:background .3s var(--ease)}
+.todo input{width:1.4rem;height:1.4rem;accent-color:var(--teal)}
+.todo label:has(input:checked){background:var(--teal-soft);border-color:#9ED6C3}
+
+/* 13-14 summary */
+.sheet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+.sheet .big{gap:.5rem}
+.sheet li{font-size:1rem;padding:.3rem 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
+.sheet li:last-child{border:0}
+
+@media (min-width:961px) and (max-height:820px){
+  html{font-size:15px}
+  .slide{padding-block:.9rem}
+  .exc{gap:.6rem}.ex-card{padding:.7rem .9rem;gap:.3rem}.ex-card .tag{font-size:1.2rem}
+  .qs li{padding:.6rem 1rem}
+}
+@media (max-width:960px){
+  html{font-size:16px}
+  .slide,.cover{grid-template-columns:1fr;align-content:start;gap:1.2rem}
+  .cover .art{order:-1}
+  .duo,.forms,.sheet{grid-template-columns:1fr}
+  .exc,.sits,.scen,.signals{grid-template-columns:1fr}
+  .pair,.pair-h{grid-template-columns:1fr}
+  .qopts{grid-template-columns:1fr}
+  .phrasebank{grid-template-columns:1fr}
+  .count{display:none}
+  .intro{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- illustrations: flat shapes, colours come from the page palette -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-capsule" viewBox="0 0 80 40"><rect x="2" y="2" width="76" height="36" rx="18" fill="#fff" stroke="var(--ink)" stroke-width="3"/><path d="M40 2h-22a16 16 0 0 0 0 36h22z" fill="var(--coral)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><path d="M12 12c2-3 5-4 9-4" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><path d="M8 24h32" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><path d="M13 15a14 14 0 0 1 8-6" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 64 72"><path d="M24 6h16M26 6v20L8 58a6 6 0 0 0 5 9h38a6 6 0 0 0 5-9L38 26V6" fill="#fff" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M17 46h30l9 12a6 6 0 0 1-5 9H13a6 6 0 0 1-5-9z" fill="var(--teal)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><circle cx="28" cy="55" r="3" fill="#fff"/><circle cx="38" cy="59" r="2.2" fill="#fff"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 120 48"><path d="M2 26h30l8-18 12 36 10-26 8 8h48" fill="none" stroke="var(--coral)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cross" viewBox="0 0 48 48"><rect x="4" y="4" width="40" height="40" rx="12" fill="var(--teal)" stroke="var(--ink)" stroke-width="3"/><path d="M24 13v22M13 24h22" stroke="#fff" stroke-width="6" stroke-linecap="round"/></symbol>
+    <symbol id="i-molecule" viewBox="0 0 80 72"><path d="M22 20l18-10 18 10v22L40 52 22 42zM22 42L8 58M58 20l14-10M40 52v16" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="20" r="7" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><circle cx="40" cy="10" r="5" fill="#fff" stroke="var(--ink)" stroke-width="3"/><circle cx="58" cy="20" r="7" fill="var(--coral)" stroke="var(--ink)" stroke-width="3"/><circle cx="58" cy="42" r="7" fill="var(--teal)" stroke="var(--ink)" stroke-width="3"/><circle cx="40" cy="52" r="5" fill="#fff" stroke="var(--ink)" stroke-width="3"/><circle cx="22" cy="42" r="7" fill="var(--teal-soft)" stroke="var(--ink)" stroke-width="3"/></symbol>
+    <symbol id="i-clip" viewBox="0 0 56 64"><rect x="6" y="8" width="44" height="52" rx="8" fill="#fff" stroke="var(--ink)" stroke-width="3"/><rect x="18" y="2" width="20" height="12" rx="5" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><path d="M16 28h24M16 38h24M16 48h14" stroke="var(--teal)" stroke-width="3.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-tube" viewBox="0 0 40 72"><path d="M8 4h24M12 4v52a8 8 0 0 0 16 0V4" fill="#fff" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 36h16v20a8 8 0 0 1-16 0z" fill="var(--coral)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/></symbol>
+    <symbol id="i-stamp" viewBox="0 0 64 64"><rect x="8" y="50" width="48" height="8" rx="3" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><path d="M24 50V32a8 8 0 1 1 16 0v18" fill="var(--teal)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><rect x="20" y="8" width="24" height="8" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="3"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 64 64"><circle cx="32" cy="32" r="12" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><path d="M32 6v9M32 49v9M6 32h9M49 32h9M14 14l6 6M44 44l6 6M50 14l-6 6M20 44l-6 6" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="32" r="4" fill="#fff" stroke="var(--ink)" stroke-width="3"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 64 64"><path d="M12 22h40l-3 34H15z" fill="var(--coral)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><path d="M22 22v-6a10 10 0 0 1 20 0v6" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><path d="M26 36v6M38 36v6" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 64 64"><rect x="4" y="6" width="56" height="52" rx="8" fill="#fff" stroke="var(--ink)" stroke-width="3"/><path d="M14 44l12-14 10 8 14-20" fill="none" stroke="var(--coral)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="18" r="4" fill="var(--teal)"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="8" fill="var(--teal-soft)" stroke="var(--ink)" stroke-width="3"/><path d="M32 22v20M22 32h20" stroke="var(--teal)" stroke-width="6" stroke-linecap="round"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="deck" id="deck">
+
+<!-- 1 cover -->
+<section class="slide cover" data-t="Cover">
+  <div>
+    <span class="label">Pharma English · Speaking practice</span>
+    <h1><span class="a">Result</span><i>or</i><span class="b">process?</span></h1>
+    <p class="lede">Present Perfect or Present Perfect Continuous. Understand the difference once, then use it in real work talk.</p>
+  </div>
+  <div class="art">
+    <svg viewBox="0 0 440 420" aria-hidden="true">
+      <circle cx="220" cy="210" r="170" fill="var(--teal-soft)"/>
+      <circle cx="330" cy="90" r="46" fill="var(--sun)"/>
+      <use href="#i-flask" x="150" y="90" width="150" height="168"/>
+      <use href="#i-capsule" x="40" y="300" width="180" height="90" transform="rotate(-16 130 345)"/>
+      <use href="#i-pill" x="290" y="290" width="90" height="90"/>
+      <use href="#i-molecule" x="30" y="60" width="130" height="117"/>
+      <use href="#i-pulse" x="250" y="40" width="170" height="68"/>
+      <use href="#i-cross" x="350" y="190" width="64" height="64"/>
+    </svg>
+  </div>
+</section>
+
+<!-- 2 warm-up -->
+<section class="slide" data-t="Warm-up">
+  <div class="side">
+    <span class="num">01</span>
+    <h2>Warm-up: your work so&nbsp;far</h2>
+    <p class="intro">Answer in two or three sentences. Don't worry about the grammar yet. We'll look at it together afterwards.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak</div>
+  </div>
+  <div class="task">
+    <ol class="qs">
+      <li>What have you done at work today?</li>
+      <li>What have you been working on this week?</li>
+      <li>How long have you been working in this field?</li>
+      <li>What is one thing you have achieved this year?</li>
+      <li>What have you been finding difficult lately?</li>
+    </ol>
+    <div class="row"><button class="btn" data-reveal="warmNote">What do you notice?</button></div>
+    <div class="reveal-box card" id="warmNote"><p>Questions 1 and 4 ask about a <b class="pp">result</b>. Questions 2, 3 and 5 ask about an <b class="pc">activity over time</b>. That is today's whole topic.</p></div>
+  </div>
+</section>
+
+<!-- 3 big idea -->
+<section class="slide" data-t="The big idea">
+  <div class="side">
+    <span class="num">02</span>
+    <h2>The big idea in one&nbsp;picture</h2>
+    <p class="intro">Both tenses connect the past with now. The difference is what you want to talk about.</p>
+  </div>
+  <div class="task">
+    <div class="duo">
+      <div class="big pp">
+        <span class="name">Present Perfect</span>
+        <h3>RESULT</h3>
+        <span class="formula">have / has + V3</span>
+        <p>The action is done, and the <b>result</b> matters now. We care about <b>what</b> and <b>how many</b>.</p>
+        <p class="ex">I've tested 40 samples.</p>
+        <svg class="timeline" viewBox="0 0 300 80" aria-hidden="true"><path d="M8 46h284" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="200" cy="46" r="9" fill="var(--coral)" stroke="var(--ink)" stroke-width="3"/><path d="M284 38l8 8-8 8" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="8" y="18" font-size="13" font-weight="700" fill="var(--ink)">past</text><text x="244" y="24" font-size="13" font-weight="700" fill="var(--ink)">now</text><text x="168" y="70" font-size="13" font-weight="700" fill="#A8321A">done: 40 samples</text></svg>
+      </div>
+      <div class="big pc">
+        <span class="name">Present Perfect Continuous</span>
+        <h3>PROCESS</h3>
+        <span class="formula">have / has been + V-ing</span>
+        <p>We care about the <b>activity</b> itself: <b>how long</b>, how it is going, what we can see now.</p>
+        <p class="ex">I've been testing samples since 8 a.m.</p>
+        <svg class="timeline" viewBox="0 0 300 80" aria-hidden="true"><path d="M8 46h284" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><path d="M60 46c10-16 20-16 30 0s20 16 30 0 20-16 30 0 20 16 30 0 20-16 30 0" fill="none" stroke="var(--teal)" stroke-width="6" stroke-linecap="round"/><path d="M284 38l8 8-8 8" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="8" y="18" font-size="13" font-weight="700" fill="var(--ink)">past</text><text x="244" y="24" font-size="13" font-weight="700" fill="var(--ink)">now</text><text x="80" y="70" font-size="13" font-weight="700" fill="#0F5A50">the activity continues</text></svg>
+      </div>
+    </div>
+    <div class="rule"><span><b>Quick test:</b> "How many?" points to the result. "How long?" points to the process.</span></div>
+  </div>
+</section>
+
+<!-- 4 same situation -->
+<section class="slide" data-t="Same situation, two angles">
+  <div class="side">
+    <span class="num">03</span>
+    <h2>Same situation, two&nbsp;angles</h2>
+    <p class="intro">The same work, but a different message. Read both and say what each one tells the listener.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Then say your own pair</div>
+  </div>
+  <div class="task pairs">
+    <div class="pair-h"><span class="l">Result</span><span class="r">Process</span></div>
+    <div class="pair"><div class="l"><strong>I've written the protocol.</strong><span>It's finished. Here it is.</span></div><div class="r"><strong>I've been writing the protocol.</strong><span>That's why I'm tired. Maybe not finished.</span></div></div>
+    <div class="pair"><div class="l"><strong>The team has tested 200 samples.</strong><span>A number: how many.</span></div><div class="r"><strong>The team has been testing samples since Monday.</strong><span>The activity and its duration.</span></div></div>
+    <div class="pair"><div class="l"><strong>She has cleaned the lab.</strong><span>It's spotless now.</span></div><div class="r"><strong>She has been cleaning the lab.</strong><span>Wet floor, buckets: she's busy.</span></div></div>
+    <div class="pair"><div class="l"><strong>I've read the trial results.</strong><span>I know them. I'm done.</span></div><div class="r"><strong>I've been reading the trial results.</strong><span>In progress. My eyes hurt.</span></div></div>
+    <div class="pair"><div class="l"><strong>The regulator has approved the drug.</strong><span>News! The decision is made.</span></div><div class="r"><strong>The regulator has been reviewing the drug.</strong><span>We are still waiting.</span></div></div>
+  </div>
+</section>
+
+<!-- 5 forms -->
+<section class="slide" data-t="Forms and signal words">
+  <div class="side">
+    <span class="num">04</span>
+    <h2>Forms and signal&nbsp;words</h2>
+    <p class="intro">The forms are easy. Signal words help, but the meaning decides.</p>
+  </div>
+  <div class="task">
+    <div class="forms">
+      <div class="card"><h3 style="color:#A8321A">Present Perfect</h3>
+        <table>
+          <tr><td>Positive</td><td>I've tested · she's tested</td></tr>
+          <tr><td>Negative</td><td>I haven't tested · she hasn't tested</td></tr>
+          <tr><td>Question</td><td>Have you tested…? How many have you tested?</td></tr>
+        </table></div>
+      <div class="card"><h3 style="color:#0F5A50">Present Perfect Continuous</h3>
+        <table>
+          <tr><td>Positive</td><td>I've been testing · she's been testing</td></tr>
+          <tr><td>Negative</td><td>I haven't been sleeping well</td></tr>
+          <tr><td>Question</td><td>Have you been testing…? How long have you been testing?</td></tr>
+        </table></div>
+    </div>
+    <div class="signals">
+      <div class="card"><h4 style="color:#A8321A">Often Present Perfect</h4><div class="chips"><span class="chip pp">already</span><span class="chip pp">yet</span><span class="chip pp">just</span><span class="chip pp">ever / never</span><span class="chip pp">so far</span><span class="chip pp">how many</span></div></div>
+      <div class="card"><h4 style="color:#0F5A50">Often Continuous</h4><div class="chips"><span class="chip pc">all day / all morning</span><span class="chip pc">how long</span><span class="chip pc">lately</span></div></div>
+      <div class="card"><h4>Both are possible</h4><div class="chips"><span class="chip">for</span><span class="chip">since</span><span class="chip">recently</span><span class="chip">this week</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 exceptions -->
+<section class="slide" data-t="Exceptions and traps">
+  <div class="side">
+    <span class="num">05</span>
+    <h2>Exceptions and&nbsp;traps</h2>
+    <p class="intro">This is where most mistakes live. Read each card, then make your own sentence with it.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> One sentence per card</div>
+  </div>
+  <div class="task">
+    <div class="exc">
+      <div class="ex-card"><span class="tag">A</span><h4>Stative verbs have no continuous</h4><p>know, be, have (own), like, want, need, believe, understand, belong</p><span class="y">I've known the director for years.</span><span class="n">I've been knowing</span><span class="y">I've been in pharma for 8 years.</span></div>
+      <div class="ex-card"><span class="tag">B</span><h4>live, work, study: both are fine</h4><p>Almost no difference. The continuous sounds a bit more temporary or recent.</p><span class="y">I've lived in Moscow for 5 years.</span><span class="y">I've been living in Moscow for 5 years.</span><p>"All my life" is only Present Perfect.</p></div>
+      <div class="ex-card"><span class="tag">C</span><h4>A number means a result</h4><p>With a count, use Present Perfect. Career summaries too.</p><span class="y">I've written five reports.</span><span class="n">I've been writing five reports</span><span class="y">I've worked for three pharma companies.</span></div>
+      <div class="ex-card"><span class="tag">D</span><h4>Evidence you can see or feel</h4><p>An activity left a trace? Continuous. A finished object? Perfect.</p><span class="y">You're out of breath. Have you been running?</span><span class="y">Look! I've found the mistake.</span></div>
+      <div class="ex-card"><span class="tag">E</span><h4>Finished or not finished?</h4><p>Perfect: it's done. Continuous: it may not be.</p><span class="y">I've read the protocol. (done)</span><span class="y">I've been reading the protocol. (still going?)</span></div>
+      <div class="ex-card"><span class="tag">F</span><h4>Finished time word = Past Simple</h4><p>yesterday, last week, in 2019, three days ago</p><span class="y">We submitted the file last week.</span><span class="n">We have submitted the file last week</span><p>Repeated activity lately: "I've been getting a lot of calls."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 chunks -->
+<section class="slide" data-t="Pharma chunks">
+  <div class="side">
+    <span class="num">06</span>
+    <h2>Pharma chunks for today</h2>
+    <p class="intro">Use these in the speaking tasks. Say each one in both forms: "We've conducted a trial" and "We've been conducting a trial".</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Pick three and use them</div>
+  </div>
+  <div class="task">
+    <div class="chunks" id="chunks"></div>
+    <svg viewBox="0 0 520 70" style="width:100%;height:auto;margin-top:.5rem" aria-hidden="true"><use href="#i-capsule" x="10" y="14" width="90" height="45"/><use href="#i-pill" x="130" y="12" width="48" height="48"/><use href="#i-pulse" x="205" y="10" width="130" height="52"/><use href="#i-cross" x="360" y="12" width="48" height="48"/><use href="#i-tube" x="440" y="0" width="38" height="70"/></svg>
+  </div>
+</section>
+
+<!-- 8 quiz -->
+<section class="slide" data-t="Choose the form">
+  <div class="side">
+    <span class="num">07</span>
+    <h2>Choose the form</h2>
+    <p class="intro">Read the sentence, decide, then say the whole sentence aloud with the correct form.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Say it, then tap</div>
+  </div>
+  <div class="task"><div class="quiz" id="quiz"></div></div>
+</section>
+
+<!-- 9 situations -->
+<section class="slide" data-t="Say two sentences">
+  <div class="side">
+    <span class="num">08</span>
+    <h2>Look and say</h2>
+    <p class="intro">Choose a picture. Say two sentences: one about the <b class="pp">result</b>, one about the <b class="pc">process</b>. Tap the card to see an example.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak</div>
+  </div>
+  <div class="task"><div class="sits" id="sits"></div></div>
+</section>
+
+<!-- 10 interview -->
+<section class="slide" data-t="Career interview">
+  <div class="side">
+    <span class="num">09</span>
+    <h2>Career interview</h2>
+    <p class="intro">Answer for about a minute. Give details and an example. Your teacher will ask a follow-up.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak for 60 seconds</div>
+  </div>
+  <div class="task">
+    <div class="qbig"><span class="label" style="color:#6B4E00" id="qn">Question</span><p id="qtext">Press the button to get a question.</p><span class="follow" id="qfollow"></span></div>
+    <div class="row"><button class="btn main" id="qnext">New question</button></div>
+    <div class="timer" data-sec="60"><span class="t">1:00</span><span class="bar"><i></i></span><button class="btn">Start</button></div>
+  </div>
+</section>
+
+<!-- 11 role-play -->
+<section class="slide" data-t="Role-play: project update">
+  <div class="side">
+    <span class="num">10</span>
+    <h2>Role-play: project update</h2>
+    <p class="intro">A is the project lead and asks questions. B is a team member who reports. Then swap. Pick a scenario.</p>
+    <div class="legend"><span>say what is done</span><span class="c">say what is going on</span></div>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak in pairs</div>
+  </div>
+  <div class="task">
+    <div class="scen">
+      <div class="scn"><h4>A new vitamin line</h4><ul><li>products you have launched</li><li class="c">the campaign you have been running</li><li class="c">how long you have been negotiating with a supplier</li><li>one problem you have solved</li></ul></div>
+      <div class="scn"><h4>A failed batch</h4><ul><li>how many tests you have run</li><li class="c">what you have been checking since morning</li><li>what you have found out</li><li class="c">what you have been telling the client</li></ul></div>
+      <div class="scn"><h4>A clinical trial</h4><ul><li>how many volunteers you have recruited</li><li class="c">how long you have been collecting data</li><li>what you haven't finished yet</li><li class="c">what has been worrying the team</li></ul></div>
+    </div>
+    <div class="card"><span class="label">Phrase bank</span>
+      <div class="phrasebank" style="margin-top:.5rem">
+        <div>So far, we've…</div><div>We've been working on…</div>
+        <div>We haven't… yet, because…</div><div>For the last two weeks, we've been…</div>
+        <div>How far have you got?</div><div>How long have you been dealing with this?</div>
+      </div></div>
+  </div>
+</section>
+
+<!-- 12 week story -->
+<section class="slide" data-t="Your week">
+  <div class="side">
+    <span class="num">11</span>
+    <h2>Tell the story of your&nbsp;week</h2>
+    <p class="intro">Talk for 90 seconds. Tick the boxes as you use each structure.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak for 90 seconds</div>
+  </div>
+  <div class="task">
+    <div class="todo">
+      <label><input type="checkbox"><span>Three things you <b class="pp">have finished</b> (use a number)</span></label>
+      <label><input type="checkbox"><span>Two things you <b class="pc">have been doing</b> all week</span></label>
+      <label><input type="checkbox"><span>One thing you <b class="pp">haven't done yet</b></span></label>
+      <label><input type="checkbox"><span>One question with <b class="pc">how long</b></span></label>
+      <label><input type="checkbox"><span>One thing that <b class="pc">has been annoying</b> you</span></label>
+    </div>
+    <div class="timer" data-sec="90"><span class="t">1:30</span><span class="bar"><i></i></span><button class="btn">Start</button></div>
+  </div>
+</section>
+
+<!-- 13 teach back -->
+<section class="slide" data-t="Teach it back">
+  <div class="side">
+    <span class="num">12</span>
+    <h2>Teach it back</h2>
+    <p class="intro">Imagine a new colleague asks: "What's the difference between I've done and I've been doing?" Explain it in 30 seconds with two examples from your job.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak for 30 seconds</div>
+  </div>
+  <div class="task">
+    <div class="card"><span class="label">Useful words</span>
+      <div class="chips" style="margin-top:.6rem"><span class="chip">the focus is on…</span><span class="chip">a finished result</span><span class="chip">an activity over time</span><span class="chip">for example…</span><span class="chip">you can see the effect now</span><span class="chip">how many / how long</span></div></div>
+    <div class="timer" data-sec="30"><span class="t">0:30</span><span class="bar"><i></i></span><button class="btn">Start</button></div>
+    <div class="row"><button class="btn" data-reveal="modelTeach">Show a model</button></div>
+    <div class="reveal-box card" id="modelTeach"><p>"With Present Perfect I talk about a result: <i>I've finished the report, here it is.</i> With the continuous I talk about the activity: <i>I've been working on the report all day, so I'm tired.</i> If I count something, I use Present Perfect. If I say how long, I usually use the continuous."</p></div>
+  </div>
+</section>
+
+<!-- 14 cheat sheet -->
+<section class="slide" data-t="Cheat sheet">
+  <div class="side">
+    <span class="num">13</span>
+    <h2>Cheat sheet</h2>
+    <p class="intro">Keep this page for yourself. Next time we'll check how much you remember.</p>
+    <svg viewBox="0 0 200 70" style="width:12rem;height:auto" aria-hidden="true"><use href="#i-capsule" x="0" y="10" width="100" height="50"/><use href="#i-clip" x="120" y="0" width="56" height="64"/></svg>
+  </div>
+  <div class="task">
+    <div class="sheet">
+      <div class="big pp"><h3>RESULT</h3><span class="formula">have / has + V3</span>
+        <ul><li>done, and it matters now</li><li>how many, how much</li><li>news, a finished thing you can see</li><li>already, yet, just, so far</li></ul></div>
+      <div class="big pc"><h3>PROCESS</h3><span class="formula">have / has been + V-ing</span>
+        <ul><li>the activity itself</li><li>how long, all day, lately</li><li>a trace you can see or feel</li><li>maybe not finished</li></ul></div>
+    </div>
+    <div class="rule"><span><b>Remember:</b> know, be, have, like, want → no continuous. A finished time (yesterday, in 2019) → Past Simple. live / work / study → both are fine.</span></div>
+  </div>
+</section>
+
+</div>
+
+<nav class="nav" aria-label="Slides">
+  <button class="nbtn" id="prev" aria-label="Previous slide"><svg><use href="#i-arrow-l"/></svg></button>
+  <div class="dots" id="dots" role="tablist"></div>
+  <span class="count" id="count"></span>
+  <button class="nbtn" id="next" aria-label="Next slide"><svg><use href="#i-arrow-r"/></svg></button>
+</nav>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const slides=$$('.slide'), dotsBox=$('#dots'); let cur=0; const seen=new Set();
+  slides.forEach((s,i)=>{ const b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label',(i+1)+'. '+s.dataset.t); b.title=s.dataset.t; b.addEventListener('click',()=>go(i)); dotsBox.appendChild(b); });
+  function go(i){
+    cur=Math.max(0,Math.min(slides.length-1,i)); seen.add(cur);
+    slides.forEach((s,k)=>s.classList.toggle('on',k===cur));
+    [...dotsBox.children].forEach((b,k)=>{ b.classList.toggle('on',k===cur); b.classList.toggle('seen',seen.has(k)&&k!==cur); });
+    $('#prev').disabled=cur===0; $('#next').disabled=cur===slides.length-1;
+    $('#count').textContent=(cur+1)+' / '+slides.length;
+    slides[cur].scrollTop=0;
+    try{ history.replaceState(null,'','#'+(cur+1)); }catch(e){}
+  }
+  $('#prev').addEventListener('click',()=>go(cur-1)); $('#next').addEventListener('click',()=>go(cur+1));
+  document.addEventListener('keydown',e=>{
+    if(e.target.closest('input,textarea')) return;
+    if(['ArrowRight','PageDown'].includes(e.key)||(e.key===' '&&!e.target.closest('button'))){ e.preventDefault(); go(cur+1); }
+    else if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); go(cur-1); }
+  });
+  let sx=null; document.addEventListener('touchstart',e=>{ sx=e.touches[0].clientX; },{passive:true});
+  document.addEventListener('touchend',e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; sx=null; if(Math.abs(dx)>70) go(cur+(dx<0?1:-1)); },{passive:true});
+  const h=parseInt((location.hash||'').slice(1),10); go(isNaN(h)?0:h-1);
+
+  /* reveal buttons */
+  $$('[data-reveal]').forEach(b=>b.addEventListener('click',()=>{ const t=document.getElementById(b.dataset.reveal); t.classList.toggle('open'); }));
+
+  /* chunks */
+  const CH=["conduct a clinical trial","run tests on samples","analyse the data","submit the documentation","obtain regulatory approval","meet the deadline","check the quality of a batch","report side effects","adjust the dosage","launch a new product","update the protocol","recruit volunteers","ship an order","label and package the tablets","negotiate with a supplier"];
+  $('#chunks').innerHTML=CH.map(c=>'<span class="chunk">'+c+'</span>').join('');
+
+  /* quiz */
+  const QZ=[
+   ["I ___ (write) the report. It's ready to send.","pp","I've written","Finished, and the result matters now."],
+   ["I ___ (write) the report all morning, so I'm tired.","pc","I've been writing","The focus is the activity and its effect on me (tired)."],
+   ["How many samples ___ you ___ (test) so far?","pp","have you tested","How many = a number = result."],
+   ["How long ___ you ___ (work) in quality control?","both","have you worked / been working","With work, both are fine. The continuous feels a little more \"still going\"."],
+   ["She ___ (know) the head of R&D for ten years.","pp","has known","Know is a stative verb: no continuous form."],
+   ["The batch ___ (fail) the test. We have to start again.","pp","has failed","One finished event with a result now."],
+   ["Your eyes are red. ___ you ___ (read) trial data all night?","pc","Have you been reading","We can see the effect of an activity."],
+   ["Great news! We ___ (receive) approval from the regulator.","pp","have received","News: a finished result."],
+   ["I ___ (have) this headache since the morning.","pp","have had","Have (a headache) is stative: no continuous."],
+   ["He ___ (live) in Moscow since 2015.","both","has lived / has been living","Live, work and study allow both. The continuous sounds a bit more temporary."],
+   ["We ___ (launch) three products this year.","pp","have launched","A number = result."],
+   ["I ___ (try) to reach the supplier all day, but nobody answers.","pc","have been trying","All day: an activity that repeats."]
+  ];
+  let qi=0, first=0, answered=false;
+  const quiz=$('#quiz');
+  function renderQ(){
+    answered=false; const [s,a,full,why]=QZ[qi];
+    quiz.innerHTML='<div class="qcard"><div class="qtop"><span class="label">Sentence '+(qi+1)+' of '+QZ.length+'</span><span class="score">'+first+' right at first try</span></div>'+
+     '<p class="qsent">'+s.replace('___','<span class="gap" id="gap">&nbsp;&nbsp;&nbsp;&nbsp;</span>')+'</p>'+
+     '<div class="qopts"><button data-a="pp">Present Perfect</button><button data-a="pc">Perfect Continuous</button><button data-a="both">Both are fine</button></div>'+
+     '<p class="qwhy" id="why"></p>'+
+     '<div class="qfoot"><button class="btn" id="qprev">Back</button><button class="btn main" id="qnxt">'+(qi===QZ.length-1?'Finish':'Next')+'</button></div></div>';
+    quiz.querySelectorAll('.qopts button').forEach(b=>b.addEventListener('click',()=>{
+      if(b.dataset.a===a){ if(!answered){ if(!b.dataset.tried) first++; } answered=true; b.classList.add('ok'); const g=$('#gap'); g.textContent=full; g.classList.add('shown'); $('#why').innerHTML='<b>'+full+'.</b> '+why+' Now say it aloud.'; quiz.querySelector('.score').textContent=first+' right at first try'; }
+      else { b.classList.add('no'); b.dataset.tried='1'; quiz.querySelectorAll('.qopts button').forEach(x=>x.dataset.tried='1'); }
+    }));
+    $('#qprev').addEventListener('click',()=>{ if(qi>0){ qi--; renderQ(); } });
+    $('#qnxt').addEventListener('click',()=>{ if(qi<QZ.length-1){ qi++; renderQ(); } else { quiz.innerHTML='<div class="qcard"><p class="qsent">'+first+' / '+QZ.length+' right at the first try.</p><p class="qwhy">Notice which types of sentence were hardest: numbers, stative verbs, or "both are fine"? Say three of the tricky ones aloud.</p><div class="qfoot"><button class="btn main" id="qagain">Try again</button></div></div>'; $('#qagain').addEventListener('click',()=>{ qi=0; first=0; renderQ(); }); } });
+  }
+  renderQ();
+
+  /* situations */
+  const SIT=[
+   ["i-tube","Lab","A technician stands next to six full racks of test tubes. She looks exhausted.","She has tested 120 samples.","She has been testing samples since six o'clock."],
+   ["i-stamp","Regulatory office","A thick folder with a green stamp: APPROVED. The team is still on the phone.","The regulator has approved the drug.","The team has been preparing documents for two years."],
+   ["i-gear","Factory line","Tablets move along a conveyor belt. The machine is warm and noisy.","The line has produced 50,000 tablets.","The line has been running since six a.m."],
+   ["i-bag","Sales representative","She sits in her car with a bag of leaflets and samples. Her feet hurt.","She has visited twelve clinics.","She has been driving around the city all day."],
+   ["i-chart","Research","A scientist sits among graphs. A cold cup of coffee is next to the keyboard.","He has found an interesting result.","He has been analysing the data for hours."],
+   ["i-cart","Pharmacy","A long queue. The pharmacist's lunch is still in her bag.","She has served forty customers.","She has been working without a break."]
+  ];
+  $('#sits').innerHTML=SIT.map(([ic,t,d,pp,pc])=>'<button class="sit" type="button"><svg viewBox="0 0 64 64"><use href="#'+ic+'" width="64" height="64"/></svg><h4>'+t+'</h4><p>'+d+'</p><div class="model"><b class="pp">Result</b>'+pp+'<b class="pc" style="margin-top:.4rem">Process</b>'+pc+'</div></button>').join('');
+  $$('.sit').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('open')));
+
+  /* interview */
+  const IQ=[
+   ["How long have you been working in this field?","Follow-up: Have you always worked in the same area?"],
+   ["What have you been working on this month?","Follow-up: How long have you been working on it?"],
+   ["What is the biggest project you have finished this year?","Follow-up: What was the hardest part?"],
+   ["What have you learned recently?","Follow-up: How have you been using it?"],
+   ["How many people have you trained or worked with?","Follow-up: Who has helped you the most?"],
+   ["Which problem have you been trying to solve lately?","Follow-up: What have you already tried?"],
+   ["What have you never done at work, but would like to try?","Follow-up: What has stopped you so far?"],
+   ["How has your job changed since you started?","Follow-up: What have you been enjoying more?"],
+   ["What have you been doing to stay up to date with new drugs and rules?","Follow-up: How long have you been doing this?"],
+   ["Have you ever made a mistake with an order, a batch or a patient? What happened?","Follow-up: What have you changed since then?"],
+   ["What have you been looking forward to at work?","Follow-up: What have you done to prepare?"],
+   ["Who have you been working with the most this year?","Follow-up: What have you learned from them?"]
+  ];
+  let iq=-1, order=IQ.map((_,i)=>i).sort(()=>Math.random()-.5);
+  function nextQ(){ iq=(iq+1)%order.length; const q=IQ[order[iq]]; $('#qn').textContent='Question '+(iq+1)+' of '+IQ.length; $('#qtext').textContent=q[0]; $('#qfollow').textContent=q[1]; }
+  $('#qnext').addEventListener('click',nextQ); nextQ();
+
+  /* timers */
+  const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  $$('.timer').forEach(tm=>{
+    const total=+tm.dataset.sec, t=tm.querySelector('.t'), bar=tm.querySelector('.bar i'), btn=tm.querySelector('.btn'); let id=null, left=total;
+    const reset=()=>{ clearInterval(id); id=null; left=total; t.textContent=fmt(total); bar.style.transition='none'; bar.style.width='0'; btn.textContent='Start'; };
+    btn.addEventListener('click',()=>{
+      if(id){ reset(); return; }
+      btn.textContent='Reset'; bar.style.transition='width 1s linear';
+      id=setInterval(()=>{ left--; t.textContent=fmt(Math.max(left,0)); bar.style.width=((total-left)/total*100)+'%'; if(left<=0){ clearInterval(id); id=null; btn.textContent='Again'; t.textContent='Time'; left=total; } },1000);
+    });
+    reset();
+  });
+})();
+</script>
+</body>
+</html>
