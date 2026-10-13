@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tenses Homework: Regulatory Affairs</title>
+<meta property="og:title" content="Tenses homework: Regulatory Affairs">
+<meta property="og:description" content="Past Simple, Past Continuous, Present Perfect and Present Perfect Continuous: rules, practice and writing.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800;9..144,900&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap">
+<style>
+/* Layout: one long page, centered column, desktop first. Sticky bar with section links and a progress line. */
+:root{
+  --paper:#F6F8F4; --card:#FFFFFF; --ink:#12332F; --muted:#587068; --line:#D9E3DC;
+  --teal:#1F7A6D; --teal-soft:#D3EEE2; --coral:#F0603F; --coral-soft:#FFE1D6; --sun:#FFD97A; --sun-soft:#FFF3CC;
+  --ok:#1F7A6D; --ok-bg:#D3EEE2; --bad:#B23A22; --bad-bg:#FFE1D6;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+h1,h2,h3,h4,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+svg{display:block}
+b.pp,em.pp{font-style:normal;background:var(--coral-soft);color:#A8321A;padding:0 .25em;border-radius:.35em}
+b.pc,em.pc{font-style:normal;background:var(--teal-soft);color:#0F5A50;padding:0 .25em;border-radius:.35em}
+.label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1.4rem}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 92%,white);border-bottom:1px solid var(--line)}
+.bar .in{max-width:60rem;margin:0 auto;padding:.6rem 1.4rem;display:flex;gap:.4rem;align-items:center;overflow-x:auto;scrollbar-width:none}
+.bar a{flex:none;text-decoration:none;color:var(--ink);font-weight:600;font-size:.85rem;padding:.3rem .8rem;border-radius:99px;border:1.5px solid var(--line);background:var(--card);transition:background .3s var(--ease)}
+.bar a:hover{background:var(--sun)}
+.bar a.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.line{height:4px;background:var(--line)}
+.line i{display:block;height:100%;width:0;background:var(--coral)}
+
+/* hero */
+.hero{padding:3.2rem 0 1.5rem;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr);gap:1.5rem;align-items:center}
+.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(2.2rem,5.4vw,4rem);line-height:1;letter-spacing:-.03em;text-wrap:balance}
+.hero h1 .a{color:var(--coral)} .hero h1 .b{color:var(--teal)}
+.hero p{color:var(--muted);margin-top:1rem;max-width:38ch;text-wrap:pretty}
+.plan{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.plan span{border-radius:99px;padding:.25rem .8rem;font-size:.85rem;font-weight:600;background:var(--sun-soft);border:1px solid var(--sun)}
+.namebox{margin-top:1.2rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.namebox input{border:1.5px solid var(--line);border-radius:.8rem;padding:.55rem .9rem;background:var(--card);min-width:14rem}
+
+/* sections */
+section.part{padding:2.4rem 0 1rem;border-top:2px solid var(--ink);margin-top:2rem}
+.part-h{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.5rem}
+.part-h .n{font-family:var(--display);font-weight:900;font-size:2.6rem;line-height:1;color:var(--coral)}
+.part-h h2{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.1;letter-spacing:-.015em}
+.part-h .min{margin-left:auto;font-weight:700;font-size:.85rem;color:var(--muted);background:var(--card);border:1.5px solid var(--line);border-radius:99px;padding:.15rem .8rem}
+.lead{color:var(--muted);margin-bottom:1.2rem;max-width:60ch;text-wrap:pretty}
+h3.sub{font-family:var(--display);font-weight:800;font-size:1.4rem;margin:2rem 0 .7rem;letter-spacing:-.01em}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1.1rem 1.3rem}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.big{border-radius:1.4rem;padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:.55rem}
+.big.pp{background:var(--coral-soft);border:2px solid var(--coral)}
+.big.pc{background:var(--teal-soft);border:2px solid var(--teal)}
+.big h4{font-family:var(--display);font-weight:900;font-size:1.7rem;line-height:1}
+.big.pp h4{color:#A8321A}.big.pc h4{color:#0F5A50}
+.big .nm{font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.big .formula{font-family:var(--display);font-weight:800;background:var(--card);border-radius:.7rem;padding:.3rem .8rem;align-self:flex-start}
+.big .ex{font-style:italic;font-weight:600}
+.rule{background:var(--ink);color:var(--paper);border-radius:1.1rem;padding:.85rem 1.2rem;margin-top:1rem}
+.rule b{color:var(--sun)}
+
+/* comparison table */
+.cmp{width:100%;border-collapse:separate;border-spacing:0 .45rem;font-size:.95rem;margin-top:.3rem}
+.cmp th{text-align:left;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:0 .8rem}
+.cmp td{background:var(--card);padding:.65rem .8rem;vertical-align:middle;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}
+.cmp td:first-child{border-left:1.5px solid var(--line);border-radius:1rem 0 0 1rem}
+.cmp td:last-child{border-right:1.5px solid var(--line);border-radius:0 1rem 1rem 0}
+.cmp td.pp{background:var(--coral-soft);border-color:#FFB9A4}
+.cmp td.pc{background:var(--teal-soft);border-color:#9ED6C3}
+.cmp td b{display:block;line-height:1.2}
+.cmp td span{display:block;font-size:.8rem;color:var(--muted)}
+.cmp td i{font-family:var(--display);font-weight:600;font-style:normal;font-size:1.05rem;line-height:1.25}
+.cmp td u{text-decoration-color:var(--coral);text-decoration-thickness:2px;text-underline-offset:3px}
+.cmp em.tag{font-style:normal;font-weight:800;border-radius:99px;padding:.05rem .55rem;margin-right:.25rem}
+.cmp em.no{background:var(--sun-soft);border:1px solid var(--sun)}
+.cmp em.yes{background:var(--ink);color:var(--paper)}
+
+/* time table */
+.times{width:100%;border-collapse:collapse;font-size:.97rem}
+.times th{text-align:left;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:.4rem .7rem}
+.times td{padding:.55rem .7rem;border-top:1px solid var(--line)}
+.times tr td:first-child{font-weight:600;width:42%}
+.times i{font-family:var(--display);font-weight:600;font-style:normal}
+
+/* exceptions */
+.exc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.ex-card{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.4rem}
+.ex-card .tag{font-family:var(--display);font-weight:900;font-size:1.5rem;line-height:1;color:var(--coral)}
+.ex-card h4{font-size:1.05rem;font-weight:700;line-height:1.25}
+.ex-card p{font-size:.93rem;color:var(--muted)}
+.ex-card .y{color:var(--teal);font-weight:600}
+.ex-card .n{color:var(--bad);text-decoration:line-through;text-decoration-thickness:1.5px}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{border-radius:99px;padding:.2rem .75rem;font-size:.92rem;font-weight:600;background:var(--sun-soft);border:1px solid var(--sun)}
+.chip.pp{background:var(--coral-soft);border-color:#FFB9A4;color:#A8321A}
+.chip.pc{background:var(--teal-soft);border-color:#9ED6C3;color:#0F5A50}
+.sig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.sig h4{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+
+/* exercises */
+.item{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1.1rem 1.3rem;margin-bottom:.8rem;transition:border-color .3s var(--ease)}
+.item.done{border-color:var(--teal)}
+.item .q{display:flex;gap:.8rem;align-items:baseline;font-size:1.1rem;font-weight:500;line-height:1.45}
+.item .q .no{font-family:var(--display);font-weight:900;color:var(--coral);min-width:1.7rem}
+.item .q .gap{display:inline-block;min-width:3.5em;border-bottom:3px solid var(--coral);text-align:center;font-weight:800}
+.item .q .gap.shown{border-color:var(--teal);color:var(--teal)}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;padding-left:2.5rem}
+.opts button{border:2px solid var(--line);background:var(--paper);border-radius:.9rem;padding:.45rem .95rem;font-weight:600;font-size:.97rem;transition:background .3s var(--ease),border-color .3s var(--ease)}
+.opts button:hover{border-color:var(--ink)}
+.opts button.ok{background:var(--ok-bg);border-color:var(--ok)}
+.opts button.no{background:var(--bad-bg);border-color:var(--coral);text-decoration:line-through}
+.why{margin:.7rem 0 0 2.5rem;font-size:.97rem;color:var(--muted)}
+.why b{color:var(--ink)}
+.gapin{border:0;border-bottom:3px solid var(--coral);background:transparent;padding:.1rem .3rem;width:min(14rem,60vw);font-weight:700;color:var(--ink);text-align:center}
+.gapin.ok{border-color:var(--ok);background:var(--ok-bg)}
+.gapin.bad{border-color:var(--bad);background:var(--bad-bg)}
+.gapin:focus{outline:none;background:var(--sun-soft)}
+.ans{display:none;color:var(--teal);font-weight:700;font-size:.9rem}
+.show .ans{display:inline}
+.story{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1.3rem 1.5rem;line-height:2.2;font-size:1.08rem}
+.story p+p{margin-top:.8rem}
+.story .hdr{font-size:.9rem;color:var(--muted);line-height:1.5;border-bottom:1px solid var(--line);padding-bottom:.6rem;margin-bottom:.8rem}
+.tools{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1rem}
+.btn{border:2px solid var(--ink);background:var(--card);border-radius:99px;padding:.5rem 1.2rem;font-weight:700;font-size:.95rem;transition:background .3s var(--ease),transform .3s var(--ease)}
+.btn:hover{background:var(--sun);transform:translateY(-2px)}
+.btn.main{background:var(--ink);color:var(--paper)}
+.btn.main:hover{background:var(--teal)}
+.score{font-weight:700;color:var(--muted)}
+
+/* write */
+.four{display:grid;gap:.7rem}
+.four label{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:.8rem;align-items:start;background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.7rem .9rem}
+.four label span{font-weight:700;font-size:.9rem;padding-top:.45rem}
+.four label.pp span{color:#A8321A}.four label.pc span{color:#0F5A50}
+textarea,.four input{width:100%;border:1.5px solid var(--line);border-radius:.8rem;padding:.6rem .8rem;background:var(--paper);resize:vertical;line-height:1.5}
+textarea{min-height:11rem}
+.prompt{margin-bottom:1.6rem}
+.prompt h4{font-family:var(--display);font-weight:800;font-size:1.25rem;margin-bottom:.3rem}
+.prompt .need{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0 .7rem}
+.meter{display:flex;gap:1rem;flex-wrap:wrap;font-size:.85rem;font-weight:700;color:var(--muted);margin-top:.4rem}
+.meter b{color:var(--ink)}
+.reveal{display:none;margin-top:.7rem;background:var(--sun-soft);border:1px solid var(--sun);border-radius:1rem;padding:.8rem 1rem;font-size:.97rem}
+.reveal.open{display:block}
+
+/* finish */
+.finish{background:var(--teal-soft);border:2px solid var(--teal);border-radius:1.6rem;padding:1.6rem 1.8rem;margin:2.5rem 0 3rem;display:grid;gap:.9rem}
+.finish h2{font-family:var(--display);font-weight:900;font-size:1.8rem}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.pill{background:var(--card);border-radius:99px;padding:.3rem .9rem;font-weight:700;font-size:.92rem}
+.copybox{width:100%;min-height:9rem;font-size:.85rem}
+.note{font-weight:700;min-height:1.4em}
+.reset{background:none;border:0;text-decoration:underline;color:var(--muted);font-size:.85rem;justify-self:start;padding:0}
+
+@media (max-width:760px){
+  body{font-size:17px}
+  .hero,.duo,.exc,.sig{grid-template-columns:1fr}
+  .hero svg{max-width:16rem}
+  .four label{grid-template-columns:1fr}
+  .four label span{padding-top:0}
+  .opts,.why{padding-left:0;margin-left:0}
+  .cmp,.cmp tbody,.cmp tr,.cmp td{display:block}
+  .cmp thead{display:none}
+  .cmp tr{margin-bottom:.8rem;border:1.5px solid var(--line);border-radius:1rem;overflow:hidden;background:var(--card)}
+  .cmp td,.cmp td:first-child,.cmp td:last-child{border:0;border-radius:0}
+  .cmp td::before{content:attr(data-l);display:block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .times td:first-child{width:auto}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-capsule" viewBox="0 0 80 40"><rect x="2" y="2" width="76" height="36" rx="18" fill="#fff" stroke="var(--ink)" stroke-width="3"/><path d="M40 2h-22a16 16 0 0 0 0 36h22z" fill="var(--coral)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><path d="M12 12c2-3 5-4 9-4" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 64 72"><path d="M24 6h16M26 6v20L8 58a6 6 0 0 0 5 9h38a6 6 0 0 0 5-9L38 26V6" fill="#fff" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M17 46h30l9 12a6 6 0 0 1-5 9H13a6 6 0 0 1-5-9z" fill="var(--teal)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><circle cx="28" cy="55" r="3" fill="#fff"/><circle cx="38" cy="59" r="2.2" fill="#fff"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 56 64"><rect x="6" y="8" width="44" height="52" rx="8" fill="#fff" stroke="var(--ink)" stroke-width="3"/><rect x="18" y="2" width="20" height="12" rx="5" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><path d="M16 28h24M16 38h24M16 48h14" stroke="var(--teal)" stroke-width="3.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-stamp" viewBox="0 0 64 64"><rect x="8" y="50" width="48" height="8" rx="3" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><path d="M24 50V32a8 8 0 1 1 16 0v18" fill="var(--teal)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/><rect x="20" y="8" width="24" height="8" rx="4" fill="#fff" stroke="var(--ink)" stroke-width="3"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 120 48"><path d="M2 26h30l8-18 12 36 10-26 8 8h48" fill="none" stroke="var(--coral)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<header class="bar">
+  <nav class="in" id="nav" aria-label="Sections">
+    <a href="#rules">1 Rules</a><a href="#b">2 Choose</a><a href="#c">3 Gaps</a><a href="#d">4 Spot the error</a><a href="#e">5 Compare</a><a href="#f">6 Write</a><a href="#g">7 Speak</a><a href="#done">Send</a>
+  </nav>
+  <div class="line"><i id="prog"></i></div>
+</header>
+
+<main class="wrap">
+
+<div class="hero">
+  <div>
+    <span class="label">Homework · Regulatory Affairs English</span>
+    <h1><span class="a">Result</span>, <span class="b">process</span> or just the&nbsp;past?</h1>
+    <p>Four tenses, one clear system. First read the rules, then practise with real regulatory situations, then write and speak.</p>
+    <div class="plan"><span>about 35 minutes</span><span>read · choose · type · write</span><span>works on a computer</span></div>
+    <div class="namebox"><label for="name" class="label">Your name</label><input id="name" type="text" autocomplete="given-name" placeholder="Type your name"></div>
+  </div>
+  <svg viewBox="0 0 260 240" aria-hidden="true"><circle cx="130" cy="120" r="108" fill="var(--teal-soft)"/><circle cx="196" cy="48" r="28" fill="var(--sun)"/><use href="#i-clip" x="84" y="34" width="92" height="105"/><use href="#i-stamp" x="150" y="130" width="70" height="70"/><use href="#i-capsule" x="22" y="154" width="100" height="50" transform="rotate(-14 72 179)"/><use href="#i-pulse" x="150" y="8" width="100" height="40"/></svg>
+</div>
+
+<!-- 1 RULES -->
+<section class="part" id="rules">
+  <div class="part-h"><span class="n">1</span><h2>The rules in one place</h2><span class="min">≈ 8 min · read</span></div>
+  <p class="lead">Read this part slowly once. You will not be tested on it. The exercises below will help you use it.</p>
+
+  <h3 class="sub">The big idea</h3>
+  <div class="duo">
+    <div class="big pp"><span class="nm">Present Perfect</span><h4>RESULT</h4><span class="formula">have / has + V3</span>
+      <p>The action is done, and the <b>result</b> matters now. We care about <b>what</b> and <b>how many</b>.</p><p class="ex">We've submitted the dossier.</p></div>
+    <div class="big pc"><span class="nm">Present Perfect Continuous</span><h4>PROCESS</h4><span class="formula">have / has been + V-ing</span>
+      <p>We care about the <b>activity</b> itself: <b>how long</b>, how it is going, what we can see now.</p><p class="ex">We've been preparing the dossier since March.</p></div>
+  </div>
+  <div class="rule"><b>Quick test:</b> "How many?" points to the result. "How long?" points to the process.</div>
+
+  <h3 class="sub">Compare four tenses on one verb</h3>
+  <p class="lead" style="margin-bottom:.4rem">The big question: is the action connected to <b>now</b>?</p>
+  <table class="cmp">
+    <thead><tr><th>Tense</th><th>Example</th><th>Connected to now?</th><th>What it tells us</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Tense"><b>Past Simple</b><span>did / V2</span></td><td data-l="Example"><i>She cleaned the floors.</i></td><td data-l="Connected to now?"><em class="tag no">No</em> Finished, in a known past time.</td><td data-l="What it tells us">A fact. "When?": yesterday, at five, in 2019.</td></tr>
+      <tr><td data-l="Tense"><b>Past Continuous</b><span>was / were + V-ing</span></td><td data-l="Example"><i>She was cleaning the floors <u>when I came in</u>.</i></td><td data-l="Connected to now?"><em class="tag no">No</em> It stays in the past. We don't know what happened after.</td><td data-l="What it tells us">An activity in progress at one moment in the past. Often the background, or interrupted.</td></tr>
+      <tr><td class="pp" data-l="Tense"><b>Present Perfect</b><span>have / has + V3</span></td><td class="pp" data-l="Example"><i>She has cleaned the floors.</i></td><td class="pp" data-l="Connected to now?"><em class="tag yes">Yes</em> The result is here now: the floors are clean.</td><td class="pp" data-l="What it tells us">A finished result. "Is it done? How many?"</td></tr>
+      <tr><td class="pc" data-l="Tense"><b>Present Perfect Continuous</b><span>have / has been + V-ing</span></td><td class="pc" data-l="Example"><i>She has been cleaning the floors.</i></td><td class="pc" data-l="Connected to now?"><em class="tag yes">Yes</em> The activity reaches now. The floor is wet, she is tired, maybe she is still cleaning.</td><td class="pc" data-l="What it tells us">The activity itself. "How long? What has she been doing?"</td></tr>
+    </tbody>
+  </table>
+  <div class="duo" style="margin-top:.8rem">
+    <div class="card"><span class="label">Past Continuous or Present Perfect Continuous?</span><p style="margin-top:.4rem"><b>was cleaning</b> = at that moment in the past. Then the story is over.<br><b>has been cleaning</b> = from before until now. I can see the effect today.</p></div>
+    <div class="card"><span class="label">In Regulatory Affairs</span><p style="margin-top:.4rem"><i>The reviewer <b>was reading</b> our response when the system crashed.</i> (a past moment)<br><i>The reviewer <b>has been reading</b> our response since Monday.</i> (up to now)</p></div>
+  </div>
+  <div class="card" style="margin-top:.8rem"><span class="label">Talking to a friend</span><p style="margin-top:.4rem">"How are you?" — <i>I've been cleaning all morning, I'm exhausted!</i> This links the activity to <b>now</b>. <i>I was cleaning all morning, then I went shopping.</i> This tells a finished story about the past. In everyday speech people often use either, but the first one answers the question "why am I like this now?".</p></div>
+
+  <h3 class="sub">How recent is "recent"?</h3>
+  <div class="card">
+    <p>There is no limit in days. What matters is the link with <b>now</b>. Present Perfect Continuous works in three cases:</p>
+    <ol style="margin:.6rem 0 0 1.1rem;list-style:decimal;display:grid;gap:.4rem">
+      <li><b class="pc">The action is still going.</b> Any length: <i>I've been working in Regulatory Affairs for ten years.</i></li>
+      <li><b class="pc">It has just stopped, and you can see or feel the effect now.</b> Minutes or hours, at most the same day: <i>You look tired. — I've been reviewing labelling since six.</i></li>
+      <li><b class="pc">Your time period is still open</b> (<i>this week, this month, this year, lately, recently</i>): <i>We've been getting a lot of questions from the authority this month.</i></li>
+    </ol>
+    <p style="margin-top:.7rem">If you name a <b>finished time</b> (<i>yesterday, last week, two months ago, in 2023</i>), use Past Simple or Past Continuous.</p>
+  </div>
+  <table class="times" style="margin-top:.8rem">
+    <thead><tr><th>When did it stop?</th><th>What to say</th></tr></thead>
+    <tbody>
+      <tr><td>5 minutes ago, I can still see the effect</td><td><i>I've been reading the guideline.</i> (my eyes hurt)</td></tr>
+      <tr><td>This morning, I'm still tired</td><td><i>I've been writing the response all morning.</i></td></tr>
+      <tr><td>Yesterday</td><td><i>I wrote the response all day yesterday.</i></td></tr>
+      <tr><td>This month, with breaks</td><td><i>I've been preparing variations this month.</i></td></tr>
+      <tr><td>Last month</td><td><i>I was preparing a renewal last month.</i></td></tr>
+      <tr><td>A year ago</td><td><i>I worked on a similar project last year.</i></td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">Forms and signal words</h3>
+  <div class="duo">
+    <div class="card"><span class="label">Present Perfect</span><p style="margin-top:.4rem">+ I've submitted · she's submitted<br>− I haven't submitted · she hasn't submitted<br>? Have you submitted…? How many have you submitted?</p></div>
+    <div class="card"><span class="label">Present Perfect Continuous</span><p style="margin-top:.4rem">+ I've been working · she's been working<br>− I haven't been sleeping well<br>? How long have you been working…?</p></div>
+  </div>
+  <div class="sig" style="margin-top:.8rem">
+    <div class="card"><h4 style="color:#A8321A">Often Present Perfect</h4><div class="chips"><span class="chip pp">already</span><span class="chip pp">yet</span><span class="chip pp">just</span><span class="chip pp">ever / never</span><span class="chip pp">so far</span><span class="chip pp">how many</span></div></div>
+    <div class="card"><h4 style="color:#0F5A50">Often Continuous</h4><div class="chips"><span class="chip pc">all day / morning</span><span class="chip pc">how long</span><span class="chip pc">lately</span></div></div>
+    <div class="card"><h4>Both are possible</h4><div class="chips"><span class="chip">for</span><span class="chip">since</span><span class="chip">recently</span><span class="chip">this week</span></div></div>
+  </div>
+
+  <h3 class="sub">Exceptions and traps</h3>
+  <div class="exc">
+    <div class="ex-card"><span class="tag">A</span><h4>Stative verbs have no continuous</h4><p>know, be, have (own), like, want, need, believe, understand, belong</p><span class="y">I've known the reviewer for years.</span><span class="n">I've been knowing</span><span class="y">I've been in Regulatory Affairs for 8 years.</span></div>
+    <div class="ex-card"><span class="tag">B</span><h4>live, work, study: both are fine</h4><p>Almost no difference. The continuous sounds a bit more temporary or recent.</p><span class="y">I've worked here for 5 years.</span><span class="y">I've been working here for 5 years.</span><p>"All my life" is only Present Perfect: <i>I've lived in Dubai all my life.</i></p></div>
+    <div class="ex-card"><span class="tag">C</span><h4>A number means a result</h4><p>With a count, use Present Perfect. Career summaries too.</p><span class="y">I've submitted five variations.</span><span class="n">I've been submitting five variations</span><span class="y">I've worked for three pharma companies.</span></div>
+    <div class="ex-card"><span class="tag">D</span><h4>Evidence you can see or feel</h4><p>An activity left a trace? Continuous. A finished object? Perfect.</p><span class="y">Your eyes are red. Have you been reading all night?</span><span class="y">Look! I've found the mistake.</span></div>
+    <div class="ex-card"><span class="tag">E</span><h4>Finished or not finished?</h4><p>Perfect: it's done. Continuous: it may not be.</p><span class="y">I've read the guideline. (done)</span><span class="y">I've been reading the guideline. (still going?)</span></div>
+    <div class="ex-card"><span class="tag">F</span><h4>Finished time word = Past Simple</h4><p>yesterday, last week, in 2019, three days ago</p><span class="y">We submitted the file last week.</span><span class="n">We have submitted the file last week</span><p>Repeated activity lately: <i>I've been getting a lot of calls.</i></p></div>
+  </div>
+</section>
+
+<!-- 2 CHOOSE -->
+<section class="part" id="b">
+  <div class="part-h"><span class="n">2</span><h2>Choose the right form</h2><span class="min">≈ 5 min · tap</span></div>
+  <p class="lead">Tap an answer. Read the explanation, then say the whole sentence aloud once.</p>
+  <div id="bBox"></div>
+  <p class="score" id="bScore"></p>
+</section>
+
+<!-- 3 GAPS -->
+<section class="part" id="c">
+  <div class="part-h"><span class="n">3</span><h2>Type the verb</h2><span class="min">≈ 7 min · type</span></div>
+  <p class="lead">Put the verb in brackets into the correct tense. Type the full verb phrase (for example <i>has been working</i>). Contractions are fine.</p>
+  <div class="story" id="cBox"></div>
+  <div class="tools"><button class="btn main" id="cCheck">Check</button><button class="btn" id="cShow">Show answers</button><span class="score" id="cScore"></span></div>
+</section>
+
+<!-- 4 SPOT -->
+<section class="part" id="d">
+  <div class="part-h"><span class="n">4</span><h2>Spot the error</h2><span class="min">≈ 4 min · tap</span></div>
+  <p class="lead">Which sentence is correct? Think about the rule behind it.</p>
+  <div id="dBox"></div>
+  <p class="score" id="dScore"></p>
+</section>
+
+<!-- 5 COMPARE -->
+<section class="part" id="e">
+  <div class="part-h"><span class="n">5</span><h2>Same action, four tenses</h2><span class="min">≈ 5 min · write</span></div>
+  <p class="lead">Write one sentence in each tense about <b>preparing a variation</b> (or a renewal, or a response to the authority). Make the four sentences really different in meaning. Then compare with the model.</p>
+  <div class="four" id="eBox">
+    <label><span>Past Simple</span><input type="text" data-k="e0" placeholder="Last Monday we…"></label>
+    <label><span>Past Continuous</span><input type="text" data-k="e1" placeholder="…when the authority called."></label>
+    <label class="pp"><span>Present Perfect</span><input type="text" data-k="e2" placeholder="We've…"></label>
+    <label class="pc"><span>Present Perfect Continuous</span><input type="text" data-k="e3" placeholder="We've been…"></label>
+  </div>
+  <div class="tools"><button class="btn" data-reveal="eModel">Show a model</button></div>
+  <div class="reveal" id="eModel"><b>Past Simple:</b> We prepared the variation last month. &nbsp;<b>Past Continuous:</b> We were preparing the variation when the authority called. &nbsp;<b>Present Perfect:</b> We've prepared the variation. It's ready to submit. &nbsp;<b>Present Perfect Continuous:</b> We've been preparing the variation since March, and we're almost done.</div>
+</section>
+
+<!-- 6 WRITE -->
+<section class="part" id="f">
+  <div class="part-h"><span class="n">6</span><h2>Write</h2><span class="min">≈ 8 min · write</span></div>
+  <p class="lead">Use real details from your job (or invent them). The counters under the text show how many of the target forms you used. They are approximate, so don't write to please the counter: write to be clear.</p>
+
+  <div class="prompt">
+    <h4>A. A status update to your manager</h4>
+    <p>Write an email about a submission or a response to the authority: what is done, what you are still working on, and how long it has been going. About 100 words.</p>
+    <div class="need"><span class="chip pp">3 × Present Perfect</span><span class="chip pc">3 × Present Perfect Continuous</span><span class="chip">1 × how long / since / for</span><span class="chip">1 × yet</span></div>
+    <textarea data-k="w0" aria-label="Status update" placeholder="Hi …,&#10;&#10;A quick update on …"></textarea>
+    <div class="meter" data-for="w0"></div>
+  </div>
+
+  <div class="prompt">
+    <h4>B. Your last three months</h4>
+    <p>What have you achieved (use numbers), and what have you been working on? Add one thing that has been difficult. About 80 words.</p>
+    <div class="need"><span class="chip pp">numbers + Present Perfect</span><span class="chip pc">Present Perfect Continuous for ongoing work</span></div>
+    <textarea data-k="w1" aria-label="Last three months" placeholder="Over the last three months, I've…"></textarea>
+    <div class="meter" data-for="w1"></div>
+  </div>
+
+  <div class="prompt">
+    <h4>C. Explain it to a colleague</h4>
+    <p>Imagine a new colleague asks: "What is the difference between <i>I was preparing the dossier</i> and <i>I've been preparing the dossier</i>?" Answer in 3–4 sentences in your own words. Use an example from your work.</p>
+    <textarea data-k="w2" aria-label="Explain the difference" style="min-height:8rem" placeholder="The difference is…"></textarea>
+    <div class="meter" data-for="w2"></div>
+  </div>
+</section>
+
+<!-- 7 SPEAK -->
+<section class="part" id="g">
+  <div class="part-h"><span class="n">7</span><h2>Speak</h2><span class="min">≈ 2 min · voice</span></div>
+  <div class="card">
+    <p>Record a <b>one-minute voice message</b> to your teacher on your phone. Do not read your texts. Answer the question:</p>
+    <p style="font-family:var(--display);font-weight:800;font-size:1.4rem;line-height:1.25;margin:.7rem 0">"What have you finished this month, and what have you been working on since the beginning of the year?"</p>
+    <p class="label">Use at least: 2 results (with numbers) · 2 ongoing activities · 1 "how long" · 1 sentence in Past Simple with a finished time.</p>
+  </div>
+</section>
+
+<!-- DONE -->
+<section class="finish" id="done">
+  <h2>All done? Send it.</h2>
+  <div class="pills" id="pills"></div>
+  <p>Press the button, then paste the text into a message to me. Your progress is saved in this browser, so you can stop and come back.</p>
+  <div class="tools" style="margin:0"><button class="btn main" id="copy">Copy my answers</button></div>
+  <p class="note" id="note" aria-live="polite"></p>
+  <textarea class="copybox" id="copybox" readonly aria-label="Your answers" hidden></textarea>
+  <button class="reset" id="reset">Start over</button>
+</section>
+
+</main>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const KEY='tenses-ra-hw-1';
+  const fresh=()=>({name:'',b:{},c:{},cd:0,d:{},t:{}});
+  let S=fresh();
+  try{ const raw=localStorage.getItem(KEY); if(raw){ const o=JSON.parse(raw); if(o&&typeof o==='object') S=Object.assign(fresh(),o); } }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} };
+
+  /* ---------- data ---------- */
+  const B=[
+   ["Come in! We ___ the response to the health authority, and it's ready to send.",["have finished","have been finishing","were finishing"],0,"A finished result that matters now (it is ready)."],
+   ["Sorry I'm late. I ___ on the variation since seven this morning.",["worked","have been working","was working"],1,"Since + an activity that reaches now: Present Perfect Continuous."],
+   ["How many dossiers ___ you ___ this year?",["have you submitted","have you been submitting","did you submit"],0,"How many = a number = result. This year is still open, so not Past Simple."],
+   ["The inspector ___ the documents when the fire alarm went off.",["has checked","was checking","has been checking"],1,"An action in progress at a past moment, interrupted by another action."],
+   ["We ___ the submission last Friday.",["have submitted","have been submitting","submitted"],2,"Last Friday is a finished time: Past Simple."],
+   ["She ___ in Regulatory Affairs for six years.",["has worked","has been working","Both are fine"],2,"With work, live and study, both forms are possible. The continuous sounds a little more \"still going\"."],
+   ["I ___ our QA manager for ten years.",["have been knowing","have known","was knowing"],1,"Know is a stative verb: no continuous form."],
+   ["Your eyes look tired. ___ you ___ at the screen all day?",["Have you been looking","Did you look","Were you looking"],0,"We can see the effect of an activity that reaches now."],
+   ["When you called, I ___ the labelling.",["was checking","have been checking","have checked"],0,"A past moment (when you called): Past Continuous."],
+   ["The authority ___ our application, and we are still waiting for the decision.",["has reviewed","has been reviewing","reviewed"],1,"We are still waiting, so the process continues up to now."],
+   ["I ___ five variations this month.",["have submitted","have been submitting","was submitting"],0,"A number = result. This month is still open."],
+   ["We ___ a lot of questions from the authority lately.",["have been getting","got","were getting"],0,"Lately + repeated activity up to now."]
+  ];
+  const C=[
+   ["Hi Anna, a quick update on the renewal. We","receive","the deficiency letter on Monday.",["received"]],
+   ["Since then, the team","work","on the answers every day.",["has been working","'s been working","have been working","'ve been working"]],
+   ["So far, we","answer","12 of the 20 questions.",["have answered","'ve answered"]],
+   ["I","write","the quality section all morning, so I need a break.",["have been writing","'ve been writing"]],
+   ["When the QA manager called, I","check","the labelling.",["was checking"]],
+   ["Maria","not finish","the clinical overview yet.",["hasn't finished","has not finished"]],
+   ["How long","you / wait","for the inspector's report?",["have you been waiting","have you waited"]],
+   ["We","submit","the dossier in March,",["submitted"]],
+   ["and the authority","review","it ever since.",["has been reviewing","'s been reviewing"]],
+   ["I","know","the reviewer for years, so I'll call her.",["have known","'ve known"]]
+  ];
+  const D=[
+   ["I've been knowing her for years.","I've known her for years.",1,"Know is stative: no continuous."],
+   ["We have sent the file last week.","We sent the file last week.",1,"Last week is a finished time: Past Simple."],
+   ["I've been writing five reports today.","I've written five reports today.",1,"A number means a result."],
+   ["She has been being the team leader since 2020.","She has been the team leader since 2020.",1,"Be is stative: has been (not has been being)."],
+   ["When I arrived, the team has been discussing the strategy.","When I arrived, the team was discussing the strategy.",1,"A past moment (when I arrived): Past Continuous."],
+   ["How long do you work in Regulatory Affairs?","How long have you worked in Regulatory Affairs?",1,"How long up to now: Present Perfect (or Perfect Continuous), not Present Simple."],
+   ["I've lived in Dubai all my life.","I've been living in Dubai all my life.",0,"All my life: Present Perfect, a permanent situation."],
+   ["We've been getting many questions lately.","We got many questions lately.",0,"Lately is an open period: Present Perfect Continuous, not Past Simple."]
+  ];
+
+  /* ---------- generic MCQ ---------- */
+  function mcq(box,data,store,scoreEl,kind){
+    box.innerHTML='';
+    data.forEach((row,i)=>{
+      const [q,opts,ans,why]=kind==='B'?row:[row[0]+' / '+row[1],[row[0],row[1]],row[2],row[3]];
+      const el=document.createElement('div'); el.className='item';
+      const qhtml=kind==='B'?esc(q).replace('___','<span class="gap">&nbsp;&nbsp;&nbsp;&nbsp;</span>'):'Which one is correct?';
+      el.innerHTML='<div class="q"><span class="no">'+(i+1)+'</span><span>'+qhtml+'</span></div><div class="opts"></div><p class="why" hidden></p>';
+      const ob=el.querySelector('.opts'), wy=el.querySelector('.why');
+      const o=kind==='B'?opts:[row[0],row[1]];
+      o.forEach((t,k)=>{ const b=document.createElement('button'); b.type='button'; b.textContent=t;
+        b.addEventListener('click',()=>{
+          if(store[i]&&store[i].done) return;
+          const first=!store[i]||store[i].tried===undefined; if(first) store[i]={tried:1,firstOk:k===ans,done:false};
+          if(k===ans){ store[i].done=true; save(); paint(); } else { b.classList.add('no'); store[i].tried++; save(); }
+        });
+        ob.appendChild(b); });
+      function paint(){
+        const done=store[i]&&store[i].done;
+        el.classList.toggle('done',!!done);
+        if(done){ ob.querySelectorAll('button').forEach((b,k)=>{ b.classList.toggle('ok',k===ans); }); wy.hidden=false; wy.innerHTML='<b>'+esc(o[ans])+'.</b> '+esc(why);
+          const g=el.querySelector('.gap'); if(g){ g.textContent=o[ans]; g.classList.add('shown'); } }
+        score();
+      }
+      el._paint=paint; box.appendChild(el); if(store[i]&&store[i].done) paint();
+    });
+    function score(){ const n=Object.values(store).filter(x=>x&&x.done).length, f=Object.values(store).filter(x=>x&&x.done&&x.firstOk).length; scoreEl.textContent=n+' / '+data.length+' done · '+f+' right at the first try'; progress(); }
+    score();
+  }
+  mcq($('#bBox'),B,S.b,$('#bScore'),'B');
+  mcq($('#dBox'),D,S.d,$('#dScore'),'D');
+
+  /* ---------- gap fill ---------- */
+  const norm=s=>s.toLowerCase().replace(/[’`]/g,"'").replace(/\s+/g,' ').trim().replace(/^'/,'');
+  const cBox=$('#cBox'); let cShow=false;
+  cBox.innerHTML='<div class="hdr"><b>From:</b> Maria · <b>To:</b> Anna · <b>Subject:</b> Update on the marketing authorisation renewal</div>';
+  let para=document.createElement('p'); cBox.appendChild(para);
+  C.forEach((r,i)=>{
+    para.insertAdjacentHTML('beforeend',esc(r[0])+' ');
+    const wrap=document.createElement('span'); wrap.innerHTML='<input class="gapin" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-i="'+i+'" aria-label="Gap '+(i+1)+'"> ('+esc(r[1])+') <span class="ans">→ '+esc(r[3][0])+'</span> ';
+    para.appendChild(wrap);
+    para.insertAdjacentHTML('beforeend',esc(r[2])+' ');
+    if(i===3||i===6){ para=document.createElement('p'); cBox.appendChild(para); }
+  });
+  $$('.gapin').forEach(inp=>{ const i=+inp.dataset.i; if(S.c[i]) inp.value=S.c[i]; inp.addEventListener('input',()=>{ S.c[i]=inp.value; inp.classList.remove('ok','bad'); save(); }); });
+  function checkC(){
+    let ok=0, filled=0;
+    $$('.gapin').forEach(inp=>{ const i=+inp.dataset.i; const v=norm(inp.value); inp.classList.remove('ok','bad'); if(!v) return; filled++;
+      const good=C[i][3].some(a=>norm(a)===v||norm("have "+a)===v&&false);
+      if(good){ inp.classList.add('ok'); ok++; } else inp.classList.add('bad'); });
+    S.cd=ok; save(); $('#cScore').textContent=ok+' / '+C.length+' correct'+(filled<C.length?' (fill in all gaps)':''); progress();
+  }
+  $('#cCheck').addEventListener('click',checkC);
+  $('#cShow').addEventListener('click',()=>{ cShow=!cShow; cBox.classList.toggle('show',cShow); $('#cShow').textContent=cShow?'Hide answers':'Show answers'; });
+  if(Object.keys(S.c).length) checkC();
+
+  /* ---------- reveal ---------- */
+  $$('[data-reveal]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.reveal).classList.toggle('open')));
+
+  /* ---------- text fields ---------- */
+  $('#name').value=S.name||''; $('#name').addEventListener('input',e=>{ S.name=e.target.value.slice(0,40); save(); });
+  const countPP=t=>{ const m=t.match(/\b(have|has|'ve|haven't|hasn't)\s+(?!been\b)(?:not\s+|never\s+|already\s+|just\s+|also\s+)?[a-z]+(?:ed|en|wn|ne|ht|ft|ld|nt|it|ut|et|un|ng|me|de|ne|ur|ot|ad)\b/gi); const m2=t.match(/\b[a-z]+'s\s+(?!been\b)(?:already\s+|just\s+)?[a-z]+(?:ed|en)\b/gi); return (m?m.length:0)+(m2?m2.length:0); };
+  const countPC=t=>{ const m=t.match(/\b(have|has|'ve|'s|haven't|hasn't)\s+(?:not\s+|just\s+|really\s+|also\s+)?been\s+(?:\w+\s+)?\w+ing\b/gi); return m?m.length:0; };
+  const countHow=t=>{ const m=t.match(/\b(how long|since|for\s+(?:the\s+)?(?:last\s+)?(?:a\s+|an\s+|\d+|two|three|four|five|six|several|many|ten|about)\b|all (?:day|morning|week|month)|yet)\b/gi); return m?m.length:0; };
+  $$('textarea[data-k], .four input[data-k]').forEach(f=>{
+    const k=f.dataset.k; if(S.t[k]) f.value=S.t[k];
+    const meter=f.parentElement.querySelector('.meter')||(f.closest('.prompt')&&f.closest('.prompt').querySelector('.meter'));
+    const upd=()=>{ S.t[k]=f.value; save(); if(meter){ const t=f.value; const w=(t.trim().match(/\S+/g)||[]).length; meter.innerHTML='<span><b>'+w+'</b> words</span><span>Present Perfect ≈ <b>'+countPP(t)+'</b></span><span>Perfect Continuous: <b>'+countPC(t)+'</b></span><span>time words: <b>'+countHow(t)+'</b></span>'; } progress(); };
+    f.addEventListener('input',upd); upd();
+  });
+
+  /* ---------- progress, nav ---------- */
+  function progress(){
+    const bd=Object.values(S.b).filter(x=>x&&x.done).length, dd=Object.values(S.d).filter(x=>x&&x.done).length;
+    const cf=Object.values(S.c).filter(v=>v&&v.trim()).length;
+    const ef=['e0','e1','e2','e3'].filter(k=>(S.t[k]||'').trim()).length;
+    const wf=['w0','w1','w2'].filter(k=>(S.t[k]||'').trim().split(/\s+/).filter(Boolean).length>=20).length;
+    const total=B.length+C.length+D.length+4+3, done=bd+cf+dd+ef+wf;
+    $('#prog').style.width=Math.round(100*done/total)+'%';
+    $('#pills').innerHTML='<span class="pill">Choose '+bd+'/'+B.length+'</span><span class="pill">Gaps '+S.cd+'/'+C.length+'</span><span class="pill">Errors '+dd+'/'+D.length+'</span><span class="pill">Four tenses '+ef+'/4</span><span class="pill">Writing '+wf+'/3</span>';
+  }
+  const secs=['rules','b','c','d','e','f','g','done'].map(id=>document.getElementById(id));
+  const links=$$('#nav a');
+  const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ const i=secs.indexOf(e.target); links.forEach((l,k)=>l.classList.toggle('on',k===i)); } }); },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>io.observe(s));
+  progress();
+
+  /* ---------- copy ---------- */
+  function summary(){
+    const L=[]; L.push('Tenses homework · Regulatory Affairs — '+(S.name||'(no name)')+' — '+new Date().toLocaleString('en-GB')); L.push('');
+    const bf=Object.values(S.b).filter(x=>x&&x.done&&x.firstOk).length, df=Object.values(S.d).filter(x=>x&&x.done&&x.firstOk).length;
+    L.push('2 Choose the form: '+bf+'/'+B.length+' right at the first try');
+    const wrongB=B.map((r,i)=>S.b[i]&&!S.b[i].firstOk?(i+1):null).filter(Boolean); if(wrongB.length) L.push('   Missed at first: '+wrongB.join(', '));
+    L.push('3 Type the verb: '+S.cd+'/'+C.length+' correct');
+    C.forEach((r,i)=>{ const v=(S.c[i]||'').trim(); const good=C[i][3].some(a=>norm(a)===norm(v)); L.push('   '+(i+1)+'. '+(v||'(empty)')+(good?'':'   [correct: '+C[i][3][0]+']')); });
+    L.push('4 Spot the error: '+df+'/'+D.length+' right at the first try');
+    const wrongD=D.map((r,i)=>S.d[i]&&!S.d[i].firstOk?(i+1):null).filter(Boolean); if(wrongD.length) L.push('   Missed at first: '+wrongD.join(', '));
+    L.push(''); L.push('5 Four tenses:');
+    ['Past Simple','Past Continuous','Present Perfect','Present Perfect Continuous'].forEach((n,i)=>L.push('   '+n+': '+((S.t['e'+i]||'').trim()||'(empty)')));
+    L.push(''); [['w0','A. Status update'],['w1','B. Last three months'],['w2','C. Explain the difference']].forEach(([k,t])=>{ L.push('6 '+t+':'); L.push((S.t[k]||'').trim()||'(empty)'); L.push(''); });
+    L.push('7 Voice message: (send separately)');
+    return L.join('\n');
+  }
+  $('#copy').addEventListener('click',async()=>{
+    const txt=summary(), box=$('#copybox'); box.value=txt;
+    try{ await navigator.clipboard.writeText(txt); $('#note').textContent='Copied. Now paste it into a message to me and send the voice message.'; box.hidden=true; }
+    catch(e){ box.hidden=false; box.focus(); box.select(); $('#note').textContent='Select all and copy (Ctrl/Cmd + C), then paste into a message to me.'; }
+  });
+  let armed=null;
+  $('#reset').addEventListener('click',()=>{
+    const b=$('#reset');
+    if(!armed){ b.textContent='Click again to erase everything'; armed=setTimeout(()=>{ armed=null; b.textContent='Start over'; },3500); return; }
+    clearTimeout(armed); try{ localStorage.removeItem(KEY); }catch(e){} location.reload();
+  });
+})();
+</script>
+</body>
+</html>
