@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Party Wrap-Up Homework</title>
+<meta property="og:title" content="Party Wrap-Up Homework">
+<meta property="og:description" content="Homework after the birthday lessons.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Rubik:wght@400;500;700&display=swap">
+<style>
+/* Layout: homework done alone, often on a phone — same party card look as the lessons, one column of numbered tasks with instant self-check and a "copy my answers" finish. Single light look on purpose. */
+:root{
+  --paper:#FFF1F4;
+  --frost:#FFD9E3;
+  --ink:#3B0F2E;
+  --muted:#7A4B67;
+  --berry:#D6336C;
+  --butter:#FFC94D;
+  --mint:#1FA387;
+  --mintsoft:#D7F3EC;
+  --wrong:#B42318;
+  --wrongsoft:#FDE3E1;
+  --card:#FFFFFF;
+  --line:#F3C3D2;
+  --display:"Shrikhand","Georgia",serif;
+  --body:"Rubik",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 12px 12px,var(--frost) 3px,transparent 3.5px),
+    radial-gradient(circle at 42px 38px,#FFE7A8 2.5px,transparent 3px);
+  background-size:56px 56px;
+  color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-inline:16px;padding-block:24px 64px;
+}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+h1,h2{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;letter-spacing:.01em}
+h3{margin:0;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+p{margin:0}
+
+.hero{background:var(--berry);color:#fff;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);border-radius:26px;padding:32px 24px 26px;display:flex;flex-direction:column;gap:12px}
+.hero h1{font-size:clamp(2.4rem,9vw,4rem);line-height:.95;color:var(--butter);text-shadow:3px 3px 0 var(--ink)}
+.hero p{max-width:44ch}
+.hero .persik{background:rgba(255,255,255,.16);border-radius:14px;padding:10px 16px;font-size:.98rem}
+
+.task{background:var(--card);border-radius:24px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:34px 22px 24px;position:relative;display:flex;flex-direction:column;gap:18px}
+@media (max-width:480px){.task{padding:32px 16px 20px}}
+.tag{position:absolute;top:-16px;left:18px;background:var(--butter);border:3px solid var(--ink);border-radius:999px;padding:2px 14px;font-weight:700;font-size:.82rem;letter-spacing:.04em}
+.task h2{font-size:clamp(1.6rem,6vw,2.2rem);line-height:1.1;color:var(--berry)}
+.lead{color:var(--muted);max-width:60ch}
+
+/* phrase reference */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.col{display:flex;flex-direction:column;gap:8px;background:var(--paper);border-radius:16px;padding:14px}
+.col h3{color:var(--berry)}
+.ph{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 12px;display:flex;flex-direction:column;gap:2px}
+.ph .eg{font-size:.88rem;color:var(--mint);font-style:italic}
+
+/* questions */
+.q{display:flex;flex-direction:column;gap:10px;padding-block:14px;border-top:2px dashed var(--line)}
+.q:first-of-type{border-top:0;padding-top:0}
+.qtext{font-size:1.02rem}
+.qtext .n{font-weight:700;color:var(--berry);margin-right:6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{font:inherit;font-size:.96rem;text-align:left;background:var(--paper);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:9px 14px;cursor:pointer;max-width:100%}
+.opt:hover{border-color:var(--berry)}
+.opt.right{background:var(--mintsoft);border-color:var(--mint);font-weight:500}
+.opt.wrong{background:var(--wrongsoft);border-color:var(--wrong);color:var(--wrong);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.fb{font-size:.9rem;font-weight:500}
+.fb.ok{color:var(--mint)}
+.fb.no{color:var(--wrong)}
+.gap{display:inline-block;min-width:5em;border-bottom:2px solid var(--berry);text-align:center;font-weight:500;color:var(--berry)}
+
+textarea{font:inherit;font-size:1rem;width:100%;min-height:96px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--paper);color:var(--ink);resize:vertical}
+textarea:focus{border-color:var(--berry);outline:none}
+button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid var(--mint);outline-offset:2px}
+
+.score{display:inline-flex;align-self:flex-start;background:var(--ink);color:#fff;border-radius:999px;padding:4px 14px;font-size:.9rem;font-weight:500;font-variant-numeric:tabular-nums}
+
+.statement{background:var(--ink);color:#fff;border-radius:18px;padding:18px 20px;font-family:var(--display);font-size:1.2rem;line-height:1.3}
+
+.video{display:flex;gap:16px;align-items:center;background:var(--ink);color:#fff;border-radius:18px;padding:16px;text-decoration:none;flex-wrap:wrap}
+.video .play{width:54px;height:54px;border-radius:50%;background:var(--berry);display:grid;place-items:center;flex:none}
+.video div{min-width:0;flex:1 1 200px}
+.video b{display:block}
+.video small{color:var(--frost)}
+
+.btn{font:inherit;font-weight:700;font-size:1.02rem;background:var(--berry);color:#fff;border:3px solid var(--ink);border-radius:999px;padding:12px 22px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);align-self:flex-start}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.done{align-items:flex-start}
+#copied{color:var(--mint);font-weight:500}
+#copyBox{font:inherit;font-size:.9rem;min-height:200px}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+  <header class="hero">
+    <h1>Party<br>Wrap-Up</h1>
+    <p>Homework after our birthday lessons. Take your time: it should take about half an hour.</p>
+    <p class="persik">🐈 Persik has eaten the last piece of cake. Now it's your turn to finish what's left!</p>
+  </header>
+
+  <!-- 1 -->
+  <section class="task">
+    <span class="tag">Task 1</span>
+    <h2>Love it or not for me?</h2>
+    <p class="lead">Remember these phrases from our lesson? Choose the best answer for each mini-dialogue.</p>
+    <div class="cols">
+      <div class="col"><h3>I love it</h3>
+        <div class="ph">I'm really into…<span class="eg">I'm really into cooking at the moment.</span></div>
+        <div class="ph">I'd much rather…<span class="eg">I'd much rather stay in than go out.</span></div>
+        <div class="ph">That's right up my street.<span class="eg">A cosy book café? That's right up my street.</span></div>
+      </div>
+      <div class="col"><h3>Not for me</h3>
+        <div class="ph">I'm not a big fan of…<span class="eg">I'm not a big fan of loud parties.</span></div>
+        <div class="ph">It's not really my thing.<span class="eg">Karaoke? It's not really my thing.</span></div>
+        <div class="ph">It doesn't do much for me.<span class="eg">Football doesn't do much for me.</span></div>
+      </div>
+      <div class="col"><h3>It depends</h3>
+        <div class="ph">To be honest, …<span class="eg">To be honest, I prefer small groups.</span></div>
+        <div class="ph">It depends on…<span class="eg">It depends on the weather.</span></div>
+        <div class="ph">I can see both sides.<span class="eg">I can see both sides, really.</span></div>
+      </div>
+    </div>
+    <span class="score" id="s1"></span>
+    <div id="q1"></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="task">
+    <span class="tag">Task 2</span>
+    <h2>Party people</h2>
+    <p class="lead">Choose the idiom that fits each sentence.</p>
+    <span class="score" id="s2"></span>
+    <div id="q2"></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="task">
+    <span class="tag">Task 3 · new</span>
+    <h2>Agree, disagree or somewhere in between?</h2>
+    <p class="lead">New phrases! Read them with the examples first.</p>
+    <div class="cols">
+      <div class="col"><h3>Agreeing</h3>
+        <div class="ph">I couldn't agree more.<span class="eg">“Surprise parties are stressful.” “I couldn't agree more!”</span></div>
+        <div class="ph">That's so true.<span class="eg">That's so true, kids grow up so fast.</span></div>
+        <div class="ph">You've got a point there.<span class="eg">You've got a point there. Flowers don't last long.</span></div>
+      </div>
+      <div class="col"><h3>Somewhere in between</h3>
+        <div class="ph">I partly agree, but…<span class="eg">I partly agree, but presents are nice too.</span></div>
+        <div class="ph">I see what you mean, but…<span class="eg">I see what you mean, but it's still rude.</span></div>
+        <div class="ph">That's true to some extent.<span class="eg">That's true to some extent, but not always.</span></div>
+      </div>
+      <div class="col"><h3>Disagreeing</h3>
+        <div class="ph">I'm not so sure about that.<span class="eg">Hmm, I'm not so sure about that.</span></div>
+        <div class="ph">I see it a bit differently.<span class="eg">I see it a bit differently, actually.</span></div>
+        <div class="ph">Not necessarily.<span class="eg">“Older people don't like parties.” “Not necessarily!”</span></div>
+      </div>
+    </div>
+    <h3>Now check yourself: what does each reply show?</h3>
+    <span class="score" id="s3"></span>
+    <div id="q3"></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="task">
+    <span class="tag">Task 4</span>
+    <h2>Your opinion</h2>
+    <p class="lead">These are the statements we didn't get to in class. Write 2–3 sentences for each. Start with a phrase from Task 3 and explain why.</p>
+    <div class="q"><p class="statement">Birthdays become less important as you get older.</p><textarea id="w1" placeholder="I'm not so sure about that. For me…"></textarea></div>
+    <div class="q"><p class="statement">It's rude to ask someone how old they are.</p><textarea id="w2"></textarea></div>
+    <div class="q"><p class="statement">Experiences make better presents than things.</p><textarea id="w3"></textarea></div>
+    <div class="q"><p class="statement">Kids' birthday parties have become far too expensive.</p><textarea id="w4"></textarea></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="task">
+    <span class="tag">Task 5 · video</span>
+    <h2>Birthday cakes</h2>
+    <p class="lead">A 6-minute BBC Learning English programme about how birthday cakes have changed. You can turn on English subtitles and slow it down if you need to.</p>
+    <a class="video" href="https://www.youtube.com/watch?v=pIOkrFZ-D1w" target="_blank" rel="noopener">
+      <span class="play"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="#fff"/></svg></span>
+      <div><b>Birthday cakes · 6 Minute English</b><small>BBC Learning English · YouTube · opens in a new tab</small></div>
+    </a>
+    <div class="q"><p class="qtext"><span class="n">1</span>At the start, the presenters ask a quiz question. What is it, and what's the correct answer?</p><textarea id="v1"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">2</span>How have birthday cakes changed over the years?</p><textarea id="v2"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">3</span>Which guests or experts do you hear in the programme? What is their opinion about birthday cakes?</p><textarea id="v3"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">4</span>At the end, the presenters go over the new words from the programme. Write down three of them and make your own sentence with each.</p><textarea id="v4"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">5</span>Simple homemade cake or a big, impressive one from a bakery? Answer with a phrase from Task 1 or Task 3.</p><textarea id="v5" placeholder="I'd much rather…"></textarea></div>
+  </section>
+
+  <!-- done -->
+  <section class="task done">
+    <span class="tag">Finished?</span>
+    <h2>Send it to me</h2>
+    <p class="lead">Tap the button to copy all your answers, then paste them into a message to me.</p>
+    <button class="btn" id="copy">Copy my answers</button>
+    <span id="copied" hidden>Copied! Now paste it into a message.</span>
+    <textarea id="copyBox" hidden readonly aria-label="Your answers"></textarea>
+  </section>
+
+</div>
+
+<script>
+var store={get:function(k){try{return localStorage.getItem(k);}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,v);}catch(e){}}};
+
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+var results={};
+function buildQuiz(id,scoreId,items){
+  var box=document.getElementById(id),first={};
+  function upd(){var n=Object.keys(first).length,ok=0;for(var k in first)if(first[k])ok++;
+    document.getElementById(scoreId).textContent=ok+' / '+items.length+' correct first time'+(n<items.length?' · '+(items.length-n)+' left':'');
+    results[id]=ok+'/'+items.length;}
+  items.forEach(function(it,i){
+    var q=document.createElement('div');q.className='q';
+    var t=document.createElement('p');t.className='qtext';t.innerHTML='<span class="n">'+(i+1)+'</span>'+it.q.replace('___','<span class="gap">?</span>');
+    var o=document.createElement('div');o.className='opts';
+    var fb=document.createElement('p');fb.className='fb';
+    shuffle(it.o).forEach(function(txt){
+      var b=document.createElement('button');b.className='opt';b.textContent=txt;
+      b.addEventListener('click',function(){
+        var right=txt===it.o[0];
+        if(!(i in first))first[i]=right;
+        if(right){b.classList.add('right');o.querySelectorAll('.opt').forEach(function(x){x.disabled=true;});
+          var g=t.querySelector('.gap');if(g)g.textContent=txt;
+          fb.className='fb ok';fb.textContent=it.why||'Yes!';}
+        else{b.classList.add('wrong');b.disabled=true;fb.className='fb no';fb.textContent='Not quite. Try again.';}
+        upd();
+      });
+      o.append(b);
+    });
+    q.append(t,o,fb);box.append(q);
+  });
+  upd();
+}
+
+buildQuiz('q1','s1',[
+  {q:"“Shall we go to karaoke tonight?” “Honestly, ___. I can't sing at all!”",o:["it's not really my thing","I'm really into it","that's right up my street"]},
+  {q:"“A weekend in a quiet village with books and long walks?” “Oh, ___!”",o:["that's right up my street","it doesn't do much for me","I'm not a big fan"]},
+  {q:"“Do you want to go to a big party or have dinner at home?” “___ have dinner at home.”",o:["I'd much rather","I'm really into","It depends on"],why:"Yes! I'd much rather + verb without “to”."},
+  {q:"“Do you like going to the beach?” “___ the time of year. In August it's far too hot.”",o:["It depends on","I can see both sides of","I'm not a big fan of"]},
+  {q:"“Have you seen the new action film?” “No, action films ___, to be honest.”",o:["don't do much for me","are right up my street","are really into me"]},
+  {q:"“What do you do in your free time?” “At the moment ___ yoga. I go three times a week!”",o:["I'm really into","I'm not a big fan of","I'd much rather"]}
+]);
+
+buildQuiz('q2','s2',[
+  {q:"My brother is such a ___. He goes out every weekend and is always the last one to leave.",o:["party animal","party pooper","young at heart"]},
+  {q:"Everyone loves Marina. She tells the best stories and makes everyone laugh. She's the ___.",o:["life and soul of the party","party pooper","party animal at heart"]},
+  {q:"Come on, don't be a ___! It's only ten o'clock, stay a bit longer.",o:["party pooper","party animal","life and soul"]},
+  {q:"You work so hard. It's your birthday, so just ___ and have fun!",o:["let your hair down","paint the town","be young at heart"]},
+  {q:"After we finished the project, the whole team went out to ___.",o:["paint the town red","let the hair down","be a party animal"]},
+  {q:"My grandad is 85, but he still dances at every wedding. He's very ___.",o:["young at heart","party pooper","paint the town red"]}
+]);
+
+buildQuiz('q3','s3',[
+  {q:"“Surprise parties are more stressful than fun.” “I couldn't agree more!”",o:["agreeing","somewhere in between","disagreeing"]},
+  {q:"“Experiences are better presents than things.” “I see what you mean, but I love getting something I can keep.”",o:["somewhere in between","agreeing","disagreeing"]},
+  {q:"“You should always have a big party on your birthday.” “Not necessarily.”",o:["disagreeing","agreeing","somewhere in between"]},
+  {q:"“Flowers are a boring present.” “You've got a point there. They die so quickly.”",o:["agreeing","disagreeing","somewhere in between"]},
+  {q:"“It's rude to ask someone's age.” “Hmm, I see it a bit differently.”",o:["disagreeing","somewhere in between","agreeing"]},
+  {q:"“Kids' parties are too expensive these days.” “That's true to some extent, but it depends on the family.”",o:["somewhere in between","agreeing","disagreeing"]}
+]);
+
+/* keep written answers between visits */
+var fields=['w1','w2','w3','w4','v1','v2','v3','v4','v5'];
+fields.forEach(function(id){
+  var el=document.getElementById(id),saved=store.get('pw-'+id);
+  if(saved)el.value=saved;
+  el.addEventListener('input',function(){store.set('pw-'+id,el.value);});
+});
+
+document.getElementById('copy').addEventListener('click',function(){
+  var st=document.querySelectorAll('.statement'),out=['Party Wrap-Up homework',''];
+  out.push('Task 1: '+(results.q1||'-')+' · Task 2: '+(results.q2||'-')+' · Task 3: '+(results.q3||'-')+' (correct first time)','');
+  out.push('TASK 4. Your opinion');
+  ['w1','w2','w3','w4'].forEach(function(id,i){out.push('“'+st[i].textContent+'”');out.push(document.getElementById(id).value.trim()||'(no answer)');out.push('');});
+  out.push('TASK 5. Video');
+  ['v1','v2','v3','v4','v5'].forEach(function(id,i){out.push((i+1)+'. '+(document.getElementById(id).value.trim()||'(no answer)'));});
+  var text=out.join('\n'),box=document.getElementById('copyBox'),msg=document.getElementById('copied');
+  function fallback(){box.hidden=false;box.value=text;box.focus();box.select();msg.hidden=false;msg.textContent='Select all the text below and copy it.';}
+  try{
+    navigator.clipboard.writeText(text).then(function(){msg.hidden=false;msg.textContent='Copied! Now paste it into a message.';},fallback);
+  }catch(e){fallback();}
+});
+</script>
+
+</body>
+</html>
