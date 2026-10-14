@@ -1,0 +1,420 @@
+<!doctype html><html><head><meta charset="UTF-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Store Week Homework</title>
+<meta property="og:title" content="Store Week Homework">
+<meta property="og:description" content="Homework: store vocabulary, present tenses, and a listening task.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+</head><body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: the lesson's linen catalogue look, as one phone-first scrolling workbook with a slim sticky progress line */
+:root{
+  --bg:#EFEBE4; --paper:#F8F6F2; --stone:#D9D2C6; --ink:#26231F; --muted:#7B746A;
+  --sage:#6F7560; --sage-soft:#E2E3D6; --clay:#B98E6E; --clay-soft:#F1E4D8;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --sans:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1D1B18;--paper:#262320;--stone:#3E3A34;--ink:#EFEAE2;--muted:#A79F93;--sage:#AEB49A;--sage-soft:#33352C;--clay:#C9A285;--clay-soft:#3A3029;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1D1B18;--paper:#262320;--stone:#3E3A34;--ink:#EFEAE2;--muted:#A79F93;--sage:#AEB49A;--sage-soft:#33352C;--clay:#C9A285;--clay-soft:#3A3029;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;margin:0;-webkit-text-size-adjust:100%}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:8px 90px}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+button:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--sage);outline-offset:3px}
+.label{font-size:12.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* sticky progress */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px 10px;display:grid;gap:8px;border-bottom:1px solid var(--stone)}
+.top-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.top-row .count{font-variant-numeric:tabular-nums}
+.restart{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--stone);padding:5px 10px;color:var(--muted)}
+.restart.warn{border-color:var(--clay);color:var(--ink);background:var(--clay-soft)}
+.bar{height:2px;background:var(--stone)}
+.bar i{display:block;height:100%;width:0;background:var(--sage);transition:width .5s var(--ease)}
+
+/* hero */
+.hero{padding-block:36px 26px;display:grid;gap:14px;border-bottom:1px solid var(--stone)}
+.hero h1{font-family:var(--display);font-size:clamp(46px,11vw,88px);line-height:.95}
+.hero h1 i{color:var(--sage)}
+.hero p{color:var(--muted);font-weight:300;font-size:18.5px;max-width:52ch}
+.toc{display:flex;flex-wrap:wrap;gap:6px 18px;padding-top:4px}
+.toc a{color:var(--ink);text-decoration:none;font-size:13.5px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--stone);padding-bottom:1px}
+
+/* parts */
+.part{margin-top:56px;display:grid;gap:16px;scroll-margin-top:80px}
+.part-head{display:grid;gap:6px;border-bottom:1px solid var(--stone);padding-bottom:12px}
+.part-head h2{font-family:var(--display);font-size:clamp(30px,6vw,42px);line-height:1.05}
+.part-head h2 i{color:var(--sage)}
+.intro{max-width:64ch}
+.intro em{font-style:normal;font-weight:500;color:var(--sage)}
+
+/* word study */
+.words{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--stone);border:1px solid var(--stone)}
+.word{background:var(--paper);padding:16px 18px;display:grid;gap:5px;align-content:start;min-width:0}
+.word h3{font-family:var(--display);font-size:26px;line-height:1.1}
+.word .mean{font-size:16px}
+.word .ex{font-size:15.5px;color:var(--muted);font-style:italic}
+
+/* rule cards */
+.rule{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--stone);border:1px solid var(--stone)}
+.rule > div{background:var(--paper);padding:16px 18px;display:grid;gap:7px;align-content:start;min-width:0}
+.rule h3{font-family:var(--display);font-size:23px;line-height:1.1}
+.rule .form{font-size:14px;letter-spacing:.05em;color:var(--sage);font-weight:500}
+.rule ul{margin:0;padding:0;list-style:none;display:grid;gap:5px}
+.rule li{font-size:15.5px;padding-left:15px;position:relative}
+.rule li::before{content:"";position:absolute;left:0;top:.72em;width:7px;height:1px;background:var(--clay)}
+.rule b{font-weight:600}
+.rule .wide{grid-column:1/-1;background:var(--clay-soft)}
+.rule .focus{background:var(--sage-soft)}
+
+/* email context */
+.mail{background:var(--paper);border:1px solid var(--stone);padding:16px 18px;display:grid;gap:4px;font-size:15.5px;color:var(--muted)}
+.mail b{color:var(--ink);font-weight:500}
+
+/* video */
+.video{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;background:var(--ink);color:var(--bg);padding:18px 20px;text-decoration:none;transition:opacity .3s var(--ease)}
+.video:hover{opacity:.9}
+.video .play{width:52px;height:52px;border-radius:50%;border:1px solid var(--bg);display:grid;place-items:center}
+.video .play svg{width:18px;height:18px;margin-left:3px}
+.video b{font-family:var(--display);font-size:22px;font-weight:400;line-height:1.15;display:block}
+.video span{font-size:14px;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+
+/* items */
+.items{display:grid;gap:10px}
+.item{background:var(--paper);border:1px solid var(--stone);padding:14px 16px;display:grid;gap:10px;transition:border-color .4s var(--ease)}
+.item.done{border-color:var(--sage)}
+.item .num{font-size:12.5px;letter-spacing:.16em;color:var(--muted);font-variant-numeric:tabular-nums}
+.item .q{font-size:17.5px}
+.item .q i{font-style:italic;color:var(--muted)}
+.slot{display:inline-block;min-width:84px;border-bottom:1px dashed var(--muted);text-align:center;font-weight:500}
+.item.done .slot{border-bottom:1px solid var(--sage);color:var(--sage)}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choice{border:1px solid var(--stone);background:var(--bg);padding:8px 14px;font-size:16px;min-height:42px;text-align:left}
+.choice:hover{border-color:var(--ink)}
+.choice.right{background:var(--sage);border-color:var(--sage);color:var(--paper)}
+.choice.wrong{color:var(--muted);text-decoration:line-through;border-style:dashed}
+.choice.shake{animation:shake .35s var(--ease)}
+.fb{font-size:15px;color:var(--muted);border-left:2px solid var(--sage);padding-left:10px}
+.fb b{color:var(--ink);font-weight:600}
+@keyframes shake{0%,100%{transform:translateX(0)}30%{transform:translateX(-4px)}70%{transform:translateX(4px)}}
+
+textarea{width:100%;font:inherit;font-size:16.5px;color:var(--ink);background:var(--bg);border:1px solid var(--stone);padding:10px 12px;resize:vertical;min-height:52px;border-radius:0}
+textarea.long{min-height:190px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{background:transparent;color:var(--ink);border:1px solid var(--ink);padding:9px 16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;min-height:40px}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.model{background:var(--sage-soft);padding:10px 14px;font-size:16px;display:grid;gap:3px}
+.model .label{color:var(--sage)}
+.check{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+.check li{font-size:15.5px;padding-left:22px;position:relative}
+.check li::before{content:"";position:absolute;left:0;top:.42em;width:11px;height:11px;border:1px solid var(--sage)}
+.wc{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* final */
+.final{margin-top:64px;border-top:1px solid var(--ink);padding-top:26px;display:grid;gap:14px}
+.final h2{font-family:var(--display);font-size:clamp(34px,7vw,52px);line-height:1}
+.final h2 i{color:var(--sage)}
+.scores{display:flex;flex-wrap:wrap;gap:8px}
+.scores span{border:1px solid var(--stone);background:var(--paper);padding:5px 12px;font-size:14.5px;font-variant-numeric:tabular-nums}
+.scores b{color:var(--sage);font-weight:600}
+.big{background:var(--sage);color:var(--paper);padding:15px 20px;font-size:15px;letter-spacing:.14em;text-transform:uppercase;justify-self:start}
+.big:hover{opacity:.9}
+.copytext{min-height:150px;font-size:14px}
+.ok{font-weight:500}
+
+@media (max-width:620px){ .rule,.words{grid-template-columns:1fr} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<div class="top">
+  <div class="top-row"><span class="label count" id="count">0 / 0 done</span><button type="button" class="restart" id="restart">Start over</button></div>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+</div>
+
+<header class="hero">
+  <p class="label">Homework · after our lesson</p>
+  <h1>Store <i>week</i></h1>
+  <p>New words for the store, all four present tenses with extra practice on Present Perfect and Present Perfect Continuous, and a video about cosy interiors. Your answers save on this phone, so you can stop and come back later.</p>
+  <nav class="toc" id="toc" aria-label="Parts"></nav>
+</header>
+
+<main id="parts"></main>
+
+<section class="final" id="final">
+  <p class="label">Last step</p>
+  <h2>Send it <i>to me</i></h2>
+  <div class="scores" id="scores"></div>
+  <p>Copy your answers and paste them into our chat.</p>
+  <button type="button" class="big" id="copyBtn">Copy my answers</button>
+  <p class="ok" id="copyNote" aria-live="polite"></p>
+  <textarea class="copytext" id="copyBox" readonly aria-label="Your answers"></textarea>
+</section>
+
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  /* ---------------- content ---------------- */
+  const WORDS=[
+    ['footfall','the number of people who come into the store','Footfall is always lower on Monday mornings.'],
+    ['to cover a shift','to work instead of another person','Can you cover Eva’s shift on Saturday?'],
+    ['rota','the plan that shows who works when','The rota for next week is on the board.'],
+    ['markdown','a lower price to sell old stock faster','The markdowns start on Monday: 30% off all towels.'],
+    ['shrinkage','products the store loses: stolen, broken or lost','Our shrinkage is higher this month. Some candles are missing.'],
+    ['to restock','to put more products on the shelves','Please restock the towels before closing.'],
+    ['sales target','the amount of money the store should sell','We’ve already hit our sales target this week.'],
+    ['briefing','a short meeting to share the plan for the day','We have a ten-minute briefing before we open.']
+  ];
+
+  const PARTS=[
+    {id:'p0',nav:'New words',label:'Part 1 · New words',title:'Meet <i>the words</i>',type:'study',
+     intro:'Read each word, its meaning and the example. Say the examples out loud. Then do Parts 2 and 3.'},
+    {id:'p1',nav:'Words 1',label:'Part 2 · Practice',title:'Which <i>word?</i>',
+     intro:'Read the meaning and choose the word. You can scroll up to Part 1 if you need to.',type:'mcq',items:[
+      {q:'the number of people who come into the store',o:['footfall','rota','till']},
+      {q:'to work instead of another person',o:['to cover a shift','to restock','to hit a target']},
+      {q:'the plan that shows who works when',o:['rota','briefing','markdown']},
+      {q:'a lower price to sell old stock faster',o:['markdown','shrinkage','refund']},
+      {q:'products the store loses: stolen, broken or lost',o:['shrinkage','markdown','footfall']},
+      {q:'to put more products on the shelves',o:['to restock','to cover','to display']},
+      {q:'the amount of money the store should sell',o:['sales target','footfall','rota']},
+      {q:'a short meeting to share the plan for the day',o:['briefing','rota','display']}
+    ]},
+    {id:'p2',nav:'Words 2',label:'Part 3 · Practice',title:'Words <i>in context</i>',
+     intro:'Complete the sentences.',type:'mcq',items:[
+      {q:'___ has dropped since they closed the car park at the shopping centre.',o:['Footfall','Shrinkage','Rota']},
+      {q:"Could you ___ Petra's shift on Sunday? She's ill.",o:['cover','restock','hit']},
+      {q:"I've just put next week's ___ on the board. Please check your days.",o:['rota','briefing','markdown']},
+      {q:"The ___ start tomorrow, so we've been changing price tags all evening.",o:['markdowns','sales targets','briefings']},
+      {q:'Our ___ has gone up this month. Three candles and a vase have disappeared.',o:['shrinkage','footfall','target']},
+      {q:'The towel shelves are almost empty. Could someone ___ them, please?',o:['restock','cover','display']},
+      {q:"Great news! We've hit our weekly ___ two days early.",o:['sales target','footfall','rota']},
+      {q:"In this morning's ___, I told the team about the new collection.",o:['briefing','markdown','till']}
+    ]},
+    {id:'p3',nav:'Simple or Continuous',label:'Part 4 · Grammar',title:'Simple or <i>continuous?</i>',type:'mcq',
+     rule:`<div><h3>Present Simple</h3><p class="form">I work · she works · do you…?</p><ul>
+        <li>routines and facts: <i>We open at ten.</i></li>
+        <li>a <b>timetable</b>, even in the future: <i>The training starts at 10 tomorrow.</i></li>
+        <li>a <b>state</b>: <i>This candle smells amazing.</i></li>
+        <li>an <b>opinion</b>: <i>I think we should move it.</i></li></ul></div>
+      <div><h3>Present Continuous</h3><p class="form">am / is / are + -ing</p><ul>
+        <li>right now: <i>A customer is waiting at the till.</i></li>
+        <li>a <b>plan</b> in your calendar: <i>I'm meeting the area manager tomorrow.</i></li>
+        <li>an <b>annoying habit</b> with always: <i>He's always leaving the till open!</i></li>
+        <li>a <b>trend</b> or something <b>temporary</b>: <i>More customers are buying online.</i></li></ul></div>
+      <div class="wide"><ul><li>Some verbs change meaning: <i>I think it's nice</i> (opinion) · <i>I'm thinking about it</i> (considering). <i>It smells nice</i> (state) · <i>Why are you smelling it?</i> (action).</li></ul></div>`,
+     intro:'Choose the best form.',items:[
+      {q:"I ___ the area manager at 3 p.m. tomorrow. It's in my calendar.",o:["'m meeting",'meet','have met'],fb:'a <b>plan</b> with a time → Present Continuous'},
+      {q:'The training session ___ at 10 and finishes at 12.',o:['starts','is starting','has started'],fb:'a <b>timetable</b> → Present Simple, even for the future'},
+      {q:'Jakub ___ the till open! Every single day!',o:['is always leaving','has always left','always is leaving'],fb:'<b>always + -ing</b> = an annoying habit'},
+      {q:'This candle ___ amazing, like fresh linen.',o:['smells','is smelling','has smelled'],fb:'it <b>has</b> this smell → a state → Present Simple'},
+      {q:'Why ___ you ___ the candle? Is something wrong with it?',o:['are … smelling','do … smell','have … smelled'],fb:'the <b>action</b> of smelling right now → Present Continuous'},
+      {q:"I ___ about changing the Sunday opening hours. What's your opinion?",o:["'m thinking",'think','thought'],fb:"= I'm <b>considering</b> it → Present Continuous"},
+      {q:'More and more customers ___ online and picking up in store.',o:['are ordering','order','have ordered'],fb:'a <b>trend</b> that is changing → Present Continuous'},
+      {q:'“What ___ this red sticker ___?” “It means the item is on markdown.”',o:['does … mean','is … meaning','has … meant'],fb:'<b>mean</b> is a state verb → Present Simple'}
+    ]},
+    {id:'p4',nav:'PP or PPC',label:'Part 5 · Grammar · main focus',title:'Result or <i>process?</i>',type:'mcq',
+     rule:`<div class="focus"><h3>Present Perfect</h3><p class="form">have / has + V3</p><ul>
+        <li>the <b>result</b> is important: <i>I've restocked the shelves.</i></li>
+        <li><b>how many / how much</b>: <i>We've sold 40 candles today.</i></li>
+        <li>news, experience: <i>I've never seen a queue like this!</i></li></ul></div>
+      <div class="focus"><h3>Present Perfect Continuous</h3><p class="form">have / has been + -ing</p><ul>
+        <li>the <b>activity</b> is important: <i>I've been restocking all morning.</i></li>
+        <li><b>how long</b>: <i>She's been working here since May.</i></li>
+        <li>you can see the <b>traces</b>: <i>You're dusty! What have you been doing?</i></li></ul></div>
+      <div class="wide"><ul><li><b>State verbs</b> (know, like, believe, have = own, be) stay in Present Perfect: <i>I've known Marek for ten years.</i> Not <s>I've been knowing</s>.</li></ul></div>`,
+     intro:'Choose the best form. Read the explanation after each one.',items:[
+      {q:"I'm so tired. I ___ boxes since 7 a.m.",o:['have been unpacking','have unpacked','unpack'],fb:'<b>since 7 a.m.</b> + a long activity → Present Perfect Continuous'},
+      {q:'Good news: we ___ 120 cushions this week!',o:['have sold','have been selling','are selling'],fb:'<b>how many</b> (120) → Present Perfect'},
+      {q:"“Why are your hands so dusty?” “I ___ the old display.”",o:['have been taking down','have taken down','take down'],fb:'we can see the <b>traces</b> of the activity → Present Perfect Continuous'},
+      {q:'I ___ Marek for ten years. We started at the company together.',o:['have known','have been knowing','know'],fb:'<b>know</b> is a state verb → Present Perfect only'},
+      {q:"Somebody ___ the price gun! I can't find it anywhere.",o:['has taken','has been taking','takes'],fb:"the <b>result</b> now: it's gone → Present Perfect"},
+      {q:"I ___ three emails to head office about this, but nobody has answered.",o:['have sent','have been sending','send'],fb:'<b>how many</b> (three) → Present Perfect'},
+      {q:"Sorry I'm late! ___ you ___ long?",o:['Have … been waiting','Have … waited','Are … waiting'],fb:'the activity of waiting and <b>how long</b> → Present Perfect Continuous'},
+      {q:'Our sales ___ by 15% since we changed the window.',o:['have grown','have been growing','grow'],fb:'a number, a <b>result</b> → Present Perfect'},
+      {q:"“Is the rota ready?” “No, I ___ it for an hour and it's still not finished.”",o:['have been doing','have done','did'],fb:'the activity is <b>not finished</b> → Present Perfect Continuous'},
+      {q:'I ___ never ___ a customer this angry before.',o:['have … seen','have … been seeing','am … seeing'],fb:'<b>experience</b> with never → Present Perfect'}
+    ]},
+    {id:'p5',nav:'What happened?',label:'Part 6 · Writing sentences',title:'What has <i>been happening?</i>',type:'type',
+     intro:'Look at the situation and explain it in one or two sentences. Use <em>Present Perfect Continuous</em> (and Present Perfect if you need it). If you get stuck, open the example.',items:[
+      {q:"Eva's face is red and she's out of breath.",h:'She has been…',m:"She's been carrying heavy boxes from the stockroom."},
+      {q:'You have 14 missed calls from head office.',h:'Head office…',m:"Head office has been trying to call me all morning. They've called me 14 times!"},
+      {q:'The new trainee looks confused and keeps asking questions.',h:'He has been…',m:"He's been learning the till system all morning, and he hasn't understood the refunds yet."},
+      {q:'The window display looks completely different today.',h:'Martina has…',m:"Martina has been working on the new window since yesterday. She's changed everything!"},
+      {q:"It's 6 p.m. and you have a terrible headache.",h:"I've been…",m:"I've been dealing with difficult customers all day, and I haven't had a break."}
+    ]},
+    {id:'p6',nav:'Fix it',label:'Part 7 · Find the mistake',title:'Fix <i>the sentence</i>',type:'type',
+     intro:'Each sentence has one mistake with the tense. Write the correct sentence. Then open the example and compare.',items:[
+      {q:'I work at Zara Home since 2019.',h:'Write the correct sentence…',m:"I've been working at Zara Home since 2019. (since + until now → not Present Simple)"},
+      {q:'We have been sold all the new vases.',h:'Write the correct sentence…',m:"We've sold all the new vases. (a result, and active, not passive)"},
+      {q:'How long do you know your area manager?',h:'Write the correct sentence…',m:'How long have you known your area manager? (know = state verb → Present Perfect)'},
+      {q:'She is working here for three months.',h:'Write the correct sentence…',m:"She's been working here for three months. (for + until now)"},
+      {q:'Did you see the new collection yet?',h:'Write the correct sentence…',m:'Have you seen the new collection yet? (yet → Present Perfect)'}
+    ]},
+    {id:'p7',nav:'All four',label:'Part 8 · All four tenses',title:'An update <i>from the store</i>',type:'mcq',
+     pre:`<div class="mail"><span><b>From:</b> Dominika</span><span><b>To:</b> Martin, Area Manager</span><span><b>Subject:</b> Weekly update</span></div>`,
+     intro:'Dominika is writing her weekly update. Choose the right form for each sentence. Now you need all four tenses.',items:[
+      {q:'Hi Martin, here is my update. We usually ___ deliveries on Tuesdays…',o:['get','are getting','have got'],fb:'a routine → <b>Present Simple</b>'},
+      {q:'…but this week they ___ on Thursday because the warehouse is closed for repairs.',o:['are coming','come','have been coming'],fb:'only this week, temporary → <b>Present Continuous</b>'},
+      {q:'Good news: we ___ all the linen bedding from the new collection!',o:['have already sold','have already been selling','already sell'],fb:'a result → <b>Present Perfect</b>'},
+      {q:'Footfall ___ steadily since we changed the window.',o:['has been growing','grows','is growing'],fb:'a process from the past until now (since) → <b>Present Perfect Continuous</b>'},
+      {q:'Lucia ___ on the new window for two days, and it looks amazing.',o:['has been working','is working','works'],fb:'for two days until now → <b>Present Perfect Continuous</b>'},
+      {q:'Right now she ___ the price tags for the markdowns.',o:['is changing','changes','has been changing'],fb:'right now → <b>Present Continuous</b>'},
+      {q:'We ___ two new people this month…',o:['have hired','have been hiring','hire'],fb:'how many (two) → <b>Present Perfect</b>'},
+      {q:"…but they ___ the till system yet, so they can't work alone.",o:["haven't learnt","don't learn","aren't learning"],fb:'yet → <b>Present Perfect</b>'},
+      {q:'I ___ we need one more person on Saturdays.',o:['think','am thinking','have been thinking'],fb:'an opinion → <b>Present Simple</b>'},
+      {q:'___ you ___ the new rota for November? Let me know what you think. Best, Dominika',o:['Have … seen','Do … see','Are … seeing'],fb:'a question about a result / news → <b>Present Perfect</b>'}
+    ]},
+    {id:'p8',nav:'Listening',label:'Part 9 · Listening',title:'Make it <i>cosy</i>',type:'mcq',
+     pre:`<a class="video" href="https://www.youtube.com/watch?v=NzEFxxKVHxM" target="_blank" rel="noopener"><span class="play"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3 1.5v13l11-6.5z"/></svg></span><span style="display:grid;gap:4px"><b>Design Psychology: 8 Tips for a Cosy Home</b><span>YouTube · about 10 minutes</span></span></a>`,
+     intro:'Watch the video. An architect explains how to make a home feel cosy. You can turn on English subtitles. Watch it once, answer the questions, then watch again to check.',items:[
+      {q:'At the start, which tips does she say she will skip?',o:['obvious ones: blankets, candles, getting a pet','tips about colours','tips that are expensive']},
+      {q:'Which light bulbs should you avoid?',o:['white light bulbs','yellow light bulbs','warm light bulbs']},
+      {q:'Warm yellow light (2,700–3,000 Kelvin) reminds us of…',o:['a sunset','the morning sun','an office']},
+      {q:'Why do natural materials like wood and stone make us feel cosy?',o:['They remind us of nature.','They are cheap and easy to find.','They are easy to clean.']},
+      {q:'What does she call the flat, boring feeling of a room without texture?',o:['visual silence','visual noise','empty design']},
+      {q:'When should you use the big ceiling light?',o:['only in an emergency','every evening','only in the kitchen']},
+      {q:'A sofa alone in the middle of the room feels uncomfortable. What helps?',o:['a lamp, a side table and a plant next to it','a bigger sofa','moving it to another room']},
+      {q:'Why do curves and round shapes relax us?',o:['Our brain sees them as safe.','They take less space.','They are more modern.']}
+    ]},
+    {id:'p9',nav:'Your turn',label:'Part 10 · Writing',title:'Your <i>store</i>',type:'write',
+     intro:'Write about your real store. Use the new words, the four tenses and ideas from the video.',items:[
+      {q:'Write a weekly update email to your area manager (80–120 words).',min:60,
+       c:['what usually happens in the store (Present Simple)',"what's happening this week (Present Continuous)",'results: what you have done or sold (Present Perfect)','what you have been working on, and how long (Present Perfect Continuous)','at least 3 new words from Part 1','one idea from the video: how you have made the store feel cosy'],
+       h:'Hi …,\nHere is a quick update from the Bratislava store.\n'}
+    ]}
+  ];
+
+  /* ---------------- state ---------------- */
+  const KEY='dominika-hw-store-week-2';
+  const fresh=()=>({m:{},t:{}});
+  let st=fresh();
+  try{ const raw=localStorage.getItem(KEY); if(raw){ const o=JSON.parse(raw); if(o&&o.m&&o.t) st=o; } }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} };
+
+  /* ---------------- render ---------------- */
+  const parts=$('parts'), toc=$('toc');
+  const order=(i,n,seed)=>{ const o=[...Array(n).keys()]; for(let k=n-1;k>0;k--){ const j=(i*7+k*3+seed)%(k+1); [o[k],o[j]]=[o[j],o[k]]; } return o; };
+  const counters=[];
+  const wordCount=s=>((s||'').trim().match(/[A-Za-z’']+/g)||[]).length;
+
+  PARTS.forEach((P,pi)=>{
+    const a=document.createElement('a'); a.href='#'+P.id; a.textContent=P.nav; toc.appendChild(a);
+    const sec=document.createElement('section'); sec.className='part'; sec.id=P.id;
+    sec.innerHTML=`<div class="part-head"><p class="label">${P.label}</p><h2>${P.title}</h2></div>${P.rule?`<div class="rule">${P.rule}</div>`:''}<p class="intro">${P.intro}</p>${P.pre||''}<div class="items"></div>`;
+    const box=sec.querySelector('.items');
+    if(P.type==='study'){
+      box.className='words';
+      WORDS.forEach(([w,m,e])=>{ const d=document.createElement('div'); d.className='word'; d.innerHTML=`<h3>${esc(w)}</h3><p class="mean">${esc(m)}</p><p class="ex">${esc(e)}</p>`; box.appendChild(d); });
+      parts.appendChild(sec); return;
+    }
+    (P.items||[]).forEach((it,i)=>{
+      const id=P.id+'-'+i, n=String(i+1).padStart(2,'0');
+      const d=document.createElement('div'); d.className='item';
+      if(P.type==='mcq'){
+        counters.push({id,kind:'m'});
+        const isMeaning=P.id==='p1';
+        d.innerHTML=`<span class="num">${n}</span><p class="q">${isMeaning?'<i>“'+esc(it.q)+'”</i>':esc(it.q).replace('___','<span class="slot">&nbsp;</span>')}</p><div class="choices"></div><p class="fb" hidden></p>`;
+        const ch=d.querySelector('.choices'), slot=d.querySelector('.slot'), fb=d.querySelector('.fb');
+        const solve=()=>{ d.classList.add('done'); if(slot) slot.textContent=it.o[0]; if(it.fb){ fb.innerHTML=it.fb; fb.hidden=false; } };
+        const rec=st.m[id];
+        order(i,it.o.length,pi).forEach(k=>{
+          const b=document.createElement('button'); b.type='button'; b.className='choice'; b.textContent=it.o[k];
+          if(rec&&rec.done&&k===0) b.classList.add('right');
+          if(rec&&rec.wrong&&rec.wrong.includes(k)) b.classList.add('wrong');
+          b.addEventListener('click',()=>{
+            const r=st.m[id]||(st.m[id]={first:k,ok:k===0,done:false,wrong:[]});
+            if(r.done) return;
+            if(k===0){ r.done=true; b.classList.add('right'); solve(); }
+            else { if(!r.wrong.includes(k)) r.wrong.push(k); b.classList.add('wrong'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); }
+            save(); progress();
+          });
+          ch.appendChild(b);
+        });
+        if(rec&&rec.done) solve();
+      } else if(P.type==='type'){
+        counters.push({id,kind:'t'});
+        d.innerHTML=`<span class="num">${n}</span><p class="q">${esc(it.q)}</p><textarea id="${id}" rows="2" placeholder="${esc(it.h)}" aria-label="Your answer to ${n}"></textarea><div class="row"><button type="button" class="btn">Show example</button></div><div class="model" hidden><span class="label">Example</span><span>${esc(it.m)}</span></div>`;
+        const ta=d.querySelector('textarea'), btn=d.querySelector('button'), md=d.querySelector('.model');
+        ta.value=st.t[id]||'';
+        const mark=()=>d.classList.toggle('done',!!ta.value.trim());
+        ta.addEventListener('input',()=>{ st.t[id]=ta.value; save(); mark(); progress(); });
+        btn.addEventListener('click',()=>{ md.hidden=!md.hidden; btn.textContent=md.hidden?'Show example':'Hide example'; });
+        mark();
+      } else {
+        counters.push({id,kind:'w',min:it.min});
+        d.innerHTML=`<span class="num">${n}</span><p class="q">${esc(it.q)}</p><ul class="check">${it.c.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><textarea id="${id}" class="long" aria-label="Your text ${n}"></textarea><span class="wc"></span>`;
+        const ta=d.querySelector('textarea'), wc=d.querySelector('.wc');
+        ta.value=st.t[id]!=null?st.t[id]:it.h;
+        const words=()=>{ const w=wordCount(ta.value); wc.textContent=w+' words'; d.classList.toggle('done',w>=it.min); };
+        ta.addEventListener('input',()=>{ st.t[id]=ta.value; save(); words(); progress(); });
+        words();
+      }
+      box.appendChild(d);
+    });
+    parts.appendChild(sec);
+  });
+
+  /* ---------------- progress & results ---------------- */
+  function isDone(c){
+    if(c.kind==='m') return !!(st.m[c.id]&&st.m[c.id].done);
+    if(c.kind==='t') return !!(st.t[c.id]||'').trim();
+    return wordCount(st.t[c.id])>=c.min;
+  }
+  function score(P){ let a=0; P.items.forEach((_,i)=>{ const r=st.m[P.id+'-'+i]; if(r&&r.ok) a++; }); return a; }
+  function progress(){
+    const done=counters.filter(isDone).length;
+    $('count').textContent=`${done} / ${counters.length} done`;
+    $('bar').style.width=Math.round(100*done/counters.length)+'%';
+    $('scores').innerHTML=PARTS.filter(P=>P.type==='mcq').map(P=>`<span>${P.nav}: <b>${score(P)}</b> / ${P.items.length}</span>`).join('');
+    $('copyBox').value=asText();
+  }
+  function asText(){
+    const L=['Homework “Store week” from Dominika — '+new Date().toLocaleDateString('en-GB'),''];
+    PARTS.forEach(P=>{
+      if(P.type==='study') return;
+      if(P.type==='mcq'){
+        L.push(`${P.label.toUpperCase()}: ${score(P)}/${P.items.length} right first time`);
+        P.items.forEach((it,i)=>{ const r=st.m[P.id+'-'+i]; const q=it.q.replace('___','…');
+          if(!r) L.push(`${i+1}. — (not done) ${q}`);
+          else L.push(`${i+1}. ${r.ok?'+':'-'} ${q} → ${it.o[r.first]}${r.ok?'':' (right: '+it.o[0]+')'}`); });
+      } else {
+        L.push(P.label.toUpperCase()+':');
+        P.items.forEach((it,i)=>{ const v=(st.t[P.id+'-'+i]||'').trim(); L.push(`${i+1}. ${it.q}`,`   ${v||'(no answer)'}`); });
+      }
+      L.push('');
+    });
+    return L.join('\n');
+  }
+  $('copyBtn').addEventListener('click',async()=>{
+    const box=$('copyBox'); box.value=asText();
+    try{ await navigator.clipboard.writeText(box.value); $('copyBtn').textContent='Copied'; $('copyNote').textContent='Now open our chat and paste it there.'; }
+    catch(e){ box.focus(); box.select(); try{ box.setSelectionRange(0,box.value.length); }catch(_){}
+      $('copyNote').textContent='The text is selected. Tap “Copy” (or press Ctrl+C / ⌘C), then paste it into our chat.'; }
+  });
+
+  /* ---------------- restart ---------------- */
+  let armed=null;
+  $('restart').addEventListener('click',()=>{
+    const b=$('restart');
+    if(!armed){ b.textContent='Tap again to clear'; b.classList.add('warn'); armed=setTimeout(()=>{ armed=null; b.textContent='Start over'; b.classList.remove('warn'); },3000); return; }
+    clearTimeout(armed); try{ localStorage.removeItem(KEY); }catch(e){} location.reload();
+  });
+
+  progress();
+})();
+</script>
+
+</body></html>
