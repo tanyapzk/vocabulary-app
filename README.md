@@ -8,6 +8,7 @@ The site is published with GitHub Pages: https://tanyapzk.github.io/vocabulary-a
 
 | Student | Page |
 | --- | --- |
+| Anna | [anna/](https://tanyapzk.github.io/vocabulary-app/anna/) |
 | Dominika | [dominika/](https://tanyapzk.github.io/vocabulary-app/dominika/) |
 | Ira | [ira/](https://tanyapzk.github.io/vocabulary-app/ira/) · [ira/20-09.html](https://tanyapzk.github.io/vocabulary-app/ira/20-09.html) |
 | Nastya (BY) | [nastya-BY/](https://tanyapzk.github.io/vocabulary-app/nastya-BY/) |
