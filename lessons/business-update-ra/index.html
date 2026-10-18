@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Status Update</title>
+<meta property="og:title" content="Status update: business English for Regulatory Affairs">
+<meta property="og:description" content="Speaking lesson: Present Perfect, Present Perfect Continuous and the past tenses in business updates.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap">
+<style>
+/* Layout: slide deck for screen sharing, speaking-first. Left = title + instruction, right = the task. Arrows / keys / swipe. Colour code stays the same as the first lesson: coral = result (Present Perfect), teal = process (Present Perfect Continuous). */
+:root{
+  --sand:#F4F0E8; --card:#FFFFFF; --ink:#14213D; --muted:#5B6479; --line:#DDD6C8;
+  --amber:#F2A900; --amber-soft:#FFF0C7;
+  --coral:#E8603F; --coral-soft:#FFE3D9; --teal:#1B7F78; --teal-soft:#D6EEE9; --navy-soft:#E1E6F2; --red:#C2382A; --green:#2E8B57;
+  --display:"DM Serif Display",Georgia,serif;
+  --body:"DM Sans","Helvetica Neue",Arial,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{font-size:clamp(15px,.5vw + 11px,21px);height:100%}
+body{margin:0;height:100%;background:var(--sand);color:var(--ink);font-family:var(--body);line-height:1.5;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+h1,h2,h3,h4,p,ul,ol{margin:0}
+ul,ol{padding:0;list-style:none}
+svg{display:block}
+b.pp,em.pp{font-style:normal;background:var(--coral-soft);color:#A8321A;padding:0 .25em;border-radius:.35em}
+b.pc,em.pc{font-style:normal;background:var(--teal-soft);color:#0F5A50;padding:0 .25em;border-radius:.35em}
+.label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.deck{height:calc(100% - 4.2rem);position:relative}
+.slide{display:none;height:100%;overflow:auto;padding:clamp(1.2rem,3vw,3rem) clamp(1.2rem,4vw,4.5rem);grid-template-columns:minmax(0,.8fr) minmax(0,1.5fr);gap:clamp(1.2rem,3vw,3.5rem);align-content:center}
+.slide.on{display:grid;animation:rise .6s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.side{display:flex;flex-direction:column;gap:1rem;align-self:center}
+.num{font-family:var(--display);font-size:clamp(2.4rem,5vw,4.6rem);line-height:1;color:var(--amber)}
+.side h2{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,3vw,2.8rem);line-height:1.08;text-wrap:balance}
+.intro{color:var(--muted);font-size:1.05rem;max-width:34ch;text-wrap:pretty}
+.say{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;color:var(--coral);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.say svg{width:1.2rem;height:1.2rem}
+.task{min-width:0;align-self:center;display:flex;flex-direction:column;gap:1rem}
+
+.nav{position:fixed;left:0;right:0;bottom:0;height:4.2rem;display:flex;align-items:center;gap:1rem;padding:0 clamp(1rem,3vw,2.5rem);background:color-mix(in srgb,var(--sand) 88%,white);border-top:1px solid var(--line);z-index:5}
+.nbtn{width:2.7rem;height:2.7rem;border-radius:50%;border:2px solid var(--ink);background:var(--card);display:grid;place-items:center;flex:none;transition:background .3s var(--ease),transform .3s var(--ease)}
+.nbtn:hover{background:var(--amber);transform:translateY(-2px)}
+.nbtn:disabled{opacity:.3;pointer-events:none}
+.nbtn svg{width:1.2rem;height:1.2rem}
+.dots{flex:1;display:flex;gap:.35rem;justify-content:center;min-width:0}
+.dots button{flex:1 1 0;max-width:2.4rem;height:.5rem;border:0;border-radius:99px;background:var(--line);padding:0}
+.dots button.seen{background:var(--navy-soft)}
+.dots button.on{background:var(--amber)}
+.count{font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted);min-width:3.5rem;text-align:right}
+
+.btn{border:2px solid var(--ink);background:var(--card);border-radius:99px;padding:.5rem 1.1rem;font-weight:600;font-size:.95rem;transition:background .3s var(--ease),transform .3s var(--ease)}
+.btn:hover{background:var(--amber);transform:translateY(-2px)}
+.btn.main{background:var(--ink);color:var(--sand)}
+.btn.main:hover{background:var(--teal)}
+.row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1.2rem 1.4rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{border-radius:99px;padding:.25rem .8rem;font-size:.95rem;font-weight:600;background:var(--amber-soft);border:1px solid var(--amber)}
+.reveal-box{display:none}
+.reveal-box.open{display:block;animation:rise .5s var(--ease) both}
+
+/* cover */
+.cover{grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);align-items:center}
+.cover h1{font-family:var(--display);font-weight:400;font-size:clamp(2.8rem,6.6vw,6.4rem);line-height:.95;letter-spacing:-.02em}
+.cover h1 i{color:var(--amber)}
+.cover .lede{font-size:1.2rem;max-width:36ch;color:var(--muted);margin-top:1.2rem;text-wrap:pretty}
+.cover .art svg{width:min(100%,30rem);height:auto;margin:auto}
+
+/* questions */
+.qs{counter-reset:q;display:grid;gap:.7rem}
+.qs li{counter-increment:q;display:grid;grid-template-columns:2.4rem 1fr;gap:.9rem;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.8rem 1.1rem;font-size:1.2rem;font-weight:500}
+.qs li::before{content:counter(q);width:2.4rem;height:2.4rem;border-radius:50%;display:grid;place-items:center;background:var(--amber);font-family:var(--display)}
+
+/* flow */
+.flow{width:100%;height:auto}
+.eg4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+.eg4 div{border-radius:1rem;padding:.6rem .9rem;font-size:1rem;font-weight:500}
+.eg4 .ps{background:var(--amber-soft);border:1.5px solid var(--amber)}
+.eg4 .pcn{background:var(--navy-soft);border:1.5px solid #AAB6D3}
+.eg4 .pp{background:var(--coral-soft);border:1.5px solid #F5B4A0;font-style:normal;color:inherit;padding:.6rem .9rem}
+.eg4 .pc{background:var(--teal-soft);border:1.5px solid #9ED6C8;font-style:normal;color:inherit;padding:.6rem .9rem}
+.eg4 small{display:block;color:var(--muted);font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+
+/* quiz */
+.qcard{background:var(--card);border:1.5px solid var(--line);border-radius:1.4rem;padding:1.5rem 1.7rem;display:grid;gap:1rem}
+.qtop{display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qsent{font-family:var(--display);font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.3;text-wrap:balance}
+.qsent .gap{display:inline-block;min-width:3.5em;border-bottom:3px solid var(--amber);text-align:center}
+.qsent .gap.shown{border-color:var(--teal);color:var(--teal)}
+.qopts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
+.qopts button{border:2px solid var(--line);background:var(--sand);border-radius:1rem;padding:.7rem .6rem;font-weight:700;font-size:.95rem;transition:background .3s var(--ease),border-color .3s var(--ease)}
+.qopts button:hover{border-color:var(--ink)}
+.qopts button.ok{background:var(--teal-soft);border-color:var(--teal)}
+.qopts button.no{background:var(--coral-soft);border-color:var(--coral);text-decoration:line-through}
+.qwhy{font-size:1.02rem;min-height:3.2em;color:var(--muted);text-wrap:pretty}
+.qwhy b{color:var(--ink)}
+.qfoot{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.score{font-weight:700;color:var(--muted)}
+
+/* toolkit */
+.kit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.kcol{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:.9rem 1.1rem;display:grid;gap:.4rem;align-content:start}
+.kcol h4{display:flex;align-items:center;gap:.6rem;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase}
+.kcol h4 i{width:.9rem;height:.9rem;border-radius:50%;flex:none}
+.kcol li{font-size:.98rem;font-weight:500;padding:.3rem 0;border-bottom:1px solid var(--line)}
+.kcol li:last-child{border:0}
+.kcol small{color:var(--muted);font-weight:600}
+
+/* project card */
+.proj{background:var(--ink);color:var(--sand);border-radius:1.6rem;padding:clamp(1.2rem,2.4vw,2rem);display:grid;gap:1rem}
+.proj h3{font-family:var(--display);font-weight:400;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1.1}
+.proj .meta{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.lights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.lights div{background:color-mix(in srgb,var(--sand) 10%,transparent);border-radius:1rem;padding:.7rem .9rem;display:grid;gap:.3rem;align-content:start}
+.lights h4{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
+.lights h4 i{width:.8rem;height:.8rem;border-radius:50%}
+.lights li{font-size:.95rem}
+.timer{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:.7rem 1.1rem}
+.timer .t{font-family:var(--display);font-size:2rem;font-variant-numeric:tabular-nums;min-width:4.2rem}
+.timer .bar{flex:1 1 8rem;height:.55rem;background:var(--line);border-radius:99px;overflow:hidden}
+.timer .bar i{display:block;height:100%;width:0;background:var(--coral);border-radius:99px;transition:width 1s linear}
+
+/* boss question */
+.qbig{background:var(--amber);border-radius:1.8rem;padding:clamp(1.5rem,3vw,2.6rem);min-height:13rem;display:flex;flex-direction:column;justify-content:space-between;gap:1rem}
+.qbig p{font-family:var(--display);font-size:clamp(1.6rem,3.2vw,2.8rem);line-height:1.12;text-wrap:balance}
+.qbig .follow{font-size:1rem;font-weight:600;color:#5C3F00}
+
+/* question builder + email */
+#builder{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+.fact{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1rem 1.2rem;display:grid;gap:.4rem}
+.fact p{font-size:1.15rem;font-weight:500}
+.fact .ask{color:var(--coral);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+.fact .model{display:none;font-family:var(--display);font-size:1.3rem;color:var(--teal)}
+.fact.open .model{display:block}
+.email{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1.1rem 1.3rem;display:grid;gap:.35rem}
+.email .hd{font-size:.85rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:.5rem;margin-bottom:.3rem}
+.eline{all:unset;box-sizing:border-box;cursor:pointer;display:block;padding:.35rem .5rem;border-radius:.6rem;font-size:1.08rem;line-height:1.45}
+.eline:hover{background:var(--amber-soft)}
+.eline .bad{background:var(--coral-soft);border-radius:.3rem;padding:0 .2rem}
+.eline .fix{display:none;color:var(--teal);font-weight:700}
+.eline.open .bad{text-decoration:line-through;color:var(--muted)}
+.eline.open .fix{display:inline}
+.eline small{display:none;color:var(--muted);font-weight:600}
+.eline.open small{display:block}
+
+/* role play */
+.roles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.role{background:var(--card);border:1.5px solid var(--line);border-radius:1.2rem;padding:1rem 1.2rem;display:grid;gap:.5rem;align-content:start}
+.role h4{font-family:var(--display);font-weight:400;font-size:1.35rem;line-height:1.1}
+.role li{font-size:.97rem;padding-left:1.1rem;position:relative}
+.role li::before{content:"";position:absolute;left:0;top:.6em;width:.5rem;height:.5rem;border-radius:50%;background:var(--coral)}
+.role.b li::before{background:var(--teal)}
+.phr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.3rem 1.2rem;font-size:.98rem}
+.phr div{border-bottom:1px solid var(--line);padding:.3rem 0}
+.todo{display:grid;gap:.55rem}
+.todo label{display:grid;grid-template-columns:2rem 1fr;gap:.8rem;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.65rem 1rem;font-size:1.08rem;cursor:pointer;transition:background .3s var(--ease)}
+.todo input{width:1.4rem;height:1.4rem;accent-color:var(--teal)}
+.todo label:has(input:checked){background:var(--teal-soft);border-color:#9ED6C8}
+
+.sheet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.sheet .box{border-radius:1.3rem;padding:1.1rem 1.3rem;display:grid;gap:.4rem;align-content:start}
+.sheet .box h4{font-family:var(--display);font-weight:400;font-size:1.5rem}
+.sheet li{font-size:.98rem;padding:.2rem 0;border-bottom:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
+.sheet li:last-child{border:0}
+
+@media (min-width:961px) and (max-height:820px){
+  html{font-size:15px}
+  .slide{padding-block:.9rem}
+  .qs li{padding:.6rem 1rem}
+  .kcol li{padding:.2rem 0}
+  .fact{padding:.7rem .9rem}.fact p{font-size:1rem}
+}
+@media (max-width:960px){
+  html{font-size:16px}
+  .slide,.cover{grid-template-columns:1fr;align-content:start;gap:1.2rem}
+  .cover .art{order:-1}
+  .kit,.roles,.sheet,.lights,.eg4,.phr,#builder{grid-template-columns:1fr}
+  .qopts{grid-template-columns:1fr}
+  .count{display:none}
+  .intro{max-width:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<div class="deck" id="deck">
+
+<!-- 1 cover -->
+<section class="slide cover" data-t="Cover">
+  <div>
+    <span class="label">Business English · Regulatory Affairs · Speaking</span>
+    <h1>Status<br><i>update.</i></h1>
+    <p class="lede">The same grammar as last time, now in real work situations: reports, meetings, calls and difficult questions. Less reading, more talking.</p>
+  </div>
+  <div class="art">
+    <svg viewBox="0 0 440 400" aria-hidden="true">
+      <circle cx="220" cy="200" r="168" fill="var(--navy-soft)"/>
+      <circle cx="340" cy="86" r="42" fill="var(--amber)"/>
+      <!-- briefcase -->
+      <rect x="90" y="190" width="170" height="120" rx="16" fill="#fff" stroke="var(--ink)" stroke-width="5"/>
+      <path d="M150 190v-18a14 14 0 0 1 14-14h42a14 14 0 0 1 14 14v18" fill="none" stroke="var(--ink)" stroke-width="5"/>
+      <path d="M90 240h170" stroke="var(--ink)" stroke-width="5"/><rect x="164" y="228" width="22" height="26" rx="5" fill="var(--amber)" stroke="var(--ink)" stroke-width="4"/>
+      <!-- traffic light -->
+      <rect x="290" y="150" width="80" height="190" rx="22" fill="var(--ink)"/>
+      <circle cx="330" cy="190" r="22" fill="var(--green)"/><circle cx="330" cy="245" r="22" fill="var(--amber)"/><circle cx="330" cy="300" r="22" fill="var(--coral)"/>
+      <!-- speech bubbles -->
+      <path d="M70 70h150a16 16 0 0 1 16 16v56a16 16 0 0 1-16 16h-86l-34 28v-28H70a16 16 0 0 1-16-16V86a16 16 0 0 1 16-16z" fill="#fff" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/>
+      <path d="M86 98h110M86 122h70" stroke="var(--teal)" stroke-width="7" stroke-linecap="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- 2 warm-up -->
+<section class="slide" data-t="Warm-up">
+  <div class="side">
+    <span class="num">01</span>
+    <h2>Quick-fire warm-up</h2>
+    <p class="intro">Answer fast, in full sentences. Two sentences each. Don't stop to check the grammar.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak · 90 seconds</div>
+  </div>
+  <div class="task">
+    <ol class="qs">
+      <li>What have you already done today before this lesson?</li>
+      <li>What have you been doing since you woke up?</li>
+      <li>How did you get to work (or start work) this morning?</li>
+      <li>What were you doing at 8 o'clock this morning?</li>
+      <li>How long have you been learning English?</li>
+    </ol>
+    <div class="row"><button class="btn" data-reveal="warmNote">Which tenses did we ask for?</button></div>
+    <div class="reveal-box card" id="warmNote"><p>1 <b class="pp">Present Perfect</b> (result) · 2 <b class="pc">Present Perfect Continuous</b> (activity until now) · 3 Past Simple (finished) · 4 Past Continuous (a moment in the past) · 5 <b class="pc">Present Perfect Continuous</b> (how long).</p></div>
+  </div>
+</section>
+
+<!-- 3 radar -->
+<section class="slide" data-t="Tense radar">
+  <div class="side">
+    <span class="num">02</span>
+    <h2>The tense radar</h2>
+    <p class="intro">Two questions are enough to choose the tense. Use them every time you speak.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Say each example aloud</div>
+  </div>
+  <div class="task">
+    <svg class="flow" viewBox="0 0 640 230" aria-hidden="true">
+      <g font-family="DM Sans,Arial,sans-serif" font-weight="700" text-anchor="middle">
+        <rect x="190" y="8" width="260" height="52" rx="26" fill="var(--ink)"/><text x="320" y="40" font-size="16" fill="var(--sand)">1. Is the time finished?</text>
+        <text x="130" y="86" font-size="13" fill="var(--muted)">YES: yesterday, last week, in 2023</text>
+        <text x="510" y="86" font-size="13" fill="var(--muted)">NO: so far, lately, this week, since…</text>
+        <path d="M250 60L130 96M390 60L510 96" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+        <rect x="20" y="104" width="220" height="108" rx="20" fill="var(--amber-soft)" stroke="var(--amber)" stroke-width="3"/>
+        <text x="130" y="134" font-size="16" fill="var(--ink)">PAST</text>
+        <text x="130" y="160" font-size="13.5" fill="var(--ink)">finished → Past Simple</text>
+        <text x="130" y="184" font-size="13.5" fill="var(--ink)">in progress → Past Continuous</text>
+        <rect x="270" y="104" width="350" height="108" rx="20" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/>
+        <text x="445" y="132" font-size="16" fill="var(--ink)">2. Result or process?</text>
+        <rect x="286" y="146" width="150" height="50" rx="14" fill="var(--coral-soft)" stroke="var(--coral)" stroke-width="2.5"/><text x="361" y="167" font-size="13" fill="#A8321A">RESULT · how many</text><text x="361" y="185" font-size="13" fill="#A8321A">Present Perfect</text>
+        <rect x="448" y="146" width="160" height="50" rx="14" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="2.5"/><text x="528" y="167" font-size="13" fill="#0F5A50">PROCESS · how long</text><text x="528" y="185" font-size="13" fill="#0F5A50">Perfect Continuous</text>
+      </g>
+    </svg>
+    <div class="eg4">
+      <div class="ps"><small>Past Simple</small>We submitted the response on Monday.</div>
+      <div class="pcn"><small>Past Continuous</small>I was checking the labelling when you called.</div>
+      <div class="pp"><small>Present Perfect</small>We've answered 12 of the 20 questions.</div>
+      <div class="pc"><small>Present Perfect Continuous</small>We've been waiting for the authority since March.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 quiz -->
+<section class="slide" data-t="Which tense?">
+  <div class="side">
+    <span class="num">03</span>
+    <h2>Which tense? Business emails</h2>
+    <p class="intro">Real-style sentences from work emails. Decide, then say the full sentence aloud before you tap.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Say it, then tap</div>
+  </div>
+  <div class="task"><div id="quiz"></div></div>
+</section>
+
+<!-- 5 toolkit -->
+<section class="slide" data-t="Update toolkit">
+  <div class="side">
+    <span class="num">04</span>
+    <h2>The update toolkit</h2>
+    <p class="intro">Every status update has the same four parts. These chunks give you the right tense without thinking.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Pick one chunk from each box and finish it with a real fact</div>
+  </div>
+  <div class="task">
+    <div class="kit">
+      <div class="kcol"><h4><i style="background:var(--green)"></i>Done · <span style="color:#A8321A">Present Perfect</span></h4><ul>
+        <li>We've submitted…</li><li>We've now received…</li><li>We've addressed all the comments on…</li><li>I've updated the tracker.</li><li>We've completed 8 out of 12…</li></ul></div>
+      <div class="kcol"><h4><i style="background:var(--amber)"></i>In progress · <span style="color:#0F5A50">Perfect Continuous</span></h4><ul>
+        <li>We've been working on…</li><li>We've been liaising with… since…</li><li>I've been chasing the supplier for…</li><li>We've been reviewing… all week.</li></ul></div>
+      <div class="kcol"><h4><i style="background:var(--coral)"></i>Problem · <span style="color:#A8321A">Present Perfect</span></h4><ul>
+        <li>We haven't received… yet.</li><li>The authority hasn't replied yet.</li><li>We've run into a problem with…</li><li>We haven't been able to…</li></ul></div>
+      <div class="kcol"><h4><i style="background:var(--ink)"></i>What happened · <span>Past tenses</span></h4><ul>
+        <li>We submitted the file on 12 March.</li><li>The system crashed while we were uploading.</li><li>The QA team sent the data last Friday.</li><li>We were finalising… when they called.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 project cards -->
+<section class="slide" data-t="Brief your boss">
+  <div class="side">
+    <span class="num">05</span>
+    <h2>Brief your boss in 45 seconds</h2>
+    <p class="intro">Press the button for a random project. Use all three traffic lights: what is done, what is going on, what is stuck. Add one number and one date.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak · 45 seconds</div>
+  </div>
+  <div class="task">
+    <div class="proj" id="proj"></div>
+    <div class="row"><button class="btn main" id="projNext">New project</button></div>
+    <div class="timer" data-sec="45"><span class="t">0:45</span><span class="bar"><i></i></span><button class="btn">Start</button></div>
+  </div>
+</section>
+
+<!-- 7 boss questions -->
+<section class="slide" data-t="Answer under pressure">
+  <div class="side">
+    <span class="num">06</span>
+    <h2>Answer under pressure</h2>
+    <p class="intro">Your teacher is the manager. Answer in 2–3 sentences and give a fact: a number, a date, a name. Don't say "I don't know" without a plan.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak · 30 seconds each</div>
+    <div class="chips"><span class="chip">Right now…</span><span class="chip">So far…</span><span class="chip">The main issue is…</span><span class="chip">I'll come back to you by…</span></div>
+  </div>
+  <div class="task">
+    <div class="qbig"><span class="label" style="color:#5C3F00" id="bqn">Question</span><p id="bqt">Press the button.</p><span class="follow" id="bqf"></span></div>
+    <div class="row"><button class="btn main" id="bqNext">Next question</button></div>
+  </div>
+</section>
+
+<!-- 8 question builder -->
+<section class="slide" data-t="Ask like a manager">
+  <div class="side">
+    <span class="num">07</span>
+    <h2>Ask like a manager</h2>
+    <p class="intro">Now you ask the questions. Read the fact, ask the question out loud, then check the model. Your teacher answers.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Ask · then compare</div>
+  </div>
+  <div class="task"><div id="builder"></div></div>
+</section>
+
+<!-- 9 fix the email -->
+<section class="slide" data-t="Fix the email">
+  <div class="side">
+    <span class="num">08</span>
+    <h2>Fix the email</h2>
+    <p class="intro">This email has six tense mistakes. Find them first, then tap each line to check. After that, read the corrected email aloud smoothly, like a voice message.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Read the corrected email aloud</div>
+  </div>
+  <div class="task">
+    <div class="email">
+      <div class="hd"><b>To:</b> Mr Novak, Health Authority · <b>Subject:</b> Renewal application, follow-up</div>
+      <button class="eline"><span>Dear Mr Novak, <span class="bad">I write</span><span class="fix"> → I'm writing</span> to follow up on our application.</span><small>Present Continuous for the purpose of writing now.</small></button>
+      <button class="eline"><span>We <span class="bad">wait for your answer since two weeks</span><span class="fix"> → have been waiting for your answer for two weeks</span>.</span><small>Activity until now: Present Perfect Continuous. since + point, for + period.</small></button>
+      <button class="eline"><span>Last week we <span class="bad">have sent</span><span class="fix"> → sent</span> the revised labelling.</span><small>Finished time (last week): Past Simple.</small></button>
+      <button class="eline"><span>But we <span class="bad">didn't receive</span><span class="fix"> → haven't received</span> any confirmation yet.</span><small>yet: Present Perfect.</small></button>
+      <button class="eline"><span>Meanwhile, my team <span class="bad">works</span><span class="fix"> → has been working</span> on the other questions for ten days,</span><small>How long, until now: Present Perfect Continuous.</small></button>
+      <button class="eline"><span>and we <span class="bad">already finished</span><span class="fix"> → have already finished</span> the quality section.</span><small>already + result now: Present Perfect.</small></button>
+    </div>
+  </div>
+</section>
+
+<!-- 10 role-play 1 -->
+<section class="slide" data-t="Role-play: late response">
+  <div class="side">
+    <span class="num">09</span>
+    <h2>Role-play: the late response</h2>
+    <p class="intro">The deadline is tomorrow and the response to a deficiency letter is not ready. Play it for four minutes, then swap roles.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak in pairs</div>
+  </div>
+  <div class="task">
+    <div class="roles">
+      <div class="role"><h4>A · Head of Regulatory Affairs</h4><ul><li>You need the full picture today.</li><li>Ask how many questions are answered and how long each part has taken.</li><li>Find out what is blocking the team and why.</li><li>Ask for a plan and a firm date.</li></ul></div>
+      <div class="role b"><h4>B · Regulatory Affairs specialist</h4><ul><li>You have answered 14 of 20 questions.</li><li>You've been waiting five days for stability data from QA.</li><li>You haven't received the final labelling from the printer yet.</li><li>Suggest a solution and ask for 48 hours more.</li></ul></div>
+    </div>
+    <div class="card"><span class="label">Useful phrases</span><div class="phr" style="margin-top:.5rem">
+      <div>I'm afraid we haven't…</div><div>So far, we've…</div>
+      <div>We've been waiting for… for five days.</div><div>The main issue is that…</div>
+      <div>Could you give us until…?</div><div>What I suggest is…</div></div></div>
+  </div>
+</section>
+
+<!-- 11 role-play 2 -->
+<section class="slide" data-t="Role-play: authority call">
+  <div class="side">
+    <span class="num">10</span>
+    <h2>Role-play: a call from the authority</h2>
+    <p class="intro">Formal register. A reviewer calls with questions about a submission. Stay polite, be precise, and don't promise what you can't do.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak in pairs</div>
+  </div>
+  <div class="task">
+    <div class="roles">
+      <div class="role"><h4>A · Reviewer at the authority</h4><ul><li>The stability data arrived two weeks late. Ask why.</li><li>Ask what the company has done to avoid this.</li><li>Ask whether the product has already been released on the market.</li><li>End by saying when you need the missing document.</li></ul></div>
+      <div class="role b"><h4>B · Company representative</h4><ul><li>The data was delayed because the lab changed the method (Past Simple).</li><li>You have updated the procedure since then (Present Perfect).</li><li>The product hasn't been released yet.</li><li>You will send the missing document by Friday.</li></ul></div>
+    </div>
+    <div class="card"><span class="label">Formal phrases</span><div class="phr" style="margin-top:.5rem">
+      <div>I'd like to clarify that…</div><div>To date, we have…</div>
+      <div>I can confirm that…</div><div>Since then, we have been…</div>
+      <div>We apologise for the delay.</div><div>We will provide it by…</div></div></div>
+  </div>
+</section>
+
+<!-- 12 presentation -->
+<section class="slide" data-t="Two-minute update">
+  <div class="side">
+    <span class="num">11</span>
+    <h2>The two-minute update</h2>
+    <p class="intro">Your main project, right now. Prepare for one minute with your own notes, then speak without reading. Tick the boxes as you go.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Prepare 60 s · Speak 2 min</div>
+  </div>
+  <div class="task">
+    <div class="todo">
+      <label><input type="checkbox"><span>A headline in one sentence (the state of the project)</span></label>
+      <label><input type="checkbox"><span><b class="pp">Done</b>: two things with numbers (Present Perfect)</span></label>
+      <label><input type="checkbox"><span><b class="pc">In progress</b>: one thing with how long (Present Perfect Continuous)</span></label>
+      <label><input type="checkbox"><span>A problem with <b>yet</b> or <b>haven't</b></span></label>
+      <label><input type="checkbox"><span>One past event with a date (Past Simple)</span></label>
+      <label><input type="checkbox"><span>A clear next step with a date (will)</span></label>
+    </div>
+    <div class="row">
+      <div class="timer" data-sec="60" style="flex:1"><span class="t">1:00</span><span class="bar"><i></i></span><button class="btn">Prepare</button></div>
+      <div class="timer" data-sec="120" style="flex:1"><span class="t">2:00</span><span class="bar"><i></i></span><button class="btn">Speak</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 wrap-up -->
+<section class="slide" data-t="Wrap-up">
+  <div class="side">
+    <span class="num">12</span>
+    <h2>Wrap-up</h2>
+    <p class="intro">Finish three sentences aloud. Then look at the sheet: this is the whole system on one page.</p>
+    <div class="say"><svg><use href="#i-mic"/></svg> Speak · 1 minute</div>
+    <ol class="qs" style="gap:.5rem">
+      <li style="font-size:1rem">Today I've learned…</li>
+      <li style="font-size:1rem">I've been finding … difficult.</li>
+      <li style="font-size:1rem">Next week I'll practise…</li>
+    </ol>
+  </div>
+  <div class="task">
+    <div class="sheet">
+      <div class="box" style="background:var(--coral-soft)"><h4 style="color:#A8321A">RESULT</h4><span class="label">have / has + V3</span><ul><li>done, it matters now</li><li>how many, how much</li><li>already, yet, so far</li><li>We've answered 12 questions.</li></ul></div>
+      <div class="box" style="background:var(--teal-soft)"><h4 style="color:#0F5A50">PROCESS</h4><span class="label">have / has been + V-ing</span><ul><li>the activity itself</li><li>how long, since, for, all week</li><li>a trace you can see or feel</li><li>We've been waiting since March.</li></ul></div>
+      <div class="box" style="background:var(--amber-soft)"><h4>PAST SIMPLE</h4><span class="label">did / V2</span><ul><li>finished, known time</li><li>yesterday, last week, in 2023</li><li>We submitted it on Monday.</li></ul></div>
+      <div class="box" style="background:var(--navy-soft)"><h4>PAST CONTINUOUS</h4><span class="label">was / were + V-ing</span><ul><li>a moment in the past</li><li>often interrupted: when / while</li><li>I was uploading when it crashed.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<nav class="nav" aria-label="Slides">
+  <button class="nbtn" id="prev" aria-label="Previous slide"><svg><use href="#i-arrow-l"/></svg></button>
+  <div class="dots" id="dots" role="tablist"></div>
+  <span class="count" id="count"></span>
+  <button class="nbtn" id="next" aria-label="Next slide"><svg><use href="#i-arrow-r"/></svg></button>
+</nav>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const slides=$$('.slide'), dotsBox=$('#dots'); let cur=0; const seen=new Set();
+  slides.forEach((s,i)=>{ const b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label',(i+1)+'. '+s.dataset.t); b.title=s.dataset.t; b.addEventListener('click',()=>go(i)); dotsBox.appendChild(b); });
+  function go(i){
+    cur=Math.max(0,Math.min(slides.length-1,i)); seen.add(cur);
+    slides.forEach((s,k)=>s.classList.toggle('on',k===cur));
+    [...dotsBox.children].forEach((b,k)=>{ b.classList.toggle('on',k===cur); b.classList.toggle('seen',seen.has(k)&&k!==cur); });
+    $('#prev').disabled=cur===0; $('#next').disabled=cur===slides.length-1;
+    $('#count').textContent=(cur+1)+' / '+slides.length;
+    slides[cur].scrollTop=0;
+    try{ history.replaceState(null,'','#'+(cur+1)); }catch(e){}
+  }
+  $('#prev').addEventListener('click',()=>go(cur-1)); $('#next').addEventListener('click',()=>go(cur+1));
+  document.addEventListener('keydown',e=>{
+    if(e.target.closest('input,textarea')) return;
+    if(['ArrowRight','PageDown'].includes(e.key)||(e.key===' '&&!e.target.closest('button'))){ e.preventDefault(); go(cur+1); }
+    else if(['ArrowLeft','PageUp'].includes(e.key)){ e.preventDefault(); go(cur-1); }
+  });
+  let sx=null; document.addEventListener('touchstart',e=>{ sx=e.touches[0].clientX; },{passive:true});
+  document.addEventListener('touchend',e=>{ if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; sx=null; if(Math.abs(dx)>70) go(cur+(dx<0?1:-1)); },{passive:true});
+  const h=parseInt((location.hash||'').slice(1),10); go(isNaN(h)?0:h-1);
+
+  $$('[data-reveal]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.reveal).classList.toggle('open')));
+  $$('.eline').forEach(l=>l.addEventListener('click',()=>l.classList.toggle('open')));
+
+  /* ---- quiz ---- */
+  const QZ=[
+   ["I'm writing to let you know that we ___ the responses to all 12 questions.","pp","have completed",["have completed","have been completing","were completing"],"A finished result that matters now."],
+   ["We ___ for the authority's feedback since 3 March.","pc","have been waiting",["have waited","have been waiting","were waiting"],"Since + an activity that reaches now."],
+   ["The audit ___ last Tuesday, and no major findings were reported.","ps","took place",["has taken place","took place","has been taking place"],"Last Tuesday is a finished time: Past Simple."],
+   ["While I ___ the dossier, the system froze.","pcn","was compiling",["have been compiling","was compiling","compiled"],"An action in progress at a past moment, interrupted."],
+   ["How long ___ you ___ on this variation?","pc","have you been working",["did you work","have you been working","were you working"],"How long up to now: Present Perfect Continuous."],
+   ["So far, the team ___ eleven of the fifteen modules.","pp","has finished",["has been finishing","has finished","finished"],"A number = a result."],
+   ["Sorry for the delay. I ___ to the supplier all morning, and they still haven't confirmed.","pc","have been talking",["have talked","have been talking","was talking"],"An activity with a link to now (still no confirmation)."],
+   ["I ___ the new guideline yet, so I can't comment.","pp","haven't read",["haven't been reading","haven't read","didn't read"],"yet: Present Perfect."]
+  ];
+  let qi=0, first=0, ans=false; const quiz=$('#quiz');
+  function renderQ(){
+    ans=false; const [s,t,full,opts,why]=QZ[qi];
+    quiz.innerHTML='<div class="qcard"><div class="qtop"><span class="label">Sentence '+(qi+1)+' of '+QZ.length+'</span><span class="score">'+first+' right at first try</span></div><p class="qsent">'+s.replace('___','<span class="gap" id="gap">&nbsp;&nbsp;&nbsp;&nbsp;</span>')+'</p><div class="qopts">'+opts.map((o,k)=>'<button data-k="'+k+'">'+o+'</button>').join('')+'</div><p class="qwhy" id="why"></p><div class="qfoot"><button class="btn" id="qprev">Back</button><button class="btn main" id="qnxt">'+(qi===QZ.length-1?'Finish':'Next')+'</button></div></div>';
+    let tried=false;
+    quiz.querySelectorAll('.qopts button').forEach(b=>b.addEventListener('click',()=>{
+      if(ans) return;
+      if(b.textContent===full){ ans=true; if(!tried) first++; b.classList.add('ok'); const g=$('#gap'); g.textContent=full; g.classList.add('shown'); $('#why').innerHTML='<b>'+full+'.</b> '+why+' Now say the whole sentence aloud.'; quiz.querySelector('.score').textContent=first+' right at first try'; }
+      else { tried=true; b.classList.add('no'); }
+    }));
+    $('#qprev').addEventListener('click',()=>{ if(qi>0){ qi--; renderQ(); } });
+    $('#qnxt').addEventListener('click',()=>{ if(qi<QZ.length-1){ qi++; renderQ(); } else { quiz.innerHTML='<div class="qcard"><p class="qsent">'+first+' / '+QZ.length+' right at the first try.</p><p class="qwhy">Which type was hardest: finished time, yet / already, or how long? Say three of the tricky sentences again, slowly.</p><div class="qfoot"><button class="btn main" id="qagain">Try again</button></div></div>'; $('#qagain').addEventListener('click',()=>{ qi=0; first=0; renderQ(); }); } });
+  }
+  renderQ();
+
+  /* ---- project cards ---- */
+  const PJ=[
+   ["Renewal of a marketing authorisation","Deadline: 30 November",["Application form submitted","Quality module updated","Fees paid"],["Waiting for the authority's questions","Preparing the product information update"],["The stability data from QA is late"]],
+   ["Variation: a new manufacturing site","Deadline: end of the quarter",["Site master file received","12 of 15 documents checked","Contact made with the local agent"],["Writing the comparability report","Negotiating timelines with the site"],["The site hasn't sent the validation reports yet"]],
+   ["Response to a deficiency letter","Deadline: Friday, 5 p.m.",["14 of 20 questions answered","Clinical overview approved","Draft sent to the legal team"],["Rewriting the quality answers","Checking the references"],["Waiting for QA's input for five days"]],
+   ["Labelling update: a new safety warning","Deadline: next Monday",["Text approved by the safety team","Translations ordered","Artwork requested"],["Reviewing the first proofs","Updating the packaging checklist"],["The printer has sent the wrong colour version"]],
+   ["Pre-inspection preparation (GMP)","Inspection: in three weeks",["Mock audit completed","Procedures updated","Staff trained on the new SOPs"],["Closing the audit findings","Preparing the documents for the inspector"],["Two findings are still open"]],
+   ["New market registration","Deadline: 15 December",["Dossier translated","Local representative appointed","Application fee paid"],["Answering the first questions from the local authority","Adapting the labelling to local rules"],["The sample import permit hasn't arrived yet"]],
+   ["Annual safety report (PSUR)","Deadline: 10 days",["Data collected","Statistical tables finished","Medical review started"],["Writing the benefit-risk section","Coordinating with the safety team"],["One case report is incomplete"]],
+   ["Clinical study report submission","Deadline: end of month",["Sections 1 to 9 written","Tables checked twice","Formatting completed"],["Reviewing the appendices","Waiting for the sponsor's comments"],["The final data cut hasn't been approved yet"]]
+  ];
+  let pi=-1, pord=PJ.map((_,i)=>i).sort(()=>Math.random()-.5);
+  function nextP(){ pi=(pi+1)%pord.length; const [t,d,a,b,c]=PJ[pord[pi]];
+    $('#proj').innerHTML='<span class="meta">Project '+(pi+1)+' of '+PJ.length+' · '+d+'</span><h3>'+t+'</h3><div class="lights"><div><h4><i style="background:var(--green)"></i>Done</h4><ul>'+a.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div><h4><i style="background:var(--amber)"></i>Going on</h4><ul>'+b.map(x=>'<li>'+x+'</li>').join('')+'</ul></div><div><h4><i style="background:var(--coral)"></i>Stuck</h4><ul>'+c.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></div>'; }
+  $('#projNext').addEventListener('click',nextP); nextP();
+
+  /* ---- boss questions ---- */
+  const BQ=[
+   ["Why haven't we received the approval yet?","Be specific: what has the authority said?"],
+   ["How long have you been waiting for the supplier's answer?","Then: what have you done about it?"],
+   ["What have you done so far to solve this?","Give two actions and a result."],
+   ["What happened with the labelling last week?","Use the past: what, when, who."],
+   ["What were you doing when the system crashed?","Then: what did you do next?"],
+   ["How many questions from the authority have you answered?","Give a number and the number left."],
+   ["Who have you been talking to about this problem?","What did each person say?"],
+   ["Has anything changed since our last meeting?","Good news first, then the problem."],
+   ["Why has it been taking so long?","Give one reason, not five excuses."],
+   ["Have you informed the QA team yet?","If not, when will you?"],
+   ["What have you been focusing on this week?","And what have you not had time for?"],
+   ["Which part of the dossier haven't you finished yet?","How long will it take?"]
+  ];
+  let bi=-1, bord=BQ.map((_,i)=>i).sort(()=>Math.random()-.5);
+  function nextB(){ bi=(bi+1)%bord.length; const q=BQ[bord[bi]]; $('#bqn').textContent='Question '+(bi+1)+' of '+BQ.length; $('#bqt').textContent=q[0]; $('#bqf').textContent=q[1]; }
+  $('#bqNext').addEventListener('click',nextB); nextB();
+
+  /* ---- question builder ---- */
+  const FB=[
+   ["Anna is waiting for the authority's reply. You want to know the length of time.","How long has Anna been waiting for the authority's reply?"],
+   ["The team submitted some modules. You want the number.","How many modules has the team submitted?"],
+   ["The inspector arrived at nine. Your colleague was busy. You want to know the activity.","What were you doing when the inspector arrived?"],
+   ["The dossier may not be finished. Ask with yet.","Have you finished the dossier yet?"],
+   ["Marco looks exhausted and has papers everywhere. Ask about his activity.","What have you been doing, Marco?"],
+   ["The company launched the product last year. You want the time.","When did the company launch the product?"]
+  ];
+  $('#builder').innerHTML=FB.map(([f,m],i)=>'<div class="fact"><span class="ask">Question '+(i+1)+'</span><p>'+f+'</p><span class="model">'+m+'</span><div class="row"><button class="btn">Show a model question</button></div></div>').join('');
+  $$('#builder .fact').forEach(d=>d.querySelector('.btn').addEventListener('click',e=>{ d.classList.toggle('open'); e.currentTarget.textContent=d.classList.contains('open')?'Hide':'Show a model question'; }));
+
+  /* ---- timers ---- */
+  const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  $$('.timer').forEach(tm=>{
+    const total=+tm.dataset.sec, t=tm.querySelector('.t'), bar=tm.querySelector('.bar i'), btn=tm.querySelector('.btn'); const lbl=btn.textContent; let id=null,left=total;
+    const reset=()=>{ clearInterval(id); id=null; left=total; t.textContent=fmt(total); bar.style.transition='none'; bar.style.width='0'; btn.textContent=lbl; };
+    btn.addEventListener('click',()=>{
+      if(id){ reset(); return; }
+      btn.textContent='Reset'; bar.style.transition='width 1s linear';
+      id=setInterval(()=>{ left--; t.textContent=fmt(Math.max(left,0)); bar.style.width=((total-left)/total*100)+'%'; if(left<=0){ clearInterval(id); id=null; btn.textContent='Again'; t.textContent='Time'; left=total; } },1000);
+    });
+    reset();
+  });
+})();
+</script>
+</body>
+</html>
