@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Есть и пить · тренировка</title>
+<meta name="theme-color" content="#fbf4f1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf4f1;--text:#251a20;--muted:#756068;--berry:#6b2a45;--berry-d:#4a1a2f;--accent:#f0a858;--accent-soft:#f7d4a0;--pink:#e6b8c4;--pink-soft:#faeaee;--border:#e9d3d8;--ok:#2f7a3b;--bad:#a02a3a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{font-family:'Inter','Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0 16px 40px}
+.wrap{max-width:560px;margin:0 auto}
+header{display:flex;align-items:center;gap:12px;padding:18px 0 6px}
+.back{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);color:var(--berry);text-decoration:none;flex:none;box-shadow:0 4px 12px rgba(74,26,47,.08)}
+h1{font-size:1.25rem;margin:0;color:var(--berry);font-weight:800;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:.8rem;font-weight:600}
+.modes{display:flex;gap:8px;margin:14px 0 10px;overflow-x:auto;scrollbar-width:none}
+.modes button{flex:1 0 auto;border:1px solid var(--border);background:#fff;color:var(--berry-d);font:inherit;font-weight:800;font-size:.85rem;padding:10px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.modes button.on{background:var(--accent);border-color:var(--accent);color:var(--berry-d)}
+.meter{background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px 14px;margin-bottom:12px}
+.meter-top{display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;color:var(--muted);margin-bottom:8px}
+.bar{height:8px;border-radius:99px;background:var(--pink-soft);overflow:hidden}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--accent));transition:width .4s}
+.card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:20px 18px;box-shadow:0 12px 30px rgba(74,26,47,.08)}
+.qhead{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;font-weight:800;color:var(--berry);text-transform:uppercase;letter-spacing:.04em}
+.timer{font-variant-numeric:tabular-nums;color:var(--muted)}.timer.fast{color:var(--ok)}
+.cue{font-size:1.25rem;font-weight:800;line-height:1.3;margin:14px 0 4px;color:var(--text)}
+.cue-en{color:var(--muted);font-size:.9rem;font-weight:600;margin-bottom:14px}
+.sent{font-size:1.5rem;font-weight:700;line-height:1.7;margin:6px 0 14px;min-height:2.6em}
+.blank{display:inline-block;min-width:3.2em;border-bottom:3px solid var(--accent);color:var(--accent);text-align:center}
+.ro{color:var(--muted);font-size:.85rem;font-weight:600;margin:-8px 0 12px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt,.chip{border:1px solid var(--border);background:var(--pink-soft);color:var(--berry-d);font:inherit;font-weight:800;font-size:1.05rem;padding:13px 10px;border-radius:14px;cursor:pointer;transition:transform .15s,background .2s}
+.opt:active,.chip:active{transform:scale(.97)}
+.opt.right,.chip.right{background:#dcefd9;border-color:#9bcf94;color:var(--ok)}
+.opt.wrong{background:#f7dadd;border-color:#e3a0a8;color:var(--bad)}
+.opt:disabled{cursor:default}
+.answer{min-height:64px;border:2px dashed var(--border);border-radius:16px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;background:#fffdfc}
+.answer.ok{border:2px solid #9bcf94;background:#eef8ec}.answer.bad{border:2px solid #e3a0a8;background:#fbeced}
+.answer:empty::before{content:attr(data-ph);color:var(--muted);font-weight:600;font-size:.9rem}
+.bank{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
+.chip{padding:10px 14px}.chip.used{visibility:hidden}
+.field{width:100%;font:inherit;font-size:1.2rem;font-weight:700;padding:14px;border-radius:14px;border:2px solid var(--border);background:#fffdfc;color:var(--text);margin-bottom:12px}
+.field:focus{outline:none;border-color:var(--accent)}.field.ok{border-color:#9bcf94;background:#eef8ec}.field.bad{border-color:#e3a0a8}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:none;font:inherit;font-weight:800;font-size:.95rem;padding:13px 20px;border-radius:999px;cursor:pointer;background:var(--berry);color:#fff}
+.btn.ghost{background:#fff;color:var(--berry);border:1px solid var(--border)}.btn.accent{background:var(--accent);color:var(--berry-d)}
+.btn:disabled{opacity:.45;cursor:default}
+.fb{margin-top:12px;font-weight:700;font-size:.95rem;min-height:1.4em}.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}.fb small{display:block;color:var(--muted);font-weight:600;margin-top:4px}
+.play{display:inline-flex;align-items:center;gap:6px}
+.sum h2{margin:0 0 8px;color:var(--berry);font-size:1.3rem}
+.sum .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stat{background:var(--pink-soft);border-radius:14px;padding:12px;text-align:center}.stat b{display:block;font-size:1.4rem;color:var(--berry)}.stat span{font-size:.72rem;color:var(--muted);font-weight:700}
+.mistakes{margin:10px 0 14px;font-size:.92rem}.mistakes div{padding:8px 0;border-top:1px solid var(--border)}.mistakes b{font-weight:800}
+details{margin-top:14px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:12px 14px}summary{cursor:pointer;font-weight:800;color:var(--berry)}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem}th,td{text-align:left;padding:7px 6px;border-top:1px solid var(--border)}th{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}
+.hint{color:var(--muted);font-size:.8rem;margin-top:6px;font-weight:600}
+.sync{position:fixed;right:12px;bottom:10px;font-size:.7rem;color:var(--muted);font-weight:700;background:#fff;border:1px solid var(--border);padding:4px 9px;border-radius:99px}
+</style></head><body><div class="wrap">
+<header><a class="back" id="back" href="../" aria-label="К словам"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
+<div><h1>Есть и пить</h1><div class="sub">たべます · のみます — тренировка до автоматизма</div></div></header>
+
+<div class="modes" id="modes"><button data-m="form" class="on">1 · Выбери форму</button><button data-m="build">2 · Собери фразу</button><button data-m="type">3 · Напиши</button></div>
+<div class="meter"><div class="meter-top"><span id="m-title">Автоматизм</span><span id="m-count">0 из 20</span></div><div class="bar"><i id="m-bar"></i></div>
+<div class="hint" id="m-hint"></div></div>
+
+<div class="card" id="card"></div>
+
+<details><summary>Шпаргалка: формы глагола</summary>
+<table><tr><th>Форма</th><th>たべる (есть)</th><th>のむ (пить)</th></tr>
+<tr><td>ем / пью</td><td>たべます</td><td>のみます</td></tr>
+<tr><td>не ем / не пью</td><td>たべません</td><td>のみません</td></tr>
+<tr><td>ела / пила</td><td>たべました</td><td>のみました</td></tr>
+<tr><td>не ела / не пила</td><td>たべませんでした</td><td>のみませんでした</td></tr>
+<tr><td>ты ешь? / пьёшь?</td><td>たべますか？</td><td>のみますか？</td></tr></table>
+<div class="hint">Порядок: わたしは · (когда) · (что)を · глагол. Глагол всегда в конце. ます — настоящее и будущее, ました — прошлое, ません — «не», ませんでした — «не» в прошлом, か — вопрос.</div></details>
+<div class="sync" id="sync">сохраняется на этом устройстве</div>
+</div>
+<script type="module">
+const ITEMS = [{"id": "eat-おにぎり-pres", "verb": "eat", "form": "pres", "ru": "Сегодня я ем онигири.", "en": "I eat onigiri today.", "toks": ["わたしは", "きょう", "おにぎりを", "たべます。"], "ro": ["watashi wa", "kyō", "onigiri o", "tabemasu."], "vi": 3, "time": "きょう", "audio": "audio/0.mp3"}, {"id": "eat-おにぎり-neg", "verb": "eat", "form": "neg", "ru": "Сегодня я не ем онигири.", "en": "I don't eat onigiri today.", "toks": ["わたしは", "きょう", "おにぎりを", "たべません。"], "ro": ["watashi wa", "kyō", "onigiri o", "tabemasen."], "vi": 3, "time": "きょう", "audio": "audio/1.mp3"}, {"id": "eat-おにぎり-past", "verb": "eat", "form": "past", "ru": "Вчера я ела онигири.", "en": "I ate onigiri yesterday.", "toks": ["わたしは", "きのう", "おにぎりを", "たべました。"], "ro": ["watashi wa", "kinō", "onigiri o", "tabemashita."], "vi": 3, "time": "きのう", "audio": "audio/2.mp3"}, {"id": "eat-おにぎり-pastneg", "verb": "eat", "form": "pastneg", "ru": "Вчера я не ела онигири.", "en": "I didn't eat onigiri yesterday.", "toks": ["わたしは", "きのう", "おにぎりを", "たべませんでした。"], "ro": ["watashi wa", "kinō", "onigiri o", "tabemasen deshita."], "vi": 3, "time": "きのう", "audio": "audio/3.mp3"}, {"id": "eat-おにぎり-q", "verb": "eat", "form": "q", "ru": "Ты ешь онигири?", "en": "Do you eat onigiri?", "toks": ["おにぎりを", "たべますか？"], "ro": ["onigiri o", "tabemasu ka?"], "vi": 1, "time": null, "audio": "audio/4.mp3"}, {"id": "drink-コーヒー-pres", "verb": "drink", "form": "pres", "ru": "Я пью кофе.", "en": "I drink coffee.", "toks": ["わたしは", "コーヒーを", "のみます。"], "ro": ["watashi wa", "kōhī o", "nomimasu."], "vi": 2, "time": null, "audio": "audio/5.mp3"}, {"id": "drink-コーヒー-neg", "verb": "drink", "form": "neg", "ru": "Я не пью кофе.", "en": "I don't drink coffee.", "toks": ["わたしは", "コーヒーを", "のみません。"], "ro": ["watashi wa", "kōhī o", "nomimasen."], "vi": 2, "time": null, "audio": "audio/6.mp3"}, {"id": "drink-コーヒー-past", "verb": "drink", "form": "past", "ru": "Я пила кофе.", "en": "I drank coffee.", "toks": ["わたしは", "コーヒーを", "のみました。"], "ro": ["watashi wa", "kōhī o", "nomimashita."], "vi": 2, "time": null, "audio": "audio/7.mp3"}, {"id": "drink-コーヒー-pastneg", "verb": "drink", "form": "pastneg", "ru": "Я не пила кофе.", "en": "I didn't drink coffee.", "toks": ["わたしは", "コーヒーを", "のみませんでした。"], "ro": ["watashi wa", "kōhī o", "nomimasen deshita."], "vi": 2, "time": null, "audio": "audio/8.mp3"}, {"id": "drink-コーヒー-q", "verb": "drink", "form": "q", "ru": "Ты пьёшь кофе?", "en": "Do you drink coffee?", "toks": ["コーヒーを", "のみますか？"], "ro": ["kōhī o", "nomimasu ka?"], "vi": 1, "time": null, "audio": "audio/9.mp3"}, {"id": "drink-おちゃ-pres", "verb": "drink", "form": "pres", "ru": "Я пью чай.", "en": "I drink tea.", "toks": ["わたしは", "おちゃを", "のみます。"], "ro": ["watashi wa", "ocha o", "nomimasu."], "vi": 2, "time": null, "audio": "audio/10.mp3"}, {"id": "drink-おちゃ-neg", "verb": "drink", "form": "neg", "ru": "Я не пью чай.", "en": "I don't drink tea.", "toks": ["わたしは", "おちゃを", "のみません。"], "ro": ["watashi wa", "ocha o", "nomimasen."], "vi": 2, "time": null, "audio": "audio/11.mp3"}, {"id": "drink-おちゃ-past", "verb": "drink", "form": "past", "ru": "Я пила чай.", "en": "I drank tea.", "toks": ["わたしは", "おちゃを", "のみました。"], "ro": ["watashi wa", "ocha o", "nomimashita."], "vi": 2, "time": null, "audio": "audio/12.mp3"}, {"id": "drink-おちゃ-pastneg", "verb": "drink", "form": "pastneg", "ru": "Я не пила чай.", "en": "I didn't drink tea.", "toks": ["わたしは", "おちゃを", "のみませんでした。"], "ro": ["watashi wa", "ocha o", "nomimasen deshita."], "vi": 2, "time": null, "audio": "audio/13.mp3"}, {"id": "drink-おちゃ-q", "verb": "drink", "form": "q", "ru": "Ты пьёшь чай?", "en": "Do you drink tea?", "toks": ["おちゃを", "のみますか？"], "ro": ["ocha o", "nomimasu ka?"], "vi": 1, "time": null, "audio": "audio/14.mp3"}, {"id": "drink-ミルク-pres", "verb": "drink", "form": "pres", "ru": "Я пью молоко.", "en": "I drink milk.", "toks": ["わたしは", "ミルクを", "のみます。"], "ro": ["watashi wa", "miruku o", "nomimasu."], "vi": 2, "time": null, "audio": "audio/15.mp3"}, {"id": "drink-ミルク-neg", "verb": "drink", "form": "neg", "ru": "Я не пью молоко.", "en": "I don't drink milk.", "toks": ["わたしは", "ミルクを", "のみません。"], "ro": ["watashi wa", "miruku o", "nomimasen."], "vi": 2, "time": null, "audio": "audio/16.mp3"}, {"id": "drink-ミルク-past", "verb": "drink", "form": "past", "ru": "Я пила молоко.", "en": "I drank milk.", "toks": ["わたしは", "ミルクを", "のみました。"], "ro": ["watashi wa", "miruku o", "nomimashita."], "vi": 2, "time": null, "audio": "audio/17.mp3"}, {"id": "drink-ミルク-pastneg", "verb": "drink", "form": "pastneg", "ru": "Я не пила молоко.", "en": "I didn't drink milk.", "toks": ["わたしは", "ミルクを", "のみませんでした。"], "ro": ["watashi wa", "miruku o", "nomimasen deshita."], "vi": 2, "time": null, "audio": "audio/18.mp3"}, {"id": "drink-ミルク-q", "verb": "drink", "form": "q", "ru": "Ты пьёшь молоко?", "en": "Do you drink milk?", "toks": ["ミルクを", "のみますか？"], "ro": ["miruku o", "nomimasu ka?"], "vi": 1, "time": null, "audio": "audio/19.mp3"}];
+const FB = {apiKey:"AIzaSyDoBRB7z4Kywfv3uZi9h0CGGQObvKbtHbo",authDomain:"vocabulary-app-50c24.firebaseapp.com",projectId:"vocabulary-app-50c24",storageBucket:"vocabulary-app-50c24.firebasestorage.app",messagingSenderId:"802755830502",appId:"1:802755830502:web:d60bf64a2999861c2a5127"};
+const $ = id => document.getElementById(id);
+const params = new URLSearchParams(location.search); let U = params.get('u') || '';
+if (!U) { try { U = localStorage.getItem('vocabJaU') || ''; } catch (e) {} }
+if (U) { try { localStorage.setItem('vocabJaU', U); } catch (e) {} }
+$('back').href = '../' + (U ? '?u=' + encodeURIComponent(U) : '');
+const KEY = 'vocabJaDrill.eatdrink.' + (U || 'local');
+const FAST = {form: 6000, build: 18000, type: 35000}, NEED = 3, ROUND = 10;
+const MODE_NAME = {form: 'Выбери форму', build: 'Собери фразу', type: 'Напиши'};
+let state = {s: {}, t: 0}; try { state = JSON.parse(localStorage.getItem(KEY)) || state; } catch (e) {}
+let mode = 'form', queue = [], qi = 0, log = [], q = null, t0 = 0, tick = null, locked = false;
+let audio = null;
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const st = (m, id) => (state.s[m + '|' + id] || (state.s[m + '|' + id] = {fs: 0, ok: 0, bad: 0}));
+const mastered = (m, id) => st(m, id).fs >= NEED;
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+
+// ---- облако (Firestore) ----
+let cloud = null, cloudTimer = null;
+async function initCloud() {
+  if (!U) return;
+  try {
+    const app = await import('https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js');
+    const fs = await import('https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js');
+    const db = fs.getFirestore(app.initializeApp(FB, 'drill')); const ref = fs.doc(db, 'students', U);
+    const snap = await fs.getDoc(ref); const data = snap.exists() ? snap.data() : {};
+    const c = data.grammar && data.grammar.eatdrink;
+    if (c && c.t > (state.t || 0)) { state = {s: c.s || {}, t: c.t}; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} render(); }
+    cloud = {fs, ref}; $('sync').textContent = 'прогресс сохраняется в облаке'; if ((state.t || 0) > ((c && c.t) || 0)) save();
+  } catch (e) { $('sync').textContent = 'облако недоступно — сохраняется на этом устройстве'; }
+}
+function save() {
+  state.t = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  if (!cloud) return; clearTimeout(cloudTimer);
+  cloudTimer = setTimeout(() => cloud.fs.setDoc(cloud.ref, {grammar: {eatdrink: state}, updatedAt: cloud.fs.serverTimestamp()}, {merge: true}).catch(() => {}), 600);
+}
+
+// ---- латиница -> хирагана ----
+const R2K = (() => { const rows = {'': 'あいうえお', k: 'かきくけこ', s: 'さしすせそ', t: 'たちつてと', n: 'なにぬねの', h: 'はひふへほ', m: 'まみむめも', r: 'らりるれろ', g: 'がぎぐげご', z: 'ざじずぜぞ', d: 'だぢづでど', b: 'ばびぶべぼ', p: 'ぱぴぷぺぽ'}; const V = 'aiueo', o = {};
+  Object.keys(rows).forEach(c => { for (let i = 0; i < 5; i++) o[c + V[i]] = rows[c][i]; });
+  o.ya = 'や'; o.yu = 'ゆ'; o.yo = 'よ'; o.wa = 'わ'; o.wo = 'を'; o.nn = 'ん'; o.shi = 'し'; o.chi = 'ち'; o.tsu = 'つ'; o.fu = 'ふ'; o.ji = 'じ'; o.si = 'し'; o.ti = 'ち'; o.tu = 'つ'; o.hu = 'ふ'; o.zi = 'じ';
+  const ys = {k: 'き', g: 'ぎ', n: 'に', h: 'ひ', m: 'み', r: 'り', b: 'び', p: 'ぴ'}, sm = {a: 'ゃ', u: 'ゅ', o: 'ょ'};
+  Object.keys(ys).forEach(c => ['a', 'u', 'o'].forEach(v => o[c + 'y' + v] = ys[c] + sm[v]));
+  [['sh', 'し'], ['ch', 'ち'], ['j', 'じ']].forEach(p => ['a', 'u', 'o'].forEach(v => o[p[0] + v] = p[1] + sm[v])); o.sha = 'しゃ'; o.shu = 'しゅ'; o.sho = 'しょ'; o.cha = 'ちゃ'; o.chu = 'ちゅ'; o.cho = 'ちょ'; o.ja = 'じゃ'; o.ju = 'じゅ'; o.jo = 'じょ'; return o; })();
+const PUN = {'.': '。', ',': '、', '?': '？', '!': '！', '-': 'ー'};
+function toKana(src, final) {
+  const s = String(src || ''); let out = '', i = 0; const isV = c => 'aiueo'.indexOf(c) !== -1 && c !== '';
+  while (i < s.length) { const c = s[i], lc = c.toLowerCase();
+    if (!/[a-z']/.test(lc)) { out += PUN[c] || c; i++; continue; }
+    if (lc === "'") { i++; continue; }
+    const rest = s.slice(i).toLowerCase();
+    if (lc === 'n') { const n1 = rest[1] || '';
+      if (n1 === "'") { out += 'ん'; i += 2; continue; }
+      if (n1 === 'n') { const n2 = rest[2] || ''; if (isV(n2) || n2 === 'y') { out += 'ん'; i += 1; } else { out += 'ん'; i += 2; } continue; }
+      if (n1 && !isV(n1) && n1 !== 'y' && /[a-z]/.test(n1)) { out += 'ん'; i += 1; continue; }
+      if (!n1) { out += final ? 'ん' : c; i += 1; continue; }
+      if (/[^a-z']/.test(n1)) { out += 'ん'; i += 1; continue; } }
+    if (rest[0] === 't' && rest.slice(1, 3) === 'ch') { out += 'っ'; i += 1; continue; }
+    if (rest[1] === lc && /[bcdfghjklmpqrstvwxyz]/.test(lc)) { out += 'っ'; i += 1; continue; }
+    let hit = null; for (let len = Math.min(3, rest.length); len >= 1 && !hit; len--) { const k = rest.slice(0, len); if (R2K[k]) hit = k; }
+    if (hit) { out += R2K[hit]; i += hit.length; continue; }
+    out += c; i++; }
+  return out;
+}
+const norm = s => String(s || '').normalize('NFKC').replace(/[ァ-ヶ]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0x60)).replace(/[\s。、，．,.!?！？「」『』()~〜・:：;；"'`’‘…]/g, '').toLowerCase();
+const sound = s => s.replace(/は/g, 'わ').replace(/を/g, 'お');
+function ed(a, b) { const m = a.length, n = b.length; let p = Array.from({length: n + 1}, (_, j) => j); for (let i = 1; i <= m; i++) { const c = [i]; for (let j = 1; j <= n; j++) c[j] = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); p = c; } return p[n]; }
+
+// ---- вопросы ----
+function pickQueue() {
+  const scored = ITEMS.map(it => ({it, s: st(mode, it.id).fs + Math.random() * 1.6 - (st(mode, it.id).bad ? 0.7 : 0)}));
+  scored.sort((a, b) => a.s - b.s); return scored.slice(0, ROUND).map(x => x.it);
+}
+function startRound() { queue = shuffle(pickQueue()); qi = 0; log = []; next(); }
+function setMode(m) { mode = m; document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('on', b.dataset.m === m)); startRound(); }
+document.querySelectorAll('#modes button').forEach(b => b.onclick = () => setMode(b.dataset.m));
+function meter() {
+  const n = ITEMS.filter(it => mastered(mode, it.id)).length;
+  $('m-title').textContent = 'Автоматизм · ' + MODE_NAME[mode]; $('m-count').textContent = n + ' из ' + ITEMS.length; $('m-bar').style.width = (n / ITEMS.length * 100) + '%';
+  $('m-hint').textContent = 'Фраза считается выученной, когда ты ответила верно и быстро (до ' + (FAST[mode] / 1000) + ' с) ' + NEED + ' раза подряд.';
+}
+function stopTimer() { clearInterval(tick); }
+function startTimer() { t0 = performance.now(); stopTimer(); const el = $('timer'); tick = setInterval(() => { const s = (performance.now() - t0) / 1000; if (el) { el.textContent = s.toFixed(1) + ' с'; el.classList.toggle('fast', s * 1000 <= FAST[mode]); } }, 100); }
+function play(it) { try { if (audio) audio.pause(); audio = new Audio(it.audio); audio.play().catch(() => {}); } catch (e) {} }
+const SPK = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>';
+function head() { return '<div class="qhead"><span>Вопрос ' + (qi + 1) + ' из ' + queue.length + '</span><span class="timer" id="timer">0.0 с</span></div><div class="bar" style="margin-top:8px"><i style="width:' + (qi / queue.length * 100) + '%"></i></div><div class="cue">' + esc(q.ru) + '</div><div class="cue-en">' + esc(q.en) + '</div>'; }
+function result(correct, ms, given) {
+  stopTimer(); locked = true; const s = st(mode, q.id), fast = ms <= FAST[mode];
+  if (correct) { s.ok++; s.fs = fast ? s.fs + 1 : 0; } else { s.bad++; s.fs = 0; }
+  log.push({q, correct, ms, given}); save(); meter(); play(q);
+}
+function nextBtn(label) { return '<div class="row" style="margin-top:12px"><button class="btn" id="nx">' + (label || 'Дальше') + '</button><button class="btn ghost play" id="pl">' + SPK + 'Послушать</button></div>'; }
+function bindNext() { $('nx').onclick = next; $('pl').onclick = () => play(q); }
+function next() {
+  if (qi >= queue.length) return summary();
+  q = queue[qi]; locked = false;
+  if (mode === 'form') renderForm(); else if (mode === 'build') renderBuild(); else renderType();
+  startTimer(); qi++; meter();
+}
+function renderForm() {
+  const stem = q.toks.slice(0, q.vi).join(' ');
+  const opts = shuffle(['pres', 'neg', 'past', 'pastneg', 'q'].map(f => ITEMS.find(x => x.verb === q.verb && x.form === f)));
+  $('card').innerHTML = head() + '<div class="sent">' + esc(stem) + ' <span class="blank" id="bl">&nbsp;</span></div><div class="opts" id="opts">' + opts.map(o => '<button class="opt" data-f="' + o.form + '">' + esc(o.toks[o.vi]) + '</button>').join('') + '</div><div class="fb" id="fb"></div>';
+  document.querySelectorAll('.opt').forEach(b => b.onclick = () => {
+    if (locked) return; const ms = performance.now() - t0, ok = b.dataset.f === q.form;
+    if (ok) { b.classList.add('right'); $('bl').textContent = q.toks[q.vi]; $('bl').style.color = 'var(--ok)'; $('fb').className = 'fb ok'; $('fb').innerHTML = (ms <= FAST[mode] ? 'Верно и быстро!' : 'Верно.') + '<small>' + esc(q.ro.join(' ')) + '</small>'; }
+    else { b.classList.add('wrong'); document.querySelector('.opt[data-f="' + q.form + '"]').classList.add('right'); $('bl').textContent = q.toks[q.vi]; $('fb').className = 'fb bad'; $('fb').innerHTML = 'Нужно: ' + esc(q.toks[q.vi]) + '<small>' + esc(q.ro.join(' ')) + '</small>'; }
+    document.querySelectorAll('.opt').forEach(x => x.disabled = true); result(ok, ms, b.textContent); $('card').insertAdjacentHTML('beforeend', nextBtn()); bindNext();
+  });
+}
+function renderBuild() {
+  const dist = ITEMS.filter(x => x.verb === q.verb && x.form !== q.form).map(x => x.toks[x.vi]); const extra = shuffle(dist).slice(0, 2);
+  if (q.time) extra.push(q.time === 'きょう' ? 'きのう' : 'きょう');
+  const chips = shuffle(q.toks.concat(extra));
+  $('card').innerHTML = head() + '<div class="answer" id="ans" data-ph="Нажимай слова по порядку"></div><div class="bank" id="bank">' + chips.map((c, i) => '<button class="chip" data-i="' + i + '">' + esc(c) + '</button>').join('') + '</div><div class="row"><button class="btn" id="chk" disabled>Проверить</button><button class="btn ghost" id="rst">Сбросить</button></div><div class="fb" id="fb"></div>';
+  const picked = []; const ans = $('ans');
+  const draw = () => { ans.innerHTML = picked.map((p, k) => '<button class="chip" data-k="' + k + '">' + esc(chips[p]) + '</button>').join(''); document.querySelectorAll('#bank .chip').forEach(b => b.classList.toggle('used', picked.includes(+b.dataset.i))); $('chk').disabled = !picked.length;
+    ans.querySelectorAll('.chip').forEach(b => b.onclick = () => { if (locked) return; picked.splice(+b.dataset.k, 1); draw(); }); };
+  document.querySelectorAll('#bank .chip').forEach(b => b.onclick = () => { if (locked || picked.includes(+b.dataset.i)) return; picked.push(+b.dataset.i); draw(); });
+  $('rst').onclick = () => { if (locked) return; picked.length = 0; draw(); };
+  $('chk').onclick = () => { if (locked) return; const ms = performance.now() - t0, got = picked.map(p => chips[p]).join(' '), want = q.toks.join(' '), ok = got === want;
+    ans.classList.add(ok ? 'ok' : 'bad'); $('fb').className = 'fb ' + (ok ? 'ok' : 'bad');
+    $('fb').innerHTML = ok ? (ms <= FAST[mode] ? 'Верно и быстро!' : 'Верно.') + '<small>' + esc(q.ro.join(' ')) + '</small>' : 'Нужно: ' + esc(want) + '<small>' + esc(q.ro.join(' ')) + '</small>';
+    $('chk').style.display = 'none'; $('rst').style.display = 'none'; result(ok, ms, got); $('card').insertAdjacentHTML('beforeend', nextBtn()); bindNext(); };
+}
+function renderType() {
+  $('card').innerHTML = head() + '<input class="field" id="inp" lang="ja" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Пиши латиницей или кана (watashi wa …)" autocomplete="off"><div class="row"><button class="btn" id="chk">Проверить</button><button class="btn ghost" id="hnt">Подсказка</button><button class="btn ghost" id="skp">Показать ответ</button></div><div class="fb" id="fb"></div>';
+  const inp = $('inp'); setTimeout(() => inp.focus(), 50);
+  inp.addEventListener('input', e => { if (e.isComposing) return; const c = toKana(inp.value, false); if (c !== inp.value) { inp.value = c; try { inp.setSelectionRange(c.length, c.length); } catch (er) {} } });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') $('chk').click(); });
+  let hinted = false, failed = false; $('hnt').onclick = () => { hinted = true; $('fb').className = 'fb'; $('fb').innerHTML = 'Подсказка: ' + esc(q.toks.map(t => Array.from(t)[0] + '＿'.repeat(Math.max(0, Array.from(t).length - 1))).join(' ')); };
+  const wants = () => { const full = norm(q.toks.join('')), t = [full]; if (q.toks[0] === 'わたしは') t.push(norm(q.toks.slice(1).join(''))); if (q.form === 'q') t.push(norm('あなたは' + q.toks.join(''))); return t; };
+  $('chk').onclick = () => { if (locked) return; const raw = toKana(inp.value, true); inp.value = raw; const n = norm(raw); if (!n) return; const ms = performance.now() - t0, W = wants();
+    let kind = W.includes(n) ? 'exact' : W.some(w => sound(w) === sound(n)) ? 'sound' : W.some(w => w.length >= 8 && ed(sound(w), sound(n)) <= 1) ? 'near' : 'no';
+    const ok = kind !== 'no';
+    if (!ok) { inp.classList.add('bad'); $('fb').className = 'fb bad'; $('fb').innerHTML = 'Пока не то — попробуй ещё, или «Показать ответ».'; if (!failed) { failed = true; const s0 = st(mode, q.id); s0.bad++; s0.fs = 0; save(); } return; }
+    inp.classList.add('ok'); inp.disabled = true; $('fb').className = 'fb ok';
+    $('fb').innerHTML = (kind === 'exact' ? (ms <= FAST[mode] ? 'Верно и быстро!' : 'Верно.') : kind === 'sound' ? 'Верно. Заметка: в частицах пишется は («ха», читается «ва») и を («во», читается «о»).' : 'Почти — сверь написание.') + '<small>' + esc(q.toks.join(' ')) + ' · ' + esc(q.ro.join(' ')) + '</small>';
+    $('chk').style.display = 'none'; $('hnt').style.display = 'none'; $('skp').style.display = 'none'; result(true, (hinted || failed) ? FAST[mode] + 1 : ms, raw); $('card').insertAdjacentHTML('beforeend', nextBtn()); bindNext(); };
+  $('skp').onclick = () => { if (locked) return; inp.disabled = true; $('fb').className = 'fb bad'; $('fb').innerHTML = 'Ответ: ' + esc(q.toks.join(' ')) + '<small>' + esc(q.ro.join(' ')) + '</small>'; $('chk').style.display = 'none'; $('hnt').style.display = 'none'; $('skp').style.display = 'none'; result(false, performance.now() - t0, '—'); $('card').insertAdjacentHTML('beforeend', nextBtn()); bindNext(); };
+}
+function summary() {
+  stopTimer(); const right = log.filter(l => l.correct).length, avg = log.length ? log.reduce((a, l) => a + l.ms, 0) / log.length / 1000 : 0, fast = log.filter(l => l.correct && l.ms <= FAST[mode]).length;
+  const bad = log.filter(l => !l.correct);
+  $('card').innerHTML = '<div class="sum"><h2>Раунд закончен</h2><div class="stats"><div class="stat"><b>' + right + '/' + log.length + '</b><span>верно</span></div><div class="stat"><b>' + fast + '</b><span>быстро</span></div><div class="stat"><b>' + avg.toFixed(1) + ' с</b><span>в среднем</span></div></div>' +
+    (bad.length ? '<div class="mistakes"><b>Над чем поработать:</b>' + bad.map(l => '<div>' + esc(l.q.ru) + '<br><b>' + esc(l.q.toks.join(' ')) + '</b></div>').join('') + '</div>' : '<div class="fb ok">Без ошибок.</div>') +
+    '<div class="row"><button class="btn accent" id="again">Ещё раунд</button></div></div>'; $('again').onclick = startRound; meter();
+}
+function render() { meter(); }
+initCloud(); setMode('form');
+</script></body></html>
