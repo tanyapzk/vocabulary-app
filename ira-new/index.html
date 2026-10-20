@@ -16601,6 +16601,7 @@ let currentCardIdx = 0;
     currentOpenLessonId = id;
     const theme = folderTheme(idx);
     const el = document.getElementById('lesson-screen');
+    clearTimeout(window.__lsHide); el.style.display = '';   // убрали display:none, поставленный при закрытии
     // вариант B: те же цвета палитры, разбавленные белым — мягче для глаз; цвет следует за папкой
     const soft = function (c) { return 'color-mix(in srgb, ' + c + ' 55%, white)'; };
     el.style.removeProperty('background');
@@ -16644,6 +16645,9 @@ let currentCardIdx = 0;
     el.classList.remove('open');
     el.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    // после закрытия экран урока (fixed, во весь экран, с градиентом цвета урока) полностью убираем: иначе его цвет мог «залипать» в верхней полосе Safari на iPhone
+    clearTimeout(window.__lsHide);
+    window.__lsHide = setTimeout(function () { el.style.display = 'none'; el.style.removeProperty('--lesson-grad'); el.style.removeProperty('--lesson-bg'); }, 700);
     // NOTE: colour is deliberately NOT reset here. This also runs when heading into that lesson's
     // own flashcards (startPractice -> closeLesson, then the trainer screen opens) — resetting to
     // white at that exact moment is what left a plain white gap under the flashcards on a phone,
@@ -19025,7 +19029,9 @@ let currentCardIdx = 0;
     const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
     if (!Ctx) throw new Error('no audio context');
     const ctx = new Ctx(1, OTG_SR, OTG_SR), cache = {}, ru = currentLang === 'ru';
-    const get = async function (path) {
+    let missingN = 0, totalN = 0;
+    const get = async function (path) { totalN++; try { return await get0(path); } catch (e) { missingN++; return new Float32Array(Math.round(0.4 * OTG_SR)); } };
+    const get0 = async function (path) {
       if (!path) throw new Error('missing audio');
       if (cache[path]) return cache[path];
       const r = await fetch(path); if (!r.ok) throw new Error('404 ' + path);
@@ -19050,6 +19056,7 @@ let currentCardIdx = 0;
       if (otg.example && w.audioSentence) { addSilence(0.5, 'a', i); addPcm(await get(w.audioSentence), 'ex', i); }
       addSilence(otg.gap + 0.3, 'gap', i);
     }
+    if (missingN > totalN / 2) throw new Error('too many missing audio files');
     const total = parts.reduce(function (s, p) { return s + (p.data ? p.data.length : p.n); }, 0);
     const out = new Float32Array(total); let o = 0;
     parts.forEach(function (p) { if (p.data) { out.set(p.data, o); o += p.data.length; } else o += p.n; });

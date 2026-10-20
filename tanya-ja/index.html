@@ -2752,6 +2752,11 @@ rt { font-size: 0.42em; font-weight: 700; letter-spacing: 0.02em; color: inherit
 #flashcards .card-back .fc-word-image { width: 100%; height: 150px; max-height: 150px; object-fit: contain; margin: 0 0 12px; border-radius: 14px; }
 #card.img-only .card-back .fc-word-image { height: 240px; max-height: 240px; margin: 0; }
 #card.img-only #fc-trans { display: none; }
+/* обратная сторона: всё по центру */
+#flashcards .card-face.card-back { text-align: center; }
+#flashcards .card-back-content { margin: auto; display: flex; flex-direction: column; align-items: center; text-align: center; }
+#flashcards .card-back .back-footer { display: flex; justify-content: center; }
+#flashcards .translation-label { text-align: center; }
 .ro-toggle { gap: 6px; }
 .ro-toggle .side-ico { font-weight: 900; font-size: 0.78rem; }
 .ro-toggle.on { background: rgba(240, 168, 88, 0.85); }
@@ -3393,6 +3398,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-taberu.mp3",
     "audioSentence": "audio/ed-taberu.mp3",
+    "audioDef": "audio/def/ed-taberu.mp3",
     "grammar": {
      "ru": "たべます = «ем» (вежливая форма глагола たべる, «есть, кушать»). Дальше: たべました (ел), たべません (не ем), たべませんでした (не ел).",
      "en": "たべます = “I eat” (polite form of たべる, “to eat”). Next: たべました (ate), たべません (don’t eat), たべませんでした (didn’t eat)."
@@ -3426,6 +3432,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-nomu.mp3",
     "audioSentence": "audio/ed-nomu.mp3",
+    "audioDef": "audio/def/ed-nomu.mp3",
     "grammar": {
      "ru": "のみます = «пью» (вежливая форма глагола のむ). Формы те же: のみました, のみません, のみませんでした.",
      "en": "のみます = “I drink” (polite form of のむ). Same forms: のみました, のみません, のみませんでした."
@@ -3455,6 +3462,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-miruku.mp3",
     "audioSentence": "audio/ed-miruku.mp3",
+    "audioDef": "audio/def/ed-miruku.mp3",
     "grammar": {
      "ru": "ミルク = «молоко» (слово из английского, катакана).",
      "en": "ミルク = “milk” (from English, katakana)."
@@ -3484,6 +3492,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-gyunyu.mp3",
     "audioSentence": "audio/ed-gyunyu.mp3",
+    "audioDef": "audio/def/ed-gyunyu.mp3",
     "grammar": {
      "ru": "ぎゅうにゅう = «молоко» (японское слово; буквально «коровье молоко»).",
      "en": "ぎゅうにゅう = “milk” (the Japanese word; literally “cow’s milk”)."
@@ -3513,6 +3522,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-tabemashita.mp3",
     "audioSentence": "audio/ed-f-tabemashita.mp3",
+    "audioDef": "audio/def/ed-f-tabemashita.mp3",
     "grammar": {
      "ru": "たべました — ました = прошедшее.",
      "en": "たべました — ました = past."
@@ -3542,6 +3552,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-tabemasen.mp3",
     "audioSentence": "audio/ed-f-tabemasen.mp3",
+    "audioDef": "audio/def/ed-f-tabemasen.mp3",
     "grammar": {
      "ru": "たべません — ません = «не» (настоящее).",
      "en": "たべません — ません = “don’t” (present)."
@@ -3571,6 +3582,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-tabemasendeshita.mp3",
     "audioSentence": "audio/ed-f-tabemasendeshita.mp3",
+    "audioDef": "audio/def/ed-f-tabemasendeshita.mp3",
     "grammar": {
      "ru": "たべませんでした — ませんでした = отрицание в прошлом.",
      "en": "たべませんでした — ませんでした = negative in the past."
@@ -3600,6 +3612,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-tabemasuka.mp3",
     "audioSentence": "audio/ed-f-tabemasuka.mp3",
+    "audioDef": "audio/def/ed-f-tabemasuka.mp3",
     "grammar": {
      "ru": "たべますか？ — か в конце = вопрос.",
      "en": "たべますか？ — か at the end = a question."
@@ -3629,6 +3642,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-nomimashita.mp3",
     "audioSentence": "audio/ed-f-nomimashita.mp3",
+    "audioDef": "audio/def/ed-f-nomimashita.mp3",
     "grammar": {
      "ru": "のみました — ました = прошедшее.",
      "en": "のみました — ました = past."
@@ -3658,6 +3672,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-nomimasen.mp3",
     "audioSentence": "audio/ed-f-nomimasen.mp3",
+    "audioDef": "audio/def/ed-f-nomimasen.mp3",
     "grammar": {
      "ru": "のみません — ません = «не» (настоящее).",
      "en": "のみません — ません = “don’t” (present)."
@@ -3687,6 +3702,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-nomimasendeshita.mp3",
     "audioSentence": "audio/ed-f-nomimasendeshita.mp3",
+    "audioDef": "audio/def/ed-f-nomimasendeshita.mp3",
     "grammar": {
      "ru": "のみませんでした — ませんでした = отрицание в прошлом.",
      "en": "のみませんでした — ませんでした = negative in the past."
@@ -3716,6 +3732,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-f-nomimasuka.mp3",
     "audioSentence": "audio/ed-f-nomimasuka.mp3",
+    "audioDef": "audio/def/ed-f-nomimasuka.mp3",
     "grammar": {
      "ru": "のみますか？ — か в конце = вопрос.",
      "en": "のみますか？ — か at the end = a question."
@@ -3746,6 +3763,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s1.mp3",
     "audioSentence": "audio/ed-s1.mp3",
+    "audioDef": "audio/def/ed-s1.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · きょう · おにぎりを = онигири · を = частица объекта (читается «о») · たべます = глагол.",
      "en": "わたしは = “I” (topic) · おにぎりを = onigiri (を marks the object, read “o”) · たべます = the verb."
@@ -3779,6 +3797,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s2.mp3",
     "audioSentence": "audio/ed-s2.mp3",
+    "audioDef": "audio/def/ed-s2.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · きのう · おにぎりを = онигири · を = частица объекта (читается «о») · たべました = глагол.",
      "en": "わたしは = “I” (topic) · おにぎりを = onigiri (を marks the object, read “o”) · たべました = the verb."
@@ -3808,6 +3827,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s3.mp3",
     "audioSentence": "audio/ed-s3.mp3",
+    "audioDef": "audio/def/ed-s3.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · きょう · おにぎりを = онигири · を = частица объекта (читается «о») · たべません = глагол.",
      "en": "わたしは = “I” (topic) · おにぎりを = onigiri (を marks the object, read “o”) · たべません = the verb."
@@ -3837,6 +3857,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s4.mp3",
     "audioSentence": "audio/ed-s4.mp3",
+    "audioDef": "audio/def/ed-s4.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · きのう · おにぎりを = онигири · を = частица объекта (читается «о») · たべませんでした = глагол.",
      "en": "わたしは = “I” (topic) · おにぎりを = onigiri (を marks the object, read “o”) · たべませんでした = the verb."
@@ -3866,6 +3887,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s5.mp3",
     "audioSentence": "audio/ed-s5.mp3",
+    "audioDef": "audio/def/ed-s5.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · コーヒーを = кофе · を = частица объекта (читается «о») · のみます = глагол.",
      "en": "わたしは = “I” (topic) · コーヒーを = coffee (を marks the object, read “o”) · のみます = the verb."
@@ -3899,6 +3921,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s6.mp3",
     "audioSentence": "audio/ed-s6.mp3",
+    "audioDef": "audio/def/ed-s6.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · コーヒーを = кофе · を = частица объекта (читается «о») · のみません = глагол.",
      "en": "わたしは = “I” (topic) · コーヒーを = coffee (を marks the object, read “o”) · のみません = the verb."
@@ -3928,6 +3951,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s7.mp3",
     "audioSentence": "audio/ed-s7.mp3",
+    "audioDef": "audio/def/ed-s7.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · コーヒーを = кофе · を = частица объекта (читается «о») · のみました = глагол.",
      "en": "わたしは = “I” (topic) · コーヒーを = coffee (を marks the object, read “o”) · のみました = the verb."
@@ -3957,6 +3981,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s8.mp3",
     "audioSentence": "audio/ed-s8.mp3",
+    "audioDef": "audio/def/ed-s8.mp3",
     "grammar": {
      "ru": "わたしは = «я» (тема) · コーヒーを = кофе · を = частица объекта (читается «о») · のみませんでした = глагол.",
      "en": "わたしは = “I” (topic) · コーヒーを = coffee (を marks the object, read “o”) · のみませんでした = the verb."
@@ -3986,6 +4011,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ed-s9.mp3",
     "audioSentence": "audio/ed-s9.mp3",
+    "audioDef": "audio/def/ed-s9.mp3",
     "grammar": {
      "ru": "コーヒー = кофе · を = частица объекта (читается «о») · のみますか = «пьёшь?» (か делает вопрос). «Ты» не сказано: по-японски его часто опускают.",
      "en": "コーヒー = coffee · を = object particle (read “o”) · のみますか = “do you drink?” (か makes a question). “You” is not said: Japanese often drops it."
@@ -4022,6 +4048,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/watashi-tanya.mp3",
     "audioSentence": "audio/watashi-tanya.mp3",
+    "audioDef": "audio/def/watashi-tanya.mp3",
     "grammar": {
      "ru": "わたし = «я» · は = частица темы (пишется «ха», читается «ва»): «что касается меня…» · ターニャ = имя (катакана — для иностранных слов и имён) · です = вежливое «есть / это».",
      "en": "わたし = “I” · は = topic particle (written ha, read wa): “as for me…” · ターニャ = the name (katakana is used for foreign words and names) · です = polite “am / is”."
@@ -4055,6 +4082,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/namae-wa-nan.mp3",
     "audioSentence": "audio/namae-wa-nan.mp3",
+    "audioDef": "audio/def/namae-wa-nan.mp3",
     "grammar": {
      "ru": "なまえ = «имя» · は = тема · なん = «что» · です = «есть» · か = вопросительная частица (в конце фразы вместо знака вопроса). Буквально: «Что касается имени — что это?»",
      "en": "なまえ = “name” · は = topic · なん = “what” · です = “is” · か = question particle (at the end instead of a question mark). Literally: “As for the name — what is it?”"
@@ -4084,6 +4112,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/roshia-kara.mp3",
     "audioSentence": "audio/roshia-kara.mp3",
+    "audioDef": "audio/def/roshia-kara.mp3",
     "grammar": {
      "ru": "ロシア = Россия · から = «из, от» · きました = «пришёл / приехал» (вежливое прошедшее от くる). Буквально: «Приехала из России».",
      "en": "ロシア = Russia · から = “from” · きました = “came” (polite past of くる). Literally: “I came from Russia.”"
@@ -4113,6 +4142,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/doko-kara.mp3",
     "audioSentence": "audio/doko-kara.mp3",
+    "audioDef": "audio/def/doko-kara.mp3",
     "grammar": {
      "ru": "どこ = «где, куда» · から = «из» · きましたか = «приехал(а)?» Буквально: «Откуда приехал(а)?»",
      "en": "どこ = “where” · から = “from” · きましたか = “did you come?” Literally: “Where did you come from?”"
@@ -4143,6 +4173,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/roshia-jin.mp3",
     "audioSentence": "audio/roshia-jin.mp3",
+    "audioDef": "audio/def/roshia-jin.mp3",
     "grammar": {
      "ru": "私 (わたし) = «я» · は = тема · ロシア = Россия · 人 (じん) = «человек» (ロシア人 = «русский человек») · です. Иероглифы: 私, 人.",
      "en": "私 (わたし) = “I” · は = topic · ロシア = Russia · 人 (じん) = “person” (ロシア人 = “Russian person”) · です. Kanji: 私, 人."
@@ -4176,6 +4207,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/nijukyu-sai.mp3",
     "audioSentence": "audio/nijukyu-sai.mp3",
+    "audioDef": "audio/def/nijukyu-sai.mp3",
     "grammar": {
      "ru": "29 = にじゅうきゅう (20 + 9: に·じゅう = 2·10, きゅう = 9) · 歳 (さい) = «лет» (счётное слово для возраста) · です. Иероглифы: 私, 歳.",
      "en": "29 = にじゅうきゅう (20 + 9: に·じゅう = 2·10, きゅう = 9) · 歳 (さい) = “years old” (counter for age) · です. Kanji: 私, 歳."
@@ -4206,6 +4238,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/eigo-no-sensei.mp3",
     "audioSentence": "audio/eigo-no-sensei.mp3",
+    "audioDef": "audio/def/eigo-no-sensei.mp3",
     "grammar": {
      "ru": "えいご = «английский язык» · の = связка «чего?» (английского → учитель) · せんせい = «учитель» · です. «Я» не сказано — по-японски его часто опускают.",
      "en": "えいご = “English (language)” · の = links the nouns (English’s → teacher) · せんせい = “teacher” · です. “I” is not said — Japanese often drops it."
@@ -4239,6 +4272,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/shigoto-wa-nan.mp3",
     "audioSentence": "audio/shigoto-wa-nan.mp3",
+    "audioDef": "audio/def/shigoto-wa-nan.mp3",
     "grammar": {
      "ru": "しごと = «работа» · は = тема · なんですか = «что это?» Буквально: «Что касается работы — что это?»",
      "en": "しごと = “job, work” · は = topic · なんですか = “what is it?” Literally: “As for work — what is it?”"
@@ -4268,6 +4302,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/shumi-dokusho.mp3",
     "audioSentence": "audio/shumi-dokusho.mp3",
+    "audioDef": "audio/def/shumi-dokusho.mp3",
     "grammar": {
      "ru": "しゅみ = «хобби» · は = тема · どくしょ = «чтение (книг)» · です. Хобби можно подставить своё: しゅみは えいがです = «моё хобби — кино».",
      "en": "しゅみ = “hobby” · は = topic · どくしょ = “reading (books)” · です. Swap in your own: しゅみは えいがです = “my hobby is movies.”"
@@ -4297,6 +4332,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/shumi-wa-nan.mp3",
     "audioSentence": "audio/shumi-wa-nan.mp3",
+    "audioDef": "audio/def/shumi-wa-nan.mp3",
     "grammar": {
      "ru": "しゅみ = «хобби» · は = тема · なんですか = «что это?»",
      "en": "しゅみ = “hobby” · は = topic · なんですか = “what is it?”"
@@ -4326,6 +4362,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/inu-o-katte.mp3",
     "audioSentence": "audio/inu-o-katte.mp3",
+    "audioDef": "audio/def/inu-o-katte.mp3",
     "grammar": {
      "ru": "いぬ = «собака» · を = частица прямого дополнения (читается «о») · かっています = «держу (питомца)» (かう + ています = состояние, которое длится).",
      "en": "いぬ = “dog” · を = object particle (read “o”) · かっています = “keep (a pet)” (かう + ています = an ongoing state)."
@@ -4358,6 +4395,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/anata-wa.mp3",
     "audioSentence": "audio/anata-wa.mp3",
+    "audioDef": "audio/def/anata-wa.mp3",
     "grammar": {
      "ru": "あなた = «ты, вы» · は = тема → «А ты?» Это короткий встречный вопрос: ответил на вопрос — и спрашиваешь о собеседнике.",
      "en": "あなた = “you” · は = topic → “And you?” A short question to turn the conversation back."
@@ -4392,6 +4430,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/oai-dekite.mp3",
     "audioSentence": "audio/oai-dekite.mp3",
+    "audioDef": "audio/def/oai-dekite.mp3",
     "grammar": {
      "ru": "おあい (お会い) = «встреча» (お — вежливая приставка) · できて = «смог, получилось» · うれしい = «радостный» · です. Буквально: «Рад, что смог с вами встретиться».",
      "en": "おあい = “meeting” (お is a polite prefix) · できて = “was able to” · うれしい = “glad” · です. Literally: “I’m glad I could meet you.”"
@@ -4421,6 +4460,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/otoko-onna.mp3",
     "audioSentence": "audio/otoko-onna.mp3",
+    "audioDef": "audio/def/otoko-onna.mp3",
     "grammar": {
      "ru": "おとこのこ = «мальчик» · おんなのこ = «девочка» · か между двумя вариантами = «или» · どちら = «который из двух» · ですか = «это?»",
      "en": "おとこのこ = “boy” · おんなのこ = “girl” · か between two options = “or” · どちら = “which of the two” · ですか = “is it?”"
@@ -4456,6 +4496,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/wakarimashita.mp3",
     "audioSentence": "audio/wakarimashita.mp3",
+    "audioDef": "audio/def/wakarimashita.mp3",
     "grammar": {
      "ru": "わかる = «понимать» · ました = вежливое прошедшее → «(я) понял(а)». Противоположное — わかりません (не понимаю).",
      "en": "わかる = “to understand” · ました = polite past → “I understood.” The opposite is わかりません (I don’t understand)."
@@ -4486,6 +4527,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/so-desu-ka.mp3",
     "audioSentence": "audio/so-desu-ka.mp3",
+    "audioDef": "audio/def/so-desu-ka.mp3",
     "grammar": {
      "ru": "そう = «так» · です = «есть» · か = вопрос → «Вот как?» Реакция, когда узнал(а) что-то новое.",
      "en": "そう = “so, that way” · です = “is” · か = question → “Is that so?” A reaction to something new."
@@ -4514,6 +4556,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/do-itashimashite.mp3",
     "audioSentence": "audio/do-itashimashite.mp3",
+    "audioDef": "audio/def/do-itashimashite.mp3",
     "grammar": {
      "ru": "Устойчивая фраза — как ответ на «спасибо». Её не разбирают на части, просто запоминают целиком.",
      "en": "A fixed phrase — the answer to “thank you”. Learn it as one piece."
@@ -4543,6 +4586,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/domo.mp3",
     "audioSentence": "audio/domo.mp3",
+    "audioDef": "audio/def/domo.mp3",
     "grammar": {
      "ru": "Короткое неформальное «спасибо». Полная вежливая форма — どうも ありがとうございます.",
      "en": "A short casual “thanks”. The full polite form is どうも ありがとうございます."
@@ -4572,6 +4616,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/bai-bai.mp3",
     "audioSentence": "audio/bai-bai.mp3",
+    "audioDef": "audio/def/bai-bai.mp3",
     "grammar": {
      "ru": "Очень неформальное «пока» (как bye-bye) — с друзьями, детьми.",
      "en": "A very casual “bye-bye” — with friends and kids."
@@ -4602,6 +4647,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/mata-ne.mp3",
     "audioSentence": "audio/mata-ne.mp3",
+    "audioDef": "audio/def/mata-ne.mp3",
     "grammar": {
      "ru": "また = «снова» · ね = мягкая частица, как «ладно?». Вместе: «До скорой встречи!»",
      "en": "また = “again” · ね = a soft particle, like “okay?”. Together: “See you again!”"
@@ -4636,6 +4682,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/jaane.mp3",
     "audioSentence": "audio/jaane.mp3",
+    "audioDef": "audio/def/jaane.mp3",
     "grammar": {
      "ru": "じゃあ = «ну (тогда)» · ね = мягкая частица. «Ну, пока!»",
      "en": "じゃあ = “well then” · ね = a soft particle. “Well, bye!”"
@@ -4664,6 +4711,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/wakarimasen.mp3",
     "audioSentence": "audio/wakarimasen.mp3",
+    "audioDef": "audio/def/wakarimasen.mp3",
     "grammar": {
      "ru": "わかる = «понимать» · ません = вежливое отрицание → «не понимаю». Сравни: わかりました = «понял(а)».",
      "en": "わかる = “understand” · ません = polite negative → “I don’t understand.” Compare: わかりました = “I understood.”"
@@ -4696,6 +4744,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/mo-ichido.mp3",
     "audioSentence": "audio/mo-ichido.mp3",
+    "audioDef": "audio/def/mo-ichido.mp3",
     "grammar": {
      "ru": "もう = «ещё» · いちど = «один раз» · おねがいします = «прошу, пожалуйста» (вежливая просьба).",
      "en": "もう = “another” · いちど = “one time” · おねがいします = “please” (a polite request)."
@@ -4727,6 +4776,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/yukkuri.mp3",
     "audioSentence": "audio/yukkuri.mp3",
+    "audioDef": "audio/def/yukkuri.mp3",
     "grammar": {
      "ru": "ゆっくり = «медленно» · おねがいします = «пожалуйста». Просьба говорить медленнее.",
      "en": "ゆっくり = “slowly” · おねがいします = “please”. A request to speak slowly."
@@ -4757,6 +4807,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/kore-wa-nan.mp3",
     "audioSentence": "audio/kore-wa-nan.mp3",
+    "audioDef": "audio/def/kore-wa-nan.mp3",
     "grammar": {
      "ru": "これ = «это (рядом со мной)» · は = тема · なんですか = «что?»",
      "en": "これ = “this (near me)” · は = topic · なんですか = “what is it?”"
@@ -4788,6 +4839,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/do-iu-imi.mp3",
     "audioSentence": "audio/do-iu-imi.mp3",
+    "audioDef": "audio/def/do-iu-imi.mp3",
     "grammar": {
      "ru": "どういう = «какой» · いみ = «значение» · ですか = «есть?». Буквально: «Какое это значение?»",
      "en": "どういう = “what kind of” · いみ = “meaning” · ですか = “is it?”. Literally: “What kind of meaning is it?”"
@@ -4819,6 +4871,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/nihongo-de-nan.mp3",
     "audioSentence": "audio/nihongo-de-nan.mp3",
+    "audioDef": "audio/def/nihongo-de-nan.mp3",
     "grammar": {
      "ru": "にほんご = «японский язык» · で = «на (каком языке), с помощью» · なんですか = «что?». Буквально: «На японском — что?»",
      "en": "にほんご = “Japanese (language)” · で = “in / by means of” · なんですか = “what is it?”. Literally: “In Japanese — what is it?”"
@@ -4848,6 +4901,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/atte-imasu-ka.mp3",
     "audioSentence": "audio/atte-imasu-ka.mp3",
+    "audioDef": "audio/def/atte-imasu-ka.mp3",
     "grammar": {
      "ru": "あう = «совпадать, быть верным» · ています = состояние «верно сейчас» · か = вопрос. «Верно ли?»",
      "en": "あう = “to match, be correct” · ています = ongoing state · か = question. “Is it correct?”"
@@ -4880,6 +4934,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/maru-suki.mp3",
     "audioSentence": "audio/maru-suki.mp3",
+    "audioDef": "audio/def/maru-suki.mp3",
     "grammar": {
      "ru": "〇〇 = подставь любое слово · が = частица «то, что нравится» · すき = «нравится» · です. Например: はるが すきです = «Мне нравится весна».",
      "en": "〇〇 = put any word here · が = marks the thing you like · すき = “like” · です. For example: はるが すきです = “I like spring.”"
@@ -4911,6 +4966,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/haru-to-aki.mp3",
     "audioSentence": "audio/haru-to-aki.mp3",
+    "audioDef": "audio/def/haru-to-aki.mp3",
     "grammar": {
      "ru": "はる = «весна» · と = «и» (между существительными) · あき = «осень» · が = «то, что нравится» · すき = «нравится» · です.",
      "en": "はる = “spring” · と = “and” (between nouns) · あき = “autumn” · が = marks the thing you like · すき = “like” · です."
@@ -4940,6 +4996,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/maru-suki-janai.mp3",
     "audioSentence": "audio/maru-suki-janai.mp3",
+    "audioDef": "audio/def/maru-suki-janai.mp3",
     "grammar": {
      "ru": "すきじゃない = «не нравится» (отрицание от すき) · です = вежливость. Пример: あきが すきじゃないです = «Мне не нравится осень».",
      "en": "すきじゃない = “don’t like” (negative of すき) · です = polite. Example: あきが すきじゃないです = “I don’t like autumn.”"
@@ -4972,6 +5029,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/watashi-mo.mp3",
     "audioSentence": "audio/watashi-mo.mp3",
+    "audioDef": "audio/def/watashi-mo.mp3",
     "grammar": {
      "ru": "わたし = «я» · も = «тоже» (вместо は) · です. Меняем は на も — получается «и я тоже».",
      "en": "わたし = “I” · も = “also” (instead of は) · です. Replace は with も — “me too”."
@@ -5010,6 +5068,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/tenki-wa-do.mp3",
     "audioSentence": "audio/tenki-wa-do.mp3",
+    "audioDef": "audio/def/tenki-wa-do.mp3",
     "grammar": {
      "ru": "てんき = «погода» · は = тема · どう = «как» · ですか = «есть?». Буквально: «Что касается погоды — как?»",
      "en": "てんき = “weather” · は = topic · どう = “how” · ですか = “is it?”. Literally: “As for the weather — how is it?”"
@@ -5040,6 +5099,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-hare.mp3",
     "audioSentence": "audio/weather-hare.mp3",
+    "audioDef": "audio/def/weather-hare.mp3",
     "grammar": {
      "ru": "はれ = «ясная погода» (существительное) · です = вежливая связка.",
      "en": "はれ = “sunny weather” (a noun) · です = polite “is”."
@@ -5072,6 +5132,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-kumori.mp3",
     "audioSentence": "audio/weather-kumori.mp3",
+    "audioDef": "audio/def/weather-kumori.mp3",
     "grammar": {
      "ru": "くもり = «облачность» · です.",
      "en": "くもり = “cloudiness” · です."
@@ -5104,6 +5165,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-ame.mp3",
     "audioSentence": "audio/weather-ame.mp3",
+    "audioDef": "audio/def/weather-ame.mp3",
     "grammar": {
      "ru": "あめ = «дождь» · です. Фраза значит «идёт дождь / дождливо».",
      "en": "あめ = “rain” · です. The sentence means “it’s raining / rainy”."
@@ -5136,6 +5198,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-yuki.mp3",
     "audioSentence": "audio/weather-yuki.mp3",
+    "audioDef": "audio/def/weather-yuki.mp3",
     "grammar": {
      "ru": "ゆき = «снег» · です. «Идёт снег / снежно».",
      "en": "ゆき = “snow” · です. “It’s snowing / snowy.”"
@@ -5168,6 +5231,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-atsui.mp3",
     "audioSentence": "audio/weather-atsui.mp3",
+    "audioDef": "audio/def/weather-atsui.mp3",
     "grammar": {
      "ru": "あつい = «жарко» (прилагательное) · です делает фразу вежливой.",
      "en": "あつい = “hot” (an adjective) · です makes the sentence polite."
@@ -5204,6 +5268,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-samui.mp3",
     "audioSentence": "audio/weather-samui.mp3",
+    "audioDef": "audio/def/weather-samui.mp3",
     "grammar": {
      "ru": "さむい = «холодно» · です.",
      "en": "さむい = “cold” · です."
@@ -5236,6 +5301,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-suzushii.mp3",
     "audioSentence": "audio/weather-suzushii.mp3",
+    "audioDef": "audio/def/weather-suzushii.mp3",
     "grammar": {
      "ru": "すずしい = «приятно прохладно» · です.",
      "en": "すずしい = “pleasantly cool” · です."
@@ -5268,6 +5334,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/weather-atatakai.mp3",
     "audioSentence": "audio/weather-atatakai.mp3",
+    "audioDef": "audio/def/weather-atatakai.mp3",
     "grammar": {
      "ru": "あたたかい = «тепло» · です.",
      "en": "あたたかい = “warm” · です."
@@ -5305,6 +5372,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-1.mp3",
     "audioSentence": "audio/n-1.mp3",
+    "audioDef": "audio/def/n-1.mp3",
     "grammar": {
      "ru": "いち = «один».",
      "en": "いち = “one”."
@@ -5334,6 +5402,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-2.mp3",
     "audioSentence": "audio/n-2.mp3",
+    "audioDef": "audio/def/n-2.mp3",
     "grammar": {
      "ru": "に = «два».",
      "en": "に = “two”."
@@ -5363,6 +5432,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-3.mp3",
     "audioSentence": "audio/n-3.mp3",
+    "audioDef": "audio/def/n-3.mp3",
     "grammar": {
      "ru": "さん = «три».",
      "en": "さん = “three”."
@@ -5394,6 +5464,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-4.mp3",
     "audioSentence": "audio/n-4.mp3",
+    "audioDef": "audio/def/n-4.mp3",
     "grammar": {
      "ru": "У четвёрки два чтения: よん и し. В обычном счёте чаще よん.",
      "en": "Four has two readings: よん and し. In normal counting よん is more common."
@@ -5427,6 +5498,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-5.mp3",
     "audioSentence": "audio/n-5.mp3",
+    "audioDef": "audio/def/n-5.mp3",
     "grammar": {
      "ru": "ご = «пять».",
      "en": "ご = “five”."
@@ -5456,6 +5528,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-6.mp3",
     "audioSentence": "audio/n-6.mp3",
+    "audioDef": "audio/def/n-6.mp3",
     "grammar": {
      "ru": "ろく = «шесть».",
      "en": "ろく = “six”."
@@ -5487,6 +5560,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-7.mp3",
     "audioSentence": "audio/n-7.mp3",
+    "audioDef": "audio/def/n-7.mp3",
     "grammar": {
      "ru": "У семёрки два чтения: なな и しち. В счёте чаще なな, а в часах — しちじ.",
      "en": "Seven has two readings: なな and しち. Counting uses なな; in clock times it is しちじ."
@@ -5516,6 +5590,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-8.mp3",
     "audioSentence": "audio/n-8.mp3",
+    "audioDef": "audio/def/n-8.mp3",
     "grammar": {
      "ru": "はち = «восемь».",
      "en": "はち = “eight”."
@@ -5547,6 +5622,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-9.mp3",
     "audioSentence": "audio/n-9.mp3",
+    "audioDef": "audio/def/n-9.mp3",
     "grammar": {
      "ru": "У девятки два чтения: きゅう и く. В счёте чаще きゅう, а в часах — くじ.",
      "en": "Nine has two readings: きゅう and く. Counting uses きゅう; in clock times it is くじ."
@@ -5576,6 +5652,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-10.mp3",
     "audioSentence": "audio/n-10.mp3",
+    "audioDef": "audio/def/n-10.mp3",
     "grammar": {
      "ru": "じゅう = «десять». Дальше числа строятся из десятки: 11 = じゅういち, 20 = にじゅう.",
      "en": "じゅう = “ten”. Bigger numbers are built from it: 11 = じゅういち, 20 = にじゅう."
@@ -5607,6 +5684,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-0.mp3",
     "audioSentence": "audio/n-0.mp3",
+    "audioDef": "audio/def/n-0.mp3",
     "grammar": {
      "ru": "Ноль — ゼロ (слово из английского, катакана) или れい.",
      "en": "Zero is ゼロ (from English, in katakana) or れい."
@@ -5636,6 +5714,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/n-100.mp3",
     "audioSentence": "audio/n-100.mp3",
+    "audioDef": "audio/def/n-100.mp3",
     "grammar": {
      "ru": "ひゃく = «сто».",
      "en": "ひゃく = “one hundred”."
@@ -5665,6 +5744,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/t-gozen.mp3",
     "audioSentence": "audio/t-gozen.mp3",
+    "audioDef": "audio/def/t-gozen.mp3",
     "grammar": {
      "ru": "ごぜん = время до 12:00 (AM). Говорят перед временем: ごぜん 9じ.",
      "en": "ごぜん = before noon (AM). It goes before the time: ごぜん 9じ."
@@ -5694,6 +5774,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/t-gogo.mp3",
     "audioSentence": "audio/t-gogo.mp3",
+    "audioDef": "audio/def/t-gogo.mp3",
     "grammar": {
      "ru": "ごご = время после 12:00 (PM). Говорят перед временем: ごご 3じ.",
      "en": "ごご = after noon (PM). It goes before the time: ごご 3じ."
@@ -5724,6 +5805,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/t-ji.mp3",
     "audioSentence": "audio/t-ji.mp3",
+    "audioDef": "audio/def/t-ji.mp3",
     "grammar": {
      "ru": "〜じ = «час» (счётное слово). 1 час = いちじ, 2 = にじ, 3 = さんじ… Особые: 4 часа = よじ, 7 = しちじ, 9 = くじ.",
      "en": "〜じ = “o’clock” (a counter). 1 = いちじ, 2 = にじ, 3 = さんじ… Special: 4 = よじ, 7 = しちじ, 9 = くじ."
@@ -5753,6 +5835,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/t-ima.mp3",
     "audioSentence": "audio/t-ima.mp3",
+    "audioDef": "audio/def/t-ima.mp3",
     "grammar": {
      "ru": "いま = «сейчас». いま なんじですか = «Который сейчас час?».",
      "en": "いま = “now”. いま なんじですか = “What time is it now?”."
@@ -5782,6 +5865,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/t-han.mp3",
     "audioSentence": "audio/t-han.mp3",
+    "audioDef": "audio/def/t-han.mp3",
     "grammar": {
      "ru": "はん = «половина», в часах — 30 минут: さんじはん = 3:30.",
      "en": "はん = “half”; in times it means :30: さんじはん = 3:30."
@@ -5812,6 +5896,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/ima-nanji.mp3",
     "audioSentence": "audio/ima-nanji.mp3",
+    "audioDef": "audio/def/ima-nanji.mp3",
     "grammar": {
      "ru": "いま = «сейчас» · なんじ = «который час» (なん = «сколько», じ = «час») · ですか = «есть?»",
      "en": "いま = “now” · なんじ = “what time” (なん = “what”, じ = “o’clock”) · ですか = “is it?”"
@@ -5843,6 +5928,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-sai.mp3",
     "audioSentence": "audio/a-sai.mp3",
+    "audioDef": "audio/def/a-sai.mp3",
     "grammar": {
      "ru": "〜さい (歳) = «лет» (счётное слово для возраста): число + さい.",
      "en": "〜さい (歳) = “years old” (a counter for age): number + さい."
@@ -5872,6 +5958,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-1.mp3",
     "audioSentence": "audio/a-1.mp3",
+    "audioDef": "audio/def/a-1.mp3",
     "grammar": {
      "ru": "Особое чтение: いち + さい сливаются в いっさい.",
      "en": "Special reading: いち + さい merge into いっさい."
@@ -5901,6 +5988,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-2.mp3",
     "audioSentence": "audio/a-2.mp3",
+    "audioDef": "audio/def/a-2.mp3",
     "grammar": {
      "ru": "に + さい.",
      "en": "に + さい."
@@ -5930,6 +6018,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-3.mp3",
     "audioSentence": "audio/a-3.mp3",
+    "audioDef": "audio/def/a-3.mp3",
     "grammar": {
      "ru": "さん + さい.",
      "en": "さん + さい."
@@ -5959,6 +6048,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-4.mp3",
     "audioSentence": "audio/a-4.mp3",
+    "audioDef": "audio/def/a-4.mp3",
     "grammar": {
      "ru": "よん + さい.",
      "en": "よん + さい."
@@ -5988,6 +6078,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-5.mp3",
     "audioSentence": "audio/a-5.mp3",
+    "audioDef": "audio/def/a-5.mp3",
     "grammar": {
      "ru": "ご + さい.",
      "en": "ご + さい."
@@ -6017,6 +6108,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-6.mp3",
     "audioSentence": "audio/a-6.mp3",
+    "audioDef": "audio/def/a-6.mp3",
     "grammar": {
      "ru": "ろく + さい.",
      "en": "ろく + さい."
@@ -6046,6 +6138,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-7.mp3",
     "audioSentence": "audio/a-7.mp3",
+    "audioDef": "audio/def/a-7.mp3",
     "grammar": {
      "ru": "なな + さい.",
      "en": "なな + さい."
@@ -6075,6 +6168,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-8.mp3",
     "audioSentence": "audio/a-8.mp3",
+    "audioDef": "audio/def/a-8.mp3",
     "grammar": {
      "ru": "Особое чтение: はち + さい сливаются в はっさい.",
      "en": "Special reading: はち + さい merge into はっさい."
@@ -6104,6 +6198,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-9.mp3",
     "audioSentence": "audio/a-9.mp3",
+    "audioDef": "audio/def/a-9.mp3",
     "grammar": {
      "ru": "きゅう + さい.",
      "en": "きゅう + さい."
@@ -6133,6 +6228,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-10.mp3",
     "audioSentence": "audio/a-10.mp3",
+    "audioDef": "audio/def/a-10.mp3",
     "grammar": {
      "ru": "Особое чтение: じゅう + さい сливаются в じゅっさい.",
      "en": "Special reading: じゅう + さい merge into じゅっさい."
@@ -6162,6 +6258,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-11.mp3",
     "audioSentence": "audio/a-11.mp3",
+    "audioDef": "audio/def/a-11.mp3",
     "grammar": {
      "ru": "じゅう (10) + いっさい (1 год) = 11.",
      "en": "じゅう (10) + いっさい (1) = 11."
@@ -6193,6 +6290,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-20.mp3",
     "audioSentence": "audio/a-20.mp3",
+    "audioDef": "audio/def/a-20.mp3",
     "grammar": {
      "ru": "20 лет — особое слово はたち (или にじゅっさい). Это «совершеннолетие» в Японии.",
      "en": "20 years old has its own word, はたち (or にじゅっさい) — the age of adulthood in Japan."
@@ -6222,6 +6320,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-21.mp3",
     "audioSentence": "audio/a-21.mp3",
+    "audioDef": "audio/def/a-21.mp3",
     "grammar": {
      "ru": "にじゅう (20) + いっさい (1) = 21.",
      "en": "にじゅう (20) + いっさい (1) = 21."
@@ -6251,6 +6350,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-35.mp3",
     "audioSentence": "audio/a-35.mp3",
+    "audioDef": "audio/def/a-35.mp3",
     "grammar": {
      "ru": "さんじゅう (30) + ご (5) + さい.",
      "en": "さんじゅう (30) + ご (5) + さい."
@@ -6280,6 +6380,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/a-40.mp3",
     "audioSentence": "audio/a-40.mp3",
+    "audioDef": "audio/def/a-40.mp3",
     "grammar": {
      "ru": "よんじゅう (40) + さい; じゅう + さい снова сливаются: よんじゅっさい.",
      "en": "よんじゅう (40) + さい; じゅう + さい merge: よんじゅっさい."
@@ -6309,6 +6410,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/d-kinou.mp3",
     "audioSentence": "audio/d-kinou.mp3",
+    "audioDef": "audio/def/d-kinou.mp3",
     "grammar": {
      "ru": "きのう = «вчера».",
      "en": "きのう = “yesterday”."
@@ -6340,6 +6442,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/d-kyou.mp3",
     "audioSentence": "audio/d-kyou.mp3",
+    "audioDef": "audio/def/d-kyou.mp3",
     "grammar": {
      "ru": "きょう = «сегодня».",
      "en": "きょう = “today”."
@@ -6371,6 +6474,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/d-ashita.mp3",
     "audioSentence": "audio/d-ashita.mp3",
+    "audioDef": "audio/def/d-ashita.mp3",
     "grammar": {
      "ru": "あした = «завтра».",
      "en": "あした = “tomorrow”."
@@ -6404,6 +6508,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-1.mp3",
     "audioSentence": "audio/m-1.mp3",
+    "audioDef": "audio/def/m-1.mp3",
     "grammar": {
      "ru": "1日 = ついたち. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "1日 = ついたち. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6436,6 +6541,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-2.mp3",
     "audioSentence": "audio/m-2.mp3",
+    "audioDef": "audio/def/m-2.mp3",
     "grammar": {
      "ru": "2日 = ふつか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "2日 = ふつか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6468,6 +6574,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-3.mp3",
     "audioSentence": "audio/m-3.mp3",
+    "audioDef": "audio/def/m-3.mp3",
     "grammar": {
      "ru": "3日 = みっか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "3日 = みっか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6500,6 +6607,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-4.mp3",
     "audioSentence": "audio/m-4.mp3",
+    "audioDef": "audio/def/m-4.mp3",
     "grammar": {
      "ru": "4日 = よっか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "4日 = よっか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6532,6 +6640,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-5.mp3",
     "audioSentence": "audio/m-5.mp3",
+    "audioDef": "audio/def/m-5.mp3",
     "grammar": {
      "ru": "5日 = いつか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "5日 = いつか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6564,6 +6673,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-6.mp3",
     "audioSentence": "audio/m-6.mp3",
+    "audioDef": "audio/def/m-6.mp3",
     "grammar": {
      "ru": "6日 = むいか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "6日 = むいか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6596,6 +6706,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-7.mp3",
     "audioSentence": "audio/m-7.mp3",
+    "audioDef": "audio/def/m-7.mp3",
     "grammar": {
      "ru": "7日 = なのか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "7日 = なのか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6628,6 +6739,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-8.mp3",
     "audioSentence": "audio/m-8.mp3",
+    "audioDef": "audio/def/m-8.mp3",
     "grammar": {
      "ru": "8日 = ようか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "8日 = ようか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6660,6 +6772,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-9.mp3",
     "audioSentence": "audio/m-9.mp3",
+    "audioDef": "audio/def/m-9.mp3",
     "grammar": {
      "ru": "9日 = ここのか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "9日 = ここのか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6692,6 +6805,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-10.mp3",
     "audioSentence": "audio/m-10.mp3",
+    "audioDef": "audio/def/m-10.mp3",
     "grammar": {
      "ru": "10日 = とおか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "10日 = とおか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6724,6 +6838,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/m-20.mp3",
     "audioSentence": "audio/m-20.mp3",
+    "audioDef": "audio/def/m-20.mp3",
     "grammar": {
      "ru": "20日 = はつか. Дни месяца с 1 по 10 и 20-е читаются по-особому — их учат отдельно; с 11-го в основном: число + にち.",
      "en": "20日 = はつか. Days 1–10 and the 20th have special readings, learned one by one; from the 11th it is mostly number + にち."
@@ -6757,6 +6872,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/nangatsu.mp3",
     "audioSentence": "audio/nangatsu.mp3",
+    "audioDef": "audio/def/nangatsu.mp3",
     "grammar": {
      "ru": "何 (なん) = «какой, сколько» · 月 (がつ) = «месяц» · ですか = «есть?». Названия месяцев: число + がつ (5月 = ごがつ). Иероглифы: 何, 月.",
      "en": "何 (なん) = “what” · 月 (がつ) = “month” · ですか = “is it?”. Months are number + がつ (5月 = ごがつ). Kanji: 何, 月."
@@ -6788,6 +6904,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/tanjobi-nangatsu.mp3",
     "audioSentence": "audio/tanjobi-nangatsu.mp3",
+    "audioDef": "audio/def/tanjobi-nangatsu.mp3",
     "grammar": {
      "ru": "たんじょうび = «день рождения» · は = тема · なんがつ = «какой месяц» · ですか = «есть?»",
      "en": "たんじょうび = “birthday” · は = topic · なんがつ = “which month” · ですか = “is it?”"
@@ -6821,6 +6938,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/gogatsu-juyokka.mp3",
     "audioSentence": "audio/gogatsu-juyokka.mp3",
+    "audioDef": "audio/def/gogatsu-juyokka.mp3",
     "grammar": {
      "ru": "5月 = ごがつ (5 + «месяц») · 14日 = じゅうよっか (особое чтение!) · です. Иероглифы: 月, 日.",
      "en": "5月 = ごがつ (5 + “month”) · 14日 = じゅうよっか (a special reading!) · です. Kanji: 月, 日."
@@ -6861,6 +6979,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-aka.mp3",
     "audioSentence": "audio/w-aka.mp3",
+    "audioDef": "audio/def/w-aka.mp3",
     "grammar": {
      "ru": "あか = «красный».",
      "en": "あか = “red”."
@@ -6892,6 +7011,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kasa.mp3",
     "audioSentence": "audio/w-kasa.mp3",
+    "audioDef": "audio/def/w-kasa.mp3",
     "grammar": {
      "ru": "かさ = «зонт».",
      "en": "かさ = “umbrella”."
@@ -6923,6 +7043,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-tsukue.mp3",
     "audioSentence": "audio/w-tsukue.mp3",
+    "audioDef": "audio/def/w-tsukue.mp3",
     "grammar": {
      "ru": "つくえ = «письменный стол».",
      "en": "つくえ = “desk”."
@@ -6954,6 +7075,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-sakana.mp3",
     "audioSentence": "audio/w-sakana.mp3",
+    "audioDef": "audio/def/w-sakana.mp3",
     "grammar": {
      "ru": "さかな = «рыба».",
      "en": "さかな = “fish”."
@@ -6985,6 +7107,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-fuku.mp3",
     "audioSentence": "audio/w-fuku.mp3",
+    "audioDef": "audio/def/w-fuku.mp3",
     "grammar": {
      "ru": "ふく = «одежда».",
      "en": "ふく = “clothes”."
@@ -7016,6 +7139,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-momo.mp3",
     "audioSentence": "audio/w-momo.mp3",
+    "audioDef": "audio/def/w-momo.mp3",
     "grammar": {
      "ru": "もも = «персик».",
      "en": "もも = “peach”."
@@ -7047,6 +7171,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-neko.mp3",
     "audioSentence": "audio/w-neko.mp3",
+    "audioDef": "audio/def/w-neko.mp3",
     "grammar": {
      "ru": "ねこ = «кот, кошка».",
      "en": "ねこ = “cat”."
@@ -7078,6 +7203,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-inu.mp3",
     "audioSentence": "audio/w-inu.mp3",
+    "audioDef": "audio/def/w-inu.mp3",
     "grammar": {
      "ru": "いぬ = «собака».",
      "en": "いぬ = “dog”."
@@ -7109,6 +7235,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-me.mp3",
     "audioSentence": "audio/w-me.mp3",
+    "audioDef": "audio/def/w-me.mp3",
     "grammar": {
      "ru": "め = «глаз».",
      "en": "め = “eye”."
@@ -7140,6 +7267,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-otto.mp3",
     "audioSentence": "audio/w-otto.mp3",
+    "audioDef": "audio/def/w-otto.mp3",
     "grammar": {
      "ru": "おっと = «муж».",
      "en": "おっと = “husband”."
@@ -7171,6 +7299,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-mizu.mp3",
     "audioSentence": "audio/w-mizu.mp3",
+    "audioDef": "audio/def/w-mizu.mp3",
     "grammar": {
      "ru": "みず = «вода».",
      "en": "みず = “water”."
@@ -7202,6 +7331,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-pan.mp3",
     "audioSentence": "audio/w-pan.mp3",
+    "audioDef": "audio/def/w-pan.mp3",
     "grammar": {
      "ru": "ぱん = «хлеб». Обычно это слово пишут катаканой: パン (оно пришло из португальского).",
      "en": "ぱん = “bread”. This word is usually written in katakana: パン (it comes from Portuguese)."
@@ -7233,6 +7363,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-watashi.mp3",
     "audioSentence": "audio/w-watashi.mp3",
+    "audioDef": "audio/def/w-watashi.mp3",
     "grammar": {
      "ru": "わたし = «я».",
      "en": "わたし = “I”."
@@ -7262,6 +7393,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-anata.mp3",
     "audioSentence": "audio/w-anata.mp3",
+    "audioDef": "audio/def/w-anata.mp3",
     "grammar": {
      "ru": "あなた = «ты, вы». Часто вместо あなた называют человека по имени с «さん».",
      "en": "あなた = “You”. People often use the name plus さん instead of あなた."
@@ -7291,6 +7423,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kare.mp3",
     "audioSentence": "audio/w-kare.mp3",
+    "audioDef": "audio/def/w-kare.mp3",
     "grammar": {
      "ru": "かれ = «он».",
      "en": "かれ = “He”."
@@ -7320,6 +7453,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kanojo.mp3",
     "audioSentence": "audio/w-kanojo.mp3",
+    "audioDef": "audio/def/w-kanojo.mp3",
     "grammar": {
      "ru": "かのじょ = «она». かのじょ может значить и «девушка, подруга».",
      "en": "かのじょ = “She”. かのじょ can also mean “girlfriend”."
@@ -7349,6 +7483,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-watashitachi.mp3",
     "audioSentence": "audio/w-watashitachi.mp3",
+    "audioDef": "audio/def/w-watashitachi.mp3",
     "grammar": {
      "ru": "わたしたち = «мы». 〜たち делает слово множественным: わたし → わたしたち.",
      "en": "わたしたち = “We”. 〜たち makes a plural: わたし → わたしたち."
@@ -7378,6 +7513,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-karera.mp3",
     "audioSentence": "audio/w-karera.mp3",
+    "audioDef": "audio/def/w-karera.mp3",
     "grammar": {
      "ru": "かれら = «они». 〜ら тоже делает слово множественным: かれ → かれら.",
      "en": "かれら = “They”. 〜ら also makes a plural: かれ → かれら."
@@ -7407,6 +7543,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-nihon.mp3",
     "audioSentence": "audio/w-nihon.mp3",
+    "audioDef": "audio/def/w-nihon.mp3",
     "grammar": {
      "ru": "にほん = «Япония».",
      "en": "にほん = “Japan”."
@@ -7438,6 +7575,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-amerika.mp3",
     "audioSentence": "audio/w-amerika.mp3",
+    "audioDef": "audio/def/w-amerika.mp3",
     "grammar": {
      "ru": "アメリカ = «США».",
      "en": "アメリカ = “the USA”."
@@ -7469,6 +7607,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-igirisu.mp3",
     "audioSentence": "audio/w-igirisu.mp3",
+    "audioDef": "audio/def/w-igirisu.mp3",
     "grammar": {
      "ru": "イギリス = «Великобритания».",
      "en": "イギリス = “the UK”."
@@ -7500,6 +7639,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-chugoku.mp3",
     "audioSentence": "audio/w-chugoku.mp3",
+    "audioDef": "audio/def/w-chugoku.mp3",
     "grammar": {
      "ru": "ちゅうごく = «Китай».",
      "en": "ちゅうごく = “China”."
@@ -7531,6 +7671,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kankoku.mp3",
     "audioSentence": "audio/w-kankoku.mp3",
+    "audioDef": "audio/def/w-kankoku.mp3",
     "grammar": {
      "ru": "かんこく = «Южная Корея».",
      "en": "かんこく = “South Korea”."
@@ -7562,6 +7703,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-gakusei.mp3",
     "audioSentence": "audio/w-gakusei.mp3",
+    "audioDef": "audio/def/w-gakusei.mp3",
     "grammar": {
      "ru": "がくせい = «студент, ученик».",
      "en": "がくせい = “student”."
@@ -7593,6 +7735,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-sensei.mp3",
     "audioSentence": "audio/w-sensei.mp3",
+    "audioDef": "audio/def/w-sensei.mp3",
     "grammar": {
      "ru": "せんせい = «учитель».",
      "en": "せんせい = “teacher”."
@@ -7624,6 +7767,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kaishain.mp3",
     "audioSentence": "audio/w-kaishain.mp3",
+    "audioDef": "audio/def/w-kaishain.mp3",
     "grammar": {
      "ru": "かいしゃいん = «сотрудник компании».",
      "en": "かいしゃいん = “office worker”."
@@ -7655,6 +7799,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-isha.mp3",
     "audioSentence": "audio/w-isha.mp3",
+    "audioDef": "audio/def/w-isha.mp3",
     "grammar": {
      "ru": "いしゃ = «врач».",
      "en": "いしゃ = “doctor”."
@@ -7686,6 +7831,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kangoshi.mp3",
     "audioSentence": "audio/w-kangoshi.mp3",
+    "audioDef": "audio/def/w-kangoshi.mp3",
     "grammar": {
      "ru": "かんごし = «медсестра, медбрат».",
      "en": "かんごし = “nurse”."
@@ -7717,6 +7863,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-otoko-no-ko.mp3",
     "audioSentence": "audio/w-otoko-no-ko.mp3",
+    "audioDef": "audio/def/w-otoko-no-ko.mp3",
     "grammar": {
      "ru": "おとこのこ = «мальчик».",
      "en": "おとこのこ = “boy”."
@@ -7748,6 +7895,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-onna-no-ko.mp3",
     "audioSentence": "audio/w-onna-no-ko.mp3",
+    "audioDef": "audio/def/w-onna-no-ko.mp3",
     "grammar": {
      "ru": "おんなのこ = «девочка».",
      "en": "おんなのこ = “girl”."
@@ -7779,6 +7927,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-soretomo.mp3",
     "audioSentence": "audio/w-soretomo.mp3",
+    "audioDef": "audio/def/w-soretomo.mp3",
     "grammar": {
      "ru": "それとも = «или». それとも ставят между двумя вариантами в вопросе: おとこのこ それとも おんなのこ？ = «мальчик или девочка?».",
      "en": "それとも = “or”. それとも goes between two options in a question: おとこのこ それとも おんなのこ？ = “a boy or a girl?”."
@@ -7811,6 +7960,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kazoku.mp3",
     "audioSentence": "audio/w-kazoku.mp3",
+    "audioDef": "audio/def/w-kazoku.mp3",
     "grammar": {
      "ru": "かぞく = «семья». 家 = «дом», 族 = «род, семья».",
      "en": "かぞく = “family”. 家 = “house”, 族 = “family, clan”."
@@ -7845,6 +7995,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-chichi.mp3",
     "audioSentence": "audio/w-chichi.mp3",
+    "audioDef": "audio/def/w-chichi.mp3",
     "grammar": {
      "ru": "ちち = «мой отец». ちち и はは говорят о СВОИХ родителях. О чужих говорят おとうさん и おかあさん.",
      "en": "ちち = “my father”. ちち and はは are for your OWN parents. For other people’s parents say おとうさん and おかあさん."
@@ -7877,6 +8028,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-haha.mp3",
     "audioSentence": "audio/w-haha.mp3",
+    "audioDef": "audio/def/w-haha.mp3",
     "grammar": {
      "ru": "はは = «моя мама». ちち и はは говорят о СВОИХ родителях. О чужих говорят おとうさん и おかあさん.",
      "en": "はは = “my mother”. ちち and はは are for your OWN parents. For other people’s parents say おとうさん and おかあさん."
@@ -7911,6 +8063,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-ani.mp3",
     "audioSentence": "audio/w-ani.mp3",
+    "audioDef": "audio/def/w-ani.mp3",
     "grammar": {
      "ru": "あに = «старший брат».",
      "en": "あに = “older brother”."
@@ -7945,6 +8098,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-ane.mp3",
     "audioSentence": "audio/w-ane.mp3",
+    "audioDef": "audio/def/w-ane.mp3",
     "grammar": {
      "ru": "あね = «старшая сестра».",
      "en": "あね = “older sister”."
@@ -7979,6 +8133,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-ototo.mp3",
     "audioSentence": "audio/w-ototo.mp3",
+    "audioDef": "audio/def/w-ototo.mp3",
     "grammar": {
      "ru": "おとうと = «младший брат».",
      "en": "おとうと = “younger brother”."
@@ -8013,6 +8168,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-imoto.mp3",
     "audioSentence": "audio/w-imoto.mp3",
+    "audioDef": "audio/def/w-imoto.mp3",
     "grammar": {
      "ru": "いもうと = «младшая сестра».",
      "en": "いもうと = “younger sister”."
@@ -8047,6 +8203,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-sofu.mp3",
     "audioSentence": "audio/w-sofu.mp3",
+    "audioDef": "audio/def/w-sofu.mp3",
     "grammar": {
      "ru": "そふ = «дедушка». 祖 = «предок» + 父 = «отец».",
      "en": "そふ = “grandfather”. 祖 = “ancestor” + 父 = “father”."
@@ -8081,6 +8238,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-sobo.mp3",
     "audioSentence": "audio/w-sobo.mp3",
+    "audioDef": "audio/def/w-sobo.mp3",
     "grammar": {
      "ru": "そぼ = «бабушка». 祖 = «предок» + 母 = «мать».",
      "en": "そぼ = “grandmother”. 祖 = “ancestor” + 母 = “mother”."
@@ -8115,6 +8273,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-tsuma.mp3",
     "audioSentence": "audio/w-tsuma.mp3",
+    "audioDef": "audio/def/w-tsuma.mp3",
     "grammar": {
      "ru": "つま = «жена».",
      "en": "つま = “wife”."
@@ -8149,6 +8308,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kodomo.mp3",
     "audioSentence": "audio/w-kodomo.mp3",
+    "audioDef": "audio/def/w-kodomo.mp3",
     "grammar": {
      "ru": "こども = «ребёнок, дети». 子 = «ребёнок».",
      "en": "こども = “child”. 子 = “child”."
@@ -8183,6 +8343,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-ichigatsu.mp3",
     "audioSentence": "audio/w-ichigatsu.mp3",
+    "audioDef": "audio/def/w-ichigatsu.mp3",
     "grammar": {
      "ru": "1月 = いちがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "1月 = いちがつ. A month is number + がつ (月 = “month”)."
@@ -8218,6 +8379,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-nigatsu.mp3",
     "audioSentence": "audio/w-nigatsu.mp3",
+    "audioDef": "audio/def/w-nigatsu.mp3",
     "grammar": {
      "ru": "2月 = にがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "2月 = にがつ. A month is number + がつ (月 = “month”)."
@@ -8253,6 +8415,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-sangatsu.mp3",
     "audioSentence": "audio/w-sangatsu.mp3",
+    "audioDef": "audio/def/w-sangatsu.mp3",
     "grammar": {
      "ru": "3月 = さんがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "3月 = さんがつ. A month is number + がつ (月 = “month”)."
@@ -8288,6 +8451,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-shigatsu.mp3",
     "audioSentence": "audio/w-shigatsu.mp3",
+    "audioDef": "audio/def/w-shigatsu.mp3",
     "grammar": {
      "ru": "4月 = しがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "4月 = しがつ. A month is number + がつ (月 = “month”)."
@@ -8327,6 +8491,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-gogatsu.mp3",
     "audioSentence": "audio/w-gogatsu.mp3",
+    "audioDef": "audio/def/w-gogatsu.mp3",
     "grammar": {
      "ru": "5月 = ごがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "5月 = ごがつ. A month is number + がつ (月 = “month”)."
@@ -8362,6 +8527,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-rokugatsu.mp3",
     "audioSentence": "audio/w-rokugatsu.mp3",
+    "audioDef": "audio/def/w-rokugatsu.mp3",
     "grammar": {
      "ru": "6月 = ろくがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "6月 = ろくがつ. A month is number + がつ (月 = “month”)."
@@ -8397,6 +8563,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-shichigatsu.mp3",
     "audioSentence": "audio/w-shichigatsu.mp3",
+    "audioDef": "audio/def/w-shichigatsu.mp3",
     "grammar": {
      "ru": "7月 = しちがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "7月 = しちがつ. A month is number + がつ (月 = “month”)."
@@ -8436,6 +8603,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-hachigatsu.mp3",
     "audioSentence": "audio/w-hachigatsu.mp3",
+    "audioDef": "audio/def/w-hachigatsu.mp3",
     "grammar": {
      "ru": "8月 = はちがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "8月 = はちがつ. A month is number + がつ (月 = “month”)."
@@ -8471,6 +8639,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kugatsu.mp3",
     "audioSentence": "audio/w-kugatsu.mp3",
+    "audioDef": "audio/def/w-kugatsu.mp3",
     "grammar": {
      "ru": "9月 = くがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "9月 = くがつ. A month is number + がつ (月 = “month”)."
@@ -8510,6 +8679,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-jugatsu.mp3",
     "audioSentence": "audio/w-jugatsu.mp3",
+    "audioDef": "audio/def/w-jugatsu.mp3",
     "grammar": {
      "ru": "10月 = じゅうがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "10月 = じゅうがつ. A month is number + がつ (月 = “month”)."
@@ -8545,6 +8715,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-juichigatsu.mp3",
     "audioSentence": "audio/w-juichigatsu.mp3",
+    "audioDef": "audio/def/w-juichigatsu.mp3",
     "grammar": {
      "ru": "11月 = じゅういちがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "11月 = じゅういちがつ. A month is number + がつ (月 = “month”)."
@@ -8580,6 +8751,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-junigatsu.mp3",
     "audioSentence": "audio/w-junigatsu.mp3",
+    "audioDef": "audio/def/w-junigatsu.mp3",
     "grammar": {
      "ru": "12月 = じゅうにがつ. Название месяца: число + がつ (月 = «месяц»).",
      "en": "12月 = じゅうにがつ. A month is number + がつ (月 = “month”)."
@@ -8615,6 +8787,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-do.mp3",
     "audioSentence": "audio/w-do.mp3",
+    "audioDef": "audio/def/w-do.mp3",
     "grammar": {
      "ru": "ど = «градус». 度 = «раз, степень»; со словом о температуре — градусы: 20ど = 20 градусов.",
      "en": "ど = “degree (temperature)”. 度 = “time, degree”; with temperatures it means degrees: 20ど = 20 degrees."
@@ -8649,6 +8822,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-haru.mp3",
     "audioSentence": "audio/w-haru.mp3",
+    "audioDef": "audio/def/w-haru.mp3",
     "grammar": {
      "ru": "はる = «весна».",
      "en": "はる = “spring”."
@@ -8683,6 +8857,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-natsu.mp3",
     "audioSentence": "audio/w-natsu.mp3",
+    "audioDef": "audio/def/w-natsu.mp3",
     "grammar": {
      "ru": "なつ = «лето».",
      "en": "なつ = “summer”."
@@ -8717,6 +8892,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-aki.mp3",
     "audioSentence": "audio/w-aki.mp3",
+    "audioDef": "audio/def/w-aki.mp3",
     "grammar": {
      "ru": "あき = «осень».",
      "en": "あき = “autumn”."
@@ -8751,6 +8927,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-fuyu.mp3",
     "audioSentence": "audio/w-fuyu.mp3",
+    "audioDef": "audio/def/w-fuyu.mp3",
     "grammar": {
      "ru": "ふゆ = «зима».",
      "en": "ふゆ = “winter”."
@@ -8782,6 +8959,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-chokor-to.mp3",
     "audioSentence": "audio/w-chokor-to.mp3",
+    "audioDef": "audio/def/w-chokor-to.mp3",
     "grammar": {
      "ru": "チョコレート = «шоколад».",
      "en": "チョコレート = “chocolate”."
@@ -8813,6 +8991,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-chikin.mp3",
     "audioSentence": "audio/w-chikin.mp3",
+    "audioDef": "audio/def/w-chikin.mp3",
     "grammar": {
      "ru": "チキン = «курица».",
      "en": "チキン = “chicken”."
@@ -8847,6 +9026,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-butaniku.mp3",
     "audioSentence": "audio/w-butaniku.mp3",
+    "audioDef": "audio/def/w-butaniku.mp3",
     "grammar": {
      "ru": "ぶたにく = «свинина». 豚 = «свинья» + 肉 = «мясо».",
      "en": "ぶたにく = “pork”. 豚 = “pig” + 肉 = “meat”."
@@ -8878,6 +9058,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-oishii.mp3",
     "audioSentence": "audio/w-oishii.mp3",
+    "audioDef": "audio/def/w-oishii.mp3",
     "grammar": {
      "ru": "おいしい = «вкусный». おいしい — прилагательное: おいしいです = «вкусно».",
      "en": "おいしい = “delicious”. おいしい is an adjective: おいしいです = “it’s delicious”."
@@ -8909,6 +9090,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-tonkatsu.mp3",
     "audioSentence": "audio/w-tonkatsu.mp3",
+    "audioDef": "audio/def/w-tonkatsu.mp3",
     "grammar": {
      "ru": "とんかつ = «тонкацу (свиная котлета в панировке)».",
      "en": "とんかつ = “tonkatsu (breaded pork cutlet)”."
@@ -8940,6 +9122,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-niku.mp3",
     "audioSentence": "audio/w-niku.mp3",
+    "audioDef": "audio/def/w-niku.mp3",
     "grammar": {
      "ru": "にく = «мясо».",
      "en": "にく = “meat”."
@@ -8969,6 +9152,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-menyu.mp3",
     "audioSentence": "audio/w-menyu.mp3",
+    "audioDef": "audio/def/w-menyu.mp3",
     "grammar": {
      "ru": "メニュー = «меню».",
      "en": "メニュー = “menu”."
@@ -9000,6 +9184,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-yasai.mp3",
     "audioSentence": "audio/w-yasai.mp3",
+    "audioDef": "audio/def/w-yasai.mp3",
     "grammar": {
      "ru": "やさい = «овощи».",
      "en": "やさい = “vegetables”."
@@ -9031,6 +9216,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kaban.mp3",
     "audioSentence": "audio/w-kaban.mp3",
+    "audioDef": "audio/def/w-kaban.mp3",
     "grammar": {
      "ru": "かばん = «сумка».",
      "en": "かばん = “bag”."
@@ -9062,6 +9248,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-kutsu.mp3",
     "audioSentence": "audio/w-kutsu.mp3",
+    "audioDef": "audio/def/w-kutsu.mp3",
     "grammar": {
      "ru": "くつ = «обувь».",
      "en": "くつ = “shoes”."
@@ -9093,6 +9280,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-saifu.mp3",
     "audioSentence": "audio/w-saifu.mp3",
+    "audioDef": "audio/def/w-saifu.mp3",
     "grammar": {
      "ru": "さいふ = «кошелёк».",
      "en": "さいふ = “wallet”."
@@ -9124,6 +9312,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-j-nzu.mp3",
     "audioSentence": "audio/w-j-nzu.mp3",
+    "audioDef": "audio/def/w-j-nzu.mp3",
     "grammar": {
      "ru": "ジーンズ = «джинсы».",
      "en": "ジーンズ = “jeans”."
@@ -9155,6 +9344,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-jitensha.mp3",
     "audioSentence": "audio/w-jitensha.mp3",
+    "audioDef": "audio/def/w-jitensha.mp3",
     "grammar": {
      "ru": "じてんしゃ = «велосипед».",
      "en": "じてんしゃ = “bicycle”."
@@ -9186,6 +9376,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-shinbun.mp3",
     "audioSentence": "audio/w-shinbun.mp3",
+    "audioDef": "audio/def/w-shinbun.mp3",
     "grammar": {
      "ru": "しんぶん = «газета».",
      "en": "しんぶん = “newspaper”."
@@ -9217,6 +9408,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-sumaho.mp3",
     "audioSentence": "audio/w-sumaho.mp3",
+    "audioDef": "audio/def/w-sumaho.mp3",
     "grammar": {
      "ru": "スマホ = «смартфон».",
      "en": "スマホ = “smartphone”."
@@ -9249,6 +9441,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-t-shatsu.mp3",
     "audioSentence": "audio/w-t-shatsu.mp3",
+    "audioDef": "audio/def/w-t-shatsu.mp3",
     "grammar": {
      "ru": "ティーシャツ = «футболка». Читается «ти-сяцу»: T — это английская буква «ти».",
      "en": "ティーシャツ = “T-shirt”. Read “tī-shatsu”: the T is the English letter."
@@ -9280,6 +9473,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-tokei.mp3",
     "audioSentence": "audio/w-tokei.mp3",
+    "audioDef": "audio/def/w-tokei.mp3",
     "grammar": {
      "ru": "とけい = «часы».",
      "en": "とけい = “clock, watch”."
@@ -9311,6 +9505,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-noto.mp3",
     "audioSentence": "audio/w-noto.mp3",
+    "audioDef": "audio/def/w-noto.mp3",
     "grammar": {
      "ru": "ノート = «тетрадь».",
      "en": "ノート = “notebook”."
@@ -9342,6 +9537,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-pen.mp3",
     "audioSentence": "audio/w-pen.mp3",
+    "audioDef": "audio/def/w-pen.mp3",
     "grammar": {
      "ru": "ペン = «ручка».",
      "en": "ペン = “pen”."
@@ -9373,6 +9569,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-boshi.mp3",
     "audioSentence": "audio/w-boshi.mp3",
+    "audioDef": "audio/def/w-boshi.mp3",
     "grammar": {
      "ru": "ぼうし = «шапка, шляпа».",
      "en": "ぼうし = “hat”."
@@ -9404,6 +9601,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-hon.mp3",
     "audioSentence": "audio/w-hon.mp3",
+    "audioDef": "audio/def/w-hon.mp3",
     "grammar": {
      "ru": "ほん = «книга».",
      "en": "ほん = “book”."
@@ -9435,6 +9633,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-ginko.mp3",
     "audioSentence": "audio/w-ginko.mp3",
+    "audioDef": "audio/def/w-ginko.mp3",
     "grammar": {
      "ru": "ぎんこう = «банк».",
      "en": "ぎんこう = “bank”."
@@ -9466,6 +9665,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-konbini.mp3",
     "audioSentence": "audio/w-konbini.mp3",
+    "audioDef": "audio/def/w-konbini.mp3",
     "grammar": {
      "ru": "コンビニ = «магазин у дома».",
      "en": "コンビニ = “convenience store”."
@@ -9497,6 +9697,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-toire.mp3",
     "audioSentence": "audio/w-toire.mp3",
+    "audioDef": "audio/def/w-toire.mp3",
     "grammar": {
      "ru": "トイレ = «туалет».",
      "en": "トイレ = “toilet”."
@@ -9528,6 +9729,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-toshokan.mp3",
     "audioSentence": "audio/w-toshokan.mp3",
+    "audioDef": "audio/def/w-toshokan.mp3",
     "grammar": {
      "ru": "としょかん = «библиотека».",
      "en": "としょかん = “library”."
@@ -9559,6 +9761,7 @@ const lessons = /*LESSONS_START*/[
     ],
     "audioWord": "audio/w-yubinkyoku.mp3",
     "audioSentence": "audio/w-yubinkyoku.mp3",
+    "audioDef": "audio/def/w-yubinkyoku.mp3",
     "grammar": {
      "ru": "ゆうびんきょく = «почта».",
      "en": "ゆうびんきょく = “post office”."
@@ -10276,6 +10479,7 @@ let currentCardIdx = 0;
     currentOpenLessonId = id;
     const theme = folderTheme(idx);
     const el = document.getElementById('lesson-screen');
+    clearTimeout(window.__lsHide); el.style.display = '';   // убрали display:none, поставленный при закрытии
     // вариант B: те же цвета палитры, разбавленные белым — мягче для глаз; цвет следует за папкой
     const soft = function (c) { return 'color-mix(in srgb, ' + c + ' 55%, white)'; };
     el.style.removeProperty('background');
@@ -10319,6 +10523,9 @@ let currentCardIdx = 0;
     el.classList.remove('open');
     el.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    // после закрытия экран урока (fixed, во весь экран, с градиентом цвета урока) полностью убираем: иначе его цвет мог «залипать» в верхней полосе Safari на iPhone
+    clearTimeout(window.__lsHide);
+    window.__lsHide = setTimeout(function () { el.style.display = 'none'; el.style.removeProperty('--lesson-grad'); el.style.removeProperty('--lesson-bg'); }, 700);
     // NOTE: colour is deliberately NOT reset here. This also runs when heading into that lesson's
     // own flashcards (startPractice -> closeLesson, then the trainer screen opens) — resetting to
     // white at that exact moment is what left a plain white gap under the flashcards on a phone,
@@ -12705,7 +12912,9 @@ let currentCardIdx = 0;
     const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
     if (!Ctx) throw new Error('no audio context');
     const ctx = new Ctx(1, OTG_SR, OTG_SR), cache = {}, ru = currentLang === 'ru';
-    const get = async function (path) {
+    let missingN = 0, totalN = 0;
+    const get = async function (path) { totalN++; try { return await get0(path); } catch (e) { missingN++; return new Float32Array(Math.round(0.4 * OTG_SR)); } };
+    const get0 = async function (path) {
       if (!path) throw new Error('missing audio');
       if (cache[path]) return cache[path];
       const r = await fetch(path); if (!r.ok) throw new Error('404 ' + path);
@@ -12721,15 +12930,16 @@ let currentCardIdx = 0;
     for (let c = 3; c >= 1; c--) addSilence(1, 'count', c);   // 3-2-1 без звука: только цифры на экране
     for (let i = 0; i < otg.wordsList.length; i++) {
       const w = otg.wordsList[i];
-      const meaning = ru ? w.audioDefRu : w.audioDef;
+      const meaning = w.audioDef;   // Таня слушает только английскую дорожку
       const qPath = otg.first === 'word' ? w.audioWord : meaning, aPath = otg.first === 'word' ? meaning : w.audioWord;
       wordStarts.push(pos);
       addPcm(await get(qPath), 'q', i);
       addSilence(otg.think, 'think', i);
       addPcm(await get(aPath), 'a', i);
-      if (otg.example && w.audioSentence) { addSilence(0.5, 'a', i); addPcm(await get(w.audioSentence), 'ex', i); }
+      if (otg.example && w.audioSentence && w.audioSentence !== w.audioWord) { addSilence(0.5, 'a', i); addPcm(await get(w.audioSentence), 'ex', i); }
       addSilence(otg.gap + 0.3, 'gap', i);
     }
+    if (missingN > totalN / 2) throw new Error('too many missing audio files');
     const total = parts.reduce(function (s, p) { return s + (p.data ? p.data.length : p.n); }, 0);
     const out = new Float32Array(total); let o = 0;
     parts.forEach(function (p) { if (p.data) { out.set(p.data, o); o += p.data.length; } else o += p.n; });
