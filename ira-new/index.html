@@ -16105,7 +16105,7 @@ let currentCardIdx = 0;
     lessons.forEach(function (l) {
       const btn = document.createElement('button');
       btn.className = 'lesson-pill' + (currentLessonId === l.id ? ' active' : '');
-      btn.innerText = '' + l.label;
+      btn.innerText = '' + lessonLabel(l);
       btn.onclick = function () { selectLesson(l.id); };
       container.appendChild(btn);
     });
@@ -16140,7 +16140,7 @@ let currentCardIdx = 0;
   function renderExistingLessonsSummary() {
     const el = document.getElementById('existing-lessons-summary');
     if (!el) return;
-    const parts = lessons.map(function (l) { return l.label + ' (' + l.words.length + (currentLang === 'en' ? ' words)' : ' слов)'); });
+    const parts = lessons.map(function (l) { return lessonLabel(l) + ' (' + l.words.length + (currentLang === 'en' ? ' words)' : ' слов)'); });
     el.innerText = translations[currentLang].existingLessonsPrefix + parts.join(', ');
   }
 
@@ -16594,11 +16594,15 @@ let currentCardIdx = 0;
 
   // ---------- full-screen lesson ----------
   let currentOpenLessonId = null;
+  // название урока на языке интерфейса (labelRu — необязательное поле урока)
+  function lessonLabel(l) { return (currentLang === 'ru' && l.labelRu) ? l.labelRu : l.label; }
+  const LAST_LESSON_KEY = 'vocabLastLesson::' + location.pathname;
 
   function openLesson(id, sourceEl) {
     const idx = lessons.findIndex(function (l) { return l.id === id; });
     if (idx === -1) return;
     currentOpenLessonId = id;
+    try { localStorage.setItem(LAST_LESSON_KEY, id); } catch (e) { /* storage unavailable */ }
     const theme = folderTheme(idx);
     const el = document.getElementById('lesson-screen');
     clearTimeout(window.__lsHide); el.style.display = '';   // убрали display:none, поставленный при закрытии
@@ -18482,7 +18486,7 @@ let currentCardIdx = 0;
     if (!lesson) return;
     const learnable = lesson.words.filter(function (w) { return !hiddenTerms[w.term]; });
     const hiddenCount = lesson.words.length - learnable.length;
-    $id('lesson-screen-title').innerText = lesson.label;
+    $id('lesson-screen-title').innerText = lessonLabel(lesson);
     $id('lesson-screen-count').innerText = countLabel(learnable.length) + (hiddenCount ? ' (' + hiddenCount + ' ' + t('hiddenSuffix') + ')' : '');
     $id('lesson-back-btn').innerText = t('backToLessonsList');
     $id('lesson-learn-btn').innerText = L('Learn', 'Учить');
@@ -18545,11 +18549,25 @@ let currentCardIdx = 0;
     const searchInput = $id('lesson-search');
     const q = (searchInput && searchInput.value ? searchInput.value : '').trim().toLowerCase();
     stack.innerHTML = '';
+    // «Продолжить»: последний открытый урок — сверху списка
+    let lastId = null; try { lastId = localStorage.getItem(LAST_LESSON_KEY); } catch (e) { /* ignore */ }
+    const lastIdx = lastId ? lessons.findIndex(function (l) { return l.id === lastId; }) : -1;
+    if (lastIdx !== -1 && !q) {
+      const ll = lessons[lastIdx], lt = folderTheme(lastIdx);
+      const lp = ll.words.length ? Math.round(ll.words.reduce(function (a, w) { return a + wordProgressPct(w.term); }, 0) / ll.words.length) : 0;
+      const cb = document.createElement('button');
+      cb.className = 'folder-block continue-block'; cb.style.background = lt.bg; cb.style.color = lt.fg;
+      cb.onclick = function () { openLesson(ll.id, cb); };
+      cb.innerHTML = '<span class="folder-block-count">' + escapeHtml(L('Continue where you left off', 'Продолжить с последнего места')) + '</span>' +
+        '<span class="folder-block-label">' + escapeHtml(lessonLabel(ll)) + '</span>' +
+        '<span class="folder-block-progress"><span class="folder-block-progress-fill" style="width:' + lp + '%"></span></span>';
+      stack.appendChild(cb);
+    }
     const items = lessons.map(function (l, i) {
       const knownPct = l.words.length ? Math.round(l.words.reduce(function (a, w) { return a + wordProgressPct(w.term); }, 0) / l.words.length) : 0;
       const hits = q ? l.words.filter(function (w) { return (w.term + ' ' + w.trans.en + ' ' + w.trans.ru).toLowerCase().indexOf(q) !== -1; }) : [];
-      const nameHit = !q || l.label.toLowerCase().indexOf(q) !== -1;
-      return { id: l.id, label: l.label, count: l.words.length, colorIdx: i, knownPct: knownPct, hits: hits, show: nameHit || hits.length > 0 };
+      const nameHit = !q || (l.label + ' ' + (l.labelRu || '')).toLowerCase().indexOf(q) !== -1;
+      return { id: l.id, label: lessonLabel(l), count: l.words.length, colorIdx: i, knownPct: knownPct, hits: hits, show: nameHit || hits.length > 0 };
     });
     items.filter(function (it) { return it.show; }).forEach(function (it) {
       const theme = folderTheme(it.colorIdx);
@@ -19095,7 +19113,7 @@ let currentCardIdx = 0;
   function otgMediaSession() {
     if (!('mediaSession' in navigator)) return;
     try {
-      navigator.mediaSession.metadata = new MediaMetadata({ title: 'Learn on the go', artist: (lessons.find(function (l) { return l.id === currentOpenLessonId; }) || {}).label || '' });
+      navigator.mediaSession.metadata = new MediaMetadata({ title: 'Learn on the go', artist: lessonLabel(lessons.find(function (l) { return l.id === currentOpenLessonId; }) || {}) || '' });
       navigator.mediaSession.setActionHandler('play', function () { otgToggle(); });
       navigator.mediaSession.setActionHandler('pause', function () { otgToggle(); });
       navigator.mediaSession.setActionHandler('previoustrack', function () { otgStep(-1); });
@@ -19271,7 +19289,7 @@ let currentCardIdx = 0;
       trainerTitleInfo = { key: titleKey };
     } else if (trainerReturnTo.indexOf('lesson:') === 0) {
       const lesson = lessons.find(function (l) { return l.id === trainerReturnTo.slice(7); });
-      trainerTitleInfo = { label: lesson ? lesson.label : '' };
+      trainerTitleInfo = { label: lesson ? lessonLabel(lesson) : '' };
     } else if (trainerReturnTo === 'saved') {
       trainerTitleInfo = { key: 'topTabSaved' };
     } else if (trainerReturnTo === 'review') {
