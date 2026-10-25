@@ -11,6 +11,7 @@
        leaving a lesson. Giving it an explicit value (kept in sync from JS below) fixes that. -->
   <meta name="theme-color" id="theme-color-meta" content="#fbf4f1">
   <title>Vocab Drill</title>
+  <meta name="resume-exercise" content="1">
 
   <!-- Open Graph / link-preview tags (Telegram, WhatsApp, iMessage, etc.) -->
   <meta property="og:type" content="website">
@@ -16597,6 +16598,36 @@ let currentCardIdx = 0;
   // название урока на языке интерфейса (labelRu — необязательное поле урока)
   function lessonLabel(l) { return (currentLang === 'ru' && l.labelRu) ? l.labelRu : l.label; }
   const LAST_LESSON_KEY = 'vocabLastLesson::' + location.pathname;
+  // ---- «Продолжить упражнение» — включается только на сайтах с <meta name="resume-exercise"> (сейчас: Ира) ----
+  const RESUME_ON = !!document.querySelector('meta[name="resume-exercise"]');
+  const LAST_EX_KEY = 'vocabLastEx::' + location.pathname;
+  const EX_BTN = { flashcards: 'tab-fc', quiz: 'tab-quiz', matching: 'tab-match', listening: 'tab-listen', scramble: 'tab-scramble', production: 'tab-prod' };
+  const EX_KIND = { quiz: 'quiz', matching: 'match', listening: 'listen', scramble: 'scramble' };
+  const EX_TITLE = { flashcards: ['Flashcards', 'Карточки'], quiz: ['Multiple Choice', 'Multiple Choice'], matching: ['Matching', 'Сопоставление'], listening: ['Listening', 'Аудирование'], scramble: ['Sentence Builder', 'Конструктор'], production: ['Production', 'Письмо'] };
+  function saveLastEx(tab) {
+    if (!RESUME_ON || !EX_BTN[tab] || trainerReturnTo.indexOf('lesson:') !== 0) return;
+    try { localStorage.setItem(LAST_EX_KEY, JSON.stringify({ lesson: trainerReturnTo.slice(7), tab: tab })); } catch (e) { /* storage unavailable */ }
+  }
+  function lastEx() {
+    if (!RESUME_ON) return null;
+    try { const v = JSON.parse(localStorage.getItem(LAST_EX_KEY) || 'null'); return v && EX_BTN[v.tab] && lessons.some(function (l) { return l.id === v.lesson; }) ? v : null; } catch (e) { return null; }
+  }
+  // сколько слов ещё осталось в текущем раунде этого упражнения (по сохранённому прогрессу)
+  function exRemaining(lesson, tab) {
+    const kind = EX_KIND[tab]; if (!kind) return null;
+    const words = lesson.words.filter(function (w) { return !hiddenTerms[w.term]; });
+    if (!words.length) return null;
+    const m = Math.min.apply(null, words.map(function (w) { return wpGet(kind, w.term); }));
+    return words.filter(function (w) { return wpGet(kind, w.term) === m; }).length;
+  }
+  function resumeExercise() {
+    const ex = lastEx(); if (!ex) return;
+    const lesson = lessons.find(function (l) { return l.id === ex.lesson; });
+    const words = lesson.words.filter(function (w) { return !hiddenTerms[w.term]; });
+    if (!words.length) return;
+    startPractice(words, 'lesson:' + lesson.id);
+    const btn = $id(EX_BTN[ex.tab]); if (btn && ex.tab !== 'flashcards') btn.click();
+  }
 
   function openLesson(id, sourceEl) {
     const idx = lessons.findIndex(function (l) { return l.id === id; });
@@ -17027,6 +17058,7 @@ let currentCardIdx = 0;
     // each time you looked at another mode and came back. Only Analytics needs a fresh render on
     // every visit, since it reflects whatever's changed since you were last on it.
     if (tabId === 'analytics') updateAnalyticsUI();
+    saveLastEx(tabId);
   }
 
   let showBackFirst = false;
@@ -18557,8 +18589,14 @@ let currentCardIdx = 0;
       const lp = ll.words.length ? Math.round(ll.words.reduce(function (a, w) { return a + wordProgressPct(w.term); }, 0) / ll.words.length) : 0;
       const cb = document.createElement('button');
       cb.className = 'folder-block continue-block'; cb.style.background = lt.bg; cb.style.color = lt.fg;
-      cb.onclick = function () { openLesson(ll.id, cb); };
-      cb.innerHTML = '<span class="folder-block-count">' + escapeHtml(L('Continue where you left off', 'Продолжить с последнего места')) + '</span>' +
+      const ex = lastEx(), exOn = !!ex && ex.lesson === ll.id;
+      let small = L('Continue where you left off', 'Продолжить с последнего места');
+      if (exOn) {
+        const rem = exRemaining(ll, ex.tab);
+        small = L('Continue', 'Продолжить') + ': ' + L(EX_TITLE[ex.tab][0], EX_TITLE[ex.tab][1]) + (rem ? ' · ' + (currentLang === 'en' ? rem + (rem === 1 ? ' word left' : ' words left') : 'осталось слов: ' + rem) : '');
+      }
+      cb.onclick = function () { if (exOn) resumeExercise(); else openLesson(ll.id, cb); };
+      cb.innerHTML = '<span class="folder-block-count">' + escapeHtml(small) + '</span>' +
         '<span class="folder-block-label">' + escapeHtml(lessonLabel(ll)) + '</span>' +
         '<span class="folder-block-progress"><span class="folder-block-progress-fill" style="width:' + lp + '%"></span></span>';
       stack.appendChild(cb);
@@ -19313,6 +19351,7 @@ let currentCardIdx = 0;
     renderScrambleQuestion();
     startProduction();
     updateAnalyticsUI();
+    saveLastEx('flashcards');
   }
 
   function updateTopTabs() {
