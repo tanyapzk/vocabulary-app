@@ -2514,6 +2514,9 @@
     .otg-pulse.playing::before, .otg-pulse.playing::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(107, 42, 69, 0.4); opacity: 0.5; animation: ping 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
     .otg-pulse.playing::after { animation-delay: 0.9s; }
     @keyframes ping { from { transform: scale(1); opacity: 0.5; } to { transform: scale(1.9); opacity: 0; } }
+    .otg-load-text { display: block; font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; }
+    .otg-load { display: block; width: min(260px, 70%); height: 8px; margin: 0 auto; border-radius: 999px; background: color-mix(in srgb, var(--c-berry) 16%, white); overflow: hidden; }
+    .otg-load-fill { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--c-berry); transition: width .25s ease; }
     .otg-prompt { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; line-height: 1.25; min-height: 2.2em; }
     .otg-answer { font-size: 1rem; font-weight: 700; margin-bottom: 8px; min-height: 3em; color: rgba(74, 26, 47, 0.85); line-height: 1.35; }
     .otg-phase { font-size: 0.8rem; color: rgba(74, 26, 47, 0.7); font-weight: 700; margin-bottom: 24px; min-height: 1.2em; }
@@ -3366,17 +3369,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "When my colleague sneezed during the morning meeting, I said, “___!”",
             "quizAnswer": "Bless you",
-            "scrambleSentence": "When my colleague sneezed in the meeting, I said, “Bless you!”"
+            "scrambleSentence": "When my colleague sneezed in the meeting, I said, “Bless you!”",
+            "scrambleRu": "Когда мой коллега чихнул на встрече, я сказал: «Будь здоров!»"
           },
           {
             "blankSentence": "Somebody sneezed in the fitting room, and the shop assistant said, “___!”",
             "quizAnswer": "Bless you",
-            "scrambleSentence": "Bless you! Do you need a tissue?"
+            "scrambleSentence": "Bless you! Do you need a tissue?",
+            "scrambleRu": "Будь здоров! Тебе нужен платок?"
           },
           {
             "blankSentence": "If a customer sneezes in the store, it is polite to say, “___!”",
             "quizAnswer": "Bless you",
-            "scrambleSentence": "She sneezed twice at her desk, and everybody said, “Bless you!”"
+            "scrambleSentence": "She sneezed twice at her desk, and everybody said, “Bless you!”",
+            "scrambleRu": "Она дважды чихнула за столом, и все сказали: «Будь здорова!»"
           }
         ],
         "style": 45,
@@ -3447,17 +3453,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The summer dress features a delicate green ___ pattern on the fabric.",
             "quizAnswer": "leaf",
-            "scrambleSentence": "The summer dress has a delicate green leaf pattern."
+            "scrambleSentence": "The summer dress has a delicate green leaf pattern.",
+            "scrambleRu": "На летнем платье тонкий зелёный принт с листьями."
           },
           {
             "blankSentence": "A single ___ on the logo makes our eco line easy to recognise.",
             "quizAnswer": "leaf",
-            "scrambleSentence": "Look, a leaf fell on your jacket!"
+            "scrambleSentence": "Look, a leaf fell on your jacket!",
+            "scrambleRu": "Смотри, на твою куртку упал лист!"
           },
           {
             "blankSentence": "In autumn the ___ on the trees in front of the store turn yellow and red.",
             "quizAnswer": "leaves",
-            "scrambleSentence": "The scarf is printed with large autumn leaves."
+            "scrambleSentence": "The scarf is printed with large autumn leaves.",
+            "scrambleRu": "На шарфе напечатаны крупные осенние листья."
           }
         ],
         "style": 50,
@@ -3532,17 +3541,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The fabric was thoroughly ___ dust before cutting the patterns.",
             "quizAnswer": "cleaned from",
-            "scrambleSentence": "The fabric was cleaned from dust before cutting."
+            "scrambleSentence": "The fabric was cleaned from dust before cutting.",
+            "scrambleRu": "Ткань очистили от пыли перед раскроем."
           },
           {
             "blankSentence": "The warehouse floor must be ___ oil and dust every week.",
             "quizAnswer": "cleaned from",
-            "scrambleSentence": "Is the fabric already cleaned from dust?"
+            "scrambleSentence": "Is the fabric already cleaned from dust?",
+            "scrambleRu": "Ткань уже очищена от пыли?"
           },
           {
             "blankSentence": "Samples are ___ chemicals before they go to the store.",
             "quizAnswer": "cleaned from",
-            "scrambleSentence": "The samples were cleaned from dirt before the photo shoot."
+            "scrambleSentence": "The samples were cleaned from dirt before the photo shoot.",
+            "scrambleRu": "Образцы очистили от грязи перед фотосъёмкой."
           }
         ],
         "style": 50,
@@ -3619,17 +3631,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We produced ___ two thousand jackets for the autumn season.",
             "quizAnswer": "about",
-            "scrambleSentence": "We produced about two thousand jackets this autumn."
+            "scrambleSentence": "We produced about two thousand jackets this autumn.",
+            "scrambleRu": "Этой осенью мы произвели около двух тысяч курток."
           },
           {
             "blankSentence": "The meeting will take ___ an hour.",
             "quizAnswer": "about",
-            "scrambleSentence": "It's about five minutes away."
+            "scrambleSentence": "It's about five minutes away.",
+            "scrambleRu": "Это примерно в пяти минутах отсюда."
           },
           {
             "blankSentence": "It costs ___ fifty euros.",
             "quizAnswer": "about",
-            "scrambleSentence": "The store has about thirty employees."
+            "scrambleSentence": "The store has about thirty employees.",
+            "scrambleRu": "В магазине около тридцати сотрудников."
           }
         ],
         "style": 45,
@@ -3704,17 +3719,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We changed the supplier to maintain high cotton ___ across our basic line.",
             "quizAnswer": "quality",
-            "scrambleSentence": "We changed the supplier to keep high cotton quality."
+            "scrambleSentence": "We changed the supplier to keep high cotton quality.",
+            "scrambleRu": "Мы сменили поставщика, чтобы сохранить высокое качество хлопка."
           },
           {
             "blankSentence": "Customers notice the ___ of the fabric immediately.",
             "quizAnswer": "quality",
-            "scrambleSentence": "The quality is amazing for this price!"
+            "scrambleSentence": "The quality is amazing for this price!",
+            "scrambleRu": "Качество потрясающее за такую цену!"
           },
           {
             "blankSentence": "The ___ of the stitching is not good enough.",
             "quizAnswer": "quality",
-            "scrambleSentence": "Poor quality leads to returns and unhappy customers."
+            "scrambleSentence": "Poor quality leads to returns and unhappy customers.",
+            "scrambleRu": "Плохое качество приводит к возвратам и недовольным покупателям."
           }
         ],
         "style": 50,
@@ -3789,17 +3807,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Warm ___ hoodies are our bestsellers for children in winter.",
             "quizAnswer": "fleece",
-            "scrambleSentence": "Warm fleece hoodies are our bestsellers in winter."
+            "scrambleSentence": "Warm fleece hoodies are our bestsellers in winter.",
+            "scrambleRu": "Тёплые флисовые худи — наши бестселлеры зимой."
           },
           {
             "blankSentence": "This jacket has a soft ___ lining.",
             "quizAnswer": "fleece",
-            "scrambleSentence": "I love this fleece, it's so soft!"
+            "scrambleSentence": "I love this fleece, it's so soft!",
+            "scrambleRu": "Обожаю этот флис, он такой мягкий!"
           },
           {
             "blankSentence": "We ordered more ___ for the winter kidswear line.",
             "quizAnswer": "fleece",
-            "scrambleSentence": "Customers look for fleece jackets as soon as it gets cold."
+            "scrambleSentence": "Customers look for fleece jackets as soon as it gets cold.",
+            "scrambleRu": "Покупатели ищут флисовые куртки, как только холодает."
           }
         ],
         "style": 50,
@@ -3874,17 +3895,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We plan to ___ modern sportswear.",
             "quizAnswer": "sell",
-            "scrambleSentence": "We plan to sell modern sportswear online."
+            "scrambleSentence": "We plan to sell modern sportswear online.",
+            "scrambleRu": "Мы планируем продавать современную спортивную одежду онлайн."
           },
           {
             "blankSentence": "Our online ___ grew fast this month.",
             "quizAnswer": "sales",
-            "scrambleSentence": "We sell everything online now!"
+            "scrambleSentence": "We sell everything online now!",
+            "scrambleRu": "Мы теперь всё продаём онлайн!"
           },
           {
             "blankSentence": "The new coat ___ very well in the kids' department.",
             "quizAnswer": "sells",
-            "scrambleSentence": "Sales in October were twelve percent higher than in September."
+            "scrambleSentence": "Sales in October were twelve percent higher than in September.",
+            "scrambleRu": "Продажи в октябре были на двенадцать процентов выше, чем в сентябре."
           }
         ],
         "style": 50,
@@ -3962,17 +3986,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need more storage ___ in the warehouse for the new denim drop.",
             "quizAnswer": "space",
-            "scrambleSentence": "We need more storage space for the new denim drop."
+            "scrambleSentence": "We need more storage space for the new denim drop.",
+            "scrambleRu": "Нам нужно больше места на складе для новой партии денима."
           },
           {
             "blankSentence": "There is not enough ___ on the shelf for the new bags.",
             "quizAnswer": "space",
-            "scrambleSentence": "Is there any space left in the fitting room?"
+            "scrambleSentence": "Is there any space left in the fitting room?",
+            "scrambleRu": "В примерочной ещё есть свободное место?"
           },
           {
             "blankSentence": "The new store has a lot of ___ for the kids' department.",
             "quizAnswer": "space",
-            "scrambleSentence": "A big window display uses the space in front of the store very well."
+            "scrambleSentence": "A big window display uses the space in front of the store very well.",
+            "scrambleRu": "Большая витрина очень хорошо использует пространство перед магазином."
           }
         ],
         "style": 50,
@@ -4046,17 +4073,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The retail mobile app is very ___ to use.",
             "quizAnswer": "convenient",
-            "scrambleSentence": "The mobile app is convenient, and the tracksuits are comfortable."
+            "scrambleSentence": "The mobile app is convenient, and the tracksuits are comfortable.",
+            "scrambleRu": "Мобильное приложение удобное, а спортивные костюмы комфортные."
           },
           {
             "blankSentence": "Our cotton tracksuits are extremely ___ to wear.",
             "quizAnswer": "comfortable",
-            "scrambleSentence": "Is this time convenient for you?"
+            "scrambleSentence": "Is this time convenient for you?",
+            "scrambleRu": "Тебе удобно это время?"
           },
           {
             "blankSentence": "The new store is in a ___ place, next to the metro.",
             "quizAnswer": "convenient",
-            "scrambleSentence": "Customers want comfortable clothes that they can wear all day."
+            "scrambleSentence": "Customers want comfortable clothes that they can wear all day.",
+            "scrambleRu": "Покупатели хотят удобную одежду, которую можно носить весь день."
           }
         ],
         "style": 50,
@@ -4132,17 +4162,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The design team is ___ the new spring clothing lineup.",
             "quizAnswer": "working on",
-            "scrambleSentence": "The design team is working on the new spring lineup."
+            "scrambleSentence": "The design team is working on the new spring lineup.",
+            "scrambleRu": "Команда дизайнеров работает над новой весенней линейкой."
           },
           {
             "blankSentence": "I need to ___ the sales report before Friday.",
             "quizAnswer": "work on",
-            "scrambleSentence": "I'm working on it right now!"
+            "scrambleSentence": "I'm working on it right now!",
+            "scrambleRu": "Я прямо сейчас над этим работаю!"
           },
           {
             "blankSentence": "Which product are you ___ now?",
             "quizAnswer": "working on",
-            "scrambleSentence": "We worked on this collection for almost a year."
+            "scrambleSentence": "We worked on this collection for almost a year.",
+            "scrambleRu": "Мы работали над этой коллекцией почти год."
           }
         ],
         "style": 40,
@@ -4219,17 +4252,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Minimalist cuts and natural fabrics are at the core of our ___.",
             "quizAnswer": "brand DNA",
-            "scrambleSentence": "Minimalist cuts and natural fabrics are at the core of our brand DNA."
+            "scrambleSentence": "Minimalist cuts and natural fabrics are at the core of our brand DNA.",
+            "scrambleRu": "Минималистичный крой и натуральные ткани лежат в основе ДНК нашего бренда."
           },
           {
             "blankSentence": "Every new collection must follow our ___.",
             "quizAnswer": "brand DNA",
-            "scrambleSentence": "That bright print is not our brand DNA!"
+            "scrambleSentence": "That bright print is not our brand DNA!",
+            "scrambleRu": "Этот яркий принт — не ДНК нашего бренда!"
           },
           {
             "blankSentence": "The new designer understands our ___ very well.",
             "quizAnswer": "brand DNA",
-            "scrambleSentence": "Quality and simple design are part of our brand DNA."
+            "scrambleSentence": "Quality and simple design are part of our brand DNA.",
+            "scrambleRu": "Качество и простой дизайн — часть ДНК нашего бренда."
           }
         ],
         "style": 50,
@@ -4303,17 +4339,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "A ___ English knowledge made communication with foreign fabric factories challenging.",
             "quizAnswer": "lack of",
-            "scrambleSentence": "A lack of English made talks with the factory difficult."
+            "scrambleSentence": "A lack of English made talks with the factory difficult.",
+            "scrambleRu": "Из-за нехватки английского переговоры с фабрикой были трудными."
           },
           {
             "blankSentence": "The delay was caused by a ___ materials.",
             "quizAnswer": "lack of",
-            "scrambleSentence": "There's a lack of time!"
+            "scrambleSentence": "There's a lack of time!",
+            "scrambleRu": "Не хватает времени!"
           },
           {
             "blankSentence": "There is a ___ space in the stockroom.",
             "quizAnswer": "lack of",
-            "scrambleSentence": "A lack of communication between teams caused the mistake."
+            "scrambleSentence": "A lack of communication between teams caused the mistake.",
+            "scrambleRu": "Нехватка общения между командами привела к ошибке."
           }
         ],
         "style": 50,
@@ -4397,17 +4436,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Slow delivery from the factory is an ___ problem for our product team.",
             "quizAnswer": "annoying",
-            "scrambleSentence": "Late delivery from the supplier is an annoying problem for us."
+            "scrambleSentence": "Late delivery from the supplier is an annoying problem for us.",
+            "scrambleRu": "Задержка поставки от поставщика — досадная проблема для нас."
           },
           {
             "blankSentence": "It is ___ when the system stops during a sales report.",
             "quizAnswer": "annoying",
-            "scrambleSentence": "Ugh, this printer is so annoying!"
+            "scrambleSentence": "Ugh, this printer is so annoying!",
+            "scrambleRu": "Фу, этот принтер такой раздражающий!"
           },
           {
             "blankSentence": "The noise in the open space office is really ___.",
             "quizAnswer": "annoying",
-            "scrambleSentence": "The constant changes in the schedule are annoying for the whole team."
+            "scrambleSentence": "The constant changes in the schedule are annoying for the whole team.",
+            "scrambleRu": "Постоянные изменения в графике раздражают всю команду."
           }
         ],
         "style": 45,
@@ -4484,17 +4526,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We decided to use ___ fabric for both women's and children's collections.",
             "quizAnswer": "the same",
-            "scrambleSentence": "We use the same fabric for both collections."
+            "scrambleSentence": "We use the same fabric for both collections.",
+            "scrambleRu": "Мы используем одну и ту же ткань для обеих коллекций."
           },
           {
             "blankSentence": "Both jackets cost ___.",
             "quizAnswer": "the same",
-            "scrambleSentence": "We have the same bag! Funny!"
+            "scrambleSentence": "We have the same bag! Funny!",
+            "scrambleRu": "У нас одинаковые сумки! Смешно!"
           },
           {
             "blankSentence": "My colleague and I have ___ job title.",
             "quizAnswer": "the same",
-            "scrambleSentence": "All our stores use the same price tags."
+            "scrambleSentence": "All our stores use the same price tags.",
+            "scrambleRu": "Во всех наших магазинах одинаковые ценники."
           }
         ],
         "style": 50,
@@ -4569,17 +4614,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Checking customer reviews every morning is an important ___ for a product manager.",
             "quizAnswer": "routine",
-            "scrambleSentence": "Checking reviews is a good morning routine."
+            "scrambleSentence": "Checking reviews is a good morning routine.",
+            "scrambleRu": "Проверка отзывов — хорошая утренняя рутина."
           },
           {
             "blankSentence": "My morning ___ starts with a cup of coffee.",
             "quizAnswer": "routine",
-            "scrambleSentence": "I'm trying to get into a routine!"
+            "scrambleSentence": "I'm trying to get into a routine!",
+            "scrambleRu": "Я пытаюсь втянуться в режим!"
           },
           {
             "blankSentence": "A clear ___ helps the team finish tasks on time.",
             "quizAnswer": "routine",
-            "scrambleSentence": "The weekly sales meeting is a regular routine for our department."
+            "scrambleSentence": "The weekly sales meeting is a regular routine for our department.",
+            "scrambleRu": "Еженедельная встреча по продажам — обычная рутина для нашего отдела."
           }
         ],
         "style": 45,
@@ -4656,17 +4704,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need to ___ why customers return this jacket model so often.",
             "quizAnswer": "find out",
-            "scrambleSentence": "We need to find out why customers return this jacket."
+            "scrambleSentence": "We need to find out why customers return this jacket.",
+            "scrambleRu": "Нам нужно выяснить, почему покупатели возвращают эту куртку."
           },
           {
             "blankSentence": "I'll ___ when the new samples arrive.",
             "quizAnswer": "find out",
-            "scrambleSentence": "I want to find out who made this!"
+            "scrambleSentence": "I want to find out who made this!",
+            "scrambleRu": "Я хочу выяснить, кто это сделал!"
           },
           {
             "blankSentence": "Can you ___ the price of this fabric?",
             "quizAnswer": "find out",
-            "scrambleSentence": "We found out that the supplier had changed the fabric."
+            "scrambleSentence": "We found out that the supplier had changed the fabric.",
+            "scrambleRu": "Мы выяснили, что поставщик поменял ткань."
           }
         ],
         "style": 40,
@@ -4743,17 +4794,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "___ are a big fashion trend in our autumn footwear collection.",
             "quizAnswer": "Cowboy boots",
-            "scrambleSentence": "Cowboy boots are a big trend this autumn."
+            "scrambleSentence": "Cowboy boots are a big trend this autumn.",
+            "scrambleRu": "Казаки — большой тренд этой осени."
           },
           {
             "blankSentence": "These ___ go well with a long dress.",
             "quizAnswer": "cowboy boots",
-            "scrambleSentence": "I just bought cowboy boots!"
+            "scrambleSentence": "I just bought cowboy boots!",
+            "scrambleRu": "Я только что купил казаки!"
           },
           {
             "blankSentence": "Sales of ___ doubled this autumn.",
             "quizAnswer": "cowboy boots",
-            "scrambleSentence": "Leather cowboy boots are one of our best-selling shoes this season."
+            "scrambleSentence": "Leather cowboy boots are one of our best-selling shoes this season.",
+            "scrambleRu": "Кожаные казаки — одна из самых продаваемых моделей обуви в этом сезоне."
           }
         ],
         "style": 55,
@@ -4825,17 +4879,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We added a warm ___ sweater to the autumn clothing line.",
             "quizAnswer": "mustard",
-            "scrambleSentence": "We added a warm mustard sweater to the autumn line."
+            "scrambleSentence": "We added a warm mustard sweater to the autumn line.",
+            "scrambleRu": "Мы добавили в осеннюю линейку тёплый горчичный свитер."
           },
           {
             "blankSentence": "This ___ colour looks great with a dark blue coat.",
             "quizAnswer": "mustard",
-            "scrambleSentence": "I love this mustard jacket!"
+            "scrambleSentence": "I love this mustard jacket!",
+            "scrambleRu": "Обожаю эту горчичную куртку!"
           },
           {
             "blankSentence": "Customers asked for the scarf in ___.",
             "quizAnswer": "mustard",
-            "scrambleSentence": "Mustard is one of the most popular colours for autumn knitwear."
+            "scrambleSentence": "Mustard is one of the most popular colours for autumn knitwear.",
+            "scrambleRu": "Горчичный — один из самых популярных цветов для осеннего трикотажа."
           }
         ],
         "style": 50,
@@ -4909,17 +4966,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "___ our budget went into buying high-quality fabrics.",
             "quizAnswer": "The biggest part of",
-            "scrambleSentence": "The biggest part of our budget went into fabrics."
+            "scrambleSentence": "The biggest part of our budget went into fabrics.",
+            "scrambleRu": "Основная часть нашего бюджета ушла на ткани."
           },
           {
             "blankSentence": "___ our sales comes from the online store.",
             "quizAnswer": "The biggest part of",
-            "scrambleSentence": "The biggest part of my day is meetings!"
+            "scrambleSentence": "The biggest part of my day is meetings!",
+            "scrambleRu": "Бо́льшая часть моего дня — это встречи!"
           },
           {
             "blankSentence": "___ the team works from the office.",
             "quizAnswer": "The biggest part of",
-            "scrambleSentence": "The biggest part of our customers are women between 25 and 40."
+            "scrambleSentence": "The biggest part of our customers are women between 25 and 40.",
+            "scrambleRu": "Бо́льшая часть наших покупателей — женщины от 25 до 40 лет."
           }
         ],
         "style": 50,
@@ -4993,17 +5053,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Dresses in ___ color sell much better during the holiday season.",
             "quizAnswer": "wine",
-            "scrambleSentence": "Dresses in wine color sell much better in winter."
+            "scrambleSentence": "Dresses in wine color sell much better in winter.",
+            "scrambleRu": "Платья винного цвета зимой продаются намного лучше."
           },
           {
             "blankSentence": "We chose a ___ bag to match the winter coat.",
             "quizAnswer": "burgundy",
-            "scrambleSentence": "I love your burgundy bag!"
+            "scrambleSentence": "I love your burgundy bag!",
+            "scrambleRu": "Обожаю твою бордовую сумку!"
           },
           {
             "blankSentence": "Dark red shades like ___ and burgundy are very popular in autumn.",
             "quizAnswer": "wine",
-            "scrambleSentence": "A wine colour coat is a classic choice for the cold season."
+            "scrambleSentence": "A wine colour coat is a classic choice for the cold season.",
+            "scrambleRu": "Пальто винного цвета — классический выбор для холодного сезона."
           }
         ],
         "style": 50,
@@ -5079,17 +5142,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "This floral ___ looks great on our new summer dresses.",
             "quizAnswer": "pattern",
-            "scrambleSentence": "This floral pattern looks great on our summer dresses."
+            "scrambleSentence": "This floral pattern looks great on our summer dresses.",
+            "scrambleRu": "Этот цветочный принт отлично смотрится на наших летних платьях."
           },
           {
             "blankSentence": "The kids' T-shirts have a fun animal ___.",
             "quizAnswer": "pattern",
-            "scrambleSentence": "I love the pattern on this scarf!"
+            "scrambleSentence": "I love the pattern on this scarf!",
+            "scrambleRu": "Обожаю принт на этом шарфе!"
           },
           {
             "blankSentence": "Customers prefer a simple ___ to a busy one.",
             "quizAnswer": "pattern",
-            "scrambleSentence": "The striped pattern is very popular in the men's collection."
+            "scrambleSentence": "The striped pattern is very popular in the men's collection.",
+            "scrambleRu": "Полосатый принт очень популярен в мужской коллекции."
           }
         ],
         "style": 50,
@@ -5165,17 +5231,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Customers love ___ colors for children's sportswear.",
             "quizAnswer": "bright",
-            "scrambleSentence": "Customers love bright colors for children's clothes."
+            "scrambleSentence": "Customers love bright colors for children's clothes.",
+            "scrambleRu": "Покупатели любят яркие цвета в детской одежде."
           },
           {
             "blankSentence": "The store window has a ___ red display this week.",
             "quizAnswer": "bright",
-            "scrambleSentence": "Wow, this color is so bright!"
+            "scrambleSentence": "Wow, this color is so bright!",
+            "scrambleRu": "Ого, этот цвет такой яркий!"
           },
           {
             "blankSentence": "She wore a ___ yellow jacket to the meeting.",
             "quizAnswer": "bright",
-            "scrambleSentence": "Bright colours attract attention in a busy shop."
+            "scrambleSentence": "Bright colours attract attention in a busy shop.",
+            "scrambleRu": "Яркие цвета привлекают внимание в оживлённом магазине."
           }
         ],
         "style": 50,
@@ -5253,17 +5322,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our company is launching a comfortable new line of women's ___.",
             "quizAnswer": "sportswear",
-            "scrambleSentence": "Our company is launching a new line of women's sportswear."
+            "scrambleSentence": "Our company is launching a new line of women's sportswear.",
+            "scrambleRu": "Наша компания запускает новую линейку женской спортивной одежды."
           },
           {
             "blankSentence": "___ sales grow every spring.",
             "quizAnswer": "Sportswear",
-            "scrambleSentence": "I wear sportswear to the office on Fridays!"
+            "scrambleSentence": "I wear sportswear to the office on Fridays!",
+            "scrambleRu": "Я хожу в спортивной одежде в офис по пятницам!"
           },
           {
             "blankSentence": "We sell both everyday clothes and ___.",
             "quizAnswer": "sportswear",
-            "scrambleSentence": "Demand for comfortable sportswear has grown a lot in recent years."
+            "scrambleSentence": "Demand for comfortable sportswear has grown a lot in recent years.",
+            "scrambleRu": "Спрос на удобную спортивную одежду сильно вырос за последние годы."
           }
         ],
         "style": 50,
@@ -5337,17 +5409,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "You can ___ a simple T-shirt underneath this warm jacket.",
             "quizAnswer": "layer",
-            "scrambleSentence": "You can layer a simple T-shirt under this warm jacket."
+            "scrambleSentence": "You can layer a simple T-shirt under this warm jacket.",
+            "scrambleRu": "Можно надеть простую футболку под эту тёплую куртку."
           },
           {
             "blankSentence": "In autumn, it is smart to ___ your clothes.",
             "quizAnswer": "layer",
-            "scrambleSentence": "I always layer when it's cold!"
+            "scrambleSentence": "I always layer when it's cold!",
+            "scrambleRu": "Когда холодно, я всегда одеваюсь слоями!"
           },
           {
             "blankSentence": "Customers like to ___ a light shirt under a sweater.",
             "quizAnswer": "layer",
-            "scrambleSentence": "Our new collection is designed to be layered easily."
+            "scrambleSentence": "Our new collection is designed to be layered easily.",
+            "scrambleRu": "Наша новая коллекция создана так, чтобы её легко было носить слоями."
           }
         ],
         "style": 50,
@@ -5428,17 +5503,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The product manager must ___ which winter coat designs to send into production.",
             "quizAnswer": "decide",
-            "scrambleSentence": "The product manager must decide which winter coat designs to send into production."
+            "scrambleSentence": "The product manager must decide which winter coat designs to send into production.",
+            "scrambleRu": "Менеджеру продукта нужно решить, какие модели зимних пальто запускать в производство."
           },
           {
             "blankSentence": "We need to ___ which colours to use for the kids' spring collection.",
             "quizAnswer": "decide",
-            "scrambleSentence": "I just can't decide which jacket to choose!"
+            "scrambleSentence": "I just can't decide which jacket to choose!",
+            "scrambleRu": "Я просто не могу решить, какую куртку выбрать!"
           },
           {
             "blankSentence": "It is hard to ___ between two great fabric samples.",
             "quizAnswer": "decide",
-            "scrambleSentence": "In the end, the team decided to launch the line a week earlier."
+            "scrambleSentence": "In the end, the team decided to launch the line a week earlier.",
+            "scrambleRu": "В итоге команда решила запустить линейку на неделю раньше."
           }
         ],
         "style": 50,
@@ -5516,17 +5594,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our retail team is ___ visiting textile factories across the country.",
             "quizAnswer": "on the road",
-            "scrambleSentence": "Our retail team is on the road visiting textile factories across the country."
+            "scrambleSentence": "Our retail team is on the road visiting textile factories across the country.",
+            "scrambleRu": "Наша команда в разъездах: посещает текстильные фабрики по всей стране."
           },
           {
             "blankSentence": "I'm ___ all week, so let's talk by phone.",
             "quizAnswer": "on the road",
-            "scrambleSentence": "Sorry, I'm on the road right now. Can I call you back?"
+            "scrambleSentence": "Sorry, I'm on the road right now. Can I call you back?",
+            "scrambleRu": "Извини, я сейчас в дороге. Могу перезвонить тебе?"
           },
           {
             "blankSentence": "Buyers are often ___ before the new season starts.",
             "quizAnswer": "on the road",
-            "scrambleSentence": "She spends half of the year on the road, meeting suppliers and attending fashion fairs."
+            "scrambleSentence": "She spends half of the year on the road, meeting suppliers and attending fashion fairs.",
+            "scrambleRu": "Она половину года проводит в разъездах: встречается с поставщиками и ездит на выставки моды."
           }
         ],
         "style": 35,
@@ -5602,17 +5683,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Customers are ___ to see our new sustainable clothing materials.",
             "quizAnswer": "curious",
-            "scrambleSentence": "Customers are curious to see our new sustainable clothing materials."
+            "scrambleSentence": "Customers are curious to see our new sustainable clothing materials.",
+            "scrambleRu": "Покупателям любопытно увидеть наши новые экологичные материалы."
           },
           {
             "blankSentence": "I'm ___ about how the kids' line is selling this week.",
             "quizAnswer": "curious",
-            "scrambleSentence": "I'm really curious to know what you think of it."
+            "scrambleSentence": "I'm really curious to know what you think of it.",
+            "scrambleRu": "Мне очень любопытно, что ты об этом думаешь."
           },
           {
             "blankSentence": "The designers were ___ to find out what the buyers thought.",
             "quizAnswer": "curious",
-            "scrambleSentence": "A curious customer asked how the jacket is recycled."
+            "scrambleSentence": "A curious customer asked how the jacket is recycled.",
+            "scrambleRu": "Любопытный покупатель спросил, как перерабатывают куртку."
           }
         ],
         "style": 55,
@@ -5689,17 +5773,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Producing jackets with real down is too ___ for this mass-market line.",
             "quizAnswer": "expensive",
-            "scrambleSentence": "Producing jackets with real down is too expensive for this mass-market line."
+            "scrambleSentence": "Producing jackets with real down is too expensive for this mass-market line.",
+            "scrambleRu": "Производить куртки с настоящим пухом слишком дорого для этой массовой линейки."
           },
           {
             "blankSentence": "That coat looks beautiful, but it is ___ for our customers.",
             "quizAnswer": "expensive",
-            "scrambleSentence": "Wow, that bag is so expensive!"
+            "scrambleSentence": "Wow, that bag is so expensive!",
+            "scrambleRu": "Ого, эта сумка такая дорогая!"
           },
           {
             "blankSentence": "The fabric is ___, so we should look for a cheaper supplier.",
             "quizAnswer": "expensive",
-            "scrambleSentence": "Expensive packaging does not always attract more customers."
+            "scrambleSentence": "Expensive packaging does not always attract more customers.",
+            "scrambleRu": "Дорогая упаковка не всегда привлекает больше покупателей."
           }
         ],
         "style": 40,
@@ -5777,17 +5864,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need to ___ the retail price before launching the new collection.",
             "quizAnswer": "agree on",
-            "scrambleSentence": "We need to agree on the retail price before launching the new collection."
+            "scrambleSentence": "We need to agree on the retail price before launching the new collection.",
+            "scrambleRu": "Нам нужно договориться о розничной цене до запуска новой коллекции."
           },
           {
             "blankSentence": "Let's ___ a date for the photo shoot today.",
             "quizAnswer": "agree on",
-            "scrambleSentence": "Can we agree on a meeting time?"
+            "scrambleSentence": "Can we agree on a meeting time?",
+            "scrambleRu": "Можем ли мы договориться о времени встречи?"
           },
           {
             "blankSentence": "The buyers and the factory finally ___ the delivery terms.",
             "quizAnswer": "agreed on",
-            "scrambleSentence": "The two companies agreed on a joint kids' collection."
+            "scrambleSentence": "The two companies agreed on a joint kids' collection.",
+            "scrambleRu": "Две компании договорились о совместной детской коллекции."
           }
         ],
         "style": 50,
@@ -5864,17 +5954,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The design team ___ the need for brighter colors in the summer line.",
             "quizAnswer": "agrees about",
-            "scrambleSentence": "The design team agrees about the need for brighter colors in the summer line."
+            "scrambleSentence": "The design team agrees about the need for brighter colors in the summer line.",
+            "scrambleRu": "Команда дизайнеров согласна, что в летней линейке нужны более яркие цвета."
           },
           {
             "blankSentence": "We all ___ the problem with the delivery times.",
             "quizAnswer": "agree about",
-            "scrambleSentence": "We totally agree about this, don't we?"
+            "scrambleSentence": "We totally agree about this, don't we?",
+            "scrambleRu": "Мы полностью с этим согласны, правда?"
           },
           {
             "blankSentence": "The sales team does not ___ which product is more important.",
             "quizAnswer": "agree about",
-            "scrambleSentence": "Most customers agree about the quality of our denim."
+            "scrambleSentence": "Most customers agree about the quality of our denim.",
+            "scrambleRu": "Большинство покупателей сходятся во мнении о качестве нашего денима."
           }
         ],
         "style": 50,
@@ -5949,17 +6042,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "I completely ___ the store manager about our sizing problems.",
             "quizAnswer": "agree with",
-            "scrambleSentence": "I completely agree with the store manager about our sizing problems."
+            "scrambleSentence": "I completely agree with the store manager about our sizing problems.",
+            "scrambleRu": "Я полностью согласна с менеджером магазина насчёт наших проблем с размерами."
           },
           {
             "blankSentence": "Do you ___ her idea to move the sale to November?",
             "quizAnswer": "agree with",
-            "scrambleSentence": "Yeah, I totally agree with you."
+            "scrambleSentence": "Yeah, I totally agree with you.",
+            "scrambleRu": "Да, я полностью с тобой согласен."
           },
           {
             "blankSentence": "I don't ___ this decision, but I will support it.",
             "quizAnswer": "agree with",
-            "scrambleSentence": "Most of our colleagues agree with the proposed changes."
+            "scrambleSentence": "Most of our colleagues agree with the proposed changes.",
+            "scrambleRu": "Большинство наших коллег согласны с предложенными изменениями."
           }
         ],
         "style": 50,
@@ -6034,17 +6130,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The product manager used simple sketches to ___ to the suppliers.",
             "quizAnswer": "get her ideas across",
-            "scrambleSentence": "The product manager used simple sketches to get her ideas across to the suppliers."
+            "scrambleSentence": "The product manager used simple sketches to get her ideas across to the suppliers.",
+            "scrambleRu": "Менеджер продукта использовала простые наброски, чтобы донести свои идеи до поставщиков."
           },
           {
             "blankSentence": "It is not easy to ___ in a second language.",
             "quizAnswer": "get your ideas across",
-            "scrambleSentence": "I'm having trouble getting my ideas across to him."
+            "scrambleSentence": "I'm having trouble getting my ideas across to him.",
+            "scrambleRu": "Мне трудно донести до него свои идеи."
           },
           {
             "blankSentence": "She found a clever way to ___ to the whole team.",
             "quizAnswer": "get the idea across",
-            "scrambleSentence": "Good design should get the message across without a single word."
+            "scrambleSentence": "Good design should get the message across without a single word.",
+            "scrambleRu": "Хороший дизайн должен передавать сообщение без единого слова."
           }
         ],
         "style": 45,
@@ -6125,17 +6224,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We ___ top fabric manufacturers to produce our autumn collection.",
             "quizAnswer": "cooperate with",
-            "scrambleSentence": "We cooperate with top fabric manufacturers to produce our autumn collection."
+            "scrambleSentence": "We cooperate with top fabric manufacturers to produce our autumn collection.",
+            "scrambleRu": "Мы сотрудничаем с лучшими производителями тканей, чтобы выпускать нашу осеннюю коллекцию."
           },
           {
             "blankSentence": "The brand wants to ___ young designers on the kids' capsule.",
             "quizAnswer": "cooperate with",
-            "scrambleSentence": "We've always cooperated with them, and it works great."
+            "scrambleSentence": "We've always cooperated with them, and it works great.",
+            "scrambleRu": "Мы всегда с ними сотрудничали, и это отлично работает."
           },
           {
             "blankSentence": "It is much easier to work when everyone is ready to ___ the team.",
             "quizAnswer": "cooperate with",
-            "scrambleSentence": "Our brand cooperates with artists for limited-edition collections."
+            "scrambleSentence": "Our brand cooperates with artists for limited-edition collections.",
+            "scrambleRu": "Наш бренд сотрудничает с художниками для коллекций ограниченным тиражом."
           }
         ],
         "style": 55,
@@ -6213,17 +6315,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Her expertise in kids' fashion ___ the success of the new line.",
             "quizAnswer": "contributed to",
-            "scrambleSentence": "Her expertise in kids' fashion contributed greatly to the success of the new line."
+            "scrambleSentence": "Her expertise in kids' fashion contributed greatly to the success of the new line.",
+            "scrambleRu": "Её опыт в детской моде сильно помог успеху новой линейки."
           },
           {
             "blankSentence": "Every member of the team should ___ the discussion.",
             "quizAnswer": "contribute to",
-            "scrambleSentence": "Everyone contributed to the project in their own way."
+            "scrambleSentence": "Everyone contributed to the project in their own way.",
+            "scrambleRu": "Каждый внёс свой вклад в проект по-своему."
           },
           {
             "blankSentence": "Bad packaging can ___ a high return rate.",
             "quizAnswer": "contribute to",
-            "scrambleSentence": "Strong teamwork contributes to better results."
+            "scrambleSentence": "Strong teamwork contributes to better results.",
+            "scrambleRu": "Сильная командная работа способствует лучшим результатам."
           }
         ],
         "style": 55,
@@ -6304,17 +6409,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "After two days of negotiations, we ___ on the shipping terms.",
             "quizAnswer": "reached agreement",
-            "scrambleSentence": "After two days of negotiations, we reached agreement on the shipping terms."
+            "scrambleSentence": "After two days of negotiations, we reached agreement on the shipping terms.",
+            "scrambleRu": "После двух дней переговоров мы договорились об условиях доставки."
           },
           {
             "blankSentence": "It took weeks to ___ with the supplier.",
             "quizAnswer": "reach agreement",
-            "scrambleSentence": "Great news — we reached an agreement with the factory!"
+            "scrambleSentence": "Great news — we reached an agreement with the factory!",
+            "scrambleRu": "Отличные новости — мы заключили соглашение с фабрикой!"
           },
           {
             "blankSentence": "If we cannot ___ today, we will meet again tomorrow.",
             "quizAnswer": "reach agreement",
-            "scrambleSentence": "After a long discussion, the board reached agreement on the budget."
+            "scrambleSentence": "After a long discussion, the board reached agreement on the budget.",
+            "scrambleRu": "После долгого обсуждения совет директоров пришёл к согласию по бюджету."
           }
         ],
         "style": 45,
@@ -6393,17 +6501,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The design team showed true ___ by finishing the dress patterns ahead of schedule.",
             "quizAnswer": "commitment",
-            "scrambleSentence": "The design team showed true commitment by finishing the dress patterns ahead of schedule."
+            "scrambleSentence": "The design team showed true commitment by finishing the dress patterns ahead of schedule.",
+            "scrambleRu": "Команда дизайнеров проявила настоящую преданность делу, закончив выкройки платьев раньше срока."
           },
           {
             "blankSentence": "We are looking for people who ___ to the brand.",
             "quizAnswer": "show commitment",
-            "scrambleSentence": "I really admire her commitment to the project."
+            "scrambleSentence": "I really admire her commitment to the project.",
+            "scrambleRu": "Я искренне восхищаюсь её преданностью проекту."
           },
           {
             "blankSentence": "Her ___ to quality is the reason why customers trust us.",
             "quizAnswer": "commitment",
-            "scrambleSentence": "Her commitment to the team never wavered, even in difficult times."
+            "scrambleSentence": "Her commitment to the team never wavered, even in difficult times.",
+            "scrambleRu": "Её преданность команде не пошатнулась даже в трудные времена."
           }
         ],
         "style": 55,
@@ -6481,17 +6592,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "A product manager needs to ___ when factories make minor pattern errors.",
             "quizAnswer": "show patience",
-            "scrambleSentence": "A product manager needs to show patience when factories make minor pattern errors."
+            "scrambleSentence": "A product manager needs to show patience when factories make minor pattern errors.",
+            "scrambleRu": "Менеджеру продукта нужно проявлять терпение, когда фабрики допускают мелкие ошибки в выкройках."
           },
           {
             "blankSentence": "Working with kids' sizes takes a lot of ___.",
             "quizAnswer": "patience",
-            "scrambleSentence": "You need so much patience to deal with this supplier!"
+            "scrambleSentence": "You need so much patience to deal with this supplier!",
+            "scrambleRu": "Нужно столько терпения, чтобы работать с этим поставщиком!"
           },
           {
             "blankSentence": "Thank you for your ___ while we check your order.",
             "quizAnswer": "patience",
-            "scrambleSentence": "She showed great patience with every difficult client."
+            "scrambleSentence": "She showed great patience with every difficult client.",
+            "scrambleRu": "Она проявляла огромное терпение с каждым трудным клиентом."
           }
         ],
         "style": 40,
@@ -6571,17 +6685,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We have complete ___ in our suppliers to maintain high fabric quality.",
             "quizAnswer": "trust",
-            "scrambleSentence": "We have complete trust in our suppliers to maintain high fabric quality."
+            "scrambleSentence": "We have complete trust in our suppliers to maintain high fabric quality.",
+            "scrambleRu": "Мы полностью доверяем нашим поставщикам в том, что они сохранят высокое качество тканей."
           },
           {
             "blankSentence": "It takes time to ___ with a new factory.",
             "quizAnswer": "build trust",
-            "scrambleSentence": "I have a lot of trust in her."
+            "scrambleSentence": "I have a lot of trust in her.",
+            "scrambleRu": "Я очень ей доверяю."
           },
           {
             "blankSentence": "Customers ___ in the brand because the quality is always the same.",
             "quizAnswer": "have trust",
-            "scrambleSentence": "You can't buy trust — you have to earn it."
+            "scrambleSentence": "You can't buy trust — you have to earn it.",
+            "scrambleRu": "Доверие нельзя купить — его нужно заслужить."
           }
         ],
         "style": 40,
@@ -6668,17 +6785,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "She's got great ___ in sales.",
             "quizAnswer": "competence",
-            "scrambleSentence": "She has great competence in sales and in product planning."
+            "scrambleSentence": "She has great competence in sales and in product planning.",
+            "scrambleRu": "У неё отличная компетентность в продажах и планировании продукта."
           },
           {
             "blankSentence": "Our new store manager showed real ___ when she handled the kids' collection launch.",
             "quizAnswer": "competence",
-            "scrambleSentence": "Honestly, her competence with suppliers is the reason the launch went so smoothly."
+            "scrambleSentence": "Honestly, her competence with suppliers is the reason the launch went so smoothly.",
+            "scrambleRu": "Честно говоря, именно её компетентность в работе с поставщиками сделала запуск таким гладким."
           },
           {
             "blankSentence": "Good product managers need both creativity and ___ with numbers.",
             "quizAnswer": "competence",
-            "scrambleSentence": "Professional competence is built through experience and constant learning."
+            "scrambleSentence": "Professional competence is built through experience and constant learning.",
+            "scrambleRu": "Профессиональная компетентность формируется опытом и постоянным обучением."
           }
         ],
         "style": 80,
@@ -6754,17 +6874,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Let's ___ before the call.",
             "quizAnswer": "touch base",
-            "scrambleSentence": "Let's touch base before the call with the buyers."
+            "scrambleSentence": "Let's touch base before the call with the buyers.",
+            "scrambleRu": "Давай свяжемся перед звонком с закупщиками."
           },
           {
             "blankSentence": "I'll ___ with the design team tomorrow to check the kidswear samples.",
             "quizAnswer": "touch base",
-            "scrambleSentence": "Let's touch base after lunch, okay?"
+            "scrambleSentence": "Let's touch base after lunch, okay?",
+            "scrambleRu": "Давай свяжемся после обеда, хорошо?"
           },
           {
             "blankSentence": "Can we ___ on Friday about the new menswear prices?",
             "quizAnswer": "touch base",
-            "scrambleSentence": "I'll touch base with you once the sales figures are ready."
+            "scrambleSentence": "I'll touch base with you once the sales figures are ready.",
+            "scrambleRu": "Я свяжусь с тобой, как только будут готовы данные по продажам."
           }
         ],
         "style": 30,
@@ -6841,17 +6964,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Let's ___ our current plan.",
             "quizAnswer": "stick with",
-            "scrambleSentence": "Let's stick with our current plan for the new collection."
+            "scrambleSentence": "Let's stick with our current plan for the new collection.",
+            "scrambleRu": "Давай придерживаться нашего текущего плана новой коллекции."
           },
           {
             "blankSentence": "The customers love this jacket, so we should ___ the same supplier.",
             "quizAnswer": "stick with",
-            "scrambleSentence": "Let's just stick with the blue one — it always sells best."
+            "scrambleSentence": "Let's just stick with the blue one — it always sells best.",
+            "scrambleRu": "Давай просто останемся с синим — он всегда продаётся лучше всего."
           },
           {
             "blankSentence": "I think we should ___ the original colour palette for the women's collection.",
             "quizAnswer": "stick with",
-            "scrambleSentence": "Despite the pressure, the team decided to stick with their original idea."
+            "scrambleSentence": "Despite the pressure, the team decided to stick with their original idea.",
+            "scrambleRu": "Несмотря на давление, команда решила придерживаться своей первоначальной идеи."
           }
         ],
         "style": 40,
@@ -6928,17 +7054,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We don't ___ staff without experience.",
             "quizAnswer": "recruit",
-            "scrambleSentence": "We don't recruit staff without experience in fashion retail."
+            "scrambleSentence": "We don't recruit staff without experience in fashion retail.",
+            "scrambleRu": "Мы не нанимаем сотрудников без опыта в модном ритейле."
           },
           {
             "blankSentence": "We need to ___ two more sales assistants before the holiday season.",
             "quizAnswer": "recruit",
-            "scrambleSentence": "We're trying to recruit a good visual merchandiser."
+            "scrambleSentence": "We're trying to recruit a good visual merchandiser.",
+            "scrambleRu": "Мы пытаемся нанять хорошего визуального мерчандайзера."
           },
           {
             "blankSentence": "The brand wants to ___ young designers for its new kids' line.",
             "quizAnswer": "recruit",
-            "scrambleSentence": "Large retail brands recruit thousands of seasonal workers every year."
+            "scrambleSentence": "Large retail brands recruit thousands of seasonal workers every year.",
+            "scrambleRu": "Крупные ритейл-бренды нанимают тысячи сезонных работников каждый год."
           }
         ],
         "style": 70,
@@ -7014,17 +7143,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Don't worry, it's totally ___.",
             "quizAnswer": "doable",
-            "scrambleSentence": "Don't worry, it's totally doable if we start today."
+            "scrambleSentence": "Don't worry, it's totally doable if we start today.",
+            "scrambleRu": "Не волнуйся, это вполне выполнимо, если начать сегодня."
           },
           {
             "blankSentence": "Launching the new kids' collection in three weeks is tight, but it's ___.",
             "quizAnswer": "doable",
-            "scrambleSentence": "Yeah, that's doable, no problem."
+            "scrambleSentence": "Yeah, that's doable, no problem.",
+            "scrambleRu": "Да, это выполнимо, без проблем."
           },
           {
             "blankSentence": "The budget is small, but I think the project is still ___.",
             "quizAnswer": "doable",
-            "scrambleSentence": "The plan is ambitious, yet entirely doable."
+            "scrambleSentence": "The plan is ambitious, yet entirely doable.",
+            "scrambleRu": "План амбициозный, но вполне выполнимый."
           }
         ],
         "style": 30,
@@ -7100,17 +7232,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We always ___ together.",
             "quizAnswer": "have a blast",
-            "scrambleSentence": "We always have a blast together at team events."
+            "scrambleSentence": "We always have a blast together at team events.",
+            "scrambleRu": "Нам всегда очень весело вместе на командных мероприятиях."
           },
           {
             "blankSentence": "The whole team is going to ___ at the brand's summer party.",
             "quizAnswer": "have a blast",
-            "scrambleSentence": "We totally had a blast at the fashion show!"
+            "scrambleSentence": "We totally had a blast at the fashion show!",
+            "scrambleRu": "Нам было невероятно весело на показе мод!"
           },
           {
             "blankSentence": "Kids ___ when they try on the new costumes in our store.",
             "quizAnswer": "have a blast",
-            "scrambleSentence": "The children had a blast at the launch of the new collection."
+            "scrambleSentence": "The children had a blast at the launch of the new collection.",
+            "scrambleRu": "Детям было очень весело на запуске новой коллекции."
           }
         ],
         "style": 15,
@@ -7187,17 +7322,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "She didn't ___ what to buy.",
             "quizAnswer": "decide",
-            "scrambleSentence": "She didn't decide what to buy for the store."
+            "scrambleSentence": "She didn't decide what to buy for the store.",
+            "scrambleRu": "Она не решила, что купить для магазина."
           },
           {
             "blankSentence": "We need to ___ which fabric to use for the new men's shirts.",
             "quizAnswer": "decide",
-            "scrambleSentence": "I can't decide which colour is better."
+            "scrambleSentence": "I can't decide which colour is better.",
+            "scrambleRu": "Я не могу решить, какой цвет лучше."
           },
           {
             "blankSentence": "I can't ___ between the red and the green dress.",
             "quizAnswer": "decide",
-            "scrambleSentence": "After a long discussion, the team decided to postpone the launch."
+            "scrambleSentence": "After a long discussion, the team decided to postpone the launch.",
+            "scrambleRu": "После долгого обсуждения команда решила отложить запуск."
           }
         ],
         "style": 50,
@@ -7274,17 +7412,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We'll start the project ___.",
             "quizAnswer": "in two weeks",
-            "scrambleSentence": "We'll start the project in two weeks with the new brand team."
+            "scrambleSentence": "We'll start the project in two weeks with the new brand team.",
+            "scrambleRu": "Мы начнём проект через две недели с новой командой бренда."
           },
           {
             "blankSentence": "The new autumn collection arrives in the stores ___.",
             "quizAnswer": "in two weeks",
-            "scrambleSentence": "I'll send you the updated plan in two weeks, okay?"
+            "scrambleSentence": "I'll send you the updated plan in two weeks, okay?",
+            "scrambleRu": "Я пришлю тебе обновлённый план через две недели, хорошо?"
           },
           {
             "blankSentence": "Let's review the sales results again ___.",
             "quizAnswer": "in two weeks",
-            "scrambleSentence": "The kids' collection will be available in all stores in two weeks."
+            "scrambleSentence": "The kids' collection will be available in all stores in two weeks.",
+            "scrambleRu": "Детская коллекция появится во всех магазинах через две недели."
           }
         ],
         "style": 50,
@@ -7364,17 +7505,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The CEO gave a short ___ about the new fashion collection.",
             "quizAnswer": "speech",
-            "scrambleSentence": "The CEO gave a short speech about the new fashion collection."
+            "scrambleSentence": "The CEO gave a short speech about the new fashion collection.",
+            "scrambleRu": "Генеральный директор произнёс короткую речь о новой коллекции одежды."
           },
           {
             "blankSentence": "She was nervous before her first ___ in front of the whole brand team.",
             "quizAnswer": "speech",
-            "scrambleSentence": "Her speech at the party was so funny!"
+            "scrambleSentence": "Her speech at the party was so funny!",
+            "scrambleRu": "Её речь на вечеринке была такой смешной!"
           },
           {
             "blankSentence": "The founder's ___ at the opening of the flagship store was very inspiring.",
             "quizAnswer": "speech",
-            "scrambleSentence": "His speech about the future of retail was published online."
+            "scrambleSentence": "His speech about the future of retail was published online.",
+            "scrambleRu": "Его речь о будущем ритейла была опубликована онлайн."
           }
         ],
         "style": 60,
@@ -7451,17 +7595,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our partner factory in Madrid communicates in ___.",
             "quizAnswer": "Spanish",
-            "scrambleSentence": "Our partner factory in Madrid communicates in Spanish."
+            "scrambleSentence": "Our partner factory in Madrid communicates in Spanish.",
+            "scrambleRu": "Наша фабрика-партнёр в Мадриде общается на испанском."
           },
           {
             "blankSentence": "Our buyer speaks fluent ___, so she negotiates with the suppliers in Barcelona.",
             "quizAnswer": "Spanish",
-            "scrambleSentence": "I'm learning Spanish because we work with a lot of Spanish brands."
+            "scrambleSentence": "I'm learning Spanish because we work with a lot of Spanish brands.",
+            "scrambleRu": "Я учу испанский, потому что мы работаем со многими испанскими брендами."
           },
           {
             "blankSentence": "The labels on our new kidswear are printed in English and ___.",
             "quizAnswer": "Spanish",
-            "scrambleSentence": "The brand's website is available in English, French and Spanish."
+            "scrambleSentence": "The brand's website is available in English, French and Spanish.",
+            "scrambleRu": "Сайт бренда доступен на английском, французском и испанском языках."
           }
         ],
         "style": 50,
@@ -7532,17 +7679,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We can use eco-cotton ___ synthetic fabrics.",
             "quizAnswer": "instead of",
-            "scrambleSentence": "We can use eco-cotton instead of synthetic fabrics in the new collection."
+            "scrambleSentence": "We can use eco-cotton instead of synthetic fabrics in the new collection.",
+            "scrambleRu": "В новой коллекции мы можем использовать эко-хлопок вместо синтетических тканей."
           },
           {
             "blankSentence": "Let's launch the kids' line in spring ___ autumn.",
             "quizAnswer": "instead of",
-            "scrambleSentence": "Let's take the black coat instead of the grey one."
+            "scrambleSentence": "Let's take the black coat instead of the grey one.",
+            "scrambleRu": "Давай возьмём чёрное пальто вместо серого."
           },
           {
             "blankSentence": "Many customers now buy second-hand clothes ___ new ones.",
             "quizAnswer": "instead of",
-            "scrambleSentence": "Instead of raising prices, the brand introduced a new budget line."
+            "scrambleSentence": "Instead of raising prices, the brand introduced a new budget line.",
+            "scrambleRu": "Вместо повышения цен бренд запустил новую бюджетную линейку."
           }
         ],
         "style": 50,
@@ -7616,17 +7766,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "___ predict trends for the next season accurately.",
             "quizAnswer": "It is difficult to",
-            "scrambleSentence": "It is difficult to predict trends for the next season accurately."
+            "scrambleSentence": "It is difficult to predict trends for the next season accurately.",
+            "scrambleRu": "Трудно точно предсказать тренды следующего сезона."
           },
           {
             "blankSentence": "___ find the right size for every customer online.",
             "quizAnswer": "It is difficult to",
-            "scrambleSentence": "Honestly, it is difficult to choose between these two designs."
+            "scrambleSentence": "Honestly, it is difficult to choose between these two designs.",
+            "scrambleRu": "Честно говоря, трудно выбрать между этими двумя дизайнами."
           },
           {
             "blankSentence": "___ launch three collections for women, men and kids at the same time.",
             "quizAnswer": "It is difficult to",
-            "scrambleSentence": "It is difficult to maintain high quality when the deadlines are so tight."
+            "scrambleSentence": "It is difficult to maintain high quality when the deadlines are so tight.",
+            "scrambleRu": "Трудно сохранять высокое качество, когда сроки такие сжатые."
           }
         ],
         "style": 50,
@@ -7702,17 +7855,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The new clothing line caught everyone's ___ at the fashion show.",
             "quizAnswer": "attention",
-            "scrambleSentence": "The new clothing line caught everyone's attention at the fashion show."
+            "scrambleSentence": "The new clothing line caught everyone's attention at the fashion show.",
+            "scrambleRu": "Новая линейка одежды привлекла всеобщее внимание на показе мод."
           },
           {
             "blankSentence": "Please pay ___ to the quality of the stitching on these jackets.",
             "quizAnswer": "attention",
-            "scrambleSentence": "Hey, can I have your attention for a second?"
+            "scrambleSentence": "Hey, can I have your attention for a second?",
+            "scrambleRu": "Эй, можно ваше внимание на секунду?"
           },
           {
             "blankSentence": "The brand's new campaign is getting a lot of ___ on social media.",
             "quizAnswer": "attention",
-            "scrambleSentence": "The bright colours immediately attract attention."
+            "scrambleSentence": "The bright colours immediately attract attention.",
+            "scrambleRu": "Яркие цвета сразу привлекают внимание."
           }
         ],
         "style": 50,
@@ -7790,17 +7946,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Delays in fabric delivery will ___ our product launch date.",
             "quizAnswer": "affect",
-            "scrambleSentence": "Delays in fabric delivery will affect our product launch date."
+            "scrambleSentence": "Delays in fabric delivery will affect our product launch date.",
+            "scrambleRu": "Задержки поставки ткани повлияют на дату запуска нашего продукта."
           },
           {
             "blankSentence": "The weather can strongly ___ sales of winter coats.",
             "quizAnswer": "affect",
-            "scrambleSentence": "Don't worry, this won't affect your order."
+            "scrambleSentence": "Don't worry, this won't affect your order.",
+            "scrambleRu": "Не волнуйся, это не повлияет на твой заказ."
           },
           {
             "blankSentence": "A price increase might ___ how customers see our brand.",
             "quizAnswer": "affect",
-            "scrambleSentence": "Rising cotton prices affect the cost of every item in the collection."
+            "scrambleSentence": "Rising cotton prices affect the cost of every item in the collection.",
+            "scrambleRu": "Рост цен на хлопок влияет на себестоимость каждой вещи в коллекции."
           }
         ],
         "style": 60,
@@ -7877,17 +8036,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The product manager listened ___ to the customer feedback.",
             "quizAnswer": "attentively",
-            "scrambleSentence": "The product manager listened attentively to the customer feedback."
+            "scrambleSentence": "The product manager listened attentively to the customer feedback.",
+            "scrambleRu": "Менеджер продукта внимательно выслушал отзывы покупателей."
           },
           {
             "blankSentence": "She read the supplier's contract very ___ before signing it.",
             "quizAnswer": "attentively",
-            "scrambleSentence": "Please listen attentively, this is important."
+            "scrambleSentence": "Please listen attentively, this is important.",
+            "scrambleRu": "Пожалуйста, слушайте внимательно, это важно."
           },
           {
             "blankSentence": "The sales assistants watched ___ while the manager explained the new rules.",
             "quizAnswer": "attentively",
-            "scrambleSentence": "The students followed the lecture attentively from start to finish."
+            "scrambleSentence": "The students followed the lecture attentively from start to finish.",
+            "scrambleRu": "Студенты внимательно следили за лекцией от начала до конца."
           }
         ],
         "style": 60,
@@ -7963,17 +8125,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We are ___ planning the autumn collection.",
             "quizAnswer": "in the middle of",
-            "scrambleSentence": "We are in the middle of planning the autumn collection."
+            "scrambleSentence": "We are in the middle of planning the autumn collection.",
+            "scrambleRu": "Мы в процессе планирования осенней коллекции."
           },
           {
             "blankSentence": "The new men's section is ___ the store, so everyone walks past it.",
             "quizAnswer": "in the middle of",
-            "scrambleSentence": "Sorry, I'm in the middle of something right now."
+            "scrambleSentence": "Sorry, I'm in the middle of something right now.",
+            "scrambleRu": "Извини, я сейчас занят чем-то."
           },
           {
             "blankSentence": "I'm ___ a meeting, can I call you back in ten minutes?",
             "quizAnswer": "in the middle of",
-            "scrambleSentence": "The mannequin stands in the middle of the window display."
+            "scrambleSentence": "The mannequin stands in the middle of the window display.",
+            "scrambleRu": "Манекен стоит посередине витрины."
           }
         ],
         "style": 40,
@@ -8050,17 +8215,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our ___ priority is to improve the product quality.",
             "quizAnswer": "main",
-            "scrambleSentence": "Our main priority is to improve the product quality."
+            "scrambleSentence": "Our main priority is to improve the product quality.",
+            "scrambleRu": "Наш главный приоритет — улучшить качество продукта."
           },
           {
             "blankSentence": "The ___ entrance of the store is on the left side of the mall.",
             "quizAnswer": "main",
-            "scrambleSentence": "The main thing is that customers love it."
+            "scrambleSentence": "The main thing is that customers love it.",
+            "scrambleRu": "Главное, что покупателям это нравится."
           },
           {
             "blankSentence": "What is the ___ difference between this jacket and last year's model?",
             "quizAnswer": "main",
-            "scrambleSentence": "The main advantage of this fabric is that it doesn't wrinkle."
+            "scrambleSentence": "The main advantage of this fabric is that it doesn't wrinkle.",
+            "scrambleRu": "Главное преимущество этой ткани в том, что она не мнётся."
           }
         ],
         "style": 50,
@@ -8136,17 +8304,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "This is the jacket ___ was designed in Milan.",
             "quizAnswer": "which",
-            "scrambleSentence": "This is the jacket which was designed in Milan."
+            "scrambleSentence": "This is the jacket which was designed in Milan.",
+            "scrambleRu": "Это куртка, которую разработали в Милане."
           },
           {
             "blankSentence": "___ dress would you choose for the new women's campaign?",
             "quizAnswer": "Which",
-            "scrambleSentence": "That's the bag which I told you about."
+            "scrambleSentence": "That's the bag which I told you about.",
+            "scrambleRu": "Это та сумка, о которой я тебе говорил."
           },
           {
             "blankSentence": "The kids' collection, ___ launches in June, is already selling well.",
             "quizAnswer": "which",
-            "scrambleSentence": "The store, which opened in March, is already profitable."
+            "scrambleSentence": "The store, which opened in March, is already profitable.",
+            "scrambleRu": "Магазин, который открылся в марте, уже приносит прибыль."
           }
         ],
         "style": 50,
@@ -8220,17 +8391,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Can I ___ your fabric samples for the meeting?",
             "quizAnswer": "borrow",
-            "scrambleSentence": "Can I borrow your fabric samples for the meeting?"
+            "scrambleSentence": "Can I borrow your fabric samples for the meeting?",
+            "scrambleRu": "Можно взять твои образцы ткани на встречу?"
           },
           {
             "blankSentence": "Our designer wants to ___ a few vintage jackets for the photo shoot.",
             "quizAnswer": "borrow",
-            "scrambleSentence": "Hey, can I borrow your pen?"
+            "scrambleSentence": "Hey, can I borrow your pen?",
+            "scrambleRu": "Эй, можно одолжить твою ручку?"
           },
           {
             "blankSentence": "Is it okay if I ___ your laptop charger for an hour?",
             "quizAnswer": "borrow",
-            "scrambleSentence": "She borrowed several books from the library about retail trends."
+            "scrambleSentence": "She borrowed several books from the library about retail trends.",
+            "scrambleRu": "Она взяла в библиотеке несколько книг о трендах в ритейле."
           }
         ],
         "style": 30,
@@ -8313,17 +8487,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "It ___ too much to produce these winter jackets in Europe.",
             "quizAnswer": "costs",
-            "scrambleSentence": "This jacket costs less than the old model."
+            "scrambleSentence": "This jacket costs less than the old model.",
+            "scrambleRu": "Эта куртка стоит дешевле, чем старая модель."
           },
           {
             "blankSentence": "How much does this coat ___?",
             "quizAnswer": "cost",
-            "scrambleSentence": "How much did it cost?"
+            "scrambleSentence": "How much did it cost?",
+            "scrambleRu": "Сколько это стоило?"
           },
           {
             "blankSentence": "The mistake ___ the company thousands of dollars.",
             "quizAnswer": "cost",
-            "scrambleSentence": "The delay cost us two important clients."
+            "scrambleSentence": "The delay cost us two important clients.",
+            "scrambleRu": "Задержка стоила нам двух важных клиентов."
           }
         ],
         "style": 40,
@@ -8397,17 +8574,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our product manager is ___ a new fabric supplier for the dress line.",
             "quizAnswer": "looking for",
-            "scrambleSentence": "We are looking for a new designer for the kids' line."
+            "scrambleSentence": "We are looking for a new designer for the kids' line.",
+            "scrambleRu": "Мы ищем нового дизайнера для детской линейки."
           },
           {
             "blankSentence": "I'm ___ a warm jacket for winter.",
             "quizAnswer": "looking for",
-            "scrambleSentence": "I'm looking for my keys!"
+            "scrambleSentence": "I'm looking for my keys!",
+            "scrambleRu": "Я ищу свои ключи!"
           },
           {
             "blankSentence": "What are you ___?",
             "quizAnswer": "looking for",
-            "scrambleSentence": "Customers are looking for sustainable alternatives to fast fashion."
+            "scrambleSentence": "Customers are looking for sustainable alternatives to fast fashion.",
+            "scrambleRu": "Покупатели ищут экологичные альтернативы быстрой моде."
           }
         ],
         "style": 35,
@@ -8484,17 +8664,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The delivery of summer shirts ___ at the warehouse.",
             "quizAnswer": "is stuck",
-            "scrambleSentence": "The shipment is stuck at the customs."
+            "scrambleSentence": "The shipment is stuck at the customs.",
+            "scrambleRu": "Партия застряла на таможне."
           },
           {
             "blankSentence": "I ___ in traffic on the way to the office.",
             "quizAnswer": "got stuck",
-            "scrambleSentence": "I'm totally stuck with this task!"
+            "scrambleSentence": "I'm totally stuck with this task!",
+            "scrambleRu": "Я совсем застрял с этой задачей!"
           },
           {
             "blankSentence": "We ___ and need help with this problem.",
             "quizAnswer": "are stuck",
-            "scrambleSentence": "The container was stuck at the port for three days."
+            "scrambleSentence": "The container was stuck at the port for three days.",
+            "scrambleRu": "Контейнер три дня простоял в порту."
           }
         ],
         "style": 40,
@@ -8574,17 +8757,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Her ideas were a great ___ to the new kids' collection.",
             "quizAnswer": "contribution",
-            "scrambleSentence": "Her contribution to the project was very important."
+            "scrambleSentence": "Her contribution to the project was very important.",
+            "scrambleRu": "Её вклад в проект был очень важным."
           },
           {
             "blankSentence": "Thank you for your ___ to the project.",
             "quizAnswer": "contribution",
-            "scrambleSentence": "Thanks for your contribution!"
+            "scrambleSentence": "Thanks for your contribution!",
+            "scrambleRu": "Спасибо за твой вклад!"
           },
           {
             "blankSentence": "Everyone made a ___ to the team gift.",
             "quizAnswer": "contribution",
-            "scrambleSentence": "Each department made a valuable contribution to the launch."
+            "scrambleSentence": "Each department made a valuable contribution to the launch.",
+            "scrambleRu": "Каждый отдел внёс ценный вклад в запуск."
           }
         ],
         "style": 55,
@@ -8660,17 +8846,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We will review the retail sales data and discuss changes ___.",
             "quizAnswer": "afterward",
-            "scrambleSentence": "We will watch the presentation and ask questions afterward."
+            "scrambleSentence": "We will watch the presentation and ask questions afterward.",
+            "scrambleRu": "Мы посмотрим презентацию, а потом зададим вопросы."
           },
           {
             "blankSentence": "Let's have the meeting first and lunch ___.",
             "quizAnswer": "afterward",
-            "scrambleSentence": "Let's grab a coffee afterward!"
+            "scrambleSentence": "Let's grab a coffee afterward!",
+            "scrambleRu": "Давай потом выпьем кофе!"
           },
           {
             "blankSentence": "She called me a week ___.",
             "quizAnswer": "afterward",
-            "scrambleSentence": "We tested the fabric and shortly afterward placed the order."
+            "scrambleSentence": "We tested the fabric and shortly afterward placed the order.",
+            "scrambleRu": "Мы проверили ткань и вскоре после этого разместили заказ."
           }
         ],
         "style": 40,
@@ -8745,17 +8934,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The main ___ of the new catalog is to increase online orders.",
             "quizAnswer": "purpose",
-            "scrambleSentence": "The purpose of the meeting is to choose the final designs."
+            "scrambleSentence": "The purpose of the meeting is to choose the final designs.",
+            "scrambleRu": "Цель встречи — выбрать окончательные дизайны."
           },
           {
             "blankSentence": "What is the ___ of this meeting?",
             "quizAnswer": "purpose",
-            "scrambleSentence": "What's the purpose of this?"
+            "scrambleSentence": "What's the purpose of this?",
+            "scrambleRu": "В чём смысл этого?"
           },
           {
             "blankSentence": "She did it on ___ to surprise the team.",
             "quizAnswer": "purpose",
-            "scrambleSentence": "The purpose of the report is to analyse the sales of the last quarter."
+            "scrambleSentence": "The purpose of the report is to analyse the sales of the last quarter.",
+            "scrambleRu": "Цель отчёта — проанализировать продажи прошлого квартала."
           }
         ],
         "style": 55,
@@ -8833,17 +9025,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We must plan the winter clothing collection six months ___.",
             "quizAnswer": "in advance",
-            "scrambleSentence": "You should order the samples a month in advance."
+            "scrambleSentence": "You should order the samples a month in advance.",
+            "scrambleRu": "Образцы стоит заказать за месяц."
           },
           {
             "blankSentence": "Please book your tickets ___.",
             "quizAnswer": "in advance",
-            "scrambleSentence": "Thanks in advance!"
+            "scrambleSentence": "Thanks in advance!",
+            "scrambleRu": "Заранее спасибо!"
           },
           {
             "blankSentence": "Thank you ___ for your help.",
             "quizAnswer": "in advance",
-            "scrambleSentence": "The fashion week schedule is published months in advance."
+            "scrambleSentence": "The fashion week schedule is published months in advance.",
+            "scrambleRu": "Расписание недели моды публикуют за несколько месяцев."
           }
         ],
         "style": 50,
@@ -8919,17 +9114,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our team meeting about the autumn clothing line will ___ one hour.",
             "quizAnswer": "last",
-            "scrambleSentence": "The training will last about two hours."
+            "scrambleSentence": "The training will last about two hours.",
+            "scrambleRu": "Обучение продлится около двух часов."
           },
           {
             "blankSentence": "How long does the sale ___?",
             "quizAnswer": "last",
-            "scrambleSentence": "How long will it last?"
+            "scrambleSentence": "How long will it last?",
+            "scrambleRu": "Сколько это будет длиться?"
           },
           {
             "blankSentence": "A good coat should ___ for many years.",
             "quizAnswer": "last",
-            "scrambleSentence": "This fabric is strong and will last for years."
+            "scrambleSentence": "This fabric is strong and will last for years.",
+            "scrambleRu": "Эта ткань прочная и прослужит годами."
           }
         ],
         "style": 40,
@@ -9006,17 +9204,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Customers can buy clothes and track orders directly in our ___.",
             "quizAnswer": "app",
-            "scrambleSentence": "Customers can order clothes directly in our app."
+            "scrambleSentence": "Customers can order clothes directly in our app.",
+            "scrambleRu": "Покупатели могут заказать одежду прямо в нашем приложении."
           },
           {
             "blankSentence": "Download the ___ to get a ten percent discount.",
             "quizAnswer": "app",
-            "scrambleSentence": "Have you tried this app?"
+            "scrambleSentence": "Have you tried this app?",
+            "scrambleRu": "Ты пробовал это приложение?"
           },
           {
             "blankSentence": "Which ___ do you use for learning English?",
             "quizAnswer": "app",
-            "scrambleSentence": "The new app makes shopping faster and more convenient."
+            "scrambleSentence": "The new app makes shopping faster and more convenient.",
+            "scrambleRu": "Новое приложение делает покупки быстрее и удобнее."
           }
         ],
         "style": 25,
@@ -9090,17 +9291,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We sold ___ five hundred women's dresses during the first week.",
             "quizAnswer": "more than",
-            "scrambleSentence": "We sold more than a thousand jackets last month."
+            "scrambleSentence": "We sold more than a thousand jackets last month.",
+            "scrambleRu": "В прошлом месяце мы продали больше тысячи курток."
           },
           {
             "blankSentence": "It costs ___ I expected.",
             "quizAnswer": "more than",
-            "scrambleSentence": "I have more than enough!"
+            "scrambleSentence": "I have more than enough!",
+            "scrambleRu": "У меня более чем достаточно!"
           },
           {
             "blankSentence": "She has worked here for ___ ten years.",
             "quizAnswer": "more than",
-            "scrambleSentence": "Sales increased by more than thirty percent in the first quarter."
+            "scrambleSentence": "Sales increased by more than thirty percent in the first quarter.",
+            "scrambleRu": "В первом квартале продажи выросли более чем на тридцать процентов."
           }
         ],
         "style": 35,
@@ -9176,17 +9380,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The new men's wear collection will arrive in stores at ___.",
             "quizAnswer": "the end of September",
-            "scrambleSentence": "The new collection arrives in stores at the end of September."
+            "scrambleSentence": "The new collection arrives in stores at the end of September.",
+            "scrambleRu": "Новая коллекция поступает в магазины в конце сентября."
           },
           {
             "blankSentence": "We need to finish the report by ___.",
             "quizAnswer": "the end of the week",
-            "scrambleSentence": "See you at the end of the month!"
+            "scrambleSentence": "See you at the end of the month!",
+            "scrambleRu": "Увидимся в конце месяца!"
           },
           {
             "blankSentence": "The sale ends at ___.",
             "quizAnswer": "the end of the month",
-            "scrambleSentence": "The summer sale will be over by the end of August."
+            "scrambleSentence": "The summer sale will be over by the end of August.",
+            "scrambleRu": "Летняя распродажа закончится к концу августа."
           }
         ],
         "style": 40,
@@ -9262,17 +9469,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The factory made a quick ___ to the sewing machines to avoid delays.",
             "quizAnswer": "repair",
-            "scrambleSentence": "The shop offers a free repair for torn jackets."
+            "scrambleSentence": "The shop offers a free repair for torn jackets.",
+            "scrambleRu": "Магазин предлагает бесплатный ремонт порванных курток."
           },
           {
             "blankSentence": "The shop offers free ___ for zippers.",
             "quizAnswer": "repairs",
-            "scrambleSentence": "I need a repair for my bag."
+            "scrambleSentence": "I need a repair for my bag.",
+            "scrambleRu": "Мне нужно починить сумку."
           },
           {
             "blankSentence": "My phone is in for ___.",
             "quizAnswer": "repair",
-            "scrambleSentence": "The repair took only two days."
+            "scrambleSentence": "The repair took only two days.",
+            "scrambleRu": "Ремонт занял всего два дня."
           }
         ],
         "style": 50,
@@ -9349,17 +9559,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The store staff worked an extra ___ during the big seasonal sale.",
             "quizAnswer": "shift",
-            "scrambleSentence": "Our team works in two shifts during the sale."
+            "scrambleSentence": "Our team works in two shifts during the sale.",
+            "scrambleRu": "Во время распродажи наша команда работает в две смены."
           },
           {
             "blankSentence": "I'm on the night ___ this week.",
             "quizAnswer": "shift",
-            "scrambleSentence": "I'm on the early shift tomorrow."
+            "scrambleSentence": "I'm on the early shift tomorrow.",
+            "scrambleRu": "Завтра я в ранней смене."
           },
           {
             "blankSentence": "Her ___ starts at nine and ends at five.",
             "quizAnswer": "shift",
-            "scrambleSentence": "The factory runs in three shifts to meet the demand."
+            "scrambleSentence": "The factory runs in three shifts to meet the demand.",
+            "scrambleRu": "Фабрика работает в три смены, чтобы справиться со спросом."
           }
         ],
         "style": 40,
@@ -9436,17 +9649,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "___ to present the new clothing roadmap to the team.",
             "quizAnswer": "I am ready",
-            "scrambleSentence": "I am ready to start the meeting now."
+            "scrambleSentence": "I am ready to start the meeting now.",
+            "scrambleRu": "Я готов начать встречу прямо сейчас."
           },
           {
             "blankSentence": "Give me five more minutes and ___.",
             "quizAnswer": "I'll be ready",
-            "scrambleSentence": "Okay, I'm ready!"
+            "scrambleSentence": "Okay, I'm ready!",
+            "scrambleRu": "Хорошо, я готова!"
           },
           {
             "blankSentence": "Are you ___ to start?",
             "quizAnswer": "ready",
-            "scrambleSentence": "She said she was ready to take over the project."
+            "scrambleSentence": "She said she was ready to take over the project.",
+            "scrambleRu": "Она сказала, что готова взять проект на себя."
           }
         ],
         "style": 25,
@@ -9524,17 +9740,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "After finishing the clothing release plan, the team can ___.",
             "quizAnswer": "go home",
-            "scrambleSentence": "After the meeting we can all go home."
+            "scrambleSentence": "After the meeting we can all go home.",
+            "scrambleRu": "После встречи мы все можем идти домой."
           },
           {
             "blankSentence": "It's late, let's ___.",
             "quizAnswer": "go home",
-            "scrambleSentence": "I want to go home."
+            "scrambleSentence": "I want to go home.",
+            "scrambleRu": "Я хочу домой."
           },
           {
             "blankSentence": "I usually ___ by metro.",
             "quizAnswer": "go home",
-            "scrambleSentence": "The staff went home after the busy sale day."
+            "scrambleSentence": "The staff went home after the busy sale day.",
+            "scrambleRu": "Сотрудники пошли домой после загруженного дня распродажи."
           }
         ],
         "style": 20,
@@ -9611,17 +9830,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The product manager set up a quick call to ___ about design ideas.",
             "quizAnswer": "chat",
-            "scrambleSentence": "We had a quick chat about the new collection."
+            "scrambleSentence": "We had a quick chat about the new collection.",
+            "scrambleRu": "Мы коротко поболтали о новой коллекции."
           },
           {
             "blankSentence": "We ___ for an hour after the meeting.",
             "quizAnswer": "chatted",
-            "scrambleSentence": "Let's chat later!"
+            "scrambleSentence": "Let's chat later!",
+            "scrambleRu": "Давай поболтаем позже!"
           },
           {
             "blankSentence": "Do you have time to ___ for a minute?",
             "quizAnswer": "chat",
-            "scrambleSentence": "The team chatted over coffee about the new designs."
+            "scrambleSentence": "The team chatted over coffee about the new designs.",
+            "scrambleRu": "Команда за кофе обсуждала новые дизайны."
           }
         ],
         "style": 20,
@@ -9699,17 +9921,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "This new jacket design ___ our best-selling model.",
             "quizAnswer": "is very similar to",
-            "scrambleSentence": "This design is similar to our best-selling coat."
+            "scrambleSentence": "This design is similar to our best-selling coat.",
+            "scrambleRu": "Этот дизайн похож на наше самое продаваемое пальто."
           },
           {
             "blankSentence": "Her style ___ mine.",
             "quizAnswer": "is similar to",
-            "scrambleSentence": "Your bag is similar to mine!"
+            "scrambleSentence": "Your bag is similar to mine!",
+            "scrambleRu": "Твоя сумка похожа на мою!"
           },
           {
             "blankSentence": "The two sketches look ___ each other.",
             "quizAnswer": "similar to",
-            "scrambleSentence": "The two collections are similar to each other in colour but not in cut."
+            "scrambleSentence": "The two collections are similar to each other in colour but not in cut.",
+            "scrambleRu": "Две коллекции похожи по цвету, но не по крою."
           }
         ],
         "style": 50,
@@ -9788,17 +10013,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We updated the size guide so our pants ___ customers better.",
             "quizAnswer": "fit",
-            "scrambleSentence": "This coat fits me perfectly."
+            "scrambleSentence": "This coat fits me perfectly.",
+            "scrambleRu": "Это пальто мне идеально по размеру."
           },
           {
             "blankSentence": "This jacket doesn't ___ me, it's too small.",
             "quizAnswer": "fit",
-            "scrambleSentence": "Does it fit?"
+            "scrambleSentence": "Does it fit?",
+            "scrambleRu": "Подходит?"
           },
           {
             "blankSentence": "Will this suitcase ___ in the car?",
             "quizAnswer": "fit",
-            "scrambleSentence": "The jeans fit perfectly and are very comfortable."
+            "scrambleSentence": "The jeans fit perfectly and are very comfortable.",
+            "scrambleRu": "Джинсы сидят идеально и очень удобные."
           }
         ],
         "style": 35,
@@ -9875,17 +10103,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "___ men's coats are very popular in our online store.",
             "quizAnswer": "These",
-            "scrambleSentence": "These jackets are our best-selling items this season."
+            "scrambleSentence": "These jackets are our best-selling items this season.",
+            "scrambleRu": "Эти куртки — наши самые продаваемые вещи в этом сезоне."
           },
           {
             "blankSentence": "I'll take ___ two jackets, please.",
             "quizAnswer": "these",
-            "scrambleSentence": "These are my favourites!"
+            "scrambleSentence": "These are my favourites!",
+            "scrambleRu": "Это мои любимые!"
           },
           {
             "blankSentence": "What are ___ boxes?",
             "quizAnswer": "these",
-            "scrambleSentence": "These dresses come in five different colours."
+            "scrambleSentence": "These dresses come in five different colours.",
+            "scrambleRu": "Эти платья бывают в пяти разных цветах."
           }
         ],
         "style": 20,
@@ -9959,17 +10190,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We decided to add waterproof ___ to our autumn kids' line.",
             "quizAnswer": "rain boots",
-            "scrambleSentence": "We added bright rain boots to the kids' autumn line."
+            "scrambleSentence": "We added bright rain boots to the kids' autumn line.",
+            "scrambleRu": "Мы добавили яркие резиновые сапоги в детскую осеннюю линейку."
           },
           {
             "blankSentence": "Don't forget your ___, it's pouring outside.",
             "quizAnswer": "rain boots",
-            "scrambleSentence": "I need new rain boots."
+            "scrambleSentence": "I need new rain boots.",
+            "scrambleRu": "Мне нужны новые резиновые сапоги."
           },
           {
             "blankSentence": "Kids love jumping in puddles in bright ___.",
             "quizAnswer": "rain boots",
-            "scrambleSentence": "The brand's yellow rain boots became a bestseller in autumn."
+            "scrambleSentence": "The brand's yellow rain boots became a bestseller in autumn.",
+            "scrambleRu": "Жёлтые резиновые сапоги бренда стали бестселлером осенью."
           }
         ],
         "style": 35,
@@ -10045,17 +10279,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The metal ___ on the jacket zipper are strong and durable.",
             "quizAnswer": "teeth",
-            "scrambleSentence": "The teeth of the zipper are made of strong metal."
+            "scrambleSentence": "The teeth of the zipper are made of strong metal.",
+            "scrambleRu": "Зубцы молнии сделаны из прочного металла."
           },
           {
             "blankSentence": "Don't forget to brush your ___ twice a day.",
             "quizAnswer": "teeth",
-            "scrambleSentence": "Ouch, my teeth hurt!"
+            "scrambleSentence": "Ouch, my teeth hurt!",
+            "scrambleRu": "Ой, у меня болят зубы!"
           },
           {
             "blankSentence": "The zipper broke because a few ___ were missing.",
             "quizAnswer": "teeth",
-            "scrambleSentence": "The teeth of the zipper must fit together perfectly."
+            "scrambleSentence": "The teeth of the zipper must fit together perfectly.",
+            "scrambleRu": "Зубцы молнии должны идеально совпадать."
           }
         ],
         "style": 35,
@@ -10132,17 +10369,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our product manager is closely ___ designing the summer collection.",
             "quizAnswer": "involved in",
-            "scrambleSentence": "She is deeply involved in the planning of the new store."
+            "scrambleSentence": "She is deeply involved in the planning of the new store.",
+            "scrambleRu": "Она глубоко вовлечена в планирование нового магазина."
           },
           {
             "blankSentence": "I would like to be ___ this project from the start.",
             "quizAnswer": "involved in",
-            "scrambleSentence": "I'm not involved in that, sorry."
+            "scrambleSentence": "I'm not involved in that, sorry.",
+            "scrambleRu": "Я в этом не участвую, извини."
           },
           {
             "blankSentence": "Everyone in the team was ___ the discussion.",
             "quizAnswer": "involved in",
-            "scrambleSentence": "The whole department was involved in preparing the launch."
+            "scrambleSentence": "The whole department was involved in preparing the launch.",
+            "scrambleRu": "Весь отдел участвовал в подготовке запуска."
           }
         ],
         "style": 50,
@@ -10221,17 +10461,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need to ___ sales for men's jackets every week.",
             "quizAnswer": "keep track of",
-            "scrambleSentence": "We use a simple table to keep track of all the orders."
+            "scrambleSentence": "We use a simple table to keep track of all the orders.",
+            "scrambleRu": "Мы используем простую таблицу, чтобы отслеживать все заказы."
           },
           {
             "blankSentence": "It is hard to ___ all the deliveries.",
             "quizAnswer": "keep track of",
-            "scrambleSentence": "I can't keep track of all these names!"
+            "scrambleSentence": "I can't keep track of all these names!",
+            "scrambleRu": "Я не могу уследить за всеми этими именами!"
           },
           {
             "blankSentence": "I use a spreadsheet to ___ my tasks.",
             "quizAnswer": "keep track of",
-            "scrambleSentence": "The app helps you keep track of your expenses."
+            "scrambleSentence": "The app helps you keep track of your expenses.",
+            "scrambleRu": "Приложение помогает отслеживать расходы."
           }
         ],
         "style": 45,
@@ -10309,17 +10552,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The team lead will ___ the new dress line project to an experienced manager.",
             "quizAnswer": "assign",
-            "scrambleSentence": "The director assigned the task to our best designer."
+            "scrambleSentence": "The director assigned the task to our best designer.",
+            "scrambleRu": "Директор поручил задачу нашему лучшему дизайнеру."
           },
           {
             "blankSentence": "I was ___ the kids' collection last month.",
             "quizAnswer": "assigned to",
-            "scrambleSentence": "They assigned me to the new project!"
+            "scrambleSentence": "They assigned me to the new project!",
+            "scrambleRu": "Меня назначили на новый проект!"
           },
           {
             "blankSentence": "Who is ___ this task?",
             "quizAnswer": "assigned to",
-            "scrambleSentence": "Each store manager is assigned to a specific region."
+            "scrambleSentence": "Each store manager is assigned to a specific region.",
+            "scrambleRu": "Каждый менеджер магазина закреплён за определённым регионом."
           }
         ],
         "style": 55,
@@ -10398,17 +10644,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our product manager ___ high quality for all kids' clothing.",
             "quizAnswer": "insists on",
-            "scrambleSentence": "The manager insists on checking every jacket before shipping."
+            "scrambleSentence": "The manager insists on checking every jacket before shipping.",
+            "scrambleRu": "Менеджер настаивает на проверке каждой куртки перед отправкой."
           },
           {
             "blankSentence": "The client ___ a meeting in person.",
             "quizAnswer": "insisted on",
-            "scrambleSentence": "He insisted on carrying my bag!"
+            "scrambleSentence": "He insisted on carrying my bag!",
+            "scrambleRu": "Он настоял на том, чтобы понести мою сумку!"
           },
           {
             "blankSentence": "She always ___ paying for coffee.",
             "quizAnswer": "insists on",
-            "scrambleSentence": "The customer insisted on speaking to the store manager."
+            "scrambleSentence": "The customer insisted on speaking to the store manager.",
+            "scrambleRu": "Покупатель настоял на разговоре с менеджером магазина."
           }
         ],
         "style": 55,
@@ -10486,17 +10735,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We should not ___ marketing campaigns that do not bring sales.",
             "quizAnswer": "waste time on",
-            "scrambleSentence": "Let's not waste money on an advert that nobody sees."
+            "scrambleSentence": "Let's not waste money on an advert that nobody sees.",
+            "scrambleRu": "Давай не будем тратить деньги на рекламу, которую никто не видит."
           },
           {
             "blankSentence": "Don't ___ money on things you don't need.",
             "quizAnswer": "waste",
-            "scrambleSentence": "Don't waste your time on him!"
+            "scrambleSentence": "Don't waste your time on him!",
+            "scrambleRu": "Не трать на него время!"
           },
           {
             "blankSentence": "I don't want to ___ my weekend on paperwork.",
             "quizAnswer": "waste",
-            "scrambleSentence": "The company wasted a lot of money on unsuccessful advertising."
+            "scrambleSentence": "The company wasted a lot of money on unsuccessful advertising.",
+            "scrambleRu": "Компания потратила много денег на неудачную рекламу."
           }
         ],
         "style": 45,
@@ -10574,17 +10826,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "What results do you ___ launching the new online store?",
             "quizAnswer": "expect from",
-            "scrambleSentence": "What do you expect from the new marketing campaign?"
+            "scrambleSentence": "What do you expect from the new marketing campaign?",
+            "scrambleRu": "Чего ты ожидаешь от новой маркетинговой кампании?"
           },
           {
             "blankSentence": "We ___ a lot from this collection.",
             "quizAnswer": "expect",
-            "scrambleSentence": "I don't expect much from him."
+            "scrambleSentence": "I don't expect much from him.",
+            "scrambleRu": "Я многого от него не жду."
           },
           {
             "blankSentence": "What do you ___ the meeting?",
             "quizAnswer": "expect from",
-            "scrambleSentence": "We expect better results from the new team."
+            "scrambleSentence": "We expect better results from the new team.",
+            "scrambleRu": "Мы ждём лучших результатов от новой команды."
           }
         ],
         "style": 50,
@@ -10661,17 +10916,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "This season, our product team is ___ expanding the women's wear category.",
             "quizAnswer": "focused on",
-            "scrambleSentence": "The whole team is focused on the new launch."
+            "scrambleSentence": "The whole team is focused on the new launch.",
+            "scrambleRu": "Вся команда сосредоточена на новом запуске."
           },
           {
             "blankSentence": "I am ___ finishing the report today.",
             "quizAnswer": "focused on",
-            "scrambleSentence": "I'm really focused on this right now."
+            "scrambleSentence": "I'm really focused on this right now.",
+            "scrambleRu": "Я сейчас очень сосредоточена на этом."
           },
           {
             "blankSentence": "The brand is ___ sustainable materials.",
             "quizAnswer": "focused on",
-            "scrambleSentence": "The designers are focused on creating a more comfortable fit."
+            "scrambleSentence": "The designers are focused on creating a more comfortable fit.",
+            "scrambleRu": "Дизайнеры сосредоточены на создании более удобной посадки."
           }
         ],
         "style": 50,
@@ -10749,17 +11007,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The retail team is ___ the autumn collection launch.",
             "quizAnswer": "preparing for",
-            "scrambleSentence": "We are preparing for a big sale at the weekend."
+            "scrambleSentence": "We are preparing for a big sale at the weekend.",
+            "scrambleRu": "Мы готовимся к большой распродаже на выходных."
           },
           {
             "blankSentence": "I need to ___ tomorrow's presentation.",
             "quizAnswer": "prepare for",
-            "scrambleSentence": "I'm preparing for my trip to Milan."
+            "scrambleSentence": "I'm preparing for my trip to Milan.",
+            "scrambleRu": "Я готовлюсь к поездке в Милан."
           },
           {
             "blankSentence": "How do you ___ a busy sale season?",
             "quizAnswer": "prepare for",
-            "scrambleSentence": "The staff prepared for the opening of the new store for weeks."
+            "scrambleSentence": "The staff prepared for the opening of the new store for weeks.",
+            "scrambleRu": "Сотрудники несколько недель готовились к открытию нового магазина."
           }
         ],
         "style": 45,
@@ -10842,17 +11103,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our company launches a new kids' clothing line ___.",
             "quizAnswer": "once a year",
-            "scrambleSentence": "The brand holds a big fashion show once a year."
+            "scrambleSentence": "The brand holds a big fashion show once a year.",
+            "scrambleRu": "Бренд проводит большой показ мод раз в год."
           },
           {
             "blankSentence": "We update the size chart only ___.",
             "quizAnswer": "once a year",
-            "scrambleSentence": "I go to the dentist once a year."
+            "scrambleSentence": "I go to the dentist once a year.",
+            "scrambleRu": "Я хожу к стоматологу раз в год."
           },
           {
             "blankSentence": "The big sale takes place ___, in January.",
             "quizAnswer": "once a year",
-            "scrambleSentence": "The festival takes place once a year in the old town."
+            "scrambleSentence": "The festival takes place once a year in the old town.",
+            "scrambleRu": "Фестиваль проходит раз в год в старом городе."
           }
         ],
         "style": 35,
@@ -10929,17 +11193,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The product manager signed ___ for the new retail store.",
             "quizAnswer": "a contract",
-            "scrambleSentence": "We signed a contract with a new fabric supplier."
+            "scrambleSentence": "We signed a contract with a new fabric supplier.",
+            "scrambleRu": "Мы подписали контракт с новым поставщиком тканей."
           },
           {
             "blankSentence": "The supplier broke the ___ and delivered late.",
             "quizAnswer": "contract",
-            "scrambleSentence": "She got a one-year contract!"
+            "scrambleSentence": "She got a one-year contract!",
+            "scrambleRu": "Она получила контракт на год!"
           },
           {
             "blankSentence": "Please read the ___ carefully before you sign it.",
             "quizAnswer": "contract",
-            "scrambleSentence": "The contract expires at the end of December."
+            "scrambleSentence": "The contract expires at the end of December.",
+            "scrambleRu": "Контракт истекает в конце декабря."
           }
         ],
         "style": 55,
@@ -11014,17 +11281,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "She ___ Milan, so she knows the fashion market very well.",
             "quizAnswer": "was born in",
-            "scrambleSentence": "She was born in Milan and works in fashion."
+            "scrambleSentence": "She was born in Milan and works in fashion.",
+            "scrambleRu": "Она родилась в Милане и работает в моде."
           },
           {
             "blankSentence": "I ___ 1992, in a small town near Kyiv.",
             "quizAnswer": "was born in",
-            "scrambleSentence": "I was born in a small village."
+            "scrambleSentence": "I was born in a small village.",
+            "scrambleRu": "Я родился в маленькой деревне."
           },
           {
             "blankSentence": "Where ___?",
             "quizAnswer": "were you born",
-            "scrambleSentence": "The designer was born in Florence and studied in London."
+            "scrambleSentence": "The designer was born in Florence and studied in London.",
+            "scrambleRu": "Дизайнер родился во Флоренции, а учился в Лондоне."
           }
         ],
         "style": 25,
@@ -11102,17 +11372,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need ___ designer for the women's collection.",
             "quizAnswer": "one more",
-            "scrambleSentence": "We need one more person in the sales team."
+            "scrambleSentence": "We need one more person in the sales team.",
+            "scrambleRu": "Нам нужен ещё один человек в отдел продаж."
           },
           {
             "blankSentence": "Can I have ___ sample, please?",
             "quizAnswer": "one more",
-            "scrambleSentence": "Just one more minute, please!"
+            "scrambleSentence": "Just one more minute, please!",
+            "scrambleRu": "Ещё одну минутку, пожалуйста!"
           },
           {
             "blankSentence": "Let's try ___ time before we give up.",
             "quizAnswer": "one more",
-            "scrambleSentence": "We added one more colour to the summer collection."
+            "scrambleSentence": "We added one more colour to the summer collection.",
+            "scrambleRu": "Мы добавили ещё один цвет в летнюю коллекцию."
           }
         ],
         "style": 30,
@@ -11189,17 +11462,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Some designers decided to ___, but the main product team will stay.",
             "quizAnswer": "leave",
-            "scrambleSentence": "Some designers left, but the main team stayed."
+            "scrambleSentence": "Some designers left, but the main team stayed.",
+            "scrambleRu": "Некоторые дизайнеры ушли, но основная команда осталась."
           },
           {
             "blankSentence": "Some designers decided to leave, but the main product team will ___.",
             "quizAnswer": "stay",
-            "scrambleSentence": "I want to stay a bit longer, if that's okay."
+            "scrambleSentence": "I want to stay a bit longer, if that's okay.",
+            "scrambleRu": "Я хочу остаться ещё ненадолго, если можно."
           },
           {
             "blankSentence": "Do you want to ___ at the company after the project?",
             "quizAnswer": "stay",
-            "scrambleSentence": "She decided to leave her job and start her own brand."
+            "scrambleSentence": "She decided to leave her job and start her own brand.",
+            "scrambleRu": "Она решила уйти с работы и открыть собственный бренд."
           }
         ],
         "style": 40,
@@ -11279,17 +11555,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "___ jackets are very popular in our winter collection.",
             "quizAnswer": "Puffy",
-            "scrambleSentence": "Puffy coats are in fashion again this winter."
+            "scrambleSentence": "Puffy coats are in fashion again this winter.",
+            "scrambleRu": "Пуховики снова в моде этой зимой."
           },
           {
             "blankSentence": "She was wearing a ___ coat, so she was warm in the cold.",
             "quizAnswer": "puffy",
-            "scrambleSentence": "I love your puffy jacket!"
+            "scrambleSentence": "I love your puffy jacket!",
+            "scrambleRu": "Обожаю твою пуховую куртку!"
           },
           {
             "blankSentence": "His eyes were ___ because he did not sleep.",
             "quizAnswer": "puffy",
-            "scrambleSentence": "The model wore a puffy coat in bright yellow."
+            "scrambleSentence": "The model wore a puffy coat in bright yellow.",
+            "scrambleRu": "Модель была в ярко-жёлтом пуховом пальто."
           }
         ],
         "style": 30,
@@ -11366,17 +11645,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "This clothing line is ___ popular among young customers.",
             "quizAnswer": "quite",
-            "scrambleSentence": "The new collection is quite popular among students."
+            "scrambleSentence": "The new collection is quite popular among students.",
+            "scrambleRu": "Новая коллекция довольно популярна среди студентов."
           },
           {
             "blankSentence": "The new coat is ___ expensive, but the quality is great.",
             "quizAnswer": "quite",
-            "scrambleSentence": "It was quite a surprise!"
+            "scrambleSentence": "It was quite a surprise!",
+            "scrambleRu": "Это было неожиданностью!"
           },
           {
             "blankSentence": "It's ___ cold today, take a warm jacket.",
             "quizAnswer": "quite",
-            "scrambleSentence": "The results were quite impressive for the first month of sales."
+            "scrambleSentence": "The results were quite impressive for the first month of sales.",
+            "scrambleRu": "Результаты первого месяца продаж оказались довольно впечатляющими."
           }
         ],
         "style": 40,
@@ -11453,17 +11735,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Please ___ the sales report with the fashion product team.",
             "quizAnswer": "share",
-            "scrambleSentence": "Please share your ideas with the rest of the team."
+            "scrambleSentence": "Please share your ideas with the rest of the team.",
+            "scrambleRu": "Пожалуйста, поделись своими идеями с остальной командой."
           },
           {
             "blankSentence": "We ___ one office with the marketing department.",
             "quizAnswer": "share",
-            "scrambleSentence": "Can I share this with you?"
+            "scrambleSentence": "Can I share this with you?",
+            "scrambleRu": "Можно этим с тобой поделиться?"
           },
           {
             "blankSentence": "Can you ___ your screen so everyone can see the slides?",
             "quizAnswer": "share",
-            "scrambleSentence": "The designer likes to share her sketches on social media."
+            "scrambleSentence": "The designer likes to share her sketches on social media.",
+            "scrambleRu": "Дизайнер любит делиться своими эскизами в соцсетях."
           }
         ],
         "style": 40,
@@ -11541,17 +11826,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Sales were very high ___ the whole summer season.",
             "quizAnswer": "through",
-            "scrambleSentence": "Sales stayed high through the whole autumn."
+            "scrambleSentence": "Sales stayed high through the whole autumn.",
+            "scrambleRu": "Продажи оставались высокими всю осень."
           },
           {
             "blankSentence": "We worked ___ the night to finish the order.",
             "quizAnswer": "through",
-            "scrambleSentence": "I was awake through the whole movie!"
+            "scrambleSentence": "I was awake through the whole movie!",
+            "scrambleRu": "Я не спал весь фильм!"
           },
           {
             "blankSentence": "The store was open ___ the entire holiday period.",
             "quizAnswer": "through",
-            "scrambleSentence": "Demand for puffy jackets stayed strong through the winter."
+            "scrambleSentence": "Demand for puffy jackets stayed strong through the winter.",
+            "scrambleRu": "Спрос на пуховые куртки оставался сильным всю зиму."
           }
         ],
         "style": 40,
@@ -11626,17 +11914,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The new manager will ___ the men's wear category next month.",
             "quizAnswer": "take over",
-            "scrambleSentence": "Our new manager will take over the whole department in May."
+            "scrambleSentence": "Our new manager will take over the whole department in May.",
+            "scrambleRu": "Наш новый менеджер возглавит весь отдел в мае."
           },
           {
             "blankSentence": "Who is going to ___ the project when she leaves?",
             "quizAnswer": "take over",
-            "scrambleSentence": "Can you take over for me for ten minutes?"
+            "scrambleSentence": "Can you take over for me for ten minutes?",
+            "scrambleRu": "Можешь подменить меня на десять минут?"
           },
           {
             "blankSentence": "A bigger company wants to ___ our brand.",
             "quizAnswer": "take over",
-            "scrambleSentence": "A large retail group took over the small family brand last year."
+            "scrambleSentence": "A large retail group took over the small family brand last year.",
+            "scrambleRu": "Крупная ритейл-группа поглотила небольшой семейный бренд в прошлом году."
           }
         ],
         "style": 45,
@@ -11714,17 +12005,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We will launch our new online clothing store ___.",
             "quizAnswer": "shortly",
-            "scrambleSentence": "The new collection will arrive in our stores shortly."
+            "scrambleSentence": "The new collection will arrive in our stores shortly.",
+            "scrambleRu": "Новая коллекция скоро поступит в наши магазины."
           },
           {
             "blankSentence": "The manager will be with you ___.",
             "quizAnswer": "shortly",
-            "scrambleSentence": "I'll be there shortly!"
+            "scrambleSentence": "I'll be there shortly!",
+            "scrambleRu": "Я скоро буду там!"
           },
           {
             "blankSentence": "___ after the meeting, we received the news.",
             "quizAnswer": "Shortly",
-            "scrambleSentence": "The new catalogue will be available online shortly after the launch."
+            "scrambleSentence": "The new catalogue will be available online shortly after the launch.",
+            "scrambleRu": "Новый каталог станет доступен онлайн вскоре после запуска."
           }
         ],
         "style": 55,
@@ -11800,17 +12094,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "She had to ___ and lead the product team during the launch.",
             "quizAnswer": "step up",
-            "scrambleSentence": "She stepped up and led the team during the busy season."
+            "scrambleSentence": "She stepped up and led the team during the busy season.",
+            "scrambleRu": "Она взяла инициативу на себя и возглавила команду в разгар сезона."
           },
           {
             "blankSentence": "We need someone to ___ while the manager is on holiday.",
             "quizAnswer": "step up",
-            "scrambleSentence": "Someone needs to step up and make a decision!"
+            "scrambleSentence": "Someone needs to step up and make a decision!",
+            "scrambleRu": "Кому-то нужно взять инициативу и принять решение!"
           },
           {
             "blankSentence": "Several players had to ___ after the captain was injured.",
             "quizAnswer": "step up",
-            "scrambleSentence": "When the director left, the deputy stepped up to lead the department."
+            "scrambleSentence": "When the director left, the deputy stepped up to lead the department.",
+            "scrambleRu": "Когда директор ушёл, его заместитель взял руководство отделом на себя."
           }
         ],
         "style": 40,
@@ -11887,17 +12184,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We must work hard to ___ customer needs and our deadlines.",
             "quizAnswer": "meet",
-            "scrambleSentence": "We worked all night to meet the deadline."
+            "scrambleSentence": "We worked all night to meet the deadline.",
+            "scrambleRu": "Мы работали всю ночь, чтобы уложиться в срок."
           },
           {
             "blankSentence": "Our new product line is designed to ___ of busy parents.",
             "quizAnswer": "meet the needs",
-            "scrambleSentence": "We just met the deadline — what a relief!"
+            "scrambleSentence": "We just met the deadline — what a relief!",
+            "scrambleRu": "Мы только-только успели в срок — какое облегчение!"
           },
           {
             "blankSentence": "The factory worked overtime to ___.",
             "quizAnswer": "meet the deadline",
-            "scrambleSentence": "The new design meets the needs of both young and older customers."
+            "scrambleSentence": "The new design meets the needs of both young and older customers.",
+            "scrambleRu": "Новый дизайн отвечает потребностям как молодых, так и более взрослых покупателей."
           }
         ],
         "style": 55,
@@ -11977,17 +12277,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Please ___ congratulating the team on the new collection launch.",
             "quizAnswer": "join me in",
-            "scrambleSentence": "Please join me in welcoming our new colleague to the team."
+            "scrambleSentence": "Please join me in welcoming our new colleague to the team.",
+            "scrambleRu": "Пожалуйста, присоединяйтесь ко мне и поприветствуйте нашего нового коллегу в команде."
           },
           {
             "blankSentence": "Would you like to ___ a toast to our success?",
             "quizAnswer": "join me in",
-            "scrambleSentence": "Come on, join me in the dance!"
+            "scrambleSentence": "Come on, join me in the dance!",
+            "scrambleRu": "Давай, присоединяйся ко мне в танце!"
           },
           {
             "blankSentence": "I invite everyone to ___ welcoming our new colleague.",
             "quizAnswer": "join me in",
-            "scrambleSentence": "Please join me in congratulating the whole team on this success."
+            "scrambleSentence": "Please join me in congratulating the whole team on this success.",
+            "scrambleRu": "Пожалуйста, присоединяйтесь ко мне и поздравьте всю команду с этим успехом."
           }
         ],
         "style": 30,
@@ -12062,17 +12365,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The new discount policy will ___ next Monday.",
             "quizAnswer": "come into effect",
-            "scrambleSentence": "The new rules will come into effect at the start of next month."
+            "scrambleSentence": "The new rules will come into effect at the start of next month.",
+            "scrambleRu": "Новые правила вступят в силу в начале следующего месяца."
           },
           {
             "blankSentence": "The changes will ___ from the first of January.",
             "quizAnswer": "come into effect",
-            "scrambleSentence": "The new rules come into effect tomorrow, so be ready!"
+            "scrambleSentence": "The new rules come into effect tomorrow, so be ready!",
+            "scrambleRu": "Новые правила вступают в силу завтра, будьте готовы!"
           },
           {
             "blankSentence": "When does the new law ___?",
             "quizAnswer": "come into effect",
-            "scrambleSentence": "The new price list came into effect at midnight."
+            "scrambleSentence": "The new price list came into effect at midnight.",
+            "scrambleRu": "Новый прайс-лист вступил в силу в полночь."
           }
         ],
         "style": 50,
@@ -12150,17 +12456,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Time is the most important ___ for a product team.",
             "quizAnswer": "resource",
-            "scrambleSentence": "Time is a very valuable resource for any team."
+            "scrambleSentence": "Time is a very valuable resource for any team.",
+            "scrambleRu": "Время — очень ценный ресурс для любой команды."
           },
           {
             "blankSentence": "We do not have enough ___ to open ten new stores.",
             "quizAnswer": "resources",
-            "scrambleSentence": "We're running out of resources!"
+            "scrambleSentence": "We're running out of resources!",
+            "scrambleRu": "У нас заканчиваются ресурсы!"
           },
           {
             "blankSentence": "The library is a great ___ for research.",
             "quizAnswer": "resource",
-            "scrambleSentence": "Water is a valuable natural resource."
+            "scrambleSentence": "Water is a valuable natural resource.",
+            "scrambleRu": "Вода — ценный природный ресурс."
           }
         ],
         "style": 55,
@@ -12238,17 +12547,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We found ___ in the market for affordable children's clothes.",
             "quizAnswer": "a gap",
-            "scrambleSentence": "We found a gap in the market for modern kids' shoes."
+            "scrambleSentence": "We found a gap in the market for modern kids' shoes.",
+            "scrambleRu": "Мы нашли пробел на рынке — современная детская обувь."
           },
           {
             "blankSentence": "There is a big ___ between the price and the quality.",
             "quizAnswer": "gap",
-            "scrambleSentence": "There's a gap in the fence!"
+            "scrambleSentence": "There's a gap in the fence!",
+            "scrambleRu": "В заборе есть дыра!"
           },
           {
             "blankSentence": "Please mind the ___ between the train and the platform.",
             "quizAnswer": "gap",
-            "scrambleSentence": "The research shows a gap between what customers want and what we offer."
+            "scrambleSentence": "The research shows a gap between what customers want and what we offer.",
+            "scrambleRu": "Исследование показывает разрыв между тем, чего хотят покупатели, и тем, что предлагаем мы."
           }
         ],
         "style": 45,
@@ -12326,17 +12638,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need to ___ high quality in all our clothing items.",
             "quizAnswer": "maintain",
-            "scrambleSentence": "We need to maintain good relations with our suppliers."
+            "scrambleSentence": "We need to maintain good relations with our suppliers.",
+            "scrambleRu": "Нам нужно поддерживать хорошие отношения с поставщиками."
           },
           {
             "blankSentence": "It is hard to ___ a good work-life balance.",
             "quizAnswer": "maintain",
-            "scrambleSentence": "I try to maintain a healthy lifestyle."
+            "scrambleSentence": "I try to maintain a healthy lifestyle.",
+            "scrambleRu": "Я стараюсь вести здоровый образ жизни."
           },
           {
             "blankSentence": "The store must ___ a clean and tidy look.",
             "quizAnswer": "maintain",
-            "scrambleSentence": "The factory maintains strict quality standards at every stage of production."
+            "scrambleSentence": "The factory maintains strict quality standards at every stage of production.",
+            "scrambleRu": "Фабрика соблюдает строгие стандарты качества на каждом этапе производства."
           }
         ],
         "style": 55,
@@ -12413,17 +12728,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need fast approvals ___.",
             "quizAnswer": "from the design side",
-            "scrambleSentence": "We need quick answers from the supplier side."
+            "scrambleSentence": "We need quick answers from the supplier side.",
+            "scrambleRu": "Нам нужны быстрые ответы со стороны поставщика."
           },
           {
             "blankSentence": "There will be no problems ___.",
             "quizAnswer": "from my side",
-            "scrambleSentence": "All good from my side!"
+            "scrambleSentence": "All good from my side!",
+            "scrambleRu": "С моей стороны всё хорошо!"
           },
           {
             "blankSentence": "We expect more support ___.",
             "quizAnswer": "from the management side",
-            "scrambleSentence": "Approvals from the client's side are taking longer than expected."
+            "scrambleSentence": "Approvals from the client's side are taking longer than expected.",
+            "scrambleRu": "Согласования со стороны клиента занимают больше времени, чем ожидалось."
           }
         ],
         "style": 40,
@@ -12504,17 +12822,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our sales ___ grew after we opened the new online store.",
             "quizAnswer": "volume",
-            "scrambleSentence": "The sales volume grew by twenty percent in a year."
+            "scrambleSentence": "The sales volume grew by twenty percent in a year.",
+            "scrambleRu": "Объём продаж вырос на двадцать процентов за год."
           },
           {
             "blankSentence": "The factory can handle a large ___ of orders.",
             "quizAnswer": "volume",
-            "scrambleSentence": "Can you turn the volume up a bit?"
+            "scrambleSentence": "Can you turn the volume up a bit?",
+            "scrambleRu": "Можешь сделать звук немного громче?"
           },
           {
             "blankSentence": "Please turn down the ___, I'm on a call.",
             "quizAnswer": "volume",
-            "scrambleSentence": "A high volume of returns can hurt the profit margin."
+            "scrambleSentence": "A high volume of returns can hurt the profit margin.",
+            "scrambleRu": "Большой объём возвратов может ударить по марже прибыли."
           }
         ],
         "style": 50,
@@ -12591,17 +12912,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We ___ your quick feedback on the dress designs.",
             "quizAnswer": "kindly appreciate",
-            "scrambleSentence": "We kindly appreciate your help with the new collection."
+            "scrambleSentence": "We kindly appreciate your help with the new collection.",
+            "scrambleRu": "Мы искренне благодарны вам за помощь с новой коллекцией."
           },
           {
             "blankSentence": "We ___ your patience during the delivery delays.",
             "quizAnswer": "kindly appreciate",
-            "scrambleSentence": "I appreciate your help, thank you!"
+            "scrambleSentence": "I appreciate your help, thank you!",
+            "scrambleRu": "Я ценю твою помощь, спасибо!"
           },
           {
             "blankSentence": "I ___ your help with this task.",
             "quizAnswer": "kindly appreciate",
-            "scrambleSentence": "We kindly appreciate the time you took to review our proposal."
+            "scrambleSentence": "We kindly appreciate the time you took to review our proposal.",
+            "scrambleRu": "Мы искренне благодарны вам за время, которое вы потратили на изучение нашего предложения."
           }
         ],
         "style": 70,
@@ -12680,17 +13004,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The new jacket is now ___ in three colors.",
             "quizAnswer": "available",
-            "scrambleSentence": "The new coat is available in all our stores."
+            "scrambleSentence": "The new coat is available in all our stores.",
+            "scrambleRu": "Новое пальто есть во всех наших магазинах."
           },
           {
             "blankSentence": "Is this dress ___ in a smaller size?",
             "quizAnswer": "available",
-            "scrambleSentence": "Is this one available in blue?"
+            "scrambleSentence": "Is this one available in blue?",
+            "scrambleRu": "Это есть в синем?"
           },
           {
             "blankSentence": "I am ___ for a call after two o'clock.",
             "quizAnswer": "available",
-            "scrambleSentence": "The new collection will be available online from Monday."
+            "scrambleSentence": "The new collection will be available online from Monday.",
+            "scrambleRu": "Новая коллекция будет доступна онлайн с понедельника."
           }
         ],
         "style": 50,
@@ -12769,17 +13096,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We changed the website design ___ increase sales.",
             "quizAnswer": "in order to",
-            "scrambleSentence": "We opened a new store in order to reach more customers."
+            "scrambleSentence": "We opened a new store in order to reach more customers.",
+            "scrambleRu": "Мы открыли новый магазин, чтобы охватить больше покупателей."
           },
           {
             "blankSentence": "She left early ___ catch the last train.",
             "quizAnswer": "in order to",
-            "scrambleSentence": "I got up early in order to get a seat."
+            "scrambleSentence": "I got up early in order to get a seat.",
+            "scrambleRu": "Я встала пораньше, чтобы занять место."
           },
           {
             "blankSentence": "We use recycled fabric ___ reduce waste.",
             "quizAnswer": "in order to",
-            "scrambleSentence": "We added a size guide in order to reduce returns."
+            "scrambleSentence": "We added a size guide in order to reduce returns.",
+            "scrambleRu": "Мы добавили таблицу размеров, чтобы сократить количество возвратов."
           }
         ],
         "style": 55,
@@ -12860,17 +13190,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We ___ change the fabric supplier because of production delays.",
             "quizAnswer": "had to",
-            "scrambleSentence": "We had to cancel the meeting because the manager was ill."
+            "scrambleSentence": "We had to cancel the meeting because the manager was ill.",
+            "scrambleRu": "Нам пришлось отменить встречу, потому что менеджер заболел."
           },
           {
             "blankSentence": "I ___ finish the report before lunch.",
             "quizAnswer": "have to",
-            "scrambleSentence": "I had to run to catch the bus!"
+            "scrambleSentence": "I had to run to catch the bus!",
+            "scrambleRu": "Мне пришлось бежать, чтобы успеть на автобус!"
           },
           {
             "blankSentence": "Do we ___ wear a uniform at the new store?",
             "quizAnswer": "have to",
-            "scrambleSentence": "Because of the delay, the team had to postpone the launch."
+            "scrambleSentence": "Because of the delay, the team had to postpone the launch.",
+            "scrambleRu": "Из-за задержки команде пришлось отложить запуск."
           }
         ],
         "style": 45,
@@ -12948,17 +13281,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "___, we need to approve the designs for the new men's collection.",
             "quizAnswer": "First",
-            "scrambleSentence": "First we choose the fabric, then we start the production."
+            "scrambleSentence": "First we choose the fabric, then we start the production.",
+            "scrambleRu": "Сначала мы выбираем ткань, потом начинаем производство."
           },
           {
             "blankSentence": "___ check the size, then try the jacket on.",
             "quizAnswer": "First",
-            "scrambleSentence": "First, let me grab a coffee."
+            "scrambleSentence": "First, let me grab a coffee.",
+            "scrambleRu": "Сначала дай мне взять кофе."
           },
           {
             "blankSentence": "Let's talk about the budget ___.",
             "quizAnswer": "first",
-            "scrambleSentence": "First, the fabric is cut; then the pieces are sewn together."
+            "scrambleSentence": "First, the fabric is cut; then the pieces are sewn together.",
+            "scrambleRu": "Сначала ткань кроят, затем детали сшивают."
           }
         ],
         "style": 35,
@@ -13035,17 +13371,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "I ___ working with short deadlines before every new season launch.",
             "quizAnswer": "got used to",
-            "scrambleSentence": "She quickly got used to the busy pace of the fashion industry."
+            "scrambleSentence": "She quickly got used to the busy pace of the fashion industry.",
+            "scrambleRu": "Она быстро привыкла к напряжённому темпу индустрии моды."
           },
           {
             "blankSentence": "It took me a month to ___ the new software.",
             "quizAnswer": "get used to",
-            "scrambleSentence": "I can't get used to this cold weather."
+            "scrambleSentence": "I can't get used to this cold weather.",
+            "scrambleRu": "Я не могу привыкнуть к этой холодной погоде."
           },
           {
             "blankSentence": "She is slowly ___ the busy schedule.",
             "quizAnswer": "getting used to",
-            "scrambleSentence": "After a few weeks, I got used to getting up at six every morning."
+            "scrambleSentence": "After a few weeks, I got used to getting up at six every morning.",
+            "scrambleRu": "Через несколько недель я привык вставать в шесть утра."
           }
         ],
         "style": 45,
@@ -13122,17 +13461,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our product team had to ___ Germany to open a new retail branch.",
             "quizAnswer": "move to",
-            "scrambleSentence": "The company moved to a new office in the city centre."
+            "scrambleSentence": "The company moved to a new office in the city centre.",
+            "scrambleRu": "Компания переехала в новый офис в центре города."
           },
           {
             "blankSentence": "She wants to ___ a bigger flat in the city centre.",
             "quizAnswer": "move to",
-            "scrambleSentence": "I'm going to move to Milan in spring!"
+            "scrambleSentence": "I'm going to move to Milan in spring!",
+            "scrambleRu": "Весной я перееду в Милан!"
           },
           {
             "blankSentence": "The company is going to ___ a new office next month.",
             "quizAnswer": "move to",
-            "scrambleSentence": "The brand decided to move to a new production site closer to its market."
+            "scrambleSentence": "The brand decided to move to a new production site closer to its market.",
+            "scrambleRu": "Бренд решил перенести производство на новую площадку ближе к рынку."
           }
         ],
         "style": 40,
@@ -13209,17 +13551,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The store manager ___ see the new autumn jackets in person.",
             "quizAnswer": "cannot wait to",
-            "scrambleSentence": "I can't wait to see the new collection in the store."
+            "scrambleSentence": "I can't wait to see the new collection in the store.",
+            "scrambleRu": "Не могу дождаться, когда увижу новую коллекцию в магазине."
           },
           {
             "blankSentence": "I ___ start working on the new collection!",
             "quizAnswer": "can't wait to",
-            "scrambleSentence": "I can't wait to see you!"
+            "scrambleSentence": "I can't wait to see you!",
+            "scrambleRu": "Не могу дождаться встречи с тобой!"
           },
           {
             "blankSentence": "The customers ___ try the new products.",
             "quizAnswer": "can't wait to",
-            "scrambleSentence": "The kids can't wait to wear their new winter coats."
+            "scrambleSentence": "The kids can't wait to wear their new winter coats.",
+            "scrambleRu": "Дети не могут дождаться, когда наденут свои новые зимние пальто."
           }
         ],
         "style": 25,
@@ -13297,17 +13642,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We are ___ the final delivery of women's dresses.",
             "quizAnswer": "waiting for",
-            "scrambleSentence": "We are waiting for the final samples from the factory."
+            "scrambleSentence": "We are waiting for the final samples from the factory.",
+            "scrambleRu": "Мы ждём окончательных образцов с фабрики."
           },
           {
             "blankSentence": "I've been ___ your answer since Monday.",
             "quizAnswer": "waiting for",
-            "scrambleSentence": "I'm waiting for the bus."
+            "scrambleSentence": "I'm waiting for the bus.",
+            "scrambleRu": "Я жду автобус."
           },
           {
             "blankSentence": "Please ___ me at the entrance.",
             "quizAnswer": "wait for",
-            "scrambleSentence": "The customers were waiting for the store to open at nine."
+            "scrambleSentence": "The customers were waiting for the store to open at nine.",
+            "scrambleRu": "Покупатели ждали открытия магазина в девять."
           }
         ],
         "style": 40,
@@ -13384,17 +13732,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We should improve quality control to ___ bad customer reviews.",
             "quizAnswer": "avoid",
-            "scrambleSentence": "Let's check the sizes twice to avoid mistakes in the order."
+            "scrambleSentence": "Let's check the sizes twice to avoid mistakes in the order.",
+            "scrambleRu": "Давай проверим размеры дважды, чтобы избежать ошибок в заказе."
           },
           {
             "blankSentence": "I try to ___ meetings that are too long.",
             "quizAnswer": "avoid",
-            "scrambleSentence": "I try to avoid the shops on Saturday, they're too busy."
+            "scrambleSentence": "I try to avoid the shops on Saturday, they're too busy.",
+            "scrambleRu": "Я стараюсь избегать магазинов по субботам, там слишком людно."
           },
           {
             "blankSentence": "How can we ___ delays in delivery?",
             "quizAnswer": "avoid",
-            "scrambleSentence": "To avoid delays, the order was placed a month in advance."
+            "scrambleSentence": "To avoid delays, the order was placed a month in advance.",
+            "scrambleRu": "Чтобы избежать задержек, заказ разместили за месяц."
           }
         ],
         "style": 45,
@@ -13477,17 +13828,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The team spent the ___ week planning the autumn clothing collection.",
             "quizAnswer": "whole",
-            "scrambleSentence": "The whole team worked late to finish the collection."
+            "scrambleSentence": "The whole team worked late to finish the collection.",
+            "scrambleRu": "Вся команда работала допоздна, чтобы закончить коллекцию."
           },
           {
             "blankSentence": "I read the ___ report in one evening.",
             "quizAnswer": "whole",
-            "scrambleSentence": "I ate the whole thing!"
+            "scrambleSentence": "I ate the whole thing!",
+            "scrambleRu": "Я съел всё целиком!"
           },
           {
             "blankSentence": "The ___ store was full of customers on Saturday.",
             "quizAnswer": "whole",
-            "scrambleSentence": "The whole collection was sold out within a week."
+            "scrambleSentence": "The whole collection was sold out within a week.",
+            "scrambleRu": "Вся коллекция была распродана за неделю."
           }
         ],
         "style": 45,
@@ -13564,17 +13918,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We improved the size chart ___ customers can return fewer items.",
             "quizAnswer": "so",
-            "scrambleSentence": "We improved the website so that customers can find items faster."
+            "scrambleSentence": "We improved the website so that customers can find items faster.",
+            "scrambleRu": "Мы улучшили сайт, чтобы покупатели находили товары быстрее."
           },
           {
             "blankSentence": "I'm sending the file now ___ you can check it before the meeting.",
             "quizAnswer": "so",
-            "scrambleSentence": "I'll text you so you know when I'm there."
+            "scrambleSentence": "I'll text you so you know when I'm there.",
+            "scrambleRu": "Я напишу тебе, чтобы ты знал, когда я буду на месте."
           },
           {
             "blankSentence": "She wrote everything down ___ she wouldn't forget.",
             "quizAnswer": "so",
-            "scrambleSentence": "We simplified the design so that production would be cheaper."
+            "scrambleSentence": "We simplified the design so that production would be cheaper.",
+            "scrambleRu": "Мы упростили дизайн, чтобы производство стало дешевле."
           }
         ],
         "style": 40,
@@ -13650,17 +14007,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The product manager is not ___ to stop selling unpopular clothes.",
             "quizAnswer": "afraid",
-            "scrambleSentence": "Don't be afraid to try new ideas in the collection."
+            "scrambleSentence": "Don't be afraid to try new ideas in the collection.",
+            "scrambleRu": "Не бойся пробовать новые идеи в коллекции."
           },
           {
             "blankSentence": "Don't be ___ to ask questions.",
             "quizAnswer": "afraid",
-            "scrambleSentence": "I'm a bit afraid of flying."
+            "scrambleSentence": "I'm a bit afraid of flying.",
+            "scrambleRu": "Я немного боюсь летать."
           },
           {
             "blankSentence": "She was ___ of making a mistake in front of the director.",
             "quizAnswer": "afraid",
-            "scrambleSentence": "He was afraid that the delivery would be late."
+            "scrambleSentence": "He was afraid that the delivery would be late.",
+            "scrambleRu": "Он боялся, что доставка задержится."
           }
         ],
         "style": 45,
@@ -13742,17 +14102,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The ___ customer spends fifty dollars on children's clothes.",
             "quizAnswer": "average",
-            "scrambleSentence": "The average customer buys three items per visit."
+            "scrambleSentence": "The average customer buys three items per visit.",
+            "scrambleRu": "В среднем покупатель берёт три вещи за визит."
           },
           {
             "blankSentence": "On ___, we sell two hundred dresses a week.",
             "quizAnswer": "average",
-            "scrambleSentence": "I'm pretty average at tennis."
+            "scrambleSentence": "I'm pretty average at tennis.",
+            "scrambleRu": "В теннисе я довольно средний."
           },
           {
             "blankSentence": "My grades were just ___ last year.",
             "quizAnswer": "average",
-            "scrambleSentence": "On average, customers return one in ten items bought online."
+            "scrambleSentence": "On average, customers return one in ten items bought online.",
+            "scrambleRu": "В среднем покупатели возвращают одну из десяти вещей, купленных онлайн."
           }
         ],
         "style": 50,
@@ -13830,17 +14193,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Do not ___ secret ideas about our next collection with suppliers.",
             "quizAnswer": "overshare",
-            "scrambleSentence": "Please do not overshare details about the new collection online."
+            "scrambleSentence": "Please do not overshare details about the new collection online.",
+            "scrambleRu": "Пожалуйста, не делитесь лишними подробностями о новой коллекции в интернете."
           },
           {
             "blankSentence": "I think I ___ in the meeting — I told them too much.",
             "quizAnswer": "overshared",
-            "scrambleSentence": "Sorry, I think I overshared there!"
+            "scrambleSentence": "Sorry, I think I overshared there!",
+            "scrambleRu": "Извини, кажется, я сболтнул лишнего!"
           },
           {
             "blankSentence": "People often ___ on social media.",
             "quizAnswer": "overshare",
-            "scrambleSentence": "Many influencers overshare private details with their followers."
+            "scrambleSentence": "Many influencers overshare private details with their followers.",
+            "scrambleRu": "Многие инфлюенсеры делят с подписчиками слишком личные подробности."
           }
         ],
         "style": 25,
@@ -13916,17 +14282,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Let us ___ and discuss sales for women's wear.",
             "quizAnswer": "get straight to the point",
-            "scrambleSentence": "Let's get straight to the point and talk about the budget."
+            "scrambleSentence": "Let's get straight to the point and talk about the budget.",
+            "scrambleRu": "Давай сразу перейдём к делу и поговорим о бюджете."
           },
           {
             "blankSentence": "I'll ___: we need to cut costs.",
             "quizAnswer": "get straight to the point",
-            "scrambleSentence": "Okay, I'll get straight to the point."
+            "scrambleSentence": "Okay, I'll get straight to the point.",
+            "scrambleRu": "Хорошо, я перейду сразу к делу."
           },
           {
             "blankSentence": "The manager always likes to ___ in meetings.",
             "quizAnswer": "get straight to the point",
-            "scrambleSentence": "She wrote the email to get straight to the point without extra words."
+            "scrambleSentence": "She wrote the email to get straight to the point without extra words.",
+            "scrambleRu": "Она написала письмо так, чтобы сразу перейти к делу без лишних слов."
           }
         ],
         "style": 35,
@@ -14003,17 +14372,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Do not ___ the production delays when you talk to the directors.",
             "quizAnswer": "sugarcoat",
-            "scrambleSentence": "I will not sugarcoat the problem: the delivery is late."
+            "scrambleSentence": "I will not sugarcoat the problem: the delivery is late.",
+            "scrambleRu": "Я не буду приукрашивать проблему: доставка задерживается."
           },
           {
             "blankSentence": "I won't ___ it: the results are bad.",
             "quizAnswer": "sugarcoat",
-            "scrambleSentence": "Just tell me the truth, don't sugarcoat it."
+            "scrambleSentence": "Just tell me the truth, don't sugarcoat it.",
+            "scrambleRu": "Просто скажи мне правду, не приукрашивай."
           },
           {
             "blankSentence": "Doctors sometimes ___ the truth for patients.",
             "quizAnswer": "sugarcoat",
-            "scrambleSentence": "The press release tried to sugarcoat the company's losses."
+            "scrambleSentence": "The press release tried to sugarcoat the company's losses.",
+            "scrambleRu": "Пресс-релиз пытался приукрасить убытки компании."
           }
         ],
         "style": 30,
@@ -14091,17 +14463,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "A wrong tag is not ___, but shipping low-quality fabric is a serious problem.",
             "quizAnswer": "a big deal",
-            "scrambleSentence": "It is not a big deal if we are five minutes late."
+            "scrambleSentence": "It is not a big deal if we are five minutes late.",
+            "scrambleRu": "Ничего страшного, если мы опоздаем на пять минут."
           },
           {
             "blankSentence": "Don't worry, it's not ___.",
             "quizAnswer": "a big deal",
-            "scrambleSentence": "Why is she making such a big deal out of it?"
+            "scrambleSentence": "Why is she making such a big deal out of it?",
+            "scrambleRu": "Почему она делает из этого такую проблему?"
           },
           {
             "blankSentence": "Winning this client is ___ for our small brand.",
             "quizAnswer": "a big deal",
-            "scrambleSentence": "For a young designer, this fashion week is a big deal."
+            "scrambleSentence": "For a young designer, this fashion week is a big deal.",
+            "scrambleRu": "Для молодого дизайнера эта неделя моды — большое событие."
           }
         ],
         "style": 30,
@@ -14184,17 +14559,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The new product manager will ___ at the office tomorrow morning.",
             "quizAnswer": "arrive",
-            "scrambleSentence": "The new collection will arrive in our stores next week."
+            "scrambleSentence": "The new collection will arrive in our stores next week.",
+            "scrambleRu": "Новая коллекция поступит в наши магазины на следующей неделе."
           },
           {
             "blankSentence": "Our samples should ___ from the factory by Friday.",
             "quizAnswer": "arrive",
-            "scrambleSentence": "Did the package arrive yet?"
+            "scrambleSentence": "Did the package arrive yet?",
+            "scrambleRu": "Посылка уже пришла?"
           },
           {
             "blankSentence": "What time does your flight ___?",
             "quizAnswer": "arrive",
-            "scrambleSentence": "The first shipment of jackets arrived two days late."
+            "scrambleSentence": "The first shipment of jackets arrived two days late.",
+            "scrambleRu": "Первая партия курток пришла с опозданием на два дня."
           }
         ],
         "style": 40,
@@ -14273,17 +14651,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "She packed her ___ before traveling to the tech conference in London.",
             "quizAnswer": "suitcase",
-            "scrambleSentence": "She put the samples into a big suitcase and went to the airport."
+            "scrambleSentence": "She put the samples into a big suitcase and went to the airport.",
+            "scrambleRu": "Она сложила образцы в большой чемодан и поехала в аэропорт."
           },
           {
             "blankSentence": "My ___ was too heavy, so I took out two jackets.",
             "quizAnswer": "suitcase",
-            "scrambleSentence": "Can you help me carry this suitcase?"
+            "scrambleSentence": "Can you help me carry this suitcase?",
+            "scrambleRu": "Поможешь мне донести этот чемодан?"
           },
           {
             "blankSentence": "The buyer arrived with a small ___ full of fabric samples.",
             "quizAnswer": "suitcase",
-            "scrambleSentence": "The designer travels with just one suitcase and a laptop."
+            "scrambleSentence": "The designer travels with just one suitcase and a laptop.",
+            "scrambleRu": "Дизайнер путешествует с одним чемоданом и ноутбуком."
           }
         ],
         "style": 40,
@@ -14357,17 +14738,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our team ___ to San Francisco to meet with the main investors.",
             "quizAnswer": "flew",
-            "scrambleSentence": "Our team flew to San Francisco to meet the investors."
+            "scrambleSentence": "Our team flew to San Francisco to meet the investors.",
+            "scrambleRu": "Наша команда полетела в Сан-Франциско на встречу с инвесторами."
           },
           {
             "blankSentence": "I'm going to ___ to Milan for the fashion week.",
             "quizAnswer": "fly",
-            "scrambleSentence": "I flew home last night, so I'm a bit tired."
+            "scrambleSentence": "I flew home last night, so I'm a bit tired.",
+            "scrambleRu": "Вчера вечером я прилетел домой, поэтому немного устал."
           },
           {
             "blankSentence": "Have you ever ___ first class?",
             "quizAnswer": "flown",
-            "scrambleSentence": "The whole design team flew to Paris for the show."
+            "scrambleSentence": "The whole design team flew to Paris for the show.",
+            "scrambleRu": "Вся команда дизайнеров вылетела в Париж на показ."
           }
         ],
         "style": 40,
@@ -14444,17 +14828,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The developers found the ___ data after checking the server again.",
             "quizAnswer": "lost",
-            "scrambleSentence": "The developers found the lost files after checking the server again."
+            "scrambleSentence": "The developers found the lost files after checking the server again.",
+            "scrambleRu": "Разработчики нашли потерянные файлы, снова проверив сервер."
           },
           {
             "blankSentence": "A customer came to the store looking for her ___ glove.",
             "quizAnswer": "lost",
-            "scrambleSentence": "Oh no, I think my phone is lost!"
+            "scrambleSentence": "Oh no, I think my phone is lost!",
+            "scrambleRu": "Ой, кажется, я потерял телефон!"
           },
           {
             "blankSentence": "I was ___ in the huge shopping mall.",
             "quizAnswer": "lost",
-            "scrambleSentence": "The lost package was finally delivered to the store."
+            "scrambleSentence": "The lost package was finally delivered to the store.",
+            "scrambleRu": "Потерянную посылку наконец доставили в магазин."
           }
         ],
         "style": 45,
@@ -14530,17 +14917,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need to find a ___ software tool for tracking our daily tasks.",
             "quizAnswer": "decent",
-            "scrambleSentence": "We need to find a decent tool for tracking our tasks."
+            "scrambleSentence": "We need to find a decent tool for tracking our tasks.",
+            "scrambleRu": "Нам нужен приличный инструмент для отслеживания задач."
           },
           {
             "blankSentence": "This café serves a ___ coffee at a fair price.",
             "quizAnswer": "decent",
-            "scrambleSentence": "That's a pretty decent jacket for the price."
+            "scrambleSentence": "That's a pretty decent jacket for the price.",
+            "scrambleRu": "Для такой цены это вполне приличная куртка."
           },
           {
             "blankSentence": "She earns a ___ salary as a product manager.",
             "quizAnswer": "decent",
-            "scrambleSentence": "A decent night's sleep is important before a big presentation."
+            "scrambleSentence": "A decent night's sleep is important before a big presentation.",
+            "scrambleRu": "Хороший сон важен перед большой презентацией."
           }
         ],
         "style": 55,
@@ -14617,17 +15007,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The budget for the project ___ the final decision of the client.",
             "quizAnswer": "depends on",
-            "scrambleSentence": "How many coats we order depends on the sales forecast."
+            "scrambleSentence": "How many coats we order depends on the sales forecast.",
+            "scrambleRu": "Сколько пальто мы закажем, зависит от прогноза продаж."
           },
           {
             "blankSentence": "How many jackets we order ___ the sales forecast.",
             "quizAnswer": "depends on",
-            "scrambleSentence": "It depends on what you want to do."
+            "scrambleSentence": "It depends on what you want to do.",
+            "scrambleRu": "Это зависит от того, что ты хочешь делать."
           },
           {
             "blankSentence": "Will we launch in May? ___ the supplier.",
             "quizAnswer": "It depends on",
-            "scrambleSentence": "The success of the collection largely depends on the quality of the fabric."
+            "scrambleSentence": "The success of the collection largely depends on the quality of the fabric.",
+            "scrambleRu": "Успех коллекции во многом зависит от качества ткани."
           }
         ],
         "style": 45,
@@ -14704,17 +15097,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "It is useful to get feedback from users ___ our active target audience.",
             "quizAnswer": "outside",
-            "scrambleSentence": "It is useful to get feedback from people outside our team."
+            "scrambleSentence": "It is useful to get feedback from people outside our team.",
+            "scrambleRu": "Полезно получать отзывы от людей за пределами нашей команды."
           },
           {
             "blankSentence": "Our new store is ___ the city centre, near the highway.",
             "quizAnswer": "outside",
-            "scrambleSentence": "It's really cold outside today!"
+            "scrambleSentence": "It's really cold outside today!",
+            "scrambleRu": "Сегодня на улице очень холодно!"
           },
           {
             "blankSentence": "Let's wait for the delivery ___ the building.",
             "quizAnswer": "outside",
-            "scrambleSentence": "Several customers were waiting outside the store before the opening of the sale."
+            "scrambleSentence": "Several customers were waiting outside the store before the opening of the sale.",
+            "scrambleRu": "Несколько покупателей ждали у магазина перед открытием распродажи."
           }
         ],
         "style": 35,
@@ -14790,17 +15186,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The design team discussed the new interface layout ___.",
             "quizAnswer": "for a long time",
-            "scrambleSentence": "We have been working with this brand for a long time."
+            "scrambleSentence": "We have been working with this brand for a long time.",
+            "scrambleRu": "Мы давно работаем с этим брендом."
           },
           {
             "blankSentence": "We have worked with this supplier ___.",
             "quizAnswer": "for a long time",
-            "scrambleSentence": "I've wanted to try this for a long time."
+            "scrambleSentence": "I've wanted to try this for a long time.",
+            "scrambleRu": "Я давно хотел это попробовать."
           },
           {
             "blankSentence": "I haven't seen you ___!",
             "quizAnswer": "for a long time",
-            "scrambleSentence": "The idea was discussed for a long time before the decision was made."
+            "scrambleSentence": "The idea was discussed for a long time before the decision was made.",
+            "scrambleRu": "Идею долго обсуждали, прежде чем принять решение."
           }
         ],
         "style": 45,
@@ -14876,17 +15275,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The marketing team is ___ for new ideas to improve our website.",
             "quizAnswer": "fishing",
-            "scrambleSentence": "The marketing team is fishing for new ideas to improve our website."
+            "scrambleSentence": "The marketing team is fishing for new ideas to improve our website.",
+            "scrambleRu": "Команда маркетинга ищет новые идеи для улучшения нашего сайта."
           },
           {
             "blankSentence": "My father likes ___ on the lake at weekends.",
             "quizAnswer": "fishing",
-            "scrambleSentence": "I think he's just fishing for compliments."
+            "scrambleSentence": "I think he's just fishing for compliments.",
+            "scrambleRu": "Думаю, он просто напрашивается на комплименты."
           },
           {
             "blankSentence": "Are you ___ for compliments again?",
             "quizAnswer": "fishing",
-            "scrambleSentence": "Commercial fishing is an important industry in this region."
+            "scrambleSentence": "Commercial fishing is an important industry in this region.",
+            "scrambleRu": "Коммерческое рыболовство — важная отрасль в этом регионе."
           }
         ],
         "style": 45,
@@ -14960,17 +15362,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We need to ___ the system errors before the product launch.",
             "quizAnswer": "catch",
-            "scrambleSentence": "We must catch all the mistakes before the launch."
+            "scrambleSentence": "We must catch all the mistakes before the launch.",
+            "scrambleRu": "Мы должны выловить все ошибки до запуска."
           },
           {
             "blankSentence": "She jumped up to ___ the ball.",
             "quizAnswer": "catch",
-            "scrambleSentence": "Quick, catch him before he leaves!"
+            "scrambleSentence": "Quick, catch him before he leaves!",
+            "scrambleRu": "Быстрее, поймай его, пока он не ушёл!"
           },
           {
             "blankSentence": "I have to ___ the 8 o'clock train to Milan.",
             "quizAnswer": "catch",
-            "scrambleSentence": "The test team caught several serious bugs in the new version."
+            "scrambleSentence": "The test team caught several serious bugs in the new version.",
+            "scrambleRu": "Тестовая команда поймала несколько серьёзных ошибок в новой версии."
           }
         ],
         "style": 45,
@@ -15047,17 +15452,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The successful marketing campaign brought a ___ profit to the startup.",
             "quizAnswer": "huge",
-            "scrambleSentence": "The campaign was a huge success for the whole team."
+            "scrambleSentence": "The campaign was a huge success for the whole team.",
+            "scrambleRu": "Кампания стала огромным успехом для всей команды."
           },
           {
             "blankSentence": "The new store has a ___ window display of the summer collection.",
             "quizAnswer": "huge",
-            "scrambleSentence": "That's a huge bag!"
+            "scrambleSentence": "That's a huge bag!",
+            "scrambleRu": "Какая огромная сумка!"
           },
           {
             "blankSentence": "Thank you, it was a ___ help!",
             "quizAnswer": "huge",
-            "scrambleSentence": "A huge amount of work went into the new collection."
+            "scrambleSentence": "A huge amount of work went into the new collection.",
+            "scrambleRu": "На новую коллекцию ушёл огромный объём работы."
           }
         ],
         "style": 40,
@@ -15134,17 +15542,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The product owner wants to ___ a meeting to update the roadmap.",
             "quizAnswer": "hold",
-            "scrambleSentence": "The company will hold a big sale at the end of the season."
+            "scrambleSentence": "The company will hold a big sale at the end of the season.",
+            "scrambleRu": "Компания проведёт большую распродажу в конце сезона."
           },
           {
             "blankSentence": "Can you ___ this bag for a minute?",
             "quizAnswer": "hold",
-            "scrambleSentence": "Can you hold the door, please?"
+            "scrambleSentence": "Can you hold the door, please?",
+            "scrambleRu": "Можешь придержать дверь, пожалуйста?"
           },
           {
             "blankSentence": "The company will ___ a fashion show in Milan next month.",
             "quizAnswer": "hold",
-            "scrambleSentence": "A press conference was held at the headquarters yesterday."
+            "scrambleSentence": "A press conference was held at the headquarters yesterday.",
+            "scrambleRu": "Вчера в штаб-квартире прошла пресс-конференция."
           }
         ],
         "style": 45,
@@ -15222,17 +15633,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Working without clear tasks and deadlines ___.",
             "quizAnswer": "is not for me",
-            "scrambleSentence": "Working without clear tasks and deadlines is not for me."
+            "scrambleSentence": "Working without clear tasks and deadlines is not for me.",
+            "scrambleRu": "Работа без чётких задач и сроков — не для меня."
           },
           {
             "blankSentence": "I tried skydiving once, but ___.",
             "quizAnswer": "it is not for me",
-            "scrambleSentence": "Honestly, spicy food is not for me."
+            "scrambleSentence": "Honestly, spicy food is not for me.",
+            "scrambleRu": "Честно говоря, острая еда — не для меня."
           },
           {
             "blankSentence": "Nightclubs are ___, I prefer quiet places.",
             "quizAnswer": "not for me",
-            "scrambleSentence": "Working in a noisy office is not for me."
+            "scrambleSentence": "Working in a noisy office is not for me.",
+            "scrambleRu": "Работать в шумном офисе — не для меня."
           }
         ],
         "style": 25,
@@ -15309,17 +15723,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The company organized a nice team-building weekend near a beautiful ___.",
             "quizAnswer": "lake",
-            "scrambleSentence": "The factory is located next to a big lake."
+            "scrambleSentence": "The factory is located next to a big lake.",
+            "scrambleRu": "Фабрика расположена рядом с большим озером."
           },
           {
             "blankSentence": "We had lunch by the ___ after the meeting.",
             "quizAnswer": "lake",
-            "scrambleSentence": "Let's go to the lake this weekend!"
+            "scrambleSentence": "Let's go to the lake this weekend!",
+            "scrambleRu": "Давай поедем на озеро на этих выходных!"
           },
           {
             "blankSentence": "In summer, many people swim in the ___.",
             "quizAnswer": "lake",
-            "scrambleSentence": "The photo shoot for the summer collection took place by a mountain lake."
+            "scrambleSentence": "The photo shoot for the summer collection took place by a mountain lake.",
+            "scrambleRu": "Съёмка летней коллекции проходила у горного озера."
           }
         ],
         "style": 25,
@@ -15395,17 +15812,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "We must ___ a simple way to explain this feature to our users.",
             "quizAnswer": "find",
-            "scrambleSentence": "We need to find a simple way to explain the idea."
+            "scrambleSentence": "We need to find a simple way to explain the idea.",
+            "scrambleRu": "Нам нужно найти простой способ объяснить идею."
           },
           {
             "blankSentence": "I can't ___ my keys anywhere.",
             "quizAnswer": "find",
-            "scrambleSentence": "I found a great dress in the sale!"
+            "scrambleSentence": "I found a great dress in the sale!",
+            "scrambleRu": "Я нашла отличное платье на распродаже!"
           },
           {
             "blankSentence": "Did you ___ a good supplier for the zippers?",
             "quizAnswer": "find",
-            "scrambleSentence": "Researchers found that most customers prefer free delivery."
+            "scrambleSentence": "Researchers found that most customers prefer free delivery.",
+            "scrambleRu": "Исследователи выяснили, что большинство покупателей предпочитают бесплатную доставку."
           }
         ],
         "style": 40,
@@ -15482,17 +15902,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The workplace ___ in the new office are very comfortable for everyone.",
             "quizAnswer": "conditions",
-            "scrambleSentence": "Working conditions in the new office are very comfortable for everyone."
+            "scrambleSentence": "Working conditions in the new office are very comfortable for everyone.",
+            "scrambleRu": "Условия работы в новом офисе очень комфортны для всех."
           },
           {
             "blankSentence": "Under these ___, we cannot deliver the order on time.",
             "quizAnswer": "conditions",
-            "scrambleSentence": "The conditions at the factory have really improved."
+            "scrambleSentence": "The conditions at the factory have really improved.",
+            "scrambleRu": "Условия на фабрике действительно улучшились."
           },
           {
             "blankSentence": "The weather ___ affected the sales in the stores.",
             "quizAnswer": "conditions",
-            "scrambleSentence": "Poor storage conditions can damage delicate fabrics."
+            "scrambleSentence": "Poor storage conditions can damage delicate fabrics.",
+            "scrambleRu": "Плохие условия хранения могут испортить нежные ткани."
           }
         ],
         "style": 50,
@@ -15566,17 +15989,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Our small team prefers to work in a ___ meeting room upstairs.",
             "quizAnswer": "cozy",
-            "scrambleSentence": "The store has a cozy corner with soft sofas for the customers."
+            "scrambleSentence": "The store has a cozy corner with soft sofas for the customers.",
+            "scrambleRu": "В магазине есть уютный уголок с мягкими диванами для покупателей."
           },
           {
             "blankSentence": "The knitted sweater looks so ___ for winter.",
             "quizAnswer": "cozy",
-            "scrambleSentence": "I love this cozy blanket!"
+            "scrambleSentence": "I love this cozy blanket!",
+            "scrambleRu": "Обожаю этот уютный плед!"
           },
           {
             "blankSentence": "We found a ___ café near the office.",
             "quizAnswer": "cozy",
-            "scrambleSentence": "The brand's winter campaign shows a cozy evening at home."
+            "scrambleSentence": "The brand's winter campaign shows a cozy evening at home.",
+            "scrambleRu": "Зимняя кампания бренда показывает уютный вечер дома."
           }
         ],
         "style": 30,
@@ -15653,17 +16079,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The competitor's main office is located just ___.",
             "quizAnswer": "across the river",
-            "scrambleSentence": "Our biggest competitor opened a new store across the river."
+            "scrambleSentence": "Our biggest competitor opened a new store across the river.",
+            "scrambleRu": "Наш главный конкурент открыл новый магазин через реку."
           },
           {
             "blankSentence": "Our new warehouse is ___, so deliveries take longer.",
             "quizAnswer": "across the river",
-            "scrambleSentence": "Our hotel is just across the river."
+            "scrambleSentence": "Our hotel is just across the river.",
+            "scrambleRu": "Наш отель прямо через реку."
           },
           {
             "blankSentence": "The factory is on the other side, ___.",
             "quizAnswer": "across the river",
-            "scrambleSentence": "The new shopping centre stands across the river from the old market."
+            "scrambleSentence": "The new shopping centre stands across the river from the old market.",
+            "scrambleRu": "Новый торговый центр стоит через реку от старого рынка."
           }
         ],
         "style": 40,
@@ -15738,17 +16167,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "Please do not forget to ___ a conference room for the presentation.",
             "quizAnswer": "book",
-            "scrambleSentence": "I'd like to book a hotel room for two nights."
+            "scrambleSentence": "I'd like to book a hotel room for two nights.",
+            "scrambleRu": "Я хотел бы забронировать номер в отеле на две ночи."
           },
           {
             "blankSentence": "I'd like to ___ a table for six at eight o'clock.",
             "quizAnswer": "book",
-            "scrambleSentence": "Did you book the hotel yet?"
+            "scrambleSentence": "Did you book the hotel yet?",
+            "scrambleRu": "Ты уже забронировал отель?"
           },
           {
             "blankSentence": "We need to ___ the flights for the whole team.",
             "quizAnswer": "book",
-            "scrambleSentence": "The agency booked three models for the photo shoot."
+            "scrambleSentence": "The agency booked three models for the photo shoot.",
+            "scrambleRu": "Агентство забронировало трёх моделей для фотосъёмки."
           }
         ],
         "style": 40,
@@ -15824,17 +16256,20 @@ const lessons = /*LESSONS_START*/[
           {
             "blankSentence": "The market for mobile applications is very ___ and competitive today.",
             "quizAnswer": "crowded",
-            "scrambleSentence": "The fitting rooms were crowded during the sale."
+            "scrambleSentence": "The fitting rooms were crowded during the sale.",
+            "scrambleRu": "Во время распродажи в примерочных было многолюдно."
           },
           {
             "blankSentence": "The shopping centre was ___ on the Saturday before Christmas.",
             "quizAnswer": "crowded",
-            "scrambleSentence": "The subway was so crowded this morning!"
+            "scrambleSentence": "The subway was so crowded this morning!",
+            "scrambleRu": "Сегодня утром в метро было так многолюдно!"
           },
           {
             "blankSentence": "I don't like ___ places.",
             "quizAnswer": "crowded",
-            "scrambleSentence": "The crowded market makes it hard for new brands to stand out."
+            "scrambleSentence": "The crowded market makes it hard for new brands to stand out.",
+            "scrambleRu": "На переполненном рынке новым брендам трудно выделиться."
           }
         ],
         "style": 40,
@@ -16607,6 +17042,7 @@ let currentCardIdx = 0;
   function saveLastEx(tab) {
     if (!RESUME_ON || !EX_BTN[tab] || trainerReturnTo.indexOf('lesson:') !== 0) return;
     try { localStorage.setItem(LAST_EX_KEY, JSON.stringify({ lesson: trainerReturnTo.slice(7), tab: tab })); } catch (e) { /* storage unavailable */ }
+    scheduleCloudWrite();
   }
   function lastEx() {
     if (!RESUME_ON) return null;
@@ -16634,6 +17070,7 @@ let currentCardIdx = 0;
     if (idx === -1) return;
     currentOpenLessonId = id;
     try { localStorage.setItem(LAST_LESSON_KEY, id); } catch (e) { /* storage unavailable */ }
+    scheduleCloudWrite();
     const theme = folderTheme(idx);
     const el = document.getElementById('lesson-screen');
     clearTimeout(window.__lsHide); el.style.display = '';   // убрали display:none, поставленный при закрытии
@@ -18158,24 +18595,33 @@ let currentCardIdx = 0;
   let sbMissed = false;
   function sbSentenceOf(item) { return roundData(item, 'scramble').scrambleSentence || item.scrambleSentence; }
 
-  // подсказка по ступеням: 1) значение целевой фразы, 2) подставляет первые два слова
+  // подсказка: при каждом нажатии в ответ ставится следующее ПРАВИЛЬНОЕ слово (неверно поставленные слова сначала возвращаются в банк);
+  // при первом нажатии дополнительно показывается значение целевой фразы. Три и больше подсказок — задание не засчитывается как верное с первой попытки.
   let sbHintLevel = 0;
   function toggleSbHint() {
     const box = $id('scramble-hint-box'); if (!box) return;
     const item = scramblePool[scrambleIdx]; if (!item) return;
+    if ($id('scramble-answer-box').classList.contains('success-zone')) return;
     sbHintLevel++;
     if (sbHintLevel === 1) {
-      box.innerText = L('Meaning of “' + item.term + '”: ', 'Значение «' + item.term + '»: ') + item.trans[currentLang];
+      const rd = roundData(item, 'scramble');
+      box.innerText = rd.scrambleRu ? L('Translation: ', 'Перевод: ') + rd.scrambleRu : L('Meaning of “' + item.term + '”: ', 'Значение «' + item.term + '»: ') + item.trans[currentLang];
       box.classList.add('show');
-      if (currentOriginalTokens.length > 4) $id('scramble-hint-btn').innerHTML = ICON_BULB + L('More', 'Ещё');
-    } else if (sbHintLevel === 2 && !userAssembledTokens.length) {
-      for (let k = 0; k < 2; k++) {
-        const w = currentOriginalTokens[k];
-        const chip = Array.prototype.find.call(document.querySelectorAll('#scramble-words-bank .scramble-chip'), function (c) { return c.style.display !== 'none' && c.innerText === w; });
-        if (chip) moveWordToAnswer(chip, w);
-      }
-      $id('scramble-hint-btn').disabled = true;
     }
+    const tok = currentOriginalTokens;
+    let k = 0;
+    while (k < userAssembledTokens.length && k < tok.length && userAssembledTokens[k].word === tok[k]) k++;
+    while (userAssembledTokens.length > k) { const r = userAssembledTokens.pop(); r.sourceChip.style.display = 'inline-block'; }
+    renderAnswerZone();
+    if (k < tok.length) {
+      const w = tok[k];
+      const chip = Array.prototype.find.call(document.querySelectorAll('#scramble-words-bank .scramble-chip'), function (c) { return c.style.display !== 'none' && c.innerText === w; });
+      if (chip) { moveWordToAnswer(chip, w); k++; }
+    }
+    if (sbHintLevel >= 3) sbMissed = true;
+    const hbtn = $id('scramble-hint-btn');
+    if (k >= tok.length) { hbtn.disabled = true; hbtn.innerHTML = ICON_BULB + L('Now press Check', 'Теперь нажми «Проверить»'); }
+    else hbtn.innerHTML = ICON_BULB + L('Next word', 'Ещё слово');
   }
 
   function renderScrambleQuestion() {
@@ -19081,6 +19527,12 @@ let currentCardIdx = 0;
     return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
   }
 
+  function otgLoadProgress(done, total) {
+    const el = $id('otg-prompt'); if (!el || $id('otg-player').style.display === 'none') return;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    el.innerHTML = '<span class="otg-load-text">' + escapeHtml(L('Preparing the track…', 'Готовлю дорожку…')) + ' ' + pct + '%</span><span class="otg-load"><span class="otg-load-fill" style="width:' + pct + '%"></span></span>';
+  }
+
   async function otgBuildTrack() {
     const Ctx = window.OfflineAudioContext || window.webkitOfflineAudioContext;
     if (!Ctx) throw new Error('no audio context');
@@ -19095,6 +19547,13 @@ let currentCardIdx = 0;
       const buf = await new Promise(function (res, rej) { const p = ctx.decodeAudioData(ab, res, rej); if (p && p.then) p.then(res, rej); });
       return (cache[path] = buf.getChannelData(0));
     };
+    // сначала загружаем и декодируем все mp3 (по 6 сразу) и показываем полоску прогресса
+    const paths = [];
+    otg.wordsList.forEach(function (w) {
+      [w.audioWord, ru ? w.audioDefRu : w.audioDef, otg.example ? w.audioSentence : null].forEach(function (p) { if (p && paths.indexOf(p) < 0) paths.push(p); });
+    });
+    let loaded = 0; otgLoadProgress(0, paths.length);
+    for (let i = 0; i < paths.length; i += 6) await Promise.all(paths.slice(i, i + 6).map(function (p) { return get(p).then(function () { loaded++; otgLoadProgress(loaded, paths.length); }); }));
     const parts = [], segs = [], wordStarts = [];
     let pos = 0;   // в секундах
     const addSilence = function (sec, kind, idx) { const n = Math.round(sec * OTG_SR); parts.push({ n: n }); segs.push({ t0: pos, t1: pos + sec, kind: kind, idx: idx }); pos += sec; };
@@ -19737,6 +20196,13 @@ let currentCardIdx = 0;
     if (globalAnalyticsScreen && globalAnalyticsScreen.classList.contains('active')) updateGlobalAnalyticsScreen();
   }
 
+  // «где остановилась» (последний урок и упражнение) хранится и в облаке — чтобы карточка «Продолжить» работала на любом устройстве по той же ссылке
+  function resumeSnapshot() {
+    let l = null, e = null;
+    try { l = localStorage.getItem(LAST_LESSON_KEY); e = localStorage.getItem(LAST_EX_KEY); } catch (x) { /* ignore */ }
+    return { lesson: l || null, ex: e || null, t: Date.now() };
+  }
+
   function cloudWriteAll() {
     if (!cloudReady || !cloudFns || !cloudDocRef) return;
     cloudFns.setDoc(cloudDocRef, {
@@ -19748,6 +20214,7 @@ let currentCardIdx = 0;
       wp: wp,
       activity: activity,
       acc: acc,
+      resume: resumeSnapshot(),
       updatedAt: cloudFns.serverTimestamp()
     }, { merge: true }).catch(function (e) { console.warn('Cloud write failed, kept locally only:', e); });
   }
@@ -19789,6 +20256,12 @@ let currentCardIdx = 0;
         if (data.wp) { Object.keys(wp).forEach(function (k) { delete wp[k]; }); Object.assign(wp, data.wp); }
         if (data.activity) { Object.keys(activity).forEach(function (k) { delete activity[k]; }); Object.assign(activity, data.activity); }
         if (data.acc) { Object.keys(acc).forEach(function (k) { delete acc[k]; }); Object.assign(acc, data.acc); }
+        if (data.resume) {
+          try {
+            if (data.resume.lesson) localStorage.setItem(LAST_LESSON_KEY, data.resume.lesson);
+            if (data.resume.ex) localStorage.setItem(LAST_EX_KEY, data.resume.ex);
+          } catch (x) { /* ignore */ }
+        }
         if (data.rounds) { Object.keys(roundState).forEach(function (k) { delete roundState[k]; }); Object.assign(roundState, data.rounds); }
         try {
           localStorage.setItem(LEVEL_KEY, JSON.stringify(wordLevel));
