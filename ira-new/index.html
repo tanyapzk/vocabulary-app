@@ -2354,6 +2354,24 @@
     .lesson-listen-btn:hover { background: rgba(255, 255, 255, 0.75); }
     .lesson-screen.on-light .lesson-select-btn, .lesson-screen.on-light .lesson-back-btn { background: rgba(255, 255, 255, 0.5); color: var(--c-berry-dark); }
     .lesson-topbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    /* шапка урока (← Lessons · Shuffle · Listen · Select) закреплена сверху при прокрутке списка;
+       фон — верхний цвет урока, растворяется книзу (зеркально нижней панели Learn) */
+    .lesson-topbar {
+      position: sticky; top: 0; z-index: 6;
+      margin: -28px -20px 0; padding: 16px 20px 18px;
+      padding-top: max(16px, env(safe-area-inset-top));
+      background: linear-gradient(to bottom, var(--lesson-top, var(--lesson-bg)) 72%, transparent);
+    }
+    .lesson-screen-title { margin-top: 12px; }
+    .lesson-shuffle-btn {
+      display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0;
+      border-radius: 50%; cursor: pointer; color: var(--c-berry-dark);
+      background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(255, 255, 255, 0.7);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: background 0.3s ease;
+    }
+    .lesson-shuffle-btn svg { display: block; }
+    .lesson-shuffle-btn:hover { background: rgba(255, 255, 255, 0.75); }
+    .lesson-shuffle-btn.active { background: var(--c-berry); border-color: var(--c-berry); color: var(--c-white); }
 
     /* ---- Word Info v4 ---- */
     #origin-modal-overlay { cursor: default; padding: 16px; }
@@ -3240,6 +3258,7 @@
       <div class="lesson-topbar">
         <button class="lesson-back-btn" id="lesson-back-btn" onclick="backToLessonsList()">← Lessons</button>
         <div class="lesson-topbar-right">
+          <button class="lesson-shuffle-btn" id="lesson-shuffle-btn" onclick="shuffleList('lesson')" aria-label="Shuffle" title="Shuffle"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg></button>
           <button class="lesson-listen-btn" id="lesson-listen-btn" onclick="openOtg()" aria-label="Learn on the go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg><span id="lesson-listen-text">Listen</span></button>
           <button class="lesson-select-btn" id="lesson-select-btn" onclick="toggleLessonSelect()">Select</button>
         </div>
@@ -18689,6 +18708,7 @@ let currentCardIdx = 0;
   function openLesson(id, sourceEl) {
     const idx = lessons.findIndex(function (l) { return l.id === id; });
     if (idx === -1) return;
+    if (currentOpenLessonId !== id) listOrder.lesson = null;   // перемешивание — только для того урока, где нажали
     currentOpenLessonId = id;
     try { localStorage.setItem(LAST_LESSON_KEY, id); } catch (e) { /* storage unavailable */ }
     scheduleCloudWrite();
@@ -18702,6 +18722,7 @@ let currentCardIdx = 0;
     el.style.color = 'var(--c-berry-dark)';
     setThemeColor(theme.hex);
     el.style.setProperty('--lesson-bg', soft(theme.toColor));
+    el.style.setProperty('--lesson-top', soft(theme.solid));
     el.classList.remove('on-dark');
     el.classList.add('on-light');
     renderLessonScreen();
@@ -20591,6 +20612,7 @@ let currentCardIdx = 0;
     $id('lesson-learn-btn').innerText = L('Learn', 'Учить');
     buildWordList($id('lesson-word-list'), prepList('lesson', lesson.words), { selectable: selectScreen === 'lesson', hideToggle: true, onHideChange: function () { renderLessonScreen(); renderAllWords(false); } });
     $id('lesson-count-row').innerHTML = '';
+    const shBtn = $id('lesson-shuffle-btn'); if (shBtn) shBtn.classList.toggle('active', !!listOrder.lesson);
     updateLessonSelectPanel();
   }
 
@@ -21049,7 +21071,12 @@ let currentCardIdx = 0;
     if (Array.isArray(source)) words = source;
     else if (source === 'allwords') words = studentWordsList();
     else if (source === 'saved') words = savedWordsList();
-    else { const lesson = lessons.find(function (l) { return l.id === currentOpenLessonId; }); words = lesson ? lesson.words : []; }
+    else {
+      const lesson = lessons.find(function (l) { return l.id === currentOpenLessonId; });
+      words = lesson ? lesson.words : [];
+      const ord = listOrder.lesson;
+      if (ord) { const rank = {}; ord.forEach(function (term, i) { rank[term] = i; }); words = words.slice().sort(function (a, b) { return (rank[a.term] == null ? 1e6 : rank[a.term]) - (rank[b.term] == null ? 1e6 : rank[b.term]); }); }
+    }
     otg.wordsList = words.filter(function (w) { return !hiddenTerms[w.term]; });
     if (!otg.wordsList.length) return;
     $id('otg-overlay').classList.add('show');
