@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Back in Time · Homework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFE7D6; --page:#FFFCF4; --ink:#1E2B45; --muted:#5E6577; --line:#DCD1BB;
+  --rome:#B5502F; --sea:#1F7A8C; --rev:#8C2F39; --school:#A9700E;
+  --ok:#2F7D4F; --no:#B33A3A;
+  --f-head:"DM Serif Display",Georgia,serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Courier Prime","Courier New",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.5;padding:0 14px calc(60px + env(safe-area-inset-bottom));--c:var(--ink)}
+.wrap{max-width:620px;margin:0 auto}
+h1,h2,h3{margin:0;font-weight:400}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+textarea{font:inherit}
+:focus-visible{outline:3px solid var(--sea);outline-offset:2px;border-radius:8px}
+.rome{--c:var(--rome)} .sea{--c:var(--sea)} .rev{--c:var(--rev)} .school{--c:var(--school)} .mix{--c:var(--ink)}
+
+/* hero */
+.hero{margin-top:14px;background:var(--ink);color:var(--page);border-radius:22px;padding:24px 22px 22px;position:relative}
+.hero::after{content:"";position:absolute;inset:8px;border:1px solid color-mix(in srgb,var(--page) 22%,transparent);border-radius:16px;pointer-events:none}
+.hero .k{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:color-mix(in srgb,var(--page) 70%,var(--ink))}
+.hero h1{font-family:var(--f-head);font-size:44px;line-height:.95;margin-top:8px}
+.hero h1 em{font-style:normal;color:#F0C46A}
+.hero p{margin-top:10px;color:color-mix(in srgb,var(--page) 85%,var(--ink));font-size:16px}
+.route{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
+.route a{flex:1 1 0;min-width:90px;text-decoration:none;color:var(--page);border:1.5px solid color-mix(in srgb,var(--page) 30%,transparent);border-radius:12px;padding:8px 10px;font-size:13px;line-height:1.3}
+.route a b{display:block;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:#F0C46A}
+
+/* step header */
+.step{margin-top:30px;display:flex;align-items:center;gap:12px}
+.step .n{width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--page);font-family:var(--f-head);font-size:22px;display:grid;place-items:center;flex:none}
+.step h2{font-family:var(--f-head);font-size:28px;line-height:1.05}
+.step p{color:var(--muted);font-size:14px}
+
+/* task card */
+.task{position:relative;margin-top:14px;background:var(--page);border:1.5px solid var(--line);border-radius:20px;padding:20px 16px 18px}
+.task .tag{font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+.task h3{font-family:var(--f-head);font-size:25px;line-height:1.1;margin-top:4px}
+.task .sub{color:var(--muted);font-size:15px;margin-top:6px}
+
+/* buttons */
+.btn{border:0;background:var(--c);color:#fff;border-radius:999px;padding:11px 20px;font-weight:700;font-size:16px;display:inline-flex;align-items:center;gap:8px}
+.btn.ghost{background:transparent;color:var(--c);box-shadow:inset 0 0 0 2px var(--c)}
+.btn svg{width:18px;height:18px}
+.ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.score{font-family:var(--f-mono);font-weight:700;color:var(--c);font-size:15px}
+.play{border:0;background:color-mix(in srgb,var(--c) 12%,white);color:var(--c);width:40px;height:40px;border-radius:50%;display:inline-grid;place-items:center;flex:none}
+.play svg{width:16px;height:16px}
+.play.on{background:var(--c);color:#fff}
+
+/* word cards */
+.wgroup{margin-top:16px}
+.wgroup .gh{font-family:var(--f-mono);font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--c);text-transform:uppercase;margin-bottom:8px}
+.wlist{display:flex;flex-direction:column;gap:8px}
+.wc{border:1.5px solid var(--line);background:#fff;border-radius:16px;overflow:hidden}
+.wc .row{display:flex;align-items:center;gap:12px;padding:10px 12px}
+.wc .row button.face{flex:1;display:flex;align-items:center;gap:12px;background:none;border:0;padding:0;text-align:left}
+.wc svg.pic{width:36px;height:36px;color:var(--c);flex:none}
+.wc h4{flex:1;margin:0;font-family:var(--f-head);font-weight:400;font-size:23px;line-height:1.1}
+.wc .chev{width:20px;height:20px;color:var(--muted);transition:transform .2s;flex:none}
+.wc .more{display:none;padding:2px 14px 14px}
+.wc.open .more{display:block}
+.wc.open .chev{transform:rotate(180deg)}
+.wc .mean{font-weight:700}
+.wc .ru{margin-top:2px;color:var(--c);font-weight:600;font-size:15px}
+.wc .alt{margin-top:10px;font-size:14px;background:color-mix(in srgb,var(--c) 8%,white);border-radius:10px;padding:8px 10px}
+.wc .alt b{color:var(--c)}
+/* chat gap fill */
+.chat{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.chat .hd{font-weight:800;font-size:15px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.chat .hd small{display:block;font-weight:500;color:var(--muted);font-size:13px}
+.bub{max-width:90%;background:color-mix(in srgb,var(--c) 9%,white);border-radius:16px 16px 16px 4px;padding:8px 12px;font-size:16px;line-height:2}
+.bub b.n{display:block;font-size:12px;color:var(--c);line-height:1.4}
+.bub.me{align-self:flex-end;background:#fff;border:1.5px solid var(--c);border-radius:16px 16px 4px 16px}
+.wc .ex{margin-top:6px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.wc .ex b{color:var(--ink)}
+.wc .ex .play{width:34px;height:34px}
+
+/* matching */
+.mt{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1.25fr);margin-top:14px}
+.mt svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.mt svg.lines path{fill:none;stroke:var(--c);stroke-width:3;stroke-linecap:round}
+.mt svg.lines path.tmp{stroke-dasharray:6 6;opacity:.6}
+.mt svg.lines path.ok{stroke:var(--ok)} .mt svg.lines path.no{stroke:var(--no)}
+.mt .col{display:flex;flex-direction:column;gap:10px}
+.mi{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 10px;font-size:15px;font-weight:600;user-select:none;-webkit-user-select:none;touch-action:none;min-height:52px;display:flex;align-items:center;line-height:1.25}
+.mi.l{font-family:var(--f-head);font-weight:400;font-size:19px}
+.mi.used{border-color:var(--c)} .mi.sel{background:color-mix(in srgb,var(--c) 14%,white);border-color:var(--c)}
+
+/* multiple choice */
+.mc .q{padding:14px 0;border-top:1px solid var(--line)}
+.mc .q:first-child{border-top:0}
+.mc .q p{font-weight:600;font-size:17px}
+.mc .q p b{color:var(--c)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.op{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;font-size:16px;font-weight:600}
+.op.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.op.no{background:color-mix(in srgb,var(--no) 12%,white);border-color:var(--no);color:var(--no);text-decoration:line-through}
+
+/* gap fill */
+.bank{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border-radius:14px;background:color-mix(in srgb,var(--c) 7%,white);position:sticky;top:6px;z-index:3;margin-top:14px;box-shadow:0 6px 16px -10px color-mix(in srgb,var(--ink) 40%,transparent)}
+.chip{border:1.5px solid var(--c);background:#fff;color:var(--c);border-radius:999px;padding:7px 13px;font-weight:700;font-size:15px}
+.chip.sel{background:var(--c);color:#fff}
+.chip.used{opacity:.3}
+.paper{margin-top:12px;font-size:17px;line-height:2.2}
+.gp{display:inline-block;min-width:96px;border-bottom:2.5px solid var(--c);text-align:center;font-weight:700;color:var(--c);line-height:1.4;padding:0 4px;border-radius:6px 6px 0 0}
+.gp:empty::after{content:"\00a0"}
+.gp.ok{background:color-mix(in srgb,var(--ok) 14%,white);color:var(--ok);border-color:var(--ok)}
+.gp.no{background:color-mix(in srgb,var(--no) 12%,white);color:var(--no);border-color:var(--no)}
+
+.tip{margin-top:12px;display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--c) 8%,white);border-radius:12px;padding:10px 12px;font-size:15px}
+.tip svg{width:20px;height:20px;color:var(--c);flex:none;margin-top:2px}
+
+/* writing */
+.wq{margin-top:16px}
+.wq label{display:block;font-weight:700}
+.wq label small{display:block;font-weight:500;color:var(--muted);font-size:14px}
+.wq textarea{width:100%;margin-top:8px;border:1.5px solid var(--line);border-radius:14px;padding:12px;font-size:16px;line-height:1.45;background:#fff;resize:vertical;min-height:84px;color:var(--ink)}
+.wq textarea:focus{outline:none;border-color:var(--c)}
+.found{margin-top:6px;font-size:14px;color:var(--muted);min-height:1.4em}
+.found b{color:var(--ok)}
+.choice{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.choice div{border-left:4px solid var(--c);padding:4px 0 4px 12px;font-size:16px}
+.choice b{color:var(--c)}
+.tracker{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tracker span{border:1.5px solid var(--line);border-radius:999px;padding:4px 11px;font-size:14px;font-weight:700;color:var(--muted);background:#fff}
+.tracker span.on{background:var(--ok);border-color:var(--ok);color:#fff}
+
+/* send */
+.send{margin-top:30px;background:var(--ink);color:var(--page);border-radius:22px;padding:22px 18px;text-align:center}
+.send h2{font-family:var(--f-head);font-size:28px}
+.send p{margin-top:6px;color:color-mix(in srgb,var(--page) 82%,var(--ink));font-size:15px}
+.send .btn{margin-top:14px;background:#F0C46A;color:var(--ink);font-size:17px;padding:13px 24px}
+.send .msg{margin-top:10px;font-family:var(--f-mono);font-size:14px;color:#F0C46A;min-height:1.4em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="k">TIME TRAVEL PASSPORT · HOMEWORK</div>
+  <h1>Back in <em>Time</em></h1>
+  <p>Twelve phrasal verbs for school, music and real life. Three steps. At the end, tap <b>Copy my answers</b> and send them to me.</p>
+  <nav class="route">
+    <a href="#s1"><b>STEP 1</b>Remember the words</a>
+    <a href="#s2"><b>STEP 2</b>Words in context</a>
+    <a href="#s3"><b>STEP 3</b>Your turn</a>
+  </nav>
+</header>
+
+<!-- ============ STEP 1 ============ -->
+<div class="step" id="s1"><span class="n">1</span><div><h2>Remember the words</h2><p>Listen, repeat, connect.</p></div></div>
+
+<section class="task mix">
+  <div class="tag">1A · Word cards</div>
+  <h3>Tap a verb</h3>
+  <p class="sub">Tap a card to see the meaning. Tap the play button and say the sentence aloud.</p>
+  <div id="cards"></div>
+</section>
+
+<section class="task rome">
+  <div class="tag">1B · Connect · Rome and the Explorers</div>
+  <h3>Verb and meaning</h3>
+  <p class="sub">Tap a verb, then tap its meaning. You can also drag a line.</p>
+  <div data-match="0"></div>
+</section>
+
+<section class="task rev">
+  <div class="tag">1C · Connect · Revolution and school</div>
+  <h3>Verb and meaning</h3>
+  <p class="sub">Tap a verb, then tap its meaning.</p>
+  <div data-match="1"></div>
+</section>
+
+<!-- ============ STEP 2 ============ -->
+<div class="step" id="s2"><span class="n">2</span><div><h2>Words in context</h2><p>School, music and history.</p></div></div>
+
+<section class="task sea">
+  <div class="tag">2A · Choose</div>
+  <h3>Which verb fits?</h3>
+  <p class="sub">Tap the best answer. If it is red, try again.</p>
+  <div class="mc" id="mc1"></div>
+</section>
+
+<section class="task school">
+  <div class="tag">2B · Group chat</div>
+  <h3>Saturday plans</h3>
+  <p class="sub">Tap a verb, then tap a gap. Two verbs are extra. Then read the chat aloud.</p>
+  <div id="gp"></div>
+</section>
+
+<section class="task rome">
+  <div class="tag">2C · Right time</div>
+  <h3>When did it happen?</h3>
+  <p class="sub">Look at the words in bold. Choose the right form.</p>
+  <div class="mc" id="mc2"></div>
+</section>
+
+<section class="task rev">
+  <div class="tag">2D · Where does “it” go?</div>
+  <h3>Choose the correct sentence</h3>
+  <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><div><b>hand it in</b>, <b>call it off</b>, <b>take it over</b> — “it” goes in the middle.<br>But <b>sign up for it</b>, <b>run out of it</b> — these never split.</div></div>
+  <div class="mc" id="mc3"></div>
+</section>
+
+<!-- ============ STEP 3 ============ -->
+<div class="step" id="s3"><span class="n">3</span><div><h2>Your turn</h2><p>Write about you. Short answers are OK!</p></div></div>
+
+<section class="task sea">
+  <div class="tag">3A · About you</div>
+  <h3>Answer the questions</h3>
+  <p class="sub">One or two sentences. Use the verb from the question.</p>
+  <div id="qa"></div>
+</section>
+
+<section class="task school">
+  <div class="tag">3B · Your story</div>
+  <h3>Tell a short story</h3>
+  <p class="sub">Choose one idea. Write 4–5 sentences in the past. Use at least 4 phrasal verbs — they light up when you use them.</p>
+  <div class="choice">
+    <div><b>A day in history.</b> You are in Ancient Rome, on a ship in 1519, or with Washington in 1776. What happens?</div>
+    <div><b>A day with your band.</b> A concert, a practice, or a trip. What goes wrong? What goes right?</div>
+  </div>
+  <div class="wq"><textarea id="story" rows="6" placeholder="One morning, we set off…"></textarea></div>
+  <div class="tracker" id="tracker"></div>
+  <p class="found" id="storyCount"></p>
+</section>
+
+<section class="task rev">
+  <div class="tag">3C · Real life</div>
+  <h3>Use them this week</h3>
+  <p class="sub">Use three of these verbs in real life: at school, in your band, or when you text your friends. Then write here what you said and to whom.</p>
+  <div class="wq"><textarea id="life" rows="4" placeholder="I told my friend: “I signed up for…”"></textarea></div>
+  <p class="found" id="lifeFound"></p>
+</section>
+
+<section class="send">
+  <h2>All done?</h2>
+  <p>Tap the button, then paste your answers into our chat in Telegram.</p>
+  <button class="btn" id="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy my answers</button>
+  <p class="msg" id="copyMsg"></p>
+</section>
+
+</div>
+
+<script>
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+function store(k,v){try{if(v===undefined)return localStorage.getItem('vbit-'+k);localStorage.setItem('vbit-'+k,v)}catch(e){return null}}
+
+var SV='<svg class="pic" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">';
+var ICON={
+ "build up":SV+'<rect x="10" y="44" width="26" height="10" rx="2"/><rect x="14" y="32" width="20" height="10" rx="2"/><rect x="18" y="20" width="12" height="10" rx="2"/><path d="M48 52V14M40 22l8-8 8 8"/></svg>',
+ "break up":SV+'<path d="M30 8a24 24 0 0 0 0 48l6-12-8-8 8-10-6-18z"/><path d="M38 9a24 24 0 0 1 0 46l5-11-8-8 8-10z" transform="translate(4 0)"/></svg>',
+ "take over":SV+'<path d="M14 56V26h6v-6h6v6h12v-6h6v6h6v30z"/><path d="M28 56V44a4 4 0 0 1 8 0v12"/><path d="M32 20V6"/><path d="M32 6h14l-4 5 4 5H32"/></svg>',
+ "set off":SV+'<path d="M8 44h48l-7 10H15z"/><path d="M32 44V8"/><path d="M32 10l16 26H32"/><path d="M32 16L20 36h12"/></svg>',
+ "find out":SV+'<circle cx="27" cy="27" r="15"/><path d="M38 38l16 16"/><path d="M27 20v8M27 33v.5"/></svg>',
+ "run out of":SV+'<rect x="8" y="20" width="42" height="24" rx="5"/><path d="M50 28h5v8h-5"/><path d="M15 27v10"/><path d="M28 18l-4 28" opacity=".55"/></svg>',
+ "give up":SV+'<path d="M16 58V8"/><path d="M16 10c8-4 14 4 22 0s12-2 16 0v22c-4-2-8-4-16 0s-14-4-22 0"/></svg>',
+ "carry on":SV+'<path d="M6 40h8M20 40h8M34 40h8"/><path d="M42 30l12 10-12 10"/><path d="M10 22c4-6 10-6 14 0s10 6 14 0"/></svg>',
+ "call off":SV+'<rect x="8" y="12" width="48" height="44" rx="5"/><path d="M8 24h48M20 6v10M44 6v10"/><path d="M24 33l16 16M40 33L24 49"/></svg>',
+ "hand in":SV+'<path d="M18 6h20l10 10v20H18z"/><path d="M38 6v10h10"/><path d="M33 26v14M27 34l6 6 6-6"/><path d="M6 46h14l4 6h16l4-6h14v12H6z"/></svg>',
+ "sign up for":SV+'<rect x="12" y="10" width="34" height="46" rx="4"/><path d="M22 6h14v8H22z"/><path d="M20 28h18M20 38h12"/><path d="M56 30L40 46l-6 2 2-6 16-16z"/></svg>',
+ "show up":SV+'<path d="M12 58V8h28v50"/><path d="M40 8l12 6v40l-12 4"/><circle cx="34" cy="34" r="1.5" fill="currentColor"/><path d="M4 58h56"/></svg>'
+};
+var PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+var PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+var CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+var CHEV='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+
+var C={rome:"#B5502F",sea:"#1F7A8C",rev:"#8C2F39",school:"#A9700E"};
+var G=[["Ancient Rome","rome"],["The Explorers","sea"],["The Revolution","rev"],["School in America","school"]];
+var V=[
+ ["build up",0,"make bigger or stronger","наращивать, укреплять",["I’m trying to <b>build up</b> my confidence before the show.","Don’t let your homework <b>build up</b>. Do a little every day."]],
+ ["break up",0,"separate; end a relationship","распадаться; расставаться",["Did you hear? Jake and Emma <b>broke up</b>!","My favorite band <b>broke up</b>, and I’m still not over it."]],
+ ["take over",0,"start to control; do something instead of someone","взять под контроль; подменить кого-то",["Can you <b>take over</b> for a sec? I need to grab a coffee.","My little brother totally <b>took over</b> the TV again."]],
+ ["set off",1,"begin a trip","отправляться в путь",["We <b>set off</b> at like 6 a.m. for our road trip.","What time are you guys <b>setting off</b>?"],"Americans also say <b>head out</b>: “We’re heading out at six.”"],
+ ["find out",1,"learn a fact","узнать, выяснить",["I just <b>found out</b> we have a test tomorrow. Ugh.","Let me know when you <b>find out</b> your grade."]],
+ ["run out of",1,"have none left","закончиться, израсходовать",["We <b>ran out of</b> milk. Can you grab some on your way home?","I <b>ran out of</b> time and didn’t finish the last question."]],
+ ["give up",2,"stop trying","сдаться, бросить",["Don’t <b>give up</b>, you’re almost there!","I <b>gave up</b> on that show after season two."]],
+ ["carry on",2,"continue","продолжать",["Sorry to interrupt. <b>Carry on</b>!","We <b>carried on</b> with practice even though it was raining."],"Americans often say <b>keep going</b>: “Keep going, you’re doing great!”"],
+ ["call off",2,"cancel","отменить",["The game got <b>called off</b> because of the rain.","They <b>called off</b> the party at the last minute."]],
+ ["hand in",3,"give to a teacher","сдать (работу учителю)",["Did you <b>hand in</b> your essay yet?","I forgot to <b>hand in</b> my permission slip."],"Americans often say <b>turn in</b>: “Turn in your phones before the test.”"],
+ ["sign up for",3,"put your name on a list to join","записаться",["I <b>signed up for</b> the talent show. Wish me luck!","Wanna <b>sign up for</b> the soccer team with me?"]],
+ ["show up",3,"arrive; come","прийти, появиться",["He said he’d come, but he never <b>showed up</b>.","Just <b>show up</b> at seven. I’ll handle the rest."]]
+];
+function key(t){return t.replace(/ /g,'-')}
+
+/* ---------- audio ---------- */
+var cur=null,curBtn=null;
+function stop(){if(cur){cur.pause();cur=null}if(curBtn){curBtn.classList.remove('on');curBtn.innerHTML=PLAY;curBtn=null}}
+document.addEventListener('click',function(e){var b=e.target.closest('.play');if(!b)return;e.stopPropagation();
+  if(curBtn===b){stop();return}stop();curBtn=b;b.classList.add('on');b.innerHTML=PAUSE;
+  cur=new Audio('audio/'+b.dataset.a+'.mp3');cur.onended=stop;cur.play().catch(stop)},true);
+
+/* ---------- 1A cards ---------- */
+$('#cards').innerHTML=G.map(function(g,gi){return '<div class="wgroup '+g[1]+'"><div class="gh">'+g[0]+'</div><div class="wlist">'+
+  V.filter(function(v){return v[1]==gi}).map(function(v){var k=key(v[0]);return '<div class="wc"><div class="row"><button class="face">'+ICON[v[0]]+'<h4>'+v[0]+'</h4>'+CHEV+'</button><button class="play" data-a="w-'+k+'" aria-label="Listen">'+PLAY+'</button></div>'+
+  '<div class="more"><p class="mean">'+v[2]+'</p><p class="ru">'+v[3]+'</p>'+v[4].map(function(x,j){return '<p class="ex"><button class="play" data-a="e'+(j+1)+'-'+k+'" aria-label="Listen to the example">'+PLAY+'</button><span>'+x+'</span></p>'}).join('')+(v[5]?'<p class="alt">'+v[5]+'</p>':'')+'</div></div>'}).join('')+'</div></div>'}).join('');
+$('#cards').addEventListener('click',function(e){var f=e.target.closest('.face');if(f)f.closest('.wc').classList.toggle('open')});
+
+/* ---------- 1B/1C matching ---------- */
+var RESULTS={};
+var MATCH=[
+ {P:[["build up","make bigger or stronger"],["break up","separate into parts"],["take over","start to control"],["set off","begin a trip"],["find out","learn a fact"],["run out of","have none left"]],ord:[4,2,5,0,3,1]},
+ {P:[["give up","stop trying"],["carry on","continue"],["call off","cancel"],["hand in","give to a teacher"],["sign up for","put your name on a list to join"],["show up","arrive"]],ord:[2,5,0,4,1,3]}
+];
+$$('[data-match]').forEach(function(el){
+ var m=MATCH[+el.dataset.match],P=m.P,links={},sel=null,drag=null,id='m'+el.dataset.match;
+ el.innerHTML='<div class="mt"><svg class="lines"></svg><div class="col">'+P.map(function(p,i){return '<div class="mi l" data-i="'+i+'">'+p[0]+'</div>'}).join('')+'</div><div></div><div class="col">'+m.ord.map(function(i){return '<div class="mi r" data-i="'+i+'">'+P[i][1]+'</div>'}).join('')+'</div></div><div class="ctl"><button class="btn ck">'+CHECK+'Check</button><button class="btn ghost rs">Reset</button><span class="score"></span></div>';
+ var box=$('.mt',el),svg=$('svg',box),sc=$('.score',el);
+ function pos(n,left){var c=box.getBoundingClientRect(),r=n.getBoundingClientRect();return [(left?r.right:r.left)-c.left,r.top+r.height/2-c.top]}
+ function path(a,b,cls){var mx=(a[0]+b[0])/2;return '<path class="'+(cls||'')+'" d="M'+a[0]+','+a[1]+' C'+mx+','+a[1]+' '+mx+','+b[1]+' '+b[0]+','+b[1]+'"/>'}
+ function draw(res){var s='';for(var l in links){s+=path(pos($('.l[data-i="'+l+'"]',box),1),pos($('.r[data-i="'+links[l]+'"]',box),0),res?(links[l]==l?'ok':'no'):'')}
+  if(drag&&drag.moved){var c=box.getBoundingClientRect();s+=path(pos($('.l[data-i="'+drag.i+'"]',box),1),[drag.x-c.left,drag.y-c.top],'tmp')}
+  svg.innerHTML=s;$$('.mi',box).forEach(function(n){var l=n.classList.contains('l'),i=n.dataset.i,used=l?(i in links):Object.keys(links).some(function(k){return links[k]==i});n.classList.toggle('used',used);n.classList.toggle('sel',l&&sel==i)})}
+ function link(l,r){for(var k in links)if(links[k]==r)delete links[k];links[l]=r;sc.textContent='';draw()}
+ box.addEventListener('pointerdown',function(e){var n=e.target.closest('.mi');if(!n)return;e.preventDefault();var i=n.dataset.i;
+  if(n.classList.contains('l')){drag={i:i,x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,moved:false};sel=i;draw()}
+  else if(sel!=null){link(sel,i);sel=null;draw()}});
+ document.addEventListener('pointermove',function(e){if(!drag)return;drag.x=e.clientX;drag.y=e.clientY;if(!drag.moved&&Math.abs(e.clientX-drag.sx)+Math.abs(e.clientY-drag.sy)>8){drag.moved=true;delete links[drag.i]}draw()});
+ document.addEventListener('pointerup',function(e){if(!drag)return;var d=drag;drag=null;var t=document.elementFromPoint(e.clientX,e.clientY),r=t&&t.closest&&t.closest('.mi.r');
+  if(d.moved){if(r&&box.contains(r))link(d.i,r.dataset.i);sel=null}draw()});
+ document.addEventListener('pointercancel',function(){drag=null;draw()});
+ $('.ck',el).onclick=function(){var ok=0;for(var l in links)if(links[l]==l)ok++;draw(true);sc.textContent=ok+' / '+P.length;RESULTS[id]=ok+' / '+P.length};
+ $('.rs',el).onclick=function(){links={};sel=null;sc.textContent='';draw()};
+ window.addEventListener('resize',function(){draw()});draw();
+});
+
+/* ---------- multiple choice ---------- */
+function mc(el,id,title,items){var sc=0,done=0,first=[];
+ el.innerHTML=items.map(function(it,n){return '<div class="q"><p>'+(n+1)+'. '+it[0]+'</p><div class="opts">'+it[1].map(function(o,k){return '<button class="op" data-k="'+k+'">'+o+'</button>'}).join('')+'</div></div>'}).join('')+'<p class="score"></p>';
+ var s=$('.score',el);
+ RESULTS[id]=function(){return title+': '+sc+' / '+items.length+' right on the first try'+(done<items.length?' ('+(items.length-done)+' not done)':'')+(first.length?'. Mistakes: '+first.join('; '):'')};
+ el.addEventListener('click',function(e){var b=e.target.closest('.op');if(!b)return;var q=b.closest('.q'),i=$$('.q',el).indexOf(q);
+  if(q.classList.contains('done'))return;
+  if(+b.dataset.k==items[i][2]){b.classList.add('ok');q.classList.add('done');done++;if(!q.dataset.w)sc++;s.textContent='Score: '+sc+' / '+items.length}
+  else{b.classList.add('no');if(!q.dataset.w){q.dataset.w=1;first.push((i+1)+' "'+b.textContent+'"')}}});
+}
+mc($('#mc1'),'mc1','2A Which verb fits',[
+ ["Our band ___ a lot of fans on Instagram this year.",["built up","broke up","showed up"],0],
+ ["My favorite band ___ last year. Now they all sing alone.",["took over","broke up","set off"],1],
+ ["Our teacher got sick, so Mr. Lee ___ the history class.",["took over","handed in","gave up"],0],
+ ["We ___ for the concert at 5 a.m. because it was far away.",["called off","found out","set off"],2],
+ ["I just ___ that our school is 130 years old!",["found out","ran out of","signed up for"],0],
+ ["Can I borrow a pen? My pen ___ ink.",["gave up","ran out of","carried on"],1],
+ ["The song was hard, but she didn’t ___. She practiced every day.",["show up","hand in","give up"],2],
+ ["Sorry I stopped you! Please ___. What happened next?",["carry on","call off","take over"],0],
+ ["It’s snowing a lot, so the school ___ the football game.",["built up","called off","set off"],1],
+ ["Don’t forget to ___ your essay by Friday!",["break up","find out","hand in"],2],
+ ["I want to ___ the school musical. Where is the list?",["sign up for","run out of","take over"],0],
+ ["The party started at 7, but Jake ___ at 9!",["set off","showed up","gave up"],1]
+]);
+mc($('#mc2'),'mc2','2C Right time',[
+ ["<b>Last week</b> the school ___ the concert because of the storm. <i>(call off)</i>",["calls off","called off","is going to call off"],1],
+ ["<b>Tomorrow</b> I ___ the art club. <i>(sign up for)</i>",["am going to sign up for","signed up for","sign up for"],0],
+ ["<b>Every morning</b> I ___ for school at 7:30. <i>(set off)</i>",["was setting off","sets off","set off"],2],
+ ["I ___ the band, <b>but then</b> I heard our new song and stayed. <i>(give up)</i>",["am going to give up","was going to give up","give up"],1],
+ ["<b>Right now</b> we ___ with the rehearsal. Call me later! <i>(carry on)</i>",["are carrying on","carried on","carry on"],0],
+ ["<b>When I was ten</b>, I ___ that my grandpa played the guitar. <i>(find out)</i>",["find out","am finding out","found out"],2]
+]);
+mc($('#mc3'),'mc3','2D Where does it go',[
+ ["Your homework? Please…",["hand in it.","hand it in."],1],
+ ["The game? They…",["called it off.","called off it."],0],
+ ["The concert list? I…",["signed it up for yesterday.","signed up for it yesterday."],1],
+ ["The water? We…",["ran out of it.","ran it out of."],0]
+]);
+
+/* ---------- 2B gap fill ---------- */
+(function(){var A=["find out","hand in","give up","signed up for","showed up","setting off","ran out of","call off"],
+ bank=["setting off","broke up","hand in","showed up","find out","took over","call off","give up","ran out of","signed up for"];
+ var T=[["Mia","Hey! Did you {0} what time the concert starts?"],["me","8! But first I have to {1} my history essay"],["Mia","Ugh. Don’t {2}, you’re almost done!"],["me","Thanks. Is Jake really doing the talent show?"],["Mia","Yes, he {3} it yesterday! But last week he never {4} to practice"],["me","Haha true. So what time are we {5}?"],["Mia","Around 7. Bring snacks, we {6} chips last time"],["me","Got it! I hope they don’t {7} the show because of the rain"]];
+ var el=$('#gp');
+ el.innerHTML='<div class="bank">'+bank.map(function(w){return '<button class="chip">'+w+'</button>'}).join('')+'</div><div class="chat"><div class="hd">Mia<small>Saturday</small></div>'+T.map(function(m){return '<div class="bub'+(m[0]=='me'?' me':'')+'">'+(m[0]=='me'?'':'<b class="n">'+m[0]+'</b>')+m[1].replace(/\{(\d)\}/g,'<span class="gp" data-i="$1"></span>')+'</div>'}).join('')+'</div><div class="ctl"><button class="btn" id="gck">'+CHECK+'Check</button><button class="btn ghost" id="grs">Reset</button><span class="score" id="gsc"></span></div>';
+ var pick=null,checks=0;
+ el.addEventListener('click',function(e){var c=e.target.closest('.chip'),g=e.target.closest('.gp');
+  if(c){if(c.classList.contains('used'))return;$$('.chip',el).forEach(function(x){x.classList.remove('sel')});pick=(pick===c)?null:c;if(pick)c.classList.add('sel');return}
+  if(g){if(pick){if(g.chip)g.chip.classList.remove('used');g.chip=pick;g.textContent=pick.textContent;pick.classList.add('used');pick.classList.remove('sel');pick=null}
+   else if(g.chip){g.chip.classList.remove('used');g.chip=null;g.textContent=''}
+   g.classList.remove('ok','no');$('#gsc').textContent=''}});
+ $('#gck').onclick=function(){var ok=0;checks++;$$('.gp',el).forEach(function(g){var r=g.textContent==A[+g.dataset.i];g.classList.toggle('ok',r);g.classList.toggle('no',!r&&g.textContent!=='');if(r)ok++});$('#gsc').textContent='Score: '+ok+' / '+A.length};
+ $('#grs').onclick=function(){$$('.gp',el).forEach(function(g){g.textContent='';g.chip=null;g.classList.remove('ok','no')});$$('.chip',el).forEach(function(c){c.classList.remove('used','sel')});pick=null;$('#gsc').textContent=''};
+ RESULTS.gp=function(){var ok=0,ans=[];$$('.gp',el).forEach(function(g){var i=+g.dataset.i;if(g.textContent==A[i])ok++;ans[i]=(i+1)+') '+(g.textContent||'—')});return '2B Saturday plans: '+ok+' / '+A.length+' (tries: '+checks+'). '+ans.join(', ')};
+})();
+
+/* ---------- phrasal verb detection ---------- */
+var F={
+ "build up":["build","builds","building","built"],"break up":["break","breaks","breaking","broke","broken"],"take over":["take","takes","taking","took","taken"],
+ "set off":["set","sets","setting"],"find out":["find","finds","finding","found"],"run out of":["run","runs","running","ran"],
+ "give up":["give","gives","giving","gave","given"],"carry on":["carry","carries","carrying","carried"],"call off":["call","calls","calling","called"],
+ "hand in":["hand","hands","handing","handed"],"sign up for":["sign","signs","signing","signed"],"show up":["show","shows","showing","showed","shown"]
+};
+var RX={};Object.keys(F).forEach(function(k){var p=k.split(' '),tail=p.slice(1).join('\\s+');
+ RX[k]=new RegExp('\\b('+F[k].join('|')+')\\b(\\s+[\\w’\']+){0,3}?\\s+'+tail+'\\b','i')});
+function verbsIn(t){return Object.keys(RX).filter(function(k){return RX[k].test(t)})}
+
+/* ---------- 3A questions ---------- */
+var QA=[
+ ["What clubs or teams did you sign up for this year?","sign up for"],
+ ["Did you ever give up something, like an instrument or a sport? Or did you keep going?","give up"],
+ ["What did you find out this week, about school, music or a friend?","find out"],
+ ["Has a plan of yours ever been called off? What happened?","call off"]
+];
+$('#qa').innerHTML=QA.map(function(q,i){return '<div class="wq"><label for="qa'+i+'">'+(i+1)+'. '+q[0]+'<small>Use: '+q[1]+'</small></label><textarea id="qa'+i+'" rows="3"></textarea><p class="found"></p></div>'}).join('');
+function showFound(ta){var f=verbsIn(ta.value),p=ta.parentNode.querySelector('.found');if(p)p.innerHTML=f.length?'Phrasal verbs: <b>'+f.join(', ')+'</b>':''}
+$$('#qa textarea').forEach(function(ta){var v=store(ta.id);if(v)ta.value=v;showFound(ta);ta.addEventListener('input',function(){store(ta.id,ta.value);showFound(ta)})});
+
+/* ---------- 3B story ---------- */
+var tr=$('#tracker'),st=$('#story');
+tr.innerHTML=V.map(function(v){return '<span data-k="'+v[0]+'">'+v[0]+'</span>'}).join('');
+function track(){var f=verbsIn(st.value);$$('span',tr).forEach(function(s){s.classList.toggle('on',f.indexOf(s.dataset.k)>-1)});
+ $('#storyCount').textContent=f.length?f.length+' phrasal verb'+(f.length>1?'s':'')+(f.length>=4?' — great!':' — try to use 4'):''}
+var lf=$('#life');var lv=store('life');if(lv)lf.value=lv;
+function lifeF(){var f=verbsIn(lf.value);$('#lifeFound').innerHTML=f.length?'Phrasal verbs: <b>'+f.join(', ')+'</b>':''}
+lifeF();lf.addEventListener('input',function(){store('life',lf.value);lifeF()});
+var sv=store('story');if(sv)st.value=sv;track();
+st.addEventListener('input',function(){store('story',st.value);track()});
+
+/* ---------- copy answers ---------- */
+$('#copy').onclick=function(){
+ var L=['Back in Time · Homework',''];
+ L.push('1B Connect (Rome, Explorers): '+(RESULTS.m0||'not checked'));
+ L.push('1C Connect (Revolution, school): '+(RESULTS.m1||'not checked'));
+ L.push(RESULTS.mc1());L.push(RESULTS.gp());L.push(RESULTS.mc2());L.push(RESULTS.mc3());L.push('');
+ L.push('3A About you');
+ QA.forEach(function(q,i){L.push((i+1)+'. '+q[0]);L.push($('#qa'+i).value.trim()||'—')});
+ L.push('');L.push('3B My story ('+verbsIn(st.value).length+' phrasal verbs)');L.push(st.value.trim()||'—');L.push('');L.push('3C Real life');L.push(lf.value.trim()||'—');
+ var txt=L.join('\n'),msg=$('#copyMsg');
+ function ok(){msg.textContent='Copied! Now paste it into our chat.'}
+ function fallback(){var t=document.createElement('textarea');t.value=txt;t.setAttribute('readonly','');t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();t.setSelectionRange(0,txt.length);
+  var r=false;try{r=document.execCommand('copy')}catch(e){}document.body.removeChild(t);if(r)ok();else{msg.textContent='Could not copy. Please take screenshots instead.'}}
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(txt).then(ok,fallback)}else fallback();
+};
+</script>
+</body>
+</html>
