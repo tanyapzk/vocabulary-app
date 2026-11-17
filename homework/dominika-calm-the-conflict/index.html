@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Calm the Conflict</title>
+<meta name="description" content="Homework after Lesson 1, Anatomy of Conflict: types, styles and calmer phrases.">
+<meta property="og:title" content="Calm the Conflict · Homework">
+<meta property="og:description" content="Homework after Lesson 1, Anatomy of Conflict: types, styles and calmer phrases.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap">
+<style>
+:root{
+  --bg:#f7f5f0; --card:#fff; --line:#e2dfd7; --ink:#222220; --mute:#5c5c57;
+  --tau:#94806f; --ter:#b86248; --oli:#6b7a58; --tint:#eeece6;
+  --oli-soft:#e7eadf; --ter-soft:#f6e6df; --tau-soft:#efe9e3;
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"Plus Jakarta Sans",system-ui,-apple-system,Arial,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1f1e1c;--card:#2a2926;--line:#3d3b37;--ink:#f3f0ea;--mute:#b9b5ac;--tint:#34322e;
+  --tau:#b8a492;--ter:#d98a70;--oli:#9aab84;--oli-soft:#2f3529;--ter-soft:#3a2a24;--tau-soft:#332e29;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1f1e1c;--card:#2a2926;--line:#3d3b37;--ink:#f3f0ea;--mute:#b9b5ac;--tint:#34322e;
+  --tau:#b8a492;--ter:#d98a70;--oli:#9aab84;--oli-soft:#2f3529;--ter-soft:#3a2a24;--tau-soft:#332e29;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.5;-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+h1,h2,h3,p{margin:0}
+h1,h2{font-family:var(--serif);font-weight:600;line-height:1.08;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--tau);outline-offset:2px}
+.wrap{max-width:780px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px)) 80px max(16px,env(safe-area-inset-right,0px))}
+.tag{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--tau);font-weight:700}
+
+/* sticky progress */
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:calc(10px + env(safe-area-inset-top,0px)) 0 10px;border-bottom:1px solid var(--line)}
+.top-row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--mute)}
+.count{font-variant-numeric:tabular-nums;white-space:nowrap}
+.ttl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.restart{white-space:nowrap;background:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;color:var(--mute)}
+.restart.warn{border-color:var(--ter);color:var(--ter)}
+.bar{height:5px;background:var(--tint);border-radius:3px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--oli);transition:width .4s}
+
+/* hero */
+.hero{padding:40px 0 28px;display:grid;gap:14px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(44px,10vw,76px)}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--tau)}
+.hero p{color:var(--mute);max-width:56ch}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
+.steps a{display:grid;gap:2px;text-decoration:none;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;font-size:15px;line-height:1.25}
+.steps a b{font-family:var(--serif);font-size:22px;color:var(--tau);font-weight:600}
+.steps a.done{border-color:var(--oli);background:var(--oli-soft)}
+
+/* parts */
+.part{margin-top:48px;display:grid;gap:14px;scroll-margin-top:80px}
+.part h2{font-size:clamp(30px,6vw,40px)}
+.part .lead{color:var(--mute)}
+
+/* legend (always on the same screen as the task) */
+.legend{display:grid;gap:6px;background:var(--tau-soft);border-radius:16px;padding:12px 14px;font-size:15.5px;line-height:1.35}
+.legend div{display:grid;grid-template-columns:minmax(120px,.8fr) 2fr;gap:10px}
+.legend b{font-weight:700}
+.legend span{color:var(--mute)}
+.bank{display:flex;flex-wrap:wrap;gap:6px;background:var(--tau-soft);border-radius:16px;padding:12px}
+.bank span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:15px;line-height:1.3}
+.bank p{width:100%;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--tau);font-weight:700}
+
+/* task card + stepper */
+.task{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:16px 18px;display:grid;gap:12px}
+.task .num{font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
+.task .text{font-size:19px}
+.task .text q{quotes:"“" "”";font-weight:600}
+.task .ctx{font-size:15.5px;color:var(--mute)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.o{background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:8px 14px;font-size:16.5px;text-align:left;transition:background .2s,border-color .2s}
+.o:hover{border-color:var(--tau)}
+.o.ok{background:var(--oli);border-color:var(--oli);color:#fff}
+.o.no{background:var(--ter-soft);border-color:var(--ter);color:var(--ter);text-decoration:line-through}
+.o.wide{flex:1 1 100%;font-size:17.5px;line-height:1.35}
+.o.wide b{color:var(--tau);margin-right:6px}
+.o.ok.wide b{color:#fff}
+.why{display:flex;gap:8px;align-items:flex-start;background:var(--oli-soft);border-radius:12px;padding:10px 12px;font-size:16px}
+.why svg{flex:none;width:20px;height:20px;margin-top:2px;color:var(--oli)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.nav button{background:none;border:1.5px solid var(--line);border-radius:999px;padding:6px 16px;font-size:15px}
+.nav button.go{background:var(--tau);border-color:var(--tau);color:#fff}
+.nav button:disabled{opacity:.35;cursor:default}
+.dots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.d{background:var(--oli)}
+.dots i.c{outline:2px solid var(--tau);outline-offset:2px}
+
+/* rewrite */
+.sharp{display:flex;gap:10px;align-items:flex-start;background:var(--ter-soft);border-radius:14px;padding:12px 14px}
+.sharp svg{flex:none;width:22px;height:22px;color:var(--ter);margin-top:3px}
+.sharp p{font-size:19px;font-weight:600;color:var(--ink)}
+textarea{width:100%;min-height:96px;resize:vertical;font:inherit;font-size:17px;color:var(--ink);background:var(--bg);border:2px dashed var(--line);border-radius:14px;padding:10px 12px}
+.model{background:var(--oli-soft);border-radius:14px;padding:12px 14px;font-size:16.5px;display:grid;gap:4px}
+.model .tag{color:var(--oli)}
+.soft{background:none;border:1.5px solid var(--tau);color:var(--tau);border-radius:999px;padding:6px 14px;font-size:15px;justify-self:start}
+.soft:disabled{opacity:.4;cursor:default}
+.hint{font-size:14.5px;color:var(--mute)}
+
+/* finish */
+.finish{margin-top:56px;background:var(--card);border:2px solid var(--tau);border-radius:20px;padding:20px;display:grid;gap:12px}
+.finish h2{font-size:32px}
+.score{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.score div{background:var(--tau-soft);border-radius:14px;padding:10px;text-align:center;font-size:14px;color:var(--mute)}
+.score b{display:block;font-family:var(--serif);font-size:28px;color:var(--ink)}
+.big{background:var(--oli);color:#fff;border:0;border-radius:999px;padding:12px 22px;font-size:17px;font-weight:600;justify-self:start}
+.copytext{min-height:140px;font-size:14px;border-style:solid}
+.note{font-size:15px;color:var(--oli);min-height:1em}
+
+@media (max-width:560px){
+  body{font-size:17px}
+  .hw{display:none}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .legend div{grid-template-columns:1fr;gap:0}
+  .legend{font-size:15px}
+  .task{padding:14px}
+  .task .text{font-size:18px}
+  .o{font-size:16px;padding:7px 12px}
+  .bank{gap:5px;padding:10px}
+  .bank span{font-size:14px;padding:3px 9px}
+  .part{margin-top:40px;gap:12px}
+  .part h2{font-size:28px}
+  .task textarea{min-height:80px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="wrap">
+  <div class="top">
+    <div class="top-row"><span class="ttl">Calm the Conflict<span class="hw"> · Homework</span></span><span class="count" id="count">0 / 22</span><button class="restart" id="restart" type="button">Start again</button></div>
+    <div class="bar"><i id="pb"></i></div>
+  </div>
+
+  <header class="hero">
+    <span class="tag">After Lesson 1 · Anatomy of Conflict</span>
+    <h1>Calm the <em>Conflict</em></h1>
+    <p>Four short parts. First you name the type and the style. Then you practise saying things in a calmer way. At the end, copy your answers and send them to me.</p>
+    <nav class="steps" id="steps">
+      <a href="#p1"><b>1</b>Which type?</a>
+      <a href="#p2"><b>2</b>Which style?</a>
+      <a href="#p3"><b>3</b>Which is calmer?</a>
+      <a href="#p4"><b>4</b>Say it better</a>
+    </nav>
+  </header>
+
+  <!-- PART 1 -->
+  <section class="part" id="p1">
+    <span class="tag">Part 1</span>
+    <h2>Which type of conflict is it?</h2>
+    <div class="legend">
+      <div><b>Of interest</b><span>Not enough time, people, space or shifts.</span></div>
+      <div><b>Of misunderstanding</b><span>Same goal, different angles or different words.</span></div>
+      <div><b>Interpersonal</b><span>Personal: tone, ego, “I don’t like how she talks to me.”</span></div>
+    </div>
+    <div class="task" data-part="types"></div>
+  </section>
+
+  <!-- PART 2 -->
+  <section class="part" id="p2">
+    <span class="tag">Part 2</span>
+    <h2>Which style is the manager using?</h2>
+    <div class="legend">
+      <div><b>Competing</b><span>Safety, tight deadlines. “Do it now.”</span></div>
+      <div><b>Collaborating</b><span>Important, repeating problems. “What do you each need?”</span></div>
+      <div><b>Compromising</b><span>Not much time. Each side gets half.</span></div>
+      <div><b>Avoiding</b><span>People are too angry to talk. “Let’s talk later.”</span></div>
+      <div><b>Accommodating</b><span>The relationship matters more. “Let’s do it your way.”</span></div>
+    </div>
+    <div class="task" data-part="styles"></div>
+  </section>
+
+  <!-- PART 3 -->
+  <section class="part" id="p3">
+    <span class="tag">Part 3</span>
+    <h2>Which answer sounds calmer?</h2>
+    <p class="lead">Both answers say the same thing. Choose the one that keeps the peace.</p>
+    <div class="task" data-part="calm"></div>
+  </section>
+
+  <!-- PART 4 -->
+  <section class="part" id="p4">
+    <span class="tag">Part 4</span>
+    <h2>Say it better</h2>
+    <p class="lead">These phrases sound too sharp. Write a calmer way to say the same thing, with one or two phrases from the box.</p>
+    <div class="bank">
+      <p>Phrases from the lesson</p>
+      <span>Let’s take a step back.</span><span>Can we talk about this privately?</span><span>Let’s take five minutes.</span>
+      <span>Help me understand what happened.</span><span>I hear you, and…</span><span>What would work for you?</span>
+      <span>Could we try…?</span><span>Let’s solve this together.</span><span>Here’s what I suggest.</span>
+    </div>
+    <div class="task" data-part="rewrite"></div>
+  </section>
+
+  <!-- FINISH -->
+  <section class="finish" id="finish">
+    <span class="tag">Finish</span>
+    <h2>Send me your answers</h2>
+    <div class="score">
+      <div><b id="s1">0/6</b>Types</div>
+      <div><b id="s2">0/6</b>Styles</div>
+      <div><b id="s3">0/4</b>Calmer</div>
+    </div>
+    <p class="hint">The score counts first tries only.</p>
+    <p id="missing" class="hint"></p>
+    <button type="button" class="big" id="copyBtn">Copy my answers</button>
+    <p class="note" id="copyNote" aria-live="polite"></p>
+    <textarea class="copytext" id="copyBox" readonly aria-label="Your answers"></textarea>
+  </section>
+</div>
+
+<script>
+const TYPES=["Of interest","Of misunderstanding","Interpersonal"];
+const STYLES=["Competing","Collaborating","Compromising","Avoiding","Accommodating"];
+const DATA={
+types:[
+ {t:"There is only one big window display. Two visual merchandisers both want it this week for their new collection.",a:0,w:"Not enough space: one window, two collections."},
+ {t:"The supervisor says: <q>We close the tills at nine.</q> A cashier stops serving customers at 8:55. The supervisor meant: <q>The last customer pays at nine.</q> Now they are both annoyed.",a:1,w:"The same words meant two different things."},
+ {t:"Two sales assistants don’t say hello to each other anymore. Last week one of them laughed at the other’s accent in the break room.",a:2,w:"It’s personal: a joke hurt someone’s feelings."},
+ {t:"Head office has one free place on a visual merchandising course in Vienna. Two assistants want to go.",a:0,w:"One place, two people: not enough resources."},
+ {t:"The stockroom team wants to unpack the delivery by size. The floor team wants it by collection, so they can put it out faster. Both teams want the floor ready by ten.",a:1,w:"Same goal (the floor ready by ten), different angles."},
+ {t:"A new assistant thinks a senior colleague is bossy. The senior colleague thinks the new assistant is lazy. They complain about each other’s tone.",a:2,w:"It’s about tone and how they see each other."}
+],
+styles:[
+ {t:"Boxes are blocking the fire exit. Manager: <q>Clear it right now. We can talk about it later.</q>",a:0,w:"Safety first: no time for discussion."},
+ {t:"Two assistants disagree about the new shelf layout again and again. Manager: <q>Let’s sit down after closing. Tell me what each of you needs, and we’ll plan it together.</q>",a:1,w:"An important, repeating problem: they plan it together."},
+ {t:"Two assistants both want the Friday morning shift. Manager: <q>You take this Friday, you take next Friday.</q>",a:2,w:"Each person gets half."},
+ {t:"Two colleagues are very upset after an argument. Manager: <q>Let’s not discuss it now. Come to my office at four.</q>",a:3,w:"People are too angry to talk, so the talk waits."},
+ {t:"The visual merchandiser wants the candles on the left table. The manager prefers the right table, but it’s not important. Manager: <q>Fine, let’s put them where you think is best.</q>",a:4,w:"The relationship matters more than the table."},
+ {t:"An assistant wants to leave at four. The store is busy. Manager: <q>Can you stay until five? I’ll cover the till for the last hour.</q>",a:2,w:"Both sides give a little: five, not four or closing."}
+],
+calm:[
+ {ctx:"A colleague says: “I’m always in the stockroom!”",o:["Everyone has to do it. Stop complaining.","I hear you. Let’s look at the rota together."],a:1,w:"You show you understand and offer to solve it together."},
+ {ctx:"A customer is unhappy about the long queue.",o:["I’m sorry for the wait. I’ll be with you in two minutes.","There’s a queue. You have to wait like everyone else."],a:0,w:"An apology and a clear time sound calm and polite."},
+ {ctx:"Two assistants are arguing on the shop floor.",o:["Can we talk about this privately?","Not here! You’re embarrassing everyone."],a:0,w:"You move the talk away from customers without blaming."},
+ {ctx:"Some price tags on the front table are wrong.",o:["Who did this? This is terrible.","Help me understand what happened, so we can fix it."],a:1,w:"You ask about the problem, not about who is guilty."}
+],
+rewrite:[
+ {ctx:"An assistant doesn’t want to work on the till today.",s:"Just do it. I don’t want to hear it.",m:"I hear you, and I know the till isn’t your favourite. Could you take it for one hour, and then we’ll swap?"},
+ {ctx:"Two colleagues are arguing loudly near customers.",s:"Stop it, both of you. You’re acting like children.",m:"Let’s take a step back. Can we talk about this privately in five minutes?"},
+ {ctx:"An assistant says the new rota is unfair.",s:"That’s not my problem. The rota is done.",m:"Help me understand what isn’t working for you. Let’s see what we can change next week."},
+ {ctx:"A colleague set up a table display, but you don’t like it.",s:"This is wrong. Do it again.",m:"Thank you for setting this up. Could we try the candles at the front? I think they’ll sell better there."},
+ {ctx:"A customer wants a refund without a receipt.",s:"No. Rules are rules.",m:"I’m sorry, I can’t give a refund without a receipt. Here’s what I suggest: I can exchange it or give you a store credit."},
+ {ctx:"The team is preparing the floor for the sale.",s:"You’re always so slow.",m:"We need to be ready by ten. What would help you go faster? Let’s solve this together."}
+]};
+const TOTAL=DATA.types.length+DATA.styles.length+DATA.calm.length+DATA.rewrite.length;
+const KEY="dominika-calm-conflict-v1";
+let st={types:{},styles:{},calm:{},rewrite:{},pos:{types:0,styles:0,calm:0,rewrite:0}};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&s.pos)st=Object.assign(st,s)}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const CHECK='<svg><use href="#i-check"/></svg>';
+const BOLT='<svg><use href="#i-bolt"/></svg>';
+
+function isDone(part,k){const r=st[part][k];return part==="rewrite"?!!(r&&r.trim()):!!(r&&r.solved)}
+
+function render(part){
+  const box=document.querySelector(`.task[data-part="${part}"]`);
+  const list=DATA[part],k=st.pos[part],it=list[k];
+  let h=`<span class="num">${k+1} of ${list.length}</span>`;
+  if(part==="types"||part==="styles"){
+    const names=part==="types"?TYPES:STYLES;const r=st[part][k]||{tried:[]};
+    h+=`<p class="text">${it.t}</p><div class="opts">`+names.map((n,i)=>{
+      let c="o";if(r.solved&&i===it.a)c+=" ok";else if(r.tried.includes(i))c+=" no";
+      return `<button type="button" class="${c}" data-i="${i}">${n}</button>`}).join("")+`</div>`;
+    if(r.solved)h+=`<div class="why">${CHECK}<span>${it.w}</span></div>`;
+  }else if(part==="calm"){
+    const r=st.calm[k]||{tried:[]};
+    h+=`<p class="ctx">${it.ctx}</p><div class="opts">`+it.o.map((n,i)=>{
+      let c="o wide";if(r.solved&&i===it.a)c+=" ok";else if(r.tried.includes(i))c+=" no";
+      return `<button type="button" class="${c}" data-i="${i}"><b>${"AB"[i]}</b>“${n}”</button>`}).join("")+`</div>`;
+    if(r.solved)h+=`<div class="why">${CHECK}<span>${it.w}</span></div>`;
+  }else{
+    const v=st.rewrite[k]||"";
+    h+=`<p class="ctx">${it.ctx}</p><div class="sharp">${BOLT}<p>“${it.s}”</p></div>
+      <textarea id="rw" placeholder="Write your calmer version here…" aria-label="Your calmer version">${esc(v)}</textarea>
+      <button type="button" class="soft" id="showModel" ${v.trim()?"":"disabled"}>Compare with my example</button>
+      <div class="model" id="model" hidden><span class="tag">One possible answer</span><span>“${it.m}”</span></div>
+      ${v.trim()?"":'<p class="hint">Write your version first, then you can compare.</p>'}`;
+  }
+  h+=`<div class="nav"><button type="button" data-nav="-1" ${k===0?"disabled":""}>Back</button><span class="dots">`+
+    list.map((_,j)=>`<i class="${isDone(part,j)?"d":""}${j===k?" c":""}"></i>`).join("")+
+    `</span><button type="button" class="go" data-nav="1">${k===list.length-1?"Next part":"Next"}</button></div>`;
+  box.innerHTML=h;
+  box.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>answer(part,+b.dataset.i));
+  box.querySelectorAll("[data-nav]").forEach(b=>b.onclick=()=>move(part,+b.dataset.nav));
+  if(part==="rewrite"){
+    const ta=$("rw"),btn=$("showModel");
+    ta.oninput=()=>{st.rewrite[k]=ta.value;save();btn.disabled=!ta.value.trim();
+      const hint=box.querySelector(".hint");if(hint&&ta.value.trim())hint.remove();progress();dotsOnly(part)};
+    btn.onclick=()=>{$("model").hidden=false;btn.hidden=true};
+  }
+}
+function dotsOnly(part){
+  const box=document.querySelector(`.task[data-part="${part}"]`);
+  box.querySelectorAll(".dots i").forEach((d,j)=>d.classList.toggle("d",isDone(part,j)));
+}
+function answer(part,i){
+  const k=st.pos[part],it=DATA[part][k];
+  const r=st[part][k]||(st[part][k]={tried:[],solved:false,first:null});
+  if(r.solved||r.tried.includes(i))return;
+  if(r.first===null)r.first=i;
+  if(i===it.a)r.solved=true;else r.tried.push(i);
+  save();render(part);progress();
+}
+function move(part,d){
+  const n=DATA[part].length,k=st.pos[part]+d;
+  if(k>=n){const order=["types","styles","calm","rewrite"];const nx=order[order.indexOf(part)+1];
+    document.getElementById(nx?"p"+(order.indexOf(nx)+1):"finish").scrollIntoView({behavior:"smooth"});return}
+  st.pos[part]=Math.max(0,k);save();render(part);
+}
+function score(part){return DATA[part].reduce((s,it,k)=>s+((st[part][k]&&st[part][k].first===it.a)?1:0),0)}
+function progress(){
+  let done=0;const per={};
+  ["types","styles","calm","rewrite"].forEach(p=>{per[p]=DATA[p].filter((_,k)=>isDone(p,k)).length;done+=per[p]});
+  $("count").textContent=done+" / "+TOTAL;$("pb").style.width=(done/TOTAL*100)+"%";
+  document.querySelectorAll("#steps a").forEach((a,j)=>{const p=["types","styles","calm","rewrite"][j];a.classList.toggle("done",per[p]===DATA[p].length)});
+  $("s1").textContent=score("types")+"/"+DATA.types.length;
+  $("s2").textContent=score("styles")+"/"+DATA.styles.length;
+  $("s3").textContent=score("calm")+"/"+DATA.calm.length;
+  const left=TOTAL-done;$("missing").textContent=left?`${left} task${left>1?"s":""} not finished yet. You can still send what you have.`:"All tasks are done. Great work!";
+}
+function asText(){
+  const L=["Calm the Conflict · Homework",""];
+  const firstOf=(p,names,k)=>{const r=st[p][k];if(!r||r.first===null)return "(not done)";const it=DATA[p][k];
+    return r.first===it.a?names[r.first]+" (correct)":names[r.first]+" (first try), correct: "+names[it.a]};
+  L.push("PART 1 · Which type? "+score("types")+"/"+DATA.types.length);
+  DATA.types.forEach((_,k)=>L.push(`${k+1}. ${firstOf("types",TYPES,k)}`));
+  L.push("","PART 2 · Which style? "+score("styles")+"/"+DATA.styles.length);
+  DATA.styles.forEach((_,k)=>L.push(`${k+1}. ${firstOf("styles",STYLES,k)}`));
+  L.push("","PART 3 · Which is calmer? "+score("calm")+"/"+DATA.calm.length);
+  DATA.calm.forEach((_,k)=>L.push(`${k+1}. ${firstOf("calm",["A","B"],k)}`));
+  L.push("","PART 4 · Say it better");
+  DATA.rewrite.forEach((it,k)=>{L.push(`${k+1}. Sharp: “${it.s}”`);L.push(`   My version: ${(st.rewrite[k]||"").trim()||"(not done)"}`)});
+  return L.join("\n");
+}
+$("copyBtn").onclick=async()=>{
+  const box=$("copyBox");box.value=asText();
+  try{await navigator.clipboard.writeText(box.value);$("copyBtn").textContent="Copied";$("copyNote").textContent="Now open our chat and paste it there."}
+  catch(e){box.focus();box.select();$("copyNote").textContent="The text is selected. Tap “Copy” (or press Ctrl+C / ⌘C), then paste it into our chat."}
+};
+let armed=false;
+$("restart").onclick=()=>{
+  const b=$("restart");
+  if(!armed){armed=true;b.textContent="Sure? Tap again";b.classList.add("warn");setTimeout(()=>{armed=false;b.textContent="Start again";b.classList.remove("warn")},3000);return}
+  st={types:{},styles:{},calm:{},rewrite:{},pos:{types:0,styles:0,calm:0,rewrite:0}};save();
+  armed=false;b.textContent="Start again";b.classList.remove("warn");
+  ["types","styles","calm","rewrite"].forEach(render);progress();$("copyBox").value="";$("copyNote").textContent="";$("copyBtn").textContent="Copy my answers";
+  window.scrollTo({top:0,behavior:"smooth"});
+};
+["types","styles","calm","rewrite"].forEach(render);progress();
+</script>
+</body>
+</html>
