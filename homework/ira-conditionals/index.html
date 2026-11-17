@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>If… Homework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: phone-first app. Fixed header with progress, one task per page in the middle, Back/Next bar at the bottom.
+   Word banks, audio and starters are sticky inside their page, so the words are always on screen while she answers. */
+:root{
+  --canvas:#F3F4F7; --panel:#FFFFFF; --ink:#151823; --ink-2:#4A5063; --muted:#7C8296; --line:#E2E4EB; --line-2:#EDEEF3;
+  --signal:#FF5A1F; --signal-soft:#FFE8DF; --signal-ink:#B83A0C;
+  --doing:#C98800; --doing-soft:#FFF4DA; --done:#1F9D63; --done-soft:#E1F5EA; --block:#E0364F; --block-soft:#FDE6EA;
+  --sans:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --canvas:#0F1117; --panel:#171A23; --ink:#ECEEF4; --ink-2:#B4B9C9; --muted:#8B91A5; --line:#2A2E3B; --line-2:#222632;
+  --signal:#FF6B33; --signal-soft:#3A1E14; --signal-ink:#FFB194; --doing:#F0B33A; --doing-soft:#3A2E12; --done:#3CC283; --done-soft:#123323; --block:#FF5E73; --block-soft:#3A1720; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --canvas:#0F1117; --panel:#171A23; --ink:#ECEEF4; --ink-2:#B4B9C9; --muted:#8B91A5; --line:#2A2E3B; --line-2:#222632;
+  --signal:#FF6B33; --signal-soft:#3A1E14; --signal-ink:#FFB194; --doing:#F0B33A; --doing-soft:#3A2E12; --done:#3CC283; --done-soft:#123323; --block:#FF5E73; --block-soft:#3A1720; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+h1,h2,h3,p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+
+.app{height:100%;max-width:600px;margin:0 auto;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--canvas)}
+@media (min-width:640px){body{padding-block:16px}.app{height:calc(100% - 32px);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 20px 50px rgba(21,24,35,.12)}}
+
+/* header */
+.top{background:var(--panel);border-bottom:1px solid var(--line);padding:12px 16px 10px;display:grid;gap:8px}
+.top-row{display:flex;align-items:center;gap:10px}
+.logo{width:24px;height:24px;border-radius:7px;background:var(--ink);display:grid;place-items:center;flex:none}
+.logo i{width:9px;height:9px;border-radius:50%;background:var(--signal)}
+.tid{color:var(--muted)}
+.ttl{font-weight:700;font-size:15.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.count{color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{display:grid;grid-auto-flow:column;gap:3px}
+.bar i{height:4px;border-radius:3px;background:var(--line)}
+.bar i.on{background:var(--signal)}
+.bar i.ok{background:var(--ink)}
+
+/* pages */
+.pages{overflow-y:auto;-webkit-overflow-scrolling:touch;position:relative}
+.page{padding:18px 16px 28px;display:grid;gap:14px;align-content:start}
+.page h2{font-size:26px;line-height:1.1;letter-spacing:-.02em;font-weight:700}
+.lead{color:var(--ink-2);font-size:15.5px}
+.lead b{color:var(--ink)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.stick{position:sticky;top:0;z-index:5;margin-inline:-16px;padding:10px 16px;background:var(--canvas);border-bottom:1px solid var(--line)}
+.stick .label{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+
+/* bottom nav */
+.nav{background:var(--panel);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));display:flex;gap:10px}
+.nav button{min-height:50px;border-radius:14px;font-weight:700;font-size:16px}
+.back{flex:0 0 auto;padding-inline:18px;border:1px solid var(--line);background:var(--panel)}
+.next{flex:1;border:none;background:var(--ink);color:var(--panel)}
+.next.go{background:var(--signal);color:#fff}
+
+/* start */
+.hero{display:grid;gap:10px;padding-top:6px}
+.hero h1{font-size:44px;line-height:.95;letter-spacing:-.04em;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--signal)}
+.list{display:grid;gap:6px;padding:12px 14px}
+.list div{display:flex;gap:10px;align-items:center;font-size:15px}
+.list .mono{color:var(--muted);min-width:56px}
+.field{display:grid;gap:6px}
+.field label{font-weight:600;font-size:14.5px}
+input.name{font:inherit;font-size:16px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:12px;padding:12px 14px}
+
+/* match */
+.match{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:8px}
+.mcol{display:grid;gap:8px;align-content:start}
+.m{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:10px 11px;text-align:left;font-size:14.5px;line-height:1.3;min-height:58px;transition:background .15s,border-color .15s}
+.m.w{font-weight:700;font-size:15.5px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.m.sel{border-color:var(--signal);background:var(--signal-soft)}
+.m.done{background:var(--done-soft);border-color:var(--done);color:var(--ink-2);cursor:default}
+.m.bad{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.say{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--canvas);display:grid;place-items:center;flex:none}
+.say svg{width:13px;height:13px}
+.say.playing{background:var(--signal);border-color:var(--signal);color:#fff}
+
+/* chips / bank */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--ink-2);background:var(--panel);border-radius:9px;padding:7px 11px;font-size:15px;font-weight:600}
+.chip.used{opacity:.35;text-decoration:line-through;border-color:var(--line)}
+.chip.bad{animation:shake .35s}
+
+/* gap sentences */
+.gaps{display:grid;gap:8px}
+.gs{padding:12px 14px;font-size:16px;line-height:1.7}
+.gs .n{font-family:var(--mono);font-size:12px;color:var(--muted);margin-right:6px}
+.gap{display:inline-block;min-width:92px;border:none;border-bottom:2px dashed var(--muted);background:transparent;padding:0 6px;font-weight:700;text-align:center;border-radius:4px 4px 0 0}
+.gap.sel{background:var(--signal-soft);border-bottom-color:var(--signal)}
+.gap.ok{border-bottom:2px solid var(--done);color:var(--done)}
+
+/* player */
+.player{display:flex;align-items:center;gap:12px;padding:10px 12px}
+.pbtn{width:46px;height:46px;border-radius:50%;border:none;background:var(--ink);color:var(--panel);font-size:16px;flex:none}
+.wave{flex:1;display:flex;align-items:center;gap:2px;height:36px;min-width:0}
+.wave i{flex:1;border-radius:2px;background:var(--line)}
+.wave i.on{background:var(--signal)}
+.ptime{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ptools{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.sbtn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:5px 10px;font-size:13.5px;font-weight:600}
+.sbtn.on{background:var(--ink);border-color:var(--ink);color:var(--panel)}
+.script{display:grid;gap:5px;font-size:14.5px;padding:12px 14px}
+
+/* mcq */
+.qs{display:grid;gap:8px}
+.q{padding:12px 14px;display:grid;gap:8px}
+.q p{font-weight:600}
+.q .slot{display:inline-block;min-width:70px;border-bottom:2px dashed var(--muted);text-align:center}
+.q.done .slot{border-bottom-color:var(--done);color:var(--done);font-weight:700}
+.opts{display:grid;gap:6px}
+.opt{border:1px solid var(--line);background:var(--canvas);border-radius:10px;padding:10px 12px;text-align:left;font-size:15px;min-height:44px}
+.opt.right{background:var(--done-soft);border-color:var(--done);color:var(--done);font-weight:600}
+.opt.wrong{background:var(--block-soft);border-color:var(--block);color:var(--block);text-decoration:line-through}
+.fb{font-size:13.5px;color:var(--muted)}
+.rule{padding:12px 14px;display:grid;gap:6px;font-size:14.5px}
+.rule .f{font-family:var(--mono);font-size:13.5px;background:var(--canvas);border-radius:8px;padding:8px 10px}
+.rule .f b{color:var(--signal-ink)}
+.rule em{font-style:normal;font-weight:700}
+
+/* order */
+.ord{padding:12px 14px;display:grid;gap:10px}
+.ord .hint{font-size:14px;color:var(--muted)}
+.built{min-height:48px;border:1.5px dashed var(--line);border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.built:empty::before{content:"Tap the words in order";color:var(--muted);font-size:14px}
+.built .chip{border-color:var(--signal)}
+.ord.done .built{border-style:solid;border-color:var(--done);background:var(--done-soft)}
+.ord.done .built .chip{border-color:var(--done)}
+.ord .row{display:flex;gap:8px;align-items:center}
+.ord .msg{font-size:13.5px;font-weight:600}
+
+/* board */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.col{background:var(--line-2);border-radius:10px;padding:6px;display:grid;gap:5px;align-content:start}
+.col h3{font-size:11.5px;font-family:var(--mono);font-weight:600;padding:2px 2px 0;display:flex;align-items:center;gap:5px}
+.col h3::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.c-todo{color:var(--muted)}.c-doing{color:var(--doing)}.c-done{color:var(--done)}
+.tk{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:6px 7px;font-size:12.5px;line-height:1.25;font-weight:600}
+.starters{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.starters span{font-size:12.5px;background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:3px 7px}
+textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:150px;resize:vertical}
+.wc{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
+
+/* backlog */
+.bl{display:grid;gap:6px}
+.bi{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:center;border:1px solid var(--line);background:var(--panel);border-radius:11px;padding:10px 12px;text-align:left;font-size:15px;font-weight:600}
+.rk{width:26px;height:26px;border-radius:8px;border:1.5px dashed var(--line);display:grid;place-items:center;font-family:var(--mono);font-size:13px}
+.bi.on{border-color:var(--signal);background:var(--signal-soft)}
+.bi.on .rk{background:var(--signal);border:none;color:#fff}
+
+/* situation */
+.alert{display:flex;gap:10px;background:var(--block-soft);color:var(--block);border-radius:12px;padding:12px 14px;font-weight:600;font-size:15px}
+.phr{display:grid;gap:4px;font-size:13.5px}
+.phr span{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:3px 8px}
+
+/* finish */
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-family:var(--mono);font-size:12.5px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+.pill b{color:var(--ink)}
+.big{border:none;background:var(--signal);color:#fff;border-radius:14px;min-height:54px;font-size:17px;font-weight:800}
+.note{font-weight:600}
+.copybox{min-height:180px;font-size:13.5px;font-family:var(--mono)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+/* ---------- HW-3 additions ---------- */
+.app{grid-template-columns:minmax(0,1fr)} .page{min-width:0} .wave i{min-width:0}
+.rulesbtn{border:1px solid var(--line);background:var(--canvas);border-radius:9px;padding:5px 10px;font-size:13px;font-weight:700;flex:none}
+.pbtn{display:grid;place-items:center}
+.pbtn svg{width:18px;height:18px}
+.rc{padding:12px 14px;display:grid;gap:6px;font-size:14.5px;border-left:5px solid var(--k)}
+.rc .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--k);font-weight:600}
+.rc h3{font-size:17px;line-height:1.2}
+.rc .f{font-family:var(--mono);font-size:13px;background:var(--canvas);border-radius:8px;padding:8px 10px;line-height:1.5}
+.rc .f b{color:var(--k)}
+.rc .ex{font-style:italic}
+.rc .ex b{font-style:normal}
+.k1{--k:var(--done)} .k2{--k:var(--doing)} .k3{--k:var(--signal-ink)}
+.tips{padding:12px 14px;display:grid;gap:6px;font-size:14.5px}
+.tips p::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--signal);margin-right:8px;vertical-align:middle}
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(21,24,35,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet-in{background:var(--canvas);width:100%;max-width:600px;max-height:88vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:16px 16px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:10px}
+.sheet-top{display:flex;align-items:center;justify-content:space-between}
+.sheet-top h2{font-size:20px}
+
+/* sort */
+.so{padding:12px 14px;display:grid;gap:10px}
+.so p{font-weight:600;font-size:15.5px}
+.tri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.tri button{border:1px solid var(--line);background:var(--canvas);border-radius:10px;min-height:44px;font-weight:700;font-size:15px}
+.tri button.right{background:var(--done-soft);border-color:var(--done);color:var(--done)}
+.tri button.wrong{background:var(--block-soft);border-color:var(--block);color:var(--block);text-decoration:line-through}
+
+/* context line in questions */
+.q .ctx{font-weight:500;color:var(--ink-2);font-size:14.5px;background:var(--canvas);border-radius:9px;padding:8px 10px}
+.q .ctx s{color:var(--block)}
+.q .ctx .lab{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+
+/* halves */
+.match.even{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.match.even .m{font-weight:600}
+.match.even .mcol:first-child .m{background:color-mix(in srgb,var(--signal-soft) 45%,var(--panel))}
+.match.even .mcol:first-child .m.sel{background:var(--signal-soft)}
+.match.even .mcol:first-child .m.done{background:var(--done-soft)}
+
+/* typing */
+.ty{padding:12px 14px;display:grid;gap:8px}
+.ty .ctx{font-size:14px;color:var(--ink-2);background:var(--canvas);border-radius:9px;padding:8px 10px}
+.ty .s{font-size:16px;line-height:1.55;font-weight:600}
+.ty .s .slot{display:inline-block;min-width:80px;border-bottom:2px dashed var(--muted);text-align:center;padding:0 4px}
+.ty .s .v{font-weight:500;color:var(--muted)}
+.ty.done .s .slot{border-bottom:2px solid var(--done);color:var(--done)}
+.ty .row{display:flex;gap:8px}
+.ty input{flex:1;min-width:0;font:inherit;font-size:16px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:10px 12px}
+.ty input.bad{border-color:var(--block);animation:shake .35s}
+.ty .chk{border:none;background:var(--ink);color:var(--panel);border-radius:10px;padding:0 16px;font-weight:700;min-height:44px}
+.ty.done .row{display:none}
+.ty .msg{font-size:13.5px;font-weight:600}
+.ty .show{justify-self:start}
+
+/* writing */
+.wr{padding:12px 14px;display:grid;gap:8px}
+.wr .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--k);font-weight:600}
+.wr p{font-size:15px}
+.wr textarea{min-height:96px}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <div class="top-row"><span class="logo" aria-hidden="true"><i></i></span><span class="mono tid" id="tid">HW-3</span><span class="ttl" id="ttl"></span><span class="mono count" id="count"></span><button type="button" class="rulesbtn" id="rulesbtn">Rules</button></div>
+    <div class="bar" id="bar" aria-hidden="true"></div>
+  </header>
+  <main class="pages" id="pages"></main>
+  <nav class="nav">
+    <button type="button" class="back" id="back">Back</button>
+    <button type="button" class="next" id="next">Next</button>
+  </nav>
+</div>
+<div class="sheet" id="sheet" hidden><div class="sheet-in" role="dialog" aria-label="Rules"><div class="sheet-top"><h2>The three conditionals</h2><button type="button" class="sbtn" id="sheetclose">Close</button></div><div id="sheetbody" style="display:grid;gap:10px"></div></div></div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const PLAY='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+  const PAUSE='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="4.5" height="14" rx="1.2"/></svg>';
+  const KEY='ira-hw3-conditionals';
+  const fresh=()=>({page:0,sort:{},c1:{},match:{done:[],miss:0},c2:{},ord:{},c3:{},t3:{},mix1:{},t2:{},fix:{},listen:{},w1:'',w2:'',w3:''});
+
+  /* ---------- state ---------- */
+  let st=fresh();
+  try{ const o=JSON.parse(localStorage.getItem(KEY)||'null'); if(o&&typeof o.page==='number') st=Object.assign(st,o); }catch(e){}
+  let saveT; const save=()=>{ clearTimeout(saveT); saveT=setTimeout(()=>{ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} },250); };
+
+  /* ---------- audio ---------- */
+  const sa=new Audio('audio/retro.mp3'); sa.preload='metadata';
+  function stopAll(){ if(!sa.paused){ sa.pause(); } const b=$('pbtn'); if(b) b.innerHTML=PLAY; }
+
+  /* ---------- content ---------- */
+  const RULES=`
+    <div class="card rc k1"><span class="tag">1st conditional · real</span><h3>It's possible. It can happen.</h3>
+      <p class="f">If + <b>Present Simple</b>, … <b>will</b> + verb</p>
+      <p class="ex">If the stock <b>arrives</b> on Monday, we<b>'ll launch</b> on Friday.</p></div>
+    <div class="card rc k2"><span class="tag">2nd conditional · imaginary</span><h3>It's not real now. I imagine it.</h3>
+      <p class="f">If + <b>Past Simple</b>, … <b>would</b> + verb</p>
+      <p class="ex">If I <b>had</b> more time, I <b>would visit</b> the factory.</p>
+      <p class="ex">If I <b>were</b> you, I<b>'d call</b> the supplier. <span style="font-style:normal;color:var(--muted)">(advice)</span></p></div>
+    <div class="card rc k3"><span class="tag">3rd conditional · past</span><h3>It's finished. It didn't happen.</h3>
+      <p class="f">If + <b>had + V3</b>, … <b>would have + V3</b></p>
+      <p class="ex">If we <b>had ordered</b> earlier, the stock <b>would have arrived</b> on time.</p></div>
+    <div class="card tips">
+      <p>No <b>will</b> and no <b>would</b> in the if-part.</p>
+      <p>The if-part can go second: <i>We'll launch on Friday if the stock arrives.</i> (no comma)</p>
+      <p>Short forms: <b>'ll</b> = will · <b>'d</b> = would / had · <b>wouldn't</b> = would not</p>
+    </div>`;
+
+  const SORT=[
+    ["If the coats sell well, we'll order more.",1],
+    ["If I were you, I'd call the supplier.",2],
+    ["If we had tested the website, it wouldn't have crashed.",3],
+    ["If you need the report, I'll send it today.",1],
+    ["If we had a bigger team, we would work less.",2],
+    ["If Sam hadn't been ill, we would have finished on time.",3],
+    ["What would you do if you lost your phone?",2],
+    ["We won't meet the deadline if the fabric is late.",1],
+    ["If I had known about the sale, I would have bought the bag.",3]
+  ];
+  const C1=[
+    {t:"If the stock ___ on Monday, we'll launch on Friday.",o:["arrives","will arrive","arrived"],f:"If + Present Simple. No will in the if-part."},
+    {t:"If we don't fix the size chart, customers ___ the jeans back.",o:["will send","send","would send"]},
+    {t:"I'll call the factory if the samples ___ today.",o:["don't come","won't come","didn't come"],f:"The if-part can go second. Still no will."},
+    {t:"If the photos are ready, Sam ___ them on the website.",o:["will put","puts","would put"]},
+    {t:"We ___ the deadline if the supplier is late again.",o:["will miss","miss","missed"]},
+    {t:"If you ___ me the report, I'll check it tonight.",o:["send","will send","sent"]},
+    {t:"___ the campaign start on time if marketing likes the photos?",o:["Will","Does","Would"],f:"Question: Will + subject + verb … if …?"},
+    {t:"If sales ___ well, we'll order more coats for December.",o:["go","will go","went"]}
+  ];
+  const HALVES=[
+    ["If the coats sell well,","we'll order more in December."],
+    ["If the factory is late,","we'll move the launch."],
+    ["If you need help with the report,","I'll help you after lunch."],
+    ["If we lower the price,","more customers will buy it."],
+    ["If the website crashes,","we'll lose a lot of sales."],
+    ["If it rains on Saturday,","fewer people will come to the store."]
+  ];
+  const C2=[
+    {t:"If I ___ the CEO, I would open a store in Tokyo.",o:["were","am","would be"],f:"If I / he / she were… is normal in the 2nd conditional."},
+    {t:"If we had a bigger budget, we ___ a famous model for the campaign.",o:["would hire","will hire","hired"]},
+    {t:"If I ___ more time, I would visit the factories myself.",o:["had","have","would have"]},
+    {t:"What ___ you do if the supplier closed tomorrow?",o:["would","will","did"],f:"Question: What would you do if…?"},
+    {t:"If the checkout had fewer steps, more people ___ online.",o:["would buy","will buy","bought"]},
+    {t:"I ___ more clothes to the kids' line if I were you.",o:["would add","will add","add"],f:"If I were you, I would… = advice"},
+    {t:"If customers ___ the return policy, they wouldn't call us so often.",o:["understood","understand","would understand"]},
+    {t:"We wouldn't need a new warehouse if we ___ so much stock.",o:["didn't have","don't have","wouldn't have"]}
+  ];
+  const ORD=[
+    ["If","I","were","you,","I","would","talk","to","the","supplier."],
+    ["If","we","had","more","staff,","we","would","open","on","Sundays."],
+    ["What","would","you","change","if","you","were","the","CEO?"],
+    ["If","we","had","a","bigger","budget,","we","would","hire","a","stylist."],
+    ["She","wouldn't","work","late","if","she","had","an","assistant."]
+  ];
+  const C3=[
+    {t:"If the fabric ___ on time, the factory would have finished the coats.",o:["had arrived","arrived","would arrive"],f:"If + had + V3"},
+    {t:"If we had checked the photos, we ___ the mistake.",o:["would have seen","would see","had seen"],f:"would have + V3 (see – saw – seen)"},
+    {t:"The website wouldn't have crashed if we ___ it first.",o:["had tested","tested","would have tested"]},
+    {t:"If I had known about the problem, I ___ you.",o:["would have told","would tell","had told"]},
+    {t:"We ___ so much money if we had chosen a different supplier.",o:["wouldn't have lost","didn't lose","wouldn't lose"]},
+    {t:"If marketing ___ for the ads, we would have saved money.",o:["hadn't paid","didn't pay","wouldn't have paid"]},
+    {t:"Would you have taken the job if they ___ you more money?",o:["had offered","offer","would offer"]},
+    {t:"If she ___ the train, she would have come to the meeting.",o:["hadn't missed","didn't miss","wouldn't miss"]}
+  ];
+  const T3=[
+    {c:"We didn't order enough coats, so we lost sales.",t:"If we ___ more coats, we wouldn't have lost sales.",v:"order",a:["had ordered","'d ordered"]},
+    {c:"The factory was late, so we missed the deadline.",t:"If the factory hadn't been late, we ___ the deadline.",v:"not / miss",a:["wouldn't have missed","would not have missed","wouldn't've missed"]},
+    {c:"I didn't check my email, so I didn't see the new price.",t:"If I had checked my email, I ___ the new price.",v:"see",a:["would have seen","would've seen","'d have seen"]},
+    {c:"Sam was ill, so he didn't come to the meeting.",t:"If Sam ___ ill, he would have come to the meeting.",v:"not / be",a:["hadn't been","had not been"]},
+    {c:"We tested the website, so it didn't crash.",t:"If we hadn't tested the website, it ___.",v:"crash",a:["would have crashed","would've crashed","'d have crashed"]},
+    {c:"They chose cheap fabric, so customers returned the jeans.",t:"If they ___ better fabric, customers wouldn't have returned the jeans.",v:"choose",a:["had chosen","'d chosen"]}
+  ];
+  const MIX1=[
+    {c:"The supplier says: “The fabric will probably arrive on Monday.”",t:"Choose the best sentence.",o:["If the fabric arrives on Monday, we'll start production on Tuesday.","If the fabric arrived on Monday, we'd start production on Tuesday.","If the fabric had arrived on Monday, we'd have started production on Tuesday."],f:"It can really happen → 1st conditional."},
+    {c:"We don't have a store in Paris. You're dreaming about it.",t:"Choose the best sentence.",o:["If we had a store in Paris, we'd sell a lot of evening dresses.","If we have a store in Paris, we'll sell a lot of evening dresses.","If we had had a store in Paris, we'd have sold a lot of evening dresses."],f:"Not real now, you imagine it → 2nd conditional."},
+    {c:"Last month the photos were late, and the launch started without them.",t:"Choose the best sentence.",o:["If the photos had been ready, the launch would have gone better.","If the photos are ready, the launch will go better.","If the photos were ready, the launch would go better."],f:"The past, we can't change it → 3rd conditional."},
+    {c:"Your colleague asks: “Should I take the job in Dubai?” You think yes.",t:"What do you say?",o:["If I were you, I'd take it.","If I am you, I'll take it.","If I had been you, I'd have taken it."],f:"Advice → If I were you, I'd…"},
+    {c:"The meeting is tomorrow. Maybe Tom will be late.",t:"Choose the best sentence.",o:["If Tom is late, I'll start the meeting.","If Tom was late, I'd start the meeting.","If Tom had been late, I'd have started the meeting."],f:"Possible tomorrow → 1st conditional."},
+    {c:"Yesterday Mia forgot to send the order. Now the coats are late.",t:"Choose the best sentence.",o:["If Mia had sent the order, the coats wouldn't have been late.","If Mia sends the order, the coats won't be late.","If Mia sent the order, the coats wouldn't be late."],f:"Yesterday, it didn't happen → 3rd conditional."},
+    {c:"Our team is small: only three people. You imagine a bigger team.",t:"Choose the best sentence.",o:["If we had more people, we would finish faster.","If we have more people, we will finish faster.","If we had had more people, we would have finished faster."],f:"Imagine now → 2nd conditional."},
+    {c:"The weather app says it will probably be hot next week.",t:"Choose the best sentence.",o:["If it's hot next week, we'll put the summer dresses in the window.","If it was hot next week, we'd put the summer dresses in the window.","If it had been hot, we'd have put the summer dresses in the window."],f:"Probably next week → 1st conditional."},
+    {c:"Last year you didn't learn the new system before you started. The first month was very hard.",t:"Choose the best sentence.",o:["If I had learned the system earlier, the first month would have been easier.","If I learn the system earlier, the first month will be easier.","If I learned the system earlier, the first month would be easier."],f:"Last year, finished → 3rd conditional."},
+    {c:"You're in the office, not in Milan. It's Fashion Week and you'd love to be there.",t:"Choose the best sentence.",o:["If I were in Milan now, I'd go to all the shows.","If I am in Milan now, I'll go to all the shows.","If I had been in Milan, I'd have gone to all the shows."],f:"Not real now → 2nd conditional."}
+  ];
+  const T2=[
+    {t:"If the new bags sell well, we ___ more.",v:"order",a:["will order","'ll order"],k:1},
+    {t:"If I ___ a free day, I'd go shopping.",v:"have",a:["had"],k:2},
+    {t:"If we ___ the prices, we would have lost money.",v:"not / check",a:["hadn't checked","had not checked"],k:3},
+    {t:"If you ___ me the file today, I'll check it tonight.",v:"send",a:["send"],k:1},
+    {t:"She would be happier if she ___ closer to home.",v:"work",a:["worked"],k:2},
+    {t:"If they had asked me, I ___ them.",v:"help",a:["would have helped","would've helped","'d have helped"],k:3},
+    {t:"We ___ on time if Sam doesn't help us.",v:"not / finish",a:["won't finish","will not finish"],k:1},
+    {t:"If I ___ the head of the brand, I'd make the kids' line bigger.",v:"be",a:["were","was"],k:2}
+  ];
+  const FIX=[
+    {c:"If the stock will arrive on Monday, we'll launch.",o:["If the stock arrives on Monday, we'll launch.","If the stock will arrive on Monday, we launch.","If the stock arrived on Monday, we'll launch."],f:"No will in the if-part."},
+    {c:"If I would have more time, I would help you.",o:["If I had more time, I would help you.","If I have more time, I would help you.","If I would have more time, I help you."],f:"No would in the if-part."},
+    {c:"If we had tested the site, it wouldn't crash.",o:["If we had tested the site, it wouldn't have crashed.","If we had tested the site, it didn't crash.","If we tested the site, it wouldn't have crash."],f:"3rd: would have + V3"},
+    {c:"If you will need anything, call me.",o:["If you need anything, call me.","If you would need anything, call me.","If you needed anything, call me."],f:"Possible → If + Present Simple"},
+    {c:"If she had knew about the sale, she would have come.",o:["If she had known about the sale, she would have come.","If she knew about the sale, she would have come.","If she has known about the sale, she would have come."],f:"had + V3: know – knew – known"},
+    {c:"What you would do if you lost your job?",o:["What would you do if you lost your job?","What will you do if you lost your job?","What you will do if you lose your job?"],f:"Question: What would you do…?"}
+  ];
+  const LINES=[["Tom","OK, team, let's talk about the autumn launch. It was two weeks late. What went wrong?"],["Mia","Well, the fabric arrived late. If we had ordered it in June, not July, the factory would have finished on time."],["Sam","And the photos. If the photographer hadn't been ill, we wouldn't have lost a week."],["Tom","True. So what do we do for the spring collection?"],["Mia","I think we should order the fabric in May. If we order it in May, we'll have enough time."],["Sam","And if the photographer is ill again, I'll call the agency. They always have someone."],["Tom","Good idea. What about the website? Customers said it was slow."],["Sam","Honestly, if we had a bigger budget, I would build a new checkout. But we don't."],["Mia","If I were you, Sam, I'd ask the developers for a small fix first. It's cheaper."],["Tom","I agree. If the small fix works, we won't need a new checkout this year."],["Mia","And Tom, if you had told marketing about the delay earlier, they wouldn't have paid for the ads."],["Tom","You're right. Next time I'll tell them on the same day."]];
+  const LQ=[
+    {t:"Why did the factory finish late?",o:["The fabric arrived late.","The factory was closed.","The photos were bad."]},
+    {t:"When will they order the fabric for spring?",o:["in May","in June","in July"]},
+    {t:"What will Sam do if the photographer is ill again?",o:["call the agency","take the photos himself","move the launch"]},
+    {t:"Why won't Sam build a new checkout?",o:["The budget is too small.","Customers like the old one.","The developers are busy."]},
+    {t:"What is Mia's advice for Sam?",o:["Ask for a small fix first.","Build a new checkout.","Find new developers."]},
+    {t:"What did Tom do wrong?",o:["He told marketing about the delay too late.","He paid for the ads.","He was ill."]}
+  ];
+
+  /* ---------- pages ---------- */
+  const P=[
+    {id:'HW-3',t:'Start',r:pStart},
+    {id:'IF-1',t:'The three conditionals',r:pRules},
+    {id:'IF-1.2',t:'Which one is it?',r:pSort},
+    {id:'IF-2',t:'1st conditional',r:pg=>{ head(pg,'1st conditional','Real and possible. <b>If + Present Simple, … will + verb.</b> Choose the right form.'); qs(pg,C1,st.c1); }},
+    {id:'IF-2.2',t:'Match the halves',r:pHalves},
+    {id:'IF-3',t:'2nd conditional',r:pg=>{ head(pg,'2nd conditional','Imaginary, not real now. <b>If + Past Simple, … would + verb.</b> Choose the right form.'); qs(pg,C2,st.c2); }},
+    {id:'IF-3.2',t:'Build the sentence',r:pOrder},
+    {id:'IF-4',t:'3rd conditional',r:pg=>{ head(pg,'3rd conditional','The autumn launch went wrong. The fabric arrived late, the photos were bad and the website crashed. <b>If + had + V3, … would have + V3.</b>'); qs(pg,C3,st.c3); }},
+    {id:'IF-4.2',t:'What went wrong?',r:pg=>{ head(pg,'What went wrong?','Read what happened. Write the missing words. Use the verb in brackets.'); typing(pg,T3,st.t3); }},
+    {id:'MIX-1',t:'Which one fits?',r:pg=>{ head(pg,'Which one fits?','Mix! Read the situation and choose the best sentence: 1st, 2nd or 3rd?'); qs(pg,MIX1,st.mix1); }},
+    {id:'MIX-2',t:'Open the brackets',r:pg=>{ head(pg,'Open the brackets','Mix! First decide: real, imaginary or past? Then write the verb in the right form.'); typing(pg,T2,st.t2,true); }},
+    {id:'MIX-3',t:'Fix the mistake',r:pg=>{ head(pg,'Fix the mistake','Each sentence has a mistake. Choose the correct sentence.'); qs(pg,FIX.map(x=>Object.assign({},x,{c:x.c,lab:'Mistake',t:'Correct it:'})),st.fix); }},
+    {id:'MIX-4',t:'Listening',r:pListen},
+    {id:'WR',t:'Your turn',r:pWrite},
+    {id:'DONE',t:'Send to Tanya',r:pFinish}
+  ];
+  const bar=$('bar'); P.forEach(()=>bar.appendChild(document.createElement('i')));
+  function go(n){ stopAll(); st.page=Math.max(0,Math.min(P.length-1,n)); save(); render(); }
+  function render(){
+    const p=P[st.page]; $('tid').textContent=p.id; $('ttl').textContent=p.t; $('count').textContent=(st.page+1)+'/'+P.length;
+    [...bar.children].forEach((b,i)=>{ b.className=i<st.page?'ok':i===st.page?'on':''; });
+    const box=$('pages'); box.innerHTML=''; const pg=document.createElement('section'); pg.className='page'; box.appendChild(pg); box.scrollTop=0;
+    p.r(pg);
+    $('back').hidden=st.page===0;
+    $('rulesbtn').hidden=st.page<2||st.page===P.length-1;
+    const nx=$('next'); nx.hidden=st.page===P.length-1; nx.textContent=st.page===0?'Start':st.page===P.length-2?'Finish':'Next'; nx.classList.toggle('go',st.page===0||st.page===P.length-2);
+  }
+  $('back').addEventListener('click',()=>go(st.page-1));
+  $('next').addEventListener('click',()=>go(st.page+1));
+  $('sheetbody').innerHTML=RULES;
+  $('rulesbtn').addEventListener('click',()=>{ $('sheet').hidden=false; });
+  $('sheetclose').addEventListener('click',()=>{ $('sheet').hidden=true; });
+  $('sheet').addEventListener('click',e=>{ if(e.target.id==='sheet') $('sheet').hidden=true; });
+
+  function head(pg,title,lead){ pg.insertAdjacentHTML('beforeend',`<h2>${title}</h2>${lead?`<p class="lead">${lead}</p>`:''}`); }
+  function shuffle(n,seed){ const order=[...Array(n).keys()]; for(let k=n-1;k>0;k--){ const j=(seed*5+k*3+1)%(k+1); [order[k],order[j]]=[order[j],order[k]]; } if(order[0]===0&&n>1) order.push(order.shift()); return order; }
+
+  function pStart(pg){
+    pg.innerHTML=`<div class="hero"><span class="mono" style="color:var(--signal-ink)">HW-3 · CONDITIONALS</span><h1>What <em>if</em>…?</h1>
+      <p class="lead">1st, 2nd and 3rd conditionals: each one on its own, then all three mixed. Your answers save on this phone.</p></div>
+      <div class="card list">${P.slice(1,-1).map(p=>`<div><span class="mono">${p.id}</span>${p.t}</div>`).join('')}</div>
+      <div class="card list"><div><span class="mono">TIME</span>about 60 minutes · you can stop and come back</div><div><span class="mono">HELP</span>tap “Rules” at the top on any page</div></div>`;
+  }
+
+  function pRules(pg){
+    head(pg,'The three conditionals','Read the rules first. You can open them again any time with the <b>Rules</b> button at the top.');
+    pg.insertAdjacentHTML('beforeend',RULES);
+  }
+
+  function pSort(pg){
+    head(pg,'Which one is it?','Read each sentence. Is it the 1st, 2nd or 3rd conditional?');
+    const box=document.createElement('div'); box.className='qs'; pg.appendChild(box);
+    SORT.forEach(([s,k],i)=>{
+      const d=document.createElement('div'); d.className='card so';
+      d.innerHTML=`<p>${esc(s)}</p><div class="tri"><button type="button" data-k="1">1st</button><button type="button" data-k="2">2nd</button><button type="button" data-k="3">3rd</button></div>`;
+      const bs=[...d.querySelectorAll('button')];
+      const solve=()=>{ d.classList.add('done'); bs.forEach(b=>{ if(+b.dataset.k===k) b.classList.add('right'); }); };
+      bs.forEach(b=>b.addEventListener('click',()=>{ if(d.classList.contains('done')) return; const v=+b.dataset.k;
+        if(!st.sort[i]) st.sort[i]={first:v,ok:false};
+        if(v===k){ st.sort[i].ok=true; solve(); } else b.classList.add('wrong'); save(); }));
+      if(st.sort[i]&&st.sort[i].ok) solve();
+      box.appendChild(d);
+    });
+  }
+
+  function qs(pg,items,store){ const box=document.createElement('div'); box.className='qs'; pg.appendChild(box); mcq(box,items,store); }
+  function mcq(box, items, store){
+    items.forEach((q,i)=>{
+      const d=document.createElement('div'); d.className='card q';
+      const ctx=q.c?`<p class="ctx">${q.lab?`<span class="lab">${q.lab}</span><s>${esc(q.c)}</s>`:esc(q.c)}</p>`:'';
+      d.innerHTML=`${ctx}<p>${esc(q.t).replace('___','<span class="slot">&nbsp;</span>')}</p><div class="opts"></div><p class="fb" hidden></p>`;
+      const ob=d.querySelector('.opts'), fb=d.querySelector('.fb'), slot=d.querySelector('.slot');
+      const order=shuffle(q.o.length,i+items.length);
+      const btns=[];
+      const solve=()=>{ d.classList.add('done'); if(slot) slot.textContent=q.o[0]; if(q.f){ fb.hidden=false; fb.textContent=q.f; } btns.forEach(b=>{ if(b.dataset.k==='0') b.classList.add('right'); }); };
+      order.forEach(k=>{ const b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=q.o[k]; b.dataset.k=k; btns.push(b);
+        b.addEventListener('click',()=>{ if(d.classList.contains('done')) return;
+          if(!store[i]) store[i]={first:q.o[k],ok:false};
+          if(k===0){ store[i].ok=true; solve(); } else b.classList.add('wrong'); save(); });
+        ob.appendChild(b); });
+      if(store[i]&&store[i].ok) solve();
+      box.appendChild(d);
+    });
+  }
+
+  function pHalves(pg){
+    head(pg,'Match the halves','1st conditional. Tap the beginning, then tap the right ending.');
+    const g=document.createElement('div'); g.className='match even'; g.innerHTML='<div class="mcol"></div><div class="mcol"></div>'; pg.appendChild(g);
+    const [L,R]=g.children; let sel=null;
+    HALVES.forEach((h,i)=>{ const b=document.createElement('button'); b.type='button'; b.className='m'; b.dataset.i=i; b.textContent=h[0];
+      if(st.match.done.includes(i)) b.classList.add('done');
+      b.addEventListener('click',()=>{ if(b.classList.contains('done')) return; L.querySelectorAll('.m').forEach(m=>m.classList.remove('sel')); sel=b; b.classList.add('sel'); });
+      L.appendChild(b); });
+    [3,0,5,1,4,2].forEach(i=>{ const b=document.createElement('button'); b.type='button'; b.className='m'; b.dataset.i=i; b.textContent=HALVES[i][1];
+      if(st.match.done.includes(i)) b.classList.add('done');
+      b.addEventListener('click',()=>{ if(b.classList.contains('done')||!sel) return;
+        if(sel.dataset.i===b.dataset.i){ sel.classList.remove('sel'); sel.classList.add('done'); b.classList.add('done'); st.match.done.push(i); sel=null; save(); }
+        else { st.match.miss++; save(); b.classList.remove('bad'); void b.offsetWidth; b.classList.add('bad'); } });
+      R.appendChild(b); });
+  }
+
+  function pOrder(pg){
+    head(pg,'Build the sentence','2nd conditional. Tap the words in the right order. Tap a word in your sentence to remove it.');
+    ORD.forEach((ws,i)=>{
+      const d=document.createElement('div'); d.className='card ord';
+      d.innerHTML=`<div class="built"></div><div class="chips"></div><div class="row"><button type="button" class="sbtn">Clear</button><span class="msg"></span></div>`;
+      const built=d.querySelector('.built'), pool=d.querySelector('.chips'), msg=d.querySelector('.msg');
+      const shuffled=ws.map((w,k)=>({w,k})); for(let k=shuffled.length-1;k>0;k--){ const j=(i*7+k*5+2)%(k+1); [shuffled[k],shuffled[j]]=[shuffled[j],shuffled[k]]; }
+      if(shuffled.every((x,k)=>x.k===k)) shuffled.push(shuffled.shift());
+      const rec=st.ord[i]||(st.ord[i]={tries:0,ok:false});
+      function check(){ if(built.children.length!==ws.length){ msg.textContent=''; return; }
+        const s=[...built.children].map(c=>c.textContent).join(' ');
+        if(s===ws.join(' ')){ rec.ok=true; d.classList.add('done'); msg.textContent='Correct!'; msg.style.color='var(--done)'; }
+        else { rec.tries++; msg.textContent='Not quite. Try again.'; msg.style.color='var(--block)'; }
+        save(); }
+      shuffled.forEach(x=>{ const c=document.createElement('button'); c.type='button'; c.className='chip'; c.textContent=x.w; pool.appendChild(c);
+        c.addEventListener('click',()=>{ if(d.classList.contains('done')) return; (c.parentElement===pool?built:pool).appendChild(c); check(); }); });
+      d.querySelector('.sbtn').addEventListener('click',()=>{ if(d.classList.contains('done')) return; [...built.children].forEach(c=>pool.appendChild(c)); msg.textContent=''; });
+      if(rec.ok){ ws.forEach(w=>{ const c=[...pool.children].find(x=>x.textContent===w); if(c) built.appendChild(c); }); d.classList.add('done'); msg.textContent='Correct!'; msg.style.color='var(--done)'; }
+      pg.appendChild(d);
+    });
+  }
+
+  /* typing: accepts short and full forms, any case, curly apostrophes, the word before the gap typed too */
+  const norm=s=>' '+String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[.!?,;:]+/g,' ')
+    .replace(/\bwont\b/g,'will not').replace(/\b(had|would|was|were|did|do|does|is|are|have|has|could)nt\b/g,'$1 not').replace(/(\w)'d\b/g,"$1 'd").replace(/\bwon't\b/g,'will not').replace(/\bcan't\b/g,'can not').replace(/n't\b/g,' not')
+    .replace(/'ve\b/g,' have').replace(/'ll\b/g,' will').replace(/\s+/g,' ').trim();
+  const tyMatch=(q,v)=>{ if(!v) return false; const before=(q.t.split('___')[0].trim().split(/\s+/).pop()||''); const n=norm(v); return q.a.some(x=>n===norm(x)||n===norm(before+' '+x)); };
+  function typing(pg,items,store,showType){
+    const NAMES={1:'1st conditional: real',2:'2nd conditional: imaginary',3:'3rd conditional: past'};
+    const box=document.createElement('div'); box.className='qs'; pg.appendChild(box);
+    items.forEach((q,i)=>{
+      const d=document.createElement('div'); d.className='card ty';
+      const [a,b]=q.t.split('___');
+      d.innerHTML=`${q.c?`<p class="ctx">${esc(q.c)}</p>`:''}<p class="s"><span class="n mono" style="color:var(--muted);margin-right:6px">${i+1}</span>${esc(a)}<span class="slot">&nbsp;</span>${esc(b)} <span class="v">(${esc(q.v)})</span></p>
+        <div class="row"><input type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" aria-label="Answer ${i+1}"><button type="button" class="chk">Check</button></div>
+        <p class="msg"></p><button type="button" class="sbtn show" hidden>Show the answer</button>`;
+      const inp=d.querySelector('input'), msg=d.querySelector('.msg'), slot=d.querySelector('.slot'), show=d.querySelector('.show');
+      const rec=store[i]||(store[i]={first:null,ok:false,tries:0,shown:false});
+      const before=(a.trim().split(/\s+/).pop()||'').toLowerCase();
+      const ok=v=>tyMatch(q,v);
+      const solve=()=>{ d.classList.add('done'); slot.textContent=q.a[0]; msg.style.color='var(--done)';
+        msg.textContent=(rec.shown?'Answer: '+q.a[0]:'Correct!')+(showType&&q.k?' · '+NAMES[q.k]:''); show.hidden=true; };
+      function check(){ const v=inp.value.trim(); if(!v) return;
+        if(rec.first===null) rec.first=v;
+        if(ok(v)){ rec.ok=true; rec.ans=q.a.find(x=>norm(x)===norm(v)||norm(before+' '+x)===norm(v))||q.a[0]; solve(rec.ans); }
+        else { rec.tries++; inp.classList.remove('bad'); void inp.offsetWidth; inp.classList.add('bad'); msg.style.color='var(--block)'; msg.textContent='Not quite. Try again.'; if(rec.tries>=2) show.hidden=false; }
+        save(); }
+      d.querySelector('.chk').addEventListener('click',check);
+      inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); check(); } });
+      show.addEventListener('click',()=>{ rec.shown=true; rec.ok=true; save(); solve(q.a[0]); });
+      if(rec.ok) solve(rec.shown?q.a[0]:(rec.ans||q.a[0]));
+      else if(rec.tries>=2) show.hidden=false;
+      box.appendChild(d);
+    });
+  }
+
+  function pListen(pg){
+    pg.insertAdjacentHTML('beforeend',`<div class="stick"><div class="card player"><button type="button" class="pbtn" id="pbtn" aria-label="Play or pause">${PLAY}</button><span class="wave" id="wave"></span><span class="ptime" id="ptime">0:00</span></div>
+      <div class="ptools"><button type="button" class="sbtn" data-r="0.85">Slower</button><button type="button" class="sbtn on" data-r="1">Normal</button><button type="button" class="sbtn" id="sc" style="margin-left:auto">Transcript</button></div></div>`);
+    head(pg,'Listen: the team looks back','Tom, Mia and Sam talk about the late autumn launch. You will hear all three conditionals. Listen and answer. You can listen many times.');
+    pg.insertAdjacentHTML('beforeend',`<div class="card script" id="script" hidden>${LINES.map(([n,t])=>`<span><b>${n}:</b> ${esc(t)}</span>`).join('')}</div>`);
+    qs(pg,LQ,st.listen);
+    const wave=pg.querySelector('#wave'), bars=[]; for(let i=0;i<36;i++){ const b=document.createElement('i'); b.style.height=(6+Math.round(24*Math.abs(Math.sin(i*1.7)*Math.cos(i*.45))))+'px'; wave.appendChild(b); bars.push(b); }
+    const fmt=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+    const paint=()=>{ const k=sa.duration?sa.currentTime/sa.duration:0; bars.forEach((b,j)=>b.classList.toggle('on',j/bars.length<k)); const t=pg.querySelector('#ptime'); if(t) t.textContent=fmt(sa.currentTime)+'/'+fmt(sa.duration); };
+    sa.ontimeupdate=paint; sa.onloadedmetadata=paint; sa.onended=()=>{ const b=$('pbtn'); if(b) b.innerHTML=PLAY; }; paint();
+    pg.querySelector('#pbtn').addEventListener('click',e=>{ const b=e.currentTarget; if(sa.paused){ sa.play().catch(()=>{}); b.innerHTML=PAUSE; } else { sa.pause(); b.innerHTML=PLAY; } });
+    wave.addEventListener('click',e=>{ if(!sa.duration) return; const r=wave.getBoundingClientRect(); sa.currentTime=sa.duration*(e.clientX-r.left)/r.width; paint(); });
+    pg.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',()=>{ sa.playbackRate=+b.dataset.r; pg.querySelectorAll('[data-r]').forEach(x=>x.classList.toggle('on',x===b)); }));
+    pg.querySelector('#sc').addEventListener('click',e=>{ const s=pg.querySelector('#script'); s.hidden=!s.hidden; e.currentTarget.classList.toggle('on',!s.hidden); });
+  }
+
+  function writeBox(box,key,ph){
+    const t=document.createElement('textarea'); t.placeholder=ph; t.value=st[key]||''; t.setAttribute('aria-label','Your answer');
+    const wc=document.createElement('p'); wc.className='wc';
+    const cnt=()=>{ wc.textContent=((t.value.trim().match(/\S+/g)||[]).length)+' words'; };
+    t.addEventListener('input',()=>{ st[key]=t.value.slice(0,3000); cnt(); save(); }); cnt();
+    box.appendChild(t); box.appendChild(wc);
+  }
+  const WR=[
+    ['w1','k1','1st · real','Next season. Finish the sentence and add one more:','If the new kids\' collection sells well, …'],
+    ['w2','k2','2nd · imaginary','Imagine you are the head of the brand for one day. 1–2 sentences:','If I were the head of the brand, I would …'],
+    ['w3','k3','3rd · past','Think of one thing at work that went wrong. 1–2 sentences:','If we had …, we would have …']
+  ];
+  function pWrite(pg){
+    head(pg,'Your turn','Three short answers about your work. One or two sentences each is enough.');
+    WR.forEach(([key,k,tag,txt,ph])=>{ const d=document.createElement('div'); d.className='card wr '+k;
+      d.innerHTML=`<span class="tag">${tag}</span><p>${esc(txt)}</p>`; writeBox(d,key,ph); pg.appendChild(d); });
+  }
+
+  /* ---------- finish ---------- */
+  const firstOk=(o,items,ansOf)=>items.map((_,i)=>o[i]&&o[i].first===ansOf(i)).filter(Boolean).length;
+  const tyFirst=(o,items)=>items.map((q,i)=>o[i]&&tyMatch(q,o[i].first)).filter(Boolean).length;
+  function asText(){
+    const L=[`Homework 3 (conditionals) from Ira — ${new Date().toLocaleString('en-GB')}`,''];
+    const mark=(r,ans)=>r&&r.first!==null&&r.first!==undefined?(r.first===ans?'✓':'✗ '+r.first+' →'):'– (no answer)';
+    L.push(`WHICH ONE IS IT: ${firstOk(st.sort,SORT,i=>SORT[i][1])}/${SORT.length} right first time`);
+    SORT.forEach(([s,k],i)=>{ const r=st.sort[i]; const nm=['','1st','2nd','3rd']; L.push(`${i+1}. ${r?(r.first===k?'✓':'✗ '+nm[r.first]+' →'):'– (no answer)'} ${nm[k]}: ${s}`); }); L.push('');
+    const block=(title,items,store)=>{ L.push(`${title}: ${firstOk(store,items,i=>items[i].o[0])}/${items.length} right first time`);
+      items.forEach((q,i)=>{ L.push(`${i+1}. ${mark(store[i],q.o[0])} ${(q.t||'').includes('___')?q.t.replace('___',q.o[0]):(items===FIX?'('+q.c+') → ':'')+q.o[0]}`); }); L.push(''); };
+    const tblock=(title,items,store)=>{ L.push(`${title}: ${tyFirst(store,items)}/${items.length} right first time`);
+      items.forEach((q,i)=>{ const r=store[i]; const good=r&&tyMatch(q,r.first);
+        L.push(`${i+1}. ${!r||!r.first?'– (no answer)':good?'✓':'✗ '+r.first+' →'} ${q.t.replace('___',q.a[0])}${r&&r.shown?' (looked at the answer)':''}`); }); L.push(''); };
+    block('1st CONDITIONAL',C1,st.c1);
+    L.push(`MATCH THE HALVES: ${st.match.done.length}/${HALVES.length} matched, ${st.match.miss} mistakes`,'');
+    block('2nd CONDITIONAL',C2,st.c2);
+    L.push(`BUILD THE SENTENCE: ${ORD.filter((_,i)=>st.ord[i]&&st.ord[i].ok).length}/${ORD.length} done`);
+    ORD.forEach((w,i)=>{ const r=st.ord[i]; L.push(`${i+1}. ${r&&r.ok?'✓':'–'} ${w.join(' ')}${r&&r.tries?` (${r.tries} wrong tries)`:''}`); }); L.push('');
+    block('3rd CONDITIONAL',C3,st.c3);
+    tblock('WHAT WENT WRONG (typing)',T3,st.t3);
+    block('MIX · WHICH ONE FITS',MIX1,st.mix1);
+    tblock('MIX · OPEN THE BRACKETS (typing)',T2,st.t2);
+    block('MIX · FIX THE MISTAKE',FIX,st.fix);
+    block('LISTENING',LQ,st.listen);
+    L.push('YOUR TURN:','1st: '+(st.w1.trim()||'(empty)'),'2nd: '+(st.w2.trim()||'(empty)'),'3rd: '+(st.w3.trim()||'(empty)'));
+    return L.join('\n');
+  }
+  function pFinish(pg){
+    const f=(o,it)=>firstOk(o,it,i=>it[i].o[0]);
+    const g1=f(st.c1,C1), g2=f(st.c2,C2), g3=f(st.c3,C3)+tyFirst(st.t3,T3), mx=f(st.mix1,MIX1)+tyFirst(st.t2,T2)+f(st.fix,FIX);
+    pg.innerHTML=`<div class="hero"><span class="mono" style="color:var(--done)">DONE</span><h1>Great work, Ira!</h1></div>
+      <div class="pills"><span class="pill">1st <b>${g1}/8</b></span><span class="pill">2nd <b>${g2}/8</b></span><span class="pill">3rd <b>${g3}/14</b></span><span class="pill">Mix <b>${mx}/24</b></span><span class="pill">Listening <b>${f(st.listen,LQ)}/6</b></span></div>
+      <p class="lead">Last step: copy your answers and send them to Tanya in a message.</p>
+      <button type="button" class="big" id="copy">Copy my answers</button><p class="note" id="cnote" aria-live="polite"></p>
+      <textarea class="copybox" id="cbox" readonly aria-label="Your answers"></textarea>
+      <button type="button" class="sbtn" id="reset" style="justify-self:start">Start again</button>`;
+    const box=pg.querySelector('#cbox'); box.value=asText();
+    pg.querySelector('#copy').addEventListener('click',async e=>{ const b=e.currentTarget; try{ await navigator.clipboard.writeText(box.value); b.textContent='Copied'; pg.querySelector('#cnote').textContent='Now paste it into your chat with Tanya.'; }
+      catch(_){ box.focus(); box.select(); try{ box.setSelectionRange(0,box.value.length); }catch(__){} pg.querySelector('#cnote').textContent='The text is selected. Tap “Copy”, then paste it into your chat with Tanya.'; } });
+    let armed=false; pg.querySelector('#reset').addEventListener('click',e=>{ if(!armed){ armed=true; e.currentTarget.textContent='Tap again to delete all answers'; return; }
+      try{ localStorage.removeItem(KEY); }catch(_){} st=fresh(); save(); render(); });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
