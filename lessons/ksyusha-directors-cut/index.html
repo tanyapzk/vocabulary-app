@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Director's Cut</title>
+<meta property="og:title" content="Director's Cut: Film Talk, Part 2">
+<meta property="og:description" content="Words for feelings, spotlight sentences and your favourite film.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Screenplay look: cream script paper, typewriter sluglines, red pencil notes. Shared on screen, so one light look and big type. */
+:root{
+  --paper:#F6F1E7;--sheet:#FFFDF8;--ink:#1F1B18;--mut:#6B6158;--rule:#E3D9C8;
+  --red:#C8293B;--redsoft:#F8DEDF;--blue:#2F5DA8;--bluesoft:#DFE8F6;--gold:#D99A1E;--goldsoft:#FBEFD3;
+  --green:#2E8B57;--greensoft:#DCF0E3;
+  --display:"Anton",Impact,sans-serif;--type:"Courier Prime","Courier New",monospace;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 clamp(18px,1.55vw,27px)/1.45 var(--body)}
+main{max-width:1360px;margin:auto;padding:0 clamp(16px,3.5vw,56px) 16vh}
+p{margin:0}
+button{font:inherit;color:inherit}
+em{font-style:italic}
+
+/* hero */
+.hero{min-height:92vh;display:grid;grid-template-columns:1.15fr .85fr;gap:4vw;align-items:center;padding-block:6vh}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.slug{font:700 .9em var(--type);letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.hero h1{font:400 clamp(4.2rem,12vw,10.5rem)/.86 var(--display);margin:.15em 0 .2em;text-transform:uppercase;letter-spacing:.01em}
+.hero h1 span{color:var(--red)}
+.hero .sub{font-family:var(--type);font-size:1.05em;color:var(--mut);max-width:30em}
+.clapper{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;overflow:hidden;box-shadow:10px 10px 0 var(--ink);transform:rotate(-2deg)}
+.clapper .bar{height:3.2em;background:repeating-linear-gradient(-45deg,var(--ink) 0 34px,var(--sheet) 34px 68px);border-bottom:2px solid var(--ink)}
+.clapper dl{margin:0;display:grid;grid-template-columns:auto 1fr;font-family:var(--type)}
+.clapper dt,.clapper dd{margin:0;padding:.55em .9em;border-bottom:2px solid var(--ink)}
+.clapper dt{font-weight:700;border-right:2px solid var(--ink);text-transform:uppercase;font-size:.8em;display:flex;align-items:center}
+.clapper dd{font-size:1.05em}
+.clapper dl > :nth-last-child(-n+2){border-bottom:0}
+
+/* scenes */
+.scene{padding-top:10vh;scroll-margin-top:2vh}
+.scene-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2em 1em;border-bottom:3px solid var(--ink);padding-bottom:.25em;margin-bottom:.5em}
+.scene-head .no{font:400 1.6em var(--display);color:var(--red)}
+.scene-head .where{font:700 1em var(--type);text-transform:uppercase;letter-spacing:.04em}
+h2{font:400 clamp(2.8rem,6.4vw,5.6rem)/.95 var(--display);text-transform:uppercase;margin:.15em 0 .35em}
+h3{font:700 1.05em var(--type);text-transform:uppercase;letter-spacing:.05em;margin:1.4em 0 .6em;display:flex;align-items:center;gap:.6em}
+h3::before{content:"";width:1.4em;height:3px;background:var(--red)}
+.task{font-family:var(--type);background:var(--sheet);border:2px solid var(--ink);border-left:10px solid var(--red);border-radius:6px;padding:.6em 1em;max-width:58em;margin-bottom:1em}
+.task b{color:var(--red);margin-right:.5em}
+.note{font-family:var(--type);color:var(--blue);font-style:italic}
+.think{display:flex;gap:.7em;align-items:flex-start;background:var(--bluesoft);border-radius:12px;padding:.7em 1em;max-width:58em;margin-top:1.2em;color:var(--blue);font-weight:500}
+.think svg{flex:none;margin-top:.15em}
+
+/* reveal */
+.rv{background:transparent;border:2px dashed var(--mut);border-radius:999px;padding:.12em .8em;font-size:.78em;font-weight:600;color:var(--mut);cursor:pointer;align-self:flex-start}
+.rv:hover{border-color:var(--red);color:var(--red)}
+.ans{color:var(--green);font-weight:600}
+.ans[hidden]{display:none}
+
+/* cards */
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--min,300px)),1fr))}
+.card{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.75em 1em;display:flex;flex-direction:column;gap:.45em}
+.card .t{font-weight:700;font-size:1.08em}
+.card .m{color:var(--mut);font-size:.9em}
+
+/* warm-up film cards */
+.film{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.8em 1em;display:flex;flex-direction:column;gap:.15em;position:relative;overflow:hidden}
+.film::after{content:"";position:absolute;right:-12px;top:50%;width:24px;height:24px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);transform:translateY(-50%)}
+.film b{font:400 1.5em/1.05 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.film span{font-family:var(--type);font-size:.8em;color:var(--mut)}
+.plain{display:flex;flex-wrap:wrap;gap:8px;margin-top:.6em}
+.plain s{font-family:var(--type);background:var(--redsoft);color:var(--red);padding:.1em .6em;border-radius:6px;text-decoration-thickness:2px}
+
+/* vocab */
+.words{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:12px}
+.w{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.5em .9em;display:flex;flex-direction:column;gap:.05em}
+.w .t{font-weight:700;font-size:1.1em}
+.w .eg{font-family:var(--type);font-size:.85em;color:var(--mut)}
+.vgroups{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:900px){.vgroups{grid-template-columns:1fr}}
+.vgroups h4{margin:0 0 .5em;font:400 1.5em var(--display);text-transform:uppercase;letter-spacing:.03em}
+.vgroups .words{grid-template-columns:1fr}
+
+/* matching */
+.match{position:relative;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);column-gap:clamp(70px,12vw,200px);row-gap:10px}
+.match svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.mcol{display:flex;flex-direction:column;gap:10px}
+.mi{position:relative;text-align:left;background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.4em .85em;cursor:pointer;min-height:2.3em}
+.mi.l{font-weight:700}
+.mi.r{font-size:.9em}
+.mi:hover:not(.done){background:var(--goldsoft)}
+.mi.sel{background:var(--gold);}
+.mi.bad{animation:shake .35s;background:var(--redsoft);border-color:var(--red)}
+.mi.done{cursor:default;border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,var(--sheet))}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.mscore{font-family:var(--type);font-weight:700;margin-bottom:.6em}
+
+/* feelings: situation cards */
+.sit{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.7em 1em;display:flex;flex-direction:column;gap:.5em}
+.sit p{font-size:.95em}
+
+/* grammar */
+.versions{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:860px){.versions{grid-template-columns:1fr}}
+.script{background:var(--sheet);border:2px solid var(--ink);border-radius:8px;padding:1em 1.2em;font-family:var(--type);font-size:.95em;line-height:1.55;position:relative}
+.script .lbl{position:absolute;top:-.85em;left:1em;background:var(--ink);color:var(--sheet);font:400 1em var(--display);padding:0 .6em;letter-spacing:.06em}
+.hl{padding:0 .15em;border-bottom:3px solid transparent;transition:background .25s,border-color .25s}
+#twoRev.show .hl{background:var(--goldsoft);border-bottom-color:var(--gold)}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:14px}
+.why .card .k{font:400 2.4em/1 var(--display);color:var(--red)}
+.pattern{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.8em 1.1em;display:flex;flex-direction:column;gap:.5em}
+.pattern h4{margin:0;font:400 1.45em var(--display);text-transform:uppercase;letter-spacing:.03em;color:var(--blue)}
+.formula{font-family:var(--type);font-weight:700;background:var(--bluesoft);border-radius:6px;padding:.3em .6em;font-size:.88em}
+.formula i{font-style:normal;color:var(--red)}
+.ex{font-size:.95em}
+.ex b{background:var(--goldsoft);font-weight:600;padding:0 .15em}
+.oops{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:12px}
+.ow{display:flex;gap:.6em;align-items:center;background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.45em .9em}
+.ow svg{flex:none}
+.ow.no{color:var(--red);text-decoration:line-through;text-decoration-thickness:2px}
+.ow.yes{color:var(--green);font-weight:600}
+
+/* transform */
+.tr{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.7em 1em;display:flex;flex-direction:column;gap:.4em}
+.tr .plainline{font-size:1em}
+.tr .start{font-family:var(--type);color:var(--blue);font-weight:700}
+.fact{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.7em 1em;display:flex;flex-direction:column;gap:.4em}
+.fact .fake{display:flex;gap:.5em;align-items:flex-start}
+.fact .fake svg{flex:none;margin-top:.2em;color:var(--red)}
+
+/* quick fire */
+.qf{background:var(--ink);color:var(--sheet);border-radius:10px;padding:.8em 1.1em;display:flex;flex-direction:column;gap:.4em}
+.qf .q{font-weight:600;font-size:1.05em}
+.qf .st{font-family:var(--type);color:var(--gold);font-size:.9em}
+
+/* speak */
+.speak{display:grid;grid-template-columns:1.5fr .5fr;gap:22px;align-items:start}
+@media (max-width:900px){.speak{grid-template-columns:1fr}}
+.pb{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.pg{background:var(--sheet);border:2px solid var(--ink);border-top:8px solid var(--c);border-radius:10px;padding:.55em .85em}
+.pg h4{margin:0 0 .3em;font:400 1.25em var(--display);text-transform:uppercase;letter-spacing:.04em;color:var(--c)}
+.pg li{font-size:.9em}
+.pg ul{margin:0;padding-left:1.1em}
+.checklist{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.8em 1.1em;display:flex;flex-direction:column;gap:.5em}
+.checklist h4{margin:0;font:400 1.4em var(--display);text-transform:uppercase}
+.ck{display:flex;gap:.6em;align-items:flex-start;text-align:left;background:transparent;border:0;padding:.2em 0;cursor:pointer}
+.ck .box{width:1.25em;height:1.25em;border:2px solid var(--ink);border-radius:4px;flex:none;margin-top:.15em;display:grid;place-items:center;background:var(--sheet)}
+.ck.on .box{background:var(--green);border-color:var(--green);color:#fff}
+.ck .box svg{opacity:0}.ck.on .box svg{opacity:1}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--type);font-weight:700;font-size:.85em}
+.flow span{background:var(--goldsoft);border:2px solid var(--ink);border-radius:6px;padding:.1em .5em}
+.model{font-family:var(--type);font-size:.88em;line-height:1.55;background:var(--sheet);border:2px dashed var(--mut);border-radius:10px;padding:.8em 1em}
+.model[hidden]{display:none}
+
+/* hot takes */
+.reacts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1em}
+.reacts span{background:var(--sheet);border:2px solid var(--ink);border-radius:999px;padding:.1em .8em;font-size:.88em;font-weight:600}
+.take{background:var(--red);color:#fff;border-radius:10px;padding:.9em 1.1em;font:400 1.45em/1.15 var(--display);text-transform:uppercase;letter-spacing:.02em;box-shadow:6px 6px 0 var(--ink)}
+
+/* casting */
+.role{background:var(--sheet);border:2px solid var(--ink);border-radius:10px;padding:.75em 1em;display:flex;flex-direction:column;gap:.5em}
+.role p{font-weight:600}
+.cast{display:flex;flex-wrap:wrap;gap:6px}
+.roles{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr))}
+.roles .role{padding:.6em .9em;gap:.4em}
+.roles .role p{font-size:.95em}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,140px));gap:12px;justify-content:start}
+.trio figure{margin:0;display:flex;flex-direction:column;gap:.25em}
+.trio img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 20%;border-radius:6px;border:2px solid var(--ink);display:block;background:var(--rule)}
+.trio figcaption{font-family:var(--type);font-size:.75em;line-height:1.2;text-align:center}
+.cast span{font-family:var(--type);font-size:.85em;background:var(--goldsoft);border-radius:6px;padding:.05em .55em}
+
+.end{text-align:center;padding-top:12vh}
+.end p{font:400 clamp(3rem,9vw,7rem)/.9 var(--display);text-transform:uppercase}
+.end small{font-family:var(--type);color:var(--mut)}
+
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+.words{grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr))}
+.match{row-gap:8px}
+.mi{padding:.28em .8em;min-height:0;font-size:.92em}
+.mi.r{font-size:.84em}
+.pattern{gap:.3em}
+.ex{font-size:.9em}
+.oops{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.ow{font-size:.88em}
+h2{font-size:clamp(2.6rem,5.6vw,4.6rem)}
+.w{padding:.4em .85em}
+.w .eg{font-size:.8em}
+.sit{gap:.35em}.sit p{font-size:.9em}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <div>
+    <p class="slug">FADE IN: · FILM TALK, PART 2</p>
+    <h1>Director's<br><span>cut</span></h1>
+    <p class="sub">Better words for how a film makes you feel, a way to put the spotlight on what matters, and your favourite film in one minute.</p>
+  </div>
+  <div class="clapper" aria-hidden="true">
+    <div class="bar"></div>
+    <dl>
+      <dt>Production</dt><dd>Film Talk 2</dd>
+      <dt>Scene</dt><dd>1–6</dd>
+      <dt>Starring</dt><dd>Ksyusha</dd>
+      <dt>Take</dt><dd>One</dd>
+    </dl>
+  </div>
+</header>
+
+<!-- SCENE 1 -->
+<section class="scene" id="s1">
+  <div class="scene-head"><span class="no">SCENE 1</span><span class="where">INT. YOUR SOFA – NIGHT</span></div>
+  <h2>One-word review</h2>
+  <p class="task"><b>TASK</b>Give each film a one-word review. You can't use these words:</p>
+  <div class="plain"><s>good</s><s>bad</s><s>nice</s><s>interesting</s><s>boring</s><s>cool</s></div>
+  <div class="grid" style="--min:240px;margin-top:1.2em">
+    <div class="film"><b>Titanic</b><span>1997 · romance, drama</span></div>
+    <div class="film"><b>Love Actually</b><span>2003 · romantic comedy</span></div>
+    <div class="film"><b>Home Alone</b><span>1990 · family comedy</span></div>
+    <div class="film"><b>Inception</b><span>2010 · sci-fi thriller</span></div>
+    <div class="film"><b>It</b><span>2017 · horror, based on Stephen King</span></div>
+    <div class="film"><b>The Last Film You Saw</b><span>your choice</span></div>
+  </div>
+  <div class="think"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 19h5M10.5 22h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p>Was it easy? Which films were hard to describe without those six words?</p></div>
+</section>
+
+<!-- SCENE 2 -->
+<section class="scene" id="s2">
+  <div class="scene-head"><span class="no">SCENE 2</span><span class="where">INT. CINEMA – THE BIG SCREEN</span></div>
+  <h2>What the film is like</h2>
+  <p class="task"><b>TASK</b>Read the words and examples. Which ones do you already know? Which ones could you use for the films in Scene 1?</p>
+  <div class="words" id="wordsA"></div>
+</section>
+
+<section class="scene" id="s2b">
+  <div class="scene-head"><span class="no">SCENE 2 · TAKE 2</span><span class="where">INT. EDITING ROOM</span></div>
+  <h2>Match them up</h2>
+  <p class="task"><b>TASK</b>Connect each word with its meaning. Then say: which film from Scene 1 is it?</p>
+  <p class="mscore" id="mscore"></p>
+  <div class="match" id="match"></div>
+</section>
+
+<section class="scene" id="s2d">
+  <div class="scene-head"><span class="no">SCENE 2 · TAKE 3</span><span class="where">INT. CINEMA – THE LIGHTS GO UP</span></div>
+  <h2>What it did to me</h2>
+  <p class="task"><b>TASK</b>Read the phrases and examples. Which of them has happened to you?</p>
+  <div class="words" id="wordsB"></div>
+</section>
+
+<section class="scene" id="s2c">
+  <div class="scene-head"><span class="no">SCENE 2 · TAKE 4</span><span class="where">INT. CINEMA – AFTER THE FILM</span></div>
+  <h2>How did it feel?</h2>
+  <p class="task"><b>TASK</b>What would you say in each situation? Use a phrase from Take 3.</p>
+  <div class="grid" style="--min:280px" id="sits"></div>
+  <div class="think"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 19h5M10.5 22h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p>Has a film ever left you speechless or stayed with you for days? Which one, and why?</p></div>
+</section>
+
+<!-- SCENE 3: GRAMMAR -->
+<section class="scene" id="s3">
+  <div class="scene-head"><span class="no">SCENE 3</span><span class="where">INT. STUDIO – SPOTLIGHT ON</span></div>
+  <h2>Two reviews</h2>
+  <p class="task"><b>TASK</b>Mark and Anna saw the same film and say the same things. But they say them differently. Find five places where Anna changes the sentence. Why do you think she does it?</p>
+  <div class="versions" id="twoRev">
+    <div class="script"><span class="lbl">MARK</span>I liked the music a lot. The ending made me cry. I didn't like the middle, it was far too long. I watched it because of the main actor. I just wanted a happy ending.</div>
+    <div class="script"><span class="lbl">ANNA</span><span class="hl">What I really liked was</span> the music. <span class="hl">It was the ending that</span> made me cry. <span class="hl">The thing I didn't like was</span> the middle: far too long. <span class="hl">The reason I watched it was</span> the main actor. <span class="hl">All I wanted was</span> a happy ending.</div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:1em">
+    <button class="rv" type="button" id="hlBtn">Show the five places</button>
+    <button class="rv" type="button" data-rv="r-two">Why?</button>
+  </div>
+  <p class="ans" id="r-two" hidden style="margin-top:.6em;max-width:58em">She first tells you what kind of thing is coming (“what I liked…”, “the reason…”), and only then gives the important part. It comes at the end of the sentence, where we listen most. That's why Anna sounds more sure about her opinion.</p>
+</section>
+
+<section class="scene" id="s3b">
+  <div class="scene-head"><span class="no">SCENE 3 · TAKE 2</span><span class="where">INT. STUDIO – THE RULES</span></div>
+  <h2>Cleft sentences: why bother?</h2>
+  <p class="task"><b>TASK</b>A cleft sentence takes one simple sentence and splits it in two, to put a spotlight on one part. Read why people use them.</p>
+  <div class="why">
+    <div class="card"><span class="k">1</span><span class="t">Spotlight</span><span class="m">You show what's most important. <br><em>I liked the music.</em> → <em>What I liked was <b>the music</b>.</em></span></div>
+    <div class="card"><span class="k">2</span><span class="t">Not that, but this</span><span class="m">You correct someone or compare. <br><em>It wasn't the plot that I loved, <b>it was the actors</b>.</em></span></div>
+    <div class="card"><span class="k">3</span><span class="t">Time to think</span><span class="m">“What I find interesting is…” gives your brain two seconds to find the next words.</span></div>
+    <div class="card"><span class="k">4</span><span class="t">One clear point</span><span class="m">It stops your thoughts jumping around: you choose ONE thing and say it.</span></div>
+  </div>
+  <div class="think"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.5 19h5M10.5 22h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p>Do you do something like this in your own language? How do you show the most important part when you speak?</p></div>
+</section>
+
+<section class="scene" id="s3c">
+  <div class="scene-head"><span class="no">SCENE 3 · TAKE 3</span><span class="where">INT. STUDIO – THE PATTERNS</span></div>
+  <h2>Three ways to split it</h2>
+  <div class="grid" style="--min:360px">
+    <div class="pattern"><h4>What…</h4>
+      <p class="formula">What + I + verb + <i>is / was</i> + the focus</p>
+      <p class="ex"><b>What I loved was</b> the soundtrack.</p>
+      <p class="ex"><b>What surprised me was</b> how funny it was.</p>
+      <p class="ex"><b>What I didn't expect was</b> the plot twist.</p>
+      <p class="ex"><b>What happens is</b> she loses her memory.</p>
+    </div>
+    <div class="pattern"><h4>It is / It was…</h4>
+      <p class="formula"><i>It is / It was</i> + the focus + <i>that / who</i> + the rest</p>
+      <p class="ex"><b>It was the ending that</b> made me cry.</p>
+      <p class="ex"><b>It's the dog who</b> steals the show.</p>
+      <p class="ex"><b>It wasn't the story that</b> I loved, it was the music.</p>
+    </div>
+    <div class="pattern"><h4>The thing / The reason…</h4>
+      <p class="formula"><i>The thing / The reason / The moment / All</i> + … + <i>is / was</i></p>
+      <p class="ex"><b>The thing that annoyed me was</b> the voice-over.</p>
+      <p class="ex"><b>The reason I watched it was</b> the cast.</p>
+      <p class="ex"><b>The moment I knew I'd love it was</b> the first song.</p>
+      <p class="ex"><b>All I wanted was</b> a happy ending.</p>
+    </div>
+  </div>
+  <h3>Watch out</h3>
+  <div class="oops">
+    <div class="ow no"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>What I loved it was the music.</div>
+    <div class="ow yes"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>What I loved was the music.</div>
+    <div class="ow no"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>It was the ending what made me cry.</div>
+    <div class="ow yes"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>It was the ending that made me cry.</div>
+  </div>
+</section>
+
+<section class="scene" id="s3d">
+  <div class="scene-head"><span class="no">SCENE 3 · TAKE 4</span><span class="where">INT. STUDIO – REHEARSAL</span></div>
+  <h2>Spotlight it</h2>
+  <p class="task"><b>TASK</b>Say each sentence again with the beginning in blue. Keep the same meaning.</p>
+  <div class="grid" style="--min:380px" id="trs"></div>
+</section>
+
+<section class="scene" id="s3e">
+  <div class="scene-head"><span class="no">SCENE 3 · TAKE 5</span><span class="where">INT. STUDIO – BLOOPERS</span></div>
+  <h2>No, it was…</h2>
+  <p class="task"><b>TASK</b>Every fact here is wrong. Correct it with <em>No, it wasn't… it was…</em> or <em>No, it was… that / who…</em></p>
+  <div class="grid" style="--min:380px" id="facts"></div>
+</section>
+
+<section class="scene" id="s3f">
+  <div class="scene-head"><span class="no">SCENE 3 · TAKE 6</span><span class="where">INT. STUDIO – QUICK FIRE</span></div>
+  <h2>Answer with a spotlight</h2>
+  <p class="task"><b>TASK</b>Answer fast. Start with the words in yellow, then add one more sentence.</p>
+  <div class="grid" style="--min:380px">
+    <div class="qf"><p class="q">What annoys you most at the cinema?</p><p class="st">What annoys me most is…</p></div>
+    <div class="qf"><p class="q">What makes a really good villain?</p><p class="st">What makes a good villain is…</p></div>
+    <div class="qf"><p class="q">What do you do when a film is boring?</p><p class="st">What I usually do is…</p></div>
+    <div class="qf"><p class="q">Why do you watch some films again and again?</p><p class="st">The reason I… is…</p></div>
+    <div class="qf"><p class="q">What's the best moment in your favourite film?</p><p class="st">The moment that… is when…</p></div>
+    <div class="qf"><p class="q">Who is the best actor in your favourite series?</p><p class="st">It's … who…</p></div>
+  </div>
+</section>
+
+<!-- SCENE 4 -->
+<section class="scene" id="s4">
+  <div class="scene-head"><span class="no">SCENE 4</span><span class="where">INT. RED CARPET – LIVE</span></div>
+  <h2>Your film in one minute</h2>
+  <p class="task"><b>TASK</b>Tell me about your favourite film. Start with <em>Without spoiling anything…</em>, choose ONE main thing to say and finish with <em>I'd recommend it if…</em></p>
+  <div class="speak">
+    <div class="pb">
+      <div class="pg" style="--c:var(--blue)"><h4>Starting</h4><ul><li>Without spoiling anything…</li><li>Spoiler alert!</li><li>It's the kind of film that…</li></ul></div>
+      <div class="pg" style="--c:var(--red)"><h4>Opinion</h4><ul><li>In my view…</li><li>What struck me was…</li><li>I was blown away by…</li><li>It left me cold.</li></ul></div>
+      <div class="pg" style="--c:#7A4FB0"><h4>Contrast</h4><ul><li>Having said that…</li><li>On the one hand… on the other hand…</li><li>Even though…</li></ul></div>
+      <div class="pg" style="--c:var(--gold)"><h4>Feelings about events</h4><ul><li>Sadly, / Unfortunately,</li><li>Surprisingly, / Thankfully,</li><li>Predictably,</li></ul></div>
+      <div class="pg" style="--c:var(--green)"><h4>Finishing</h4><ul><li>In the end… / All in all…</li><li>Looking back…</li><li>I'd recommend it if…</li></ul></div>
+    </div>
+    <div class="checklist">
+      <h4>Did you use…</h4>
+      <div class="flow"><span>Point</span>→<span>Reason</span>→<span>Example</span>→<span>Wrap-up</span></div>
+      <button class="ck" type="button"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>2 cleft sentences</button>
+      <button class="ck" type="button"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>3 new words from Scene 2</button>
+      <button class="ck" type="button"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>1 contrast phrase</button>
+      <button class="ck" type="button"><span class="box"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No spoilers!</button>
+      <button class="rv" type="button" data-rv="r-model">Show an example</button>
+    </div>
+  </div>
+  <p class="model" id="r-model" hidden>Without spoiling anything, <em>Groundhog Day</em> is about a grumpy TV weatherman who wakes up on the same day again and again. What I love about it is that it's hilarious and thought-provoking at the same time. Even though it's an old film, the jokes still work. Having said that, the start is a bit slow. The thing that stayed with me for days was the question: what would I do with the same day? All in all, it's a real feel-good film, and I'd recommend it if you need a good laugh on a grey evening.</p>
+</section>
+
+<!-- SCENE 5 -->
+<section class="scene" id="s5">
+  <div class="scene-head"><span class="no">SCENE 5</span><span class="where">EXT. CINEMA – AFTER-PARTY</span></div>
+  <h2>Hot takes</h2>
+  <p class="task"><b>TASK</b>React first, then explain with a spotlight sentence: <em>No way! What makes a film great is…</em></p>
+  <div class="reacts"><span>I couldn't agree more.</span><span>Tell me about it!</span><span>Fair enough.</span><span>I see your point, but…</span><span>It depends.</span><span>I'm not so sure.</span><span>No way!</span></div>
+  <div class="grid" style="--min:380px">
+    <p class="take">Trailers show far too much of the film.</p>
+    <p class="take">Films these days are far too long.</p>
+    <p class="take">A film is only as good as its ending.</p>
+    <p class="take">Remakes ruin the classics.</p>
+    <p class="take">Cheesy films are the best films.</p>
+    <p class="take">Actors are paid far too much.</p>
+  </div>
+</section>
+
+<!-- SCENE 6 -->
+<section class="scene" id="s6">
+  <div class="scene-head"><span class="no">SCENE 6</span><span class="where">INT. CASTING OFFICE – DAY</span></div>
+  <h2>Casting director</h2>
+  <p class="task"><b>TASK</b>You are the director. Choose the best actor for each role and explain: <em>It's … who…</em> / <em>What makes her perfect is…</em> / <em>The reason I'd choose him is…</em></p>
+  <div class="roles">
+    <div class="role"><p>A single mother of four fighting for the custody of her children</p><div class="trio"><figure><img src="img/nicole-kidman.jpg" alt="Nicole Kidman"><figcaption>Nicole Kidman</figcaption></figure><figure><img src="img/naomi-watts.jpg" alt="Naomi Watts"><figcaption>Naomi Watts</figcaption></figure><figure><img src="img/jennifer-lopez.jpg" alt="Jennifer Lopez"><figcaption>Jennifer Lopez</figcaption></figure></div></div>
+    <div class="role"><p>A serial killer who works unlike anyone else</p><div class="trio"><figure><img src="img/liam-neeson.jpg" alt="Liam Neeson"><figcaption>Liam Neeson</figcaption></figure><figure><img src="img/anthony-hopkins.jpg" alt="Anthony Hopkins"><figcaption>Anthony Hopkins</figcaption></figure><figure><img src="img/jack-nicholson.jpg" alt="Jack Nicholson"><figcaption>Jack Nicholson</figcaption></figure></div></div>
+    <div class="role"><p>A wicked witch who takes over a peaceful kingdom</p><div class="trio"><figure><img src="img/angelina-jolie.jpg" alt="Angelina Jolie"><figcaption>Angelina Jolie</figcaption></figure><figure><img src="img/helena-bonham-carter.jpg" alt="Helena Bonham Carter"><figcaption>Helena Bonham Carter</figcaption></figure><figure><img src="img/emily-blunt.jpg" alt="Emily Blunt"><figcaption>Emily Blunt</figcaption></figure></div></div>
+    <div class="role"><p>A very bright, gifted child who is bullied at school</p><div class="trio"><figure><img src="img/lindsay-lohan.jpg" alt="Lindsay Lohan"><figcaption>Lindsay Lohan</figcaption></figure><figure><img src="img/maisie-williams.jpg" alt="Maisie Williams"><figcaption>Maisie Williams</figcaption></figure><figure><img src="img/macaulay-culkin.jpg" alt="Macaulay Culkin"><figcaption>Macaulay Culkin</figcaption></figure></div></div>
+  </div>
+</section>
+
+<section class="scene" id="s6b">
+  <div class="scene-head"><span class="no">SCENE 6 · TAKE 2</span><span class="where">INT. CASTING OFFICE – LATER</span></div>
+  <h2>More auditions</h2>
+  <p class="task"><b>TASK</b>Same again: who gets the role, and why? Use a spotlight sentence.</p>
+  <div class="roles">
+    <div class="role"><p>A rich, powerful businessman with a crisis in his family</p><div class="trio"><figure><img src="img/leonardo-dicaprio.jpg" alt="Leonardo DiCaprio"><figcaption>Leonardo DiCaprio</figcaption></figure><figure><img src="img/chris-hemsworth.jpg" alt="Chris Hemsworth"><figcaption>Chris Hemsworth</figcaption></figure><figure><img src="img/tom-cruise.jpg" alt="Tom Cruise"><figcaption>Tom Cruise</figcaption></figure></div></div>
+    <div class="role"><p>An attractive, high-maintenance girl who nobody takes seriously</p><div class="trio"><figure><img src="img/kate-hudson.jpg" alt="Kate Hudson"><figcaption>Kate Hudson</figcaption></figure><figure><img src="img/halle-berry.jpg" alt="Halle Berry"><figcaption>Halle Berry</figcaption></figure><figure><img src="img/reese-witherspoon.jpg" alt="Reese Witherspoon"><figcaption>Reese Witherspoon</figcaption></figure></div></div>
+    <div class="role"><p>A mad scientist whose AI is going to take over the world</p><div class="trio"><figure><img src="img/steven-buscemi.jpg" alt="Steven Buscemi"><figcaption>Steven Buscemi</figcaption></figure><figure><img src="img/morgan-freeman.jpg" alt="Morgan Freeman"><figcaption>Morgan Freeman</figcaption></figure><figure><img src="img/matthew-mcconaughey.jpg" alt="Matthew McConaughey"><figcaption>Matthew McConaughey</figcaption></figure></div></div>
+  </div>
+</section>
+
+<section class="end">
+  <p>That's a wrap!</p>
+  <small>FADE OUT.</small>
+</section>
+
+</main>
+
+<script>
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+var WA=[
+  ["gripping","gripping","so exciting that you can't stop watching","It's a gripping thriller. I watched it in one go."],
+  ["heartwarming","heartwarming","makes you feel happy, warm and full of love","It's a heartwarming story about a grandad and his grandson."],
+  ["thought-provoking","thought-provoking","makes you think seriously about something","It's a thought-provoking film about AI and the future."],
+  ["heartbreaking","heartbreaking","so sad that it really hurts","The ending is absolutely heartbreaking."],
+  ["hilarious","hilarious","extremely funny","The wedding scene is hilarious."],
+  ["cheesy","cheesy","too romantic or sweet in a silly way","It's a cheesy love story, but I secretly loved it."],
+  ["far-fetched","far-fetched","hard to believe, not realistic","The plot is a bit far-fetched, to be honest."],
+  ["haunting","haunting","so sad or beautiful that you can't forget it","The music is haunting. I still hear it in my head."],
+  ["mind-blowing","mind-blowing","so amazing or surprising that it shocks you","There's a mind-blowing plot twist at the end."],
+  ["feel-good","feel-good","makes you feel happy and positive","It's the perfect feel-good film for a rainy Sunday."]
+];
+var WB=[
+  ["goosebumps","It gave me goosebumps.","","The song at the end gave me goosebumps."],
+  ["moved-to-tears","It moved me to tears.","","The last scene moved me to tears."],
+  ["skin-crawl","It made my skin crawl.","","The villain was so creepy he made my skin crawl."],
+  ["laughed-head-off","I laughed my head off.","","I laughed my head off at the dinner scene."],
+  ["stayed-with-me","It stayed with me for days.","","It's not a happy film, but it stayed with me for days."],
+  ["speechless","It left me speechless.","","The plot twist left me speechless."],
+  ["hard-to-watch","I found it hard to watch.","","Some scenes are so violent that I found them hard to watch."],
+  ["rollercoaster","It was a real rollercoaster.","","I laughed, I cried, I screamed. It was a real rollercoaster."]
+];
+
+function renderWords(id,list){
+  var box=document.getElementById(id);
+  list.forEach(function(w){
+    var d=document.createElement('div');d.className='w';
+    d.innerHTML='<span class="t">'+esc(w[1])+'</span><span class="eg">'+esc(w[3])+'</span>';
+    box.append(d);
+  });
+}
+renderWords('wordsA',WA);renderWords('wordsB',WB);
+
+/* matching with lines */
+(function(){
+  var COLORS=['#C8293B','#2F5DA8','#D99A1E','#2E8B57','#7A4FB0','#C8293B','#2F5DA8','#D99A1E','#2E8B57','#7A4FB0'];
+  var box=document.getElementById('match');
+  var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','lines');
+  var L=document.createElement('div');L.className='mcol';
+  var R=document.createElement('div');R.className='mcol';
+  box.append(L,R,svg);
+  var sel=null,pairs=[],n=0;
+  shuffle(WA).forEach(function(w){var b=document.createElement('button');b.type='button';b.className='mi l';b.textContent=w[1];b.dataset.k=w[0];L.append(b);});
+  shuffle(WA).forEach(function(w){var b=document.createElement('button');b.type='button';b.className='mi r';b.textContent=w[2];b.dataset.k=w[0];R.append(b);});
+  function score(){document.getElementById('mscore').textContent=n+' / '+WA.length+' matched';}
+  function draw(){
+    svg.innerHTML='';var bx=box.getBoundingClientRect();
+    pairs.forEach(function(p){
+      var a=p.l.getBoundingClientRect(),b=p.r.getBoundingClientRect();
+      var x1=a.right-bx.left,y1=a.top+a.height/2-bx.top,x2=b.left-bx.left,y2=b.top+b.height/2-bx.top;
+      var path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      var mx=(x1+x2)/2;
+      path.setAttribute('d','M'+x1+' '+y1+' C'+mx+' '+y1+' '+mx+' '+y2+' '+x2+' '+y2);
+      path.setAttribute('fill','none');path.setAttribute('stroke',p.c);path.setAttribute('stroke-width','3.5');path.setAttribute('stroke-linecap','round');
+      svg.append(path);
+      [[x1,y1],[x2,y2]].forEach(function(pt){var c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',pt[0]);c.setAttribute('cy',pt[1]);c.setAttribute('r','6');c.setAttribute('fill',p.c);svg.append(c);});
+    });
+  }
+  function bad(el){el.classList.remove('bad');void el.offsetWidth;el.classList.add('bad');setTimeout(function(){el.classList.remove('bad');},400);}
+  box.addEventListener('click',function(e){
+    var b=e.target.closest('.mi');if(!b||b.classList.contains('done'))return;
+    if(!sel){sel=b;b.classList.add('sel');return;}
+    if(sel===b){b.classList.remove('sel');sel=null;return;}
+    var sameSide=sel.classList.contains('l')===b.classList.contains('l');
+    if(sameSide){sel.classList.remove('sel');sel=b;b.classList.add('sel');return;}
+    var l=sel.classList.contains('l')?sel:b,r=l===sel?b:sel;
+    sel.classList.remove('sel');sel=null;
+    if(l.dataset.k===r.dataset.k){
+      var c=COLORS[n%COLORS.length];n++;
+      l.classList.add('done');r.classList.add('done');l.style.setProperty('--c',c);r.style.setProperty('--c',c);
+      pairs.push({l:l,r:r,c:c});draw();score();
+    }else{bad(l);bad(r);}
+  });
+  window.addEventListener('resize',draw);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+  score();
+})();
+
+/* reveal buttons */
+function wireReveal(root){
+  root.querySelectorAll('[data-rv]').forEach(function(b){
+    b.addEventListener('click',function(){var t=document.getElementById(b.dataset.rv);t.hidden=!t.hidden;b.textContent=t.hidden?b.dataset.label:'Hide';});
+    b.dataset.label=b.textContent;
+  });
+}
+
+/* situations */
+var SITS=[
+  ["You watched a horror film and now you check under your bed before you sleep. The monster was disgusting.","It made my skin crawl."],
+  ["The music in the final scene was so powerful that the hair on your arms stood up.","It gave me goosebumps."],
+  ["You laughed so loudly in the cinema that people turned around.","I laughed my head off."],
+  ["A week later, you're still thinking about the film on your way to work.","It stayed with me for days."],
+  ["The film was so violent that you covered your eyes a few times.","I found it hard to watch."],
+  ["First you laughed, then you were scared, then you cried, then you laughed again.","It was a real rollercoaster."],
+  ["The end credits started, and you just sat there. You didn't know what to say.","It left me speechless."],
+  ["You needed a whole box of tissues at the end.","It moved me to tears."]
+];
+var sitBox=document.getElementById('sits');
+SITS.forEach(function(s,i){
+  var d=document.createElement('div');d.className='sit';
+  d.innerHTML='<p>'+esc(s[0])+'</p><button class="rv" type="button" data-rv="sit'+i+'">Show</button><p class="ans" id="sit'+i+'" hidden>'+esc(s[1])+'</p>';
+  sitBox.append(d);
+});
+
+/* transform */
+var TRS=[
+  ["I loved the soundtrack.","What I loved…","What I loved was the soundtrack."],
+  ["The last scene made me cry.","It was…","It was the last scene that made me cry."],
+  ["The voice-over really annoyed me.","The thing that…","The thing that really annoyed me was the voice-over."],
+  ["I watched it because of the cast.","The reason I…","The reason I watched it was the cast."],
+  ["I didn't expect such a sad ending.","What I didn't expect…","What I didn't expect was such a sad ending."],
+  ["The little dog steals the show.","It's…","It's the little dog who steals the show."],
+  ["I only wanted a happy ending.","All I…","All I wanted was a happy ending."],
+  ["The plot twist surprised me most.","What surprised me most…","What surprised me most was the plot twist."]
+];
+var trBox=document.getElementById('trs');
+TRS.forEach(function(t,i){
+  var d=document.createElement('div');d.className='tr';
+  d.innerHTML='<p class="plainline">'+esc(t[0])+'</p><p class="start">'+esc(t[1])+'</p><button class="rv" type="button" data-rv="tr'+i+'">Check</button><p class="ans" id="tr'+i+'" hidden>'+esc(t[2])+'</p>';
+  trBox.append(d);
+});
+
+/* wrong facts */
+var FACTS=[
+  ["In Titanic, Leonardo DiCaprio's character survives and Rose dies.","No, it wasn't Jack who survived. It was Rose who survived."],
+  ["Home Alone happens at Easter.","No, it wasn't at Easter. It was at Christmas that Kevin was left home alone."],
+  ["In The Matrix, Neo takes the blue pill.","No, it was the red pill that Neo took."],
+  ["The people in Avatar are green.","No, it isn't green skin that they have. It's blue skin."],
+  ["Gandalf is the one who carries the Ring to Mordor.","No, it wasn't Gandalf. It was Frodo who carried the Ring."],
+  ["In It, the scary clown is called Ronald.","No, it wasn't Ronald. It was Pennywise who scared the children."]
+];
+var fBox=document.getElementById('facts');
+var XS='<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>';
+FACTS.forEach(function(f,i){
+  var d=document.createElement('div');d.className='fact';
+  d.innerHTML='<p class="fake">'+XS+'<span>'+esc(f[0])+'</span></p><button class="rv" type="button" data-rv="f'+i+'">Show</button><p class="ans" id="f'+i+'" hidden>'+esc(f[1])+'</p>';
+  fBox.append(d);
+});
+
+wireReveal(document);
+document.getElementById('hlBtn').addEventListener('click',function(){var r=document.getElementById('twoRev');r.classList.toggle('show');this.textContent=r.classList.contains('show')?'Hide':'Show the five places';});
+
+/* checklist */
+document.querySelectorAll('.ck').forEach(function(b){b.addEventListener('click',function(){b.classList.toggle('on');});});
+</script>
+</body>
+</html>
