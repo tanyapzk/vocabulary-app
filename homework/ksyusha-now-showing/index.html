@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Now Showing Homework</title>
+<meta property="og:title" content="Now Showing: Homework">
+<meta property="og:description" content="Opinions, reactions and a short film to talk about.">
+<meta property="og:image" content="https://tanyapzk.github.io/vocabulary-app/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap">
+<style>
+/* Same cinema look as the "Now Showing" lesson. Done on a computer: wide layout, big text. */
+:root{
+  --bg:#0B1020;--ink:#EEF1FF;--mut:#A3ACCF;--card:#151B33;--card2:#1C2342;--line:#2A3358;
+  --acc:#FFC83D;--on:#0B1020;--ok:#3DD9C4;--oksoft:color-mix(in srgb,#3DD9C4 18%,#151B33);
+  --no:#FF4D6D;--nosoft:color-mix(in srgb,#FF4D6D 16%,#151B33);
+  --g1:#3DD9C4;--g2:#FF6B9A;--g3:#9B8CFF;--g4:#FFC83D;--g5:#6EE7A0;
+  --head:"Bebas Neue",Impact,sans-serif;--body:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#EEF1FA;--ink:#121733;--mut:#56607F;--card:#FFFFFF;--card2:#F4F6FC;--line:#CBD3EA;
+  --acc:#4B34C9;--on:#FFFFFF;--ok:#0E9F8E;--oksoft:#DDF4F0;--no:#D0264A;--nosoft:#FBE3E8;
+  --g1:#0E9F8E;--g2:#D93A73;--g3:#5B4BD8;--g4:#B87400;--g5:#1F9D58;color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#EEF1FA;--ink:#121733;--mut:#56607F;--card:#FFFFFF;--card2:#F4F6FC;--line:#CBD3EA;
+  --acc:#4B34C9;--on:#FFFFFF;--ok:#0E9F8E;--oksoft:#DDF4F0;--no:#D0264A;--nosoft:#FBE3E8;
+  --g1:#0E9F8E;--g2:#D93A73;--g3:#5B4BD8;--g4:#B87400;--g5:#1F9D58;color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 clamp(18px,1.55vw,26px)/1.5 var(--body)}
+main{max-width:1300px;margin:auto;padding:0 clamp(16px,4vw,60px) 14vh}
+p{margin:0}
+button{font:inherit}
+
+.hero{min-height:62vh;display:flex;flex-direction:column;justify-content:center;gap:.6em;padding-block:8vh 4vh}
+.hero small{font:400 1.3em var(--head);letter-spacing:.3em;color:var(--acc)}
+.hero h1{font:400 clamp(4rem,11vw,9rem)/.88 var(--head);margin:0}
+.hero h1 span{color:var(--acc)}
+.hero .intro{max-width:44em;color:var(--mut)}
+.persik{align-self:flex-start;border:2px dashed var(--acc);border-radius:14px;padding:.6em 1em;max-width:44em}
+
+.scene{padding-top:9vh}
+.scene::before{content:"";display:block;height:16px;margin-bottom:5vh;background:repeating-linear-gradient(90deg,var(--ink) 0 18px,transparent 18px 36px);opacity:.2;border-radius:3px}
+.sn{font:400 1.3em var(--head);letter-spacing:.25em;color:var(--acc)}
+h2{font:400 clamp(2.8rem,6.5vw,5.6rem)/.95 var(--head);margin:.05em 0 .3em}
+h3{font:400 1.45em var(--head);letter-spacing:.1em;color:var(--acc);margin:1.2em 0 .5em}
+.task{border:2px dashed var(--acc);border-radius:14px;padding:.7em 1.1em;margin:0 0 1.2em;font-weight:500;max-width:62em}
+.task b{font:400 1.2em var(--head);letter-spacing:.15em;color:var(--acc);margin-right:.6em}
+
+/* phrase bank */
+.bank{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-bottom:1.2em}
+.grp{background:var(--card);border:2px solid var(--line);border-top:6px solid var(--c);border-radius:16px;padding:.8em 1em;display:flex;flex-direction:column;gap:.5em}
+.grp h4{margin:0;font:400 1.25em var(--head);letter-spacing:.12em;color:var(--c)}
+.ph{display:flex;flex-direction:column}
+.ph b{font-weight:600}
+.ph i{color:var(--mut);font-size:.86em}
+
+/* quiz */
+.score{display:inline-block;background:var(--card2);border:2px solid var(--line);border-radius:999px;padding:.15em .9em;font-size:.85em;font-weight:600;font-variant-numeric:tabular-nums;margin-bottom:.8em}
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:16px}
+.q{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:.9em 1.1em;display:flex;flex-direction:column;gap:.6em}
+.qtext .n{font:400 1.2em var(--head);color:var(--acc);margin-right:.4em;letter-spacing:.05em}
+.say{color:var(--mut);font-size:.9em}
+.gap{display:inline-block;min-width:4.5em;border-bottom:3px solid var(--acc);text-align:center;font-weight:600;color:var(--acc);padding:0 .2em}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{text-align:left;background:var(--card2);color:var(--ink);border:2px solid var(--line);border-radius:12px;padding:.35em .8em;cursor:pointer;font-size:.92em;max-width:100%}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.opt.right{background:var(--oksoft);border-color:var(--ok);font-weight:600}
+.opt.wrong{background:var(--nosoft);border-color:var(--no);color:var(--no);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.fb{font-size:.85em;font-weight:600;min-height:1.2em}
+.fb.ok{color:var(--ok)}.fb.no{color:var(--no)}
+
+/* writing */
+textarea{font:inherit;font-size:.95em;width:100%;min-height:4.2em;border:2px solid var(--line);border-radius:12px;padding:.5em .8em;background:var(--card2);color:var(--ink);resize:vertical}
+textarea:focus{border-color:var(--acc);outline:none}
+textarea::placeholder{color:var(--mut);opacity:.8}
+button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid var(--ok);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.small{background:transparent;color:var(--acc);border:2px solid var(--acc);border-radius:999px;padding:.2em .9em;cursor:pointer;font-weight:600;font-size:.85em}
+.small:hover{background:color-mix(in srgb,var(--acc) 14%,transparent)}
+.model{border-left:4px solid var(--ok);padding:.2em .8em;color:var(--ok);font-weight:500}
+.model[hidden],.badge[hidden]{display:none}
+.badge{display:inline-flex;align-items:center;gap:.35em;font-size:.82em;font-weight:600}
+.badge svg{flex:none}
+.badge.ok{color:var(--ok)}.badge.no{color:var(--no)}
+.use{font-size:.85em;color:var(--mut)}
+.use b{color:var(--acc);font-weight:600}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:18px;max-width:62em}
+.msg{display:flex;flex-direction:column;gap:.5em}
+.bubble{align-self:flex-start;background:var(--card);border:2px solid var(--line);border-radius:18px 18px 18px 4px;padding:.55em 1em;max-width:min(100%,38em)}
+.bubble .who{display:block;font:400 1em var(--head);letter-spacing:.12em;color:var(--g2)}
+.reply{align-self:flex-end;width:min(100%,40em);display:flex;flex-direction:column;gap:.35em;align-items:flex-end}
+.reply textarea{border-radius:18px 18px 4px 18px}
+
+/* video */
+.video{display:flex;gap:1em;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:.9em 1.1em;text-decoration:none;color:var(--ink);flex-wrap:wrap;max-width:62em;margin-bottom:1em}
+.video:hover{border-color:var(--acc)}
+.video .play{width:2.6em;height:2.6em;border-radius:50%;background:var(--acc);display:grid;place-items:center;flex:none}
+.video div{min-width:0;flex:1 1 220px}
+.video b{display:block;font:400 1.4em var(--head);letter-spacing:.08em}
+.video small{color:var(--mut)}
+.wq{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:16px}
+.spoil{display:inline-block;background:var(--no);color:#fff;border-radius:6px;padding:0 .5em;font-size:.75em;font-weight:700;letter-spacing:.06em;vertical-align:middle;margin-left:.4em}
+
+.btn{font-weight:700;background:var(--acc);color:var(--on);border:0;border-radius:999px;padding:.6em 1.4em;cursor:pointer}
+.btn:active{transform:translateY(1px)}
+#copied{color:var(--ok);font-weight:600}
+#copyBox{min-height:12em;font-size:.8em}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <small>NOW SHOWING · HOMEWORK</small>
+  <h1>The film<br>talk <span>sequel</span></h1>
+  <p class="intro">Five short scenes: say what you think about a film, react to other people's opinions, and watch a 4-minute short film. It takes about 40 minutes. Your writing is saved on this computer, so you can stop and come back later.</p>
+  <p class="persik">Persik has already taken the best seat on the sofa. Grab some popcorn, the show is about to start.</p>
+</header>
+
+<!-- SCENE 1 -->
+<section class="scene" id="s1">
+  <div class="sn">SCENE 1</div>
+  <h2>So, did you like it?</h2>
+  <p class="task"><b>TASK</b>Read what each person says about a film. Choose the phrase that sums it up best.</p>
+  <div class="bank">
+    <div class="grp" style="--c:var(--g1)"><h4>I loved it</h4>
+      <div class="ph"><b>It really grabbed me.</b><i>I started it at 11 pm and finished it at 2 am.</i></div>
+      <div class="ph"><b>I was blown away by…</b><i>I was blown away by the music.</i></div>
+      <div class="ph"><b>I've seen it more than once.</b><i>It's my comfort film. I've seen it more than once.</i></div>
+    </div>
+    <div class="grp" style="--c:var(--g2)"><h4>Not for me</h4>
+      <div class="ph"><b>I couldn't get into it.</b><i>Everyone loves that series, but I couldn't get into it.</i></div>
+      <div class="ph"><b>It's not my cup of tea.</b><i>Musicals are not my cup of tea.</i></div>
+      <div class="ph"><b>It left me cold.</b><i>Everyone cried, but the ending left me cold.</i></div>
+      <div class="ph"><b>It's a bit overrated.</b><i>It won lots of awards, but I think it's a bit overrated.</i></div>
+    </div>
+  </div>
+  <span class="score" id="sc1"></span>
+  <div class="qs" id="q1"></div>
+</section>
+
+<!-- SCENE 2 -->
+<section class="scene" id="s2">
+  <div class="sn">SCENE 2</div>
+  <h2>Write it like a film critic</h2>
+  <p class="task"><b>TASK</b>Here is a review of a film called <em>The Last Lighthouse</em>. Choose the right phrase for each gap.</p>
+  <div class="bank">
+    <div class="grp" style="--c:var(--g1)"><h4>Starting</h4>
+      <div class="ph"><b>Without spoiling anything…</b><i>I'll tell you about it, but I won't tell you the ending.</i></div>
+      <div class="ph"><b>It's the kind of film that…</b><i>It's the kind of film that stays with you for days.</i></div>
+    </div>
+    <div class="grp" style="--c:var(--g2)"><h4>Opinion</h4>
+      <div class="ph"><b>In my view…</b><i>In my view, the book is better.</i></div>
+      <div class="ph"><b>What struck me was…</b><i>What struck me was how quiet the film is.</i></div>
+    </div>
+    <div class="grp" style="--c:var(--g3)"><h4>Contrast</h4>
+      <div class="ph"><b>Having said that…</b><i>It's a bit long. Having said that, I loved it.</i></div>
+      <div class="ph"><b>Even though…</b><i>Even though it's a cartoon, it's not just for kids.</i></div>
+    </div>
+    <div class="grp" style="--c:var(--g4)"><h4>Feelings about events</h4>
+      <div class="ph"><b>Sadly, / Unfortunately,</b><i>Sadly, the hero loses his best friend.</i></div>
+      <div class="ph"><b>Surprisingly, / Thankfully, / Predictably,</b><i>Thankfully, everyone is safe in the end.</i></div>
+    </div>
+    <div class="grp" style="--c:var(--g5)"><h4>Finishing</h4>
+      <div class="ph"><b>All in all… / Looking back…</b><i>All in all, it's a lovely film.</i></div>
+      <div class="ph"><b>I'd recommend it if…</b><i>I'd recommend it if you like true stories.</i></div>
+    </div>
+  </div>
+  <span class="score" id="sc2"></span>
+  <div class="qs" id="q2"></div>
+</section>
+
+<!-- SCENE 3 -->
+<section class="scene" id="s3">
+  <div class="sn">SCENE 3</div>
+  <h2>Two into one</h2>
+  <p class="task"><b>TASK</b>Join each pair into ONE sentence with the phrase. Type it, press <em>Check</em>, then compare with the model. Your sentence can be different from the model, that's fine.</p>
+  <div class="qs" id="q3"></div>
+</section>
+
+<!-- SCENE 4 -->
+<section class="scene" id="s4">
+  <div class="sn">SCENE 4</div>
+  <h2>Hot takes: react!</h2>
+  <p class="task"><b>TASK</b>A: learn the reactions. B: choose the right reaction. C: answer your friend in the chat.</p>
+  <h3>A · Reactions</h3>
+  <div class="bank">
+    <div class="grp" style="--c:var(--g1)"><h4>I agree</h4>
+      <div class="ph"><b>I couldn't agree more.</b><i>I agree 100%.</i></div>
+      <div class="ph"><b>Tell me about it!</b><i>I know exactly what you mean! (usually about something annoying)</i></div>
+    </div>
+    <div class="grp" style="--c:var(--g3)"><h4>Somewhere in between</h4>
+      <div class="ph"><b>Fair enough.</b><i>OK, I understand and accept your reason.</i></div>
+      <div class="ph"><b>I see your point, but…</b><i>I understand, but I think differently.</i></div>
+      <div class="ph"><b>It depends.</b><i>The answer is different in different situations.</i></div>
+    </div>
+    <div class="grp" style="--c:var(--g2)"><h4>I disagree</h4>
+      <div class="ph"><b>I'm not so sure.</b><i>A soft way to disagree.</i></div>
+      <div class="ph"><b>No way!</b><i>A strong, informal way to disagree (or to be surprised).</i></div>
+    </div>
+  </div>
+  <h3>B · Which reaction?</h3>
+  <span class="score" id="sc4"></span>
+  <div class="qs" id="q4"></div>
+  <h3>C · Chat with Max</h3>
+  <p class="task"><b>TASK</b>Your friend Max loves hot takes. Reply to each message: start with a reaction, then say why. Two or three sentences are enough.</p>
+  <div class="chat" id="chat"></div>
+</section>
+
+<!-- SCENE 5 -->
+<section class="scene" id="s5">
+  <div class="sn">SCENE 5</div>
+  <h2>On screen: The Present</h2>
+  <p class="task"><b>TASK</b>Answer question 1 BEFORE you watch. Then watch the short film (4 minutes, no words, just pictures and music) and answer the rest.</p>
+  <div class="wq">
+    <div class="q"><p class="qtext"><span class="n">1</span>Before you watch: the film is called <em>The Present</em> (a present = a gift). What do you think it's about?</p><textarea id="v0" placeholder="I think it's the kind of film that…"></textarea></div>
+  </div>
+  <h3>Now watch</h3>
+  <a class="video" href="https://www.youtube.com/watch?v=WjqiU5FgsYc" target="_blank" rel="noopener">
+    <span class="play"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="currentColor" style="color:var(--on)"/></svg></span>
+    <div><b>The Present · short film</b><small>YouTube · 4 minutes · opens in a new tab</small></div>
+  </a>
+  <div class="wq">
+    <div class="q"><p class="qtext"><span class="n">2</span>Imagine a friend hasn't seen it. Tell them what it's about in 2 sentences, without the ending.</p><textarea id="v1" placeholder="Without spoiling anything, it's about…"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">3</span>Did it grab you, or did it leave you cold? Why?</p><textarea id="v2" placeholder="It really grabbed me because… / To be honest, it left me cold because…"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">4</span>What struck you most? A moment, a detail, the music…</p><textarea id="v3" placeholder="What struck me was…"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">5</span><span class="spoil">SPOILERS OK</span><br>Tell the whole story in 3–4 sentences. Use at least three: <em>Sadly, Surprisingly, Thankfully, Predictably, In the end</em>.</p><textarea id="v4" placeholder="At the start, a boy… Surprisingly, …"></textarea></div>
+    <div class="q"><p class="qtext"><span class="n">6</span>Max watched it too. React to what he says, and say why.</p>
+      <p class="say">Max: “The ending is so predictable. I guessed it in the first minute.”</p><textarea id="v5" placeholder="I'm not so sure. …"></textarea>
+      <p class="say">Max: “It's just a sad cartoon for kids.”</p><textarea id="v6"></textarea>
+    </div>
+    <div class="q"><p class="qtext"><span class="n">7</span>Who would you recommend it to?</p><textarea id="v7" placeholder="I'd recommend it if…"></textarea></div>
+  </div>
+</section>
+
+<!-- END -->
+<section class="scene" id="end">
+  <div class="sn">THE END CREDITS</div>
+  <h2>Send it to me</h2>
+  <p class="task"><b>TASK</b>Press the button to copy all your answers, then paste them into a message to me.</p>
+  <div class="row">
+    <button class="btn" id="copy">Copy my answers</button>
+    <span id="copied" hidden>Copied! Now paste it into a message.</span>
+  </div>
+  <textarea id="copyBox" hidden readonly aria-label="Your answers"></textarea>
+</section>
+
+</main>
+
+<script>
+var store={get:function(k){try{return localStorage.getItem(k);}catch(e){return null;}},set:function(k,v){try{localStorage.setItem(k,v);}catch(e){}}};
+var ICON_OK='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ICON_NO='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12 7.5v5.5M12 16.5v.1" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>';
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function norm(s){return s.toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g,' ');}
+
+/* tap quizzes: first option is right */
+var results={};
+function buildQuiz(id,scoreId,items){
+  var box=document.getElementById(id),first={};
+  function upd(){var n=Object.keys(first).length,ok=0;for(var k in first)if(first[k])ok++;
+    document.getElementById(scoreId).textContent=ok+' / '+items.length+' right first time'+(n<items.length?' · '+(items.length-n)+' left':'');
+    results[id]=ok+'/'+items.length;}
+  items.forEach(function(it,i){
+    var q=document.createElement('div');q.className='q';
+    var t=document.createElement('p');t.className='qtext';
+    t.innerHTML='<span class="n">'+(i+1)+'</span>'+esc(it.q).replace('___','<span class="gap">?</span>');
+    var o=document.createElement('div');o.className='opts';
+    var fb=document.createElement('p');fb.className='fb';
+    shuffle(it.o).forEach(function(txt){
+      var b=document.createElement('button');b.className='opt';b.type='button';b.textContent=txt;
+      b.addEventListener('click',function(){
+        var right=txt===it.o[0];
+        if(!(i in first))first[i]=right;
+        if(right){b.classList.add('right');o.querySelectorAll('.opt').forEach(function(x){x.disabled=true;});
+          var g=t.querySelector('.gap');if(g)g.textContent=it.fill||txt;
+          fb.className='fb ok';fb.textContent=it.why||'Yes!';}
+        else{b.classList.add('wrong');b.disabled=true;fb.className='fb no';fb.textContent=it.hint||'Not quite. Try again.';}
+        upd();
+      });
+      o.append(b);
+    });
+    q.append(t,o,fb);box.append(q);
+  });
+  upd();
+}
+
+buildQuiz('q1','sc1',[
+  {q:"“Everyone says it's the best film of the year. Honestly? It's just OK.”",o:["It's a bit overrated.","It really grabbed me.","I've seen it more than once."]},
+  {q:"“I tried to watch it three times, but every time I stopped after twenty minutes.”",o:["I couldn't get into it.","I was blown away by it.","It's a bit overrated."]},
+  {q:"“It's a musical, and I just don't like people singing instead of talking.”",o:["It's not my cup of tea.","It really grabbed me.","I've seen it more than once."],why:"Yes! We use it for things that are not our style."},
+  {q:"“From the very first scene I couldn't stop watching. I forgot about my phone.”",o:["It really grabbed me.","It left me cold.","I couldn't get into it."]},
+  {q:"“It's my comfort film. I know every line by heart.”",o:["I've seen it more than once.","It's not my cup of tea.","It's a bit overrated."]},
+  {q:"“The special effects were incredible. I've never seen anything like it.”",o:["I was blown away by the special effects.","The special effects left me cold.","I couldn't get into the special effects."]},
+  {q:"“Everyone in the cinema was crying at the end, but I felt nothing.”",o:["The ending left me cold.","The ending really grabbed me.","I was blown away by the ending."]}
+]);
+
+buildQuiz('q2','sc2',[
+  {q:"___, it's a quiet film about an old man who looks after a lighthouse.",o:["Without spoiling anything","Having said that","Predictably"]},
+  {q:"___ how beautiful the sea looks in every single scene.",o:["What struck me was","In the end","Even though"]},
+  {q:"The cast is brilliant. ___, the middle part drags on a bit.",o:["Having said that","Without spoiling anything","Thankfully"],why:"Yes! A good thing, then “Having said that,” and a problem."},
+  {q:"___ the film is almost three hours long, I never checked my phone.",o:["Even though","Having said that","What struck me was"],why:"Yes! Even though + a full sentence, then the surprising result."},
+  {q:"___, the old man's dog dies halfway through. I cried for ten minutes.",o:["Sadly","Thankfully","Surprisingly"]},
+  {q:"I was sure it would end badly, but ___, the ending is happy. I didn't see that plot twist coming!",o:["surprisingly","predictably","sadly"]},
+  {q:"___, it's one of the best films I've seen this year.",o:["All in all","Even though","Without spoiling anything"]},
+  {q:"___ you like slow, beautiful films with a big heart.",o:["I'd recommend it if","It's the kind of film that","Having said that"]}
+]);
+
+/* Scene 3: join two sentences */
+var JOIN=[
+  {a:"The cast is very famous. The film is really boring.",use:"Even though…",keys:["even though"],m:"Even though the cast is very famous, the film is really boring."},
+  {a:"The first film was amazing. The sequel is a bit disappointing.",use:"Having said that…",keys:["having said that"],m:"The first film was amazing. Having said that, the sequel is a bit disappointing."},
+  {a:"It's a horror film. I wasn't scared at all.",use:"Surprisingly, …",keys:["surprisingly"],m:"It's a horror film, but surprisingly, I wasn't scared at all."},
+  {a:"The hero finally finds his family. It's too late.",use:"Sadly, …",keys:["sadly"],m:"The hero finally finds his family, but sadly, it's too late."},
+  {a:"The music was the best part of the film. I still listen to it.",use:"What struck me was…",keys:["what struck me"],m:"What struck me was the music. It was the best part of the film, and I still listen to it."},
+  {a:"It's a long series with six seasons. It's perfect for people with lots of free time.",use:"I'd recommend it if…",keys:["recommend it if"],m:"It's a long series with six seasons, so I'd recommend it if you have lots of free time."}
+];
+var q3=document.getElementById('q3');
+JOIN.forEach(function(it,i){
+  var id='j'+i;
+  var q=document.createElement('div');q.className='q';
+  q.innerHTML='<p class="qtext"><span class="n">'+(i+1)+'</span>'+esc(it.a)+'</p>'+
+    '<p class="use">Use: <b>'+esc(it.use)+'</b></p>'+
+    '<textarea id="'+id+'" aria-label="Your sentence '+(i+1)+'"></textarea>'+
+    '<div class="row"><button class="small" type="button">Check</button><span class="badge" hidden></span></div>'+
+    '<p class="model" hidden>'+esc(it.m)+'</p>';
+  q3.append(q);
+  var ta=q.querySelector('textarea'),btn=q.querySelector('button'),bd=q.querySelector('.badge'),md=q.querySelector('.model');
+  btn.addEventListener('click',function(){
+    var v=norm(ta.value);
+    if(!v.trim()){bd.hidden=false;bd.className='badge no';bd.innerHTML=ICON_NO+'Write your sentence first.';return;}
+    var ok=it.keys.some(function(k){return v.indexOf(k)>-1;});
+    bd.hidden=false;
+    if(ok){bd.className='badge ok';bd.innerHTML=ICON_OK+'You used the phrase. Now compare:';}
+    else{bd.className='badge no';bd.innerHTML=ICON_NO+'Try to use “'+esc(it.use.replace(/[….,\s]+$/,''))+'”. Here is a model:';}
+    md.hidden=false;
+  });
+});
+
+/* Scene 4B */
+buildQuiz('q4','sc4',[
+  {q:"“Cinema tickets are getting so expensive!” — “___ I paid fifteen euros last week!”",o:["Tell me about it!","No way!","It depends."]},
+  {q:"“Is it better to watch a film at home or at the cinema?” — “___ Big action films, the cinema. Comedies, my sofa.”",o:["It depends.","Tell me about it!","No way!"]},
+  {q:"“The Harry Potter films are better than the books.” — “___ The books are so much richer!”",o:["No way!","I couldn't agree more.","Fair enough."]},
+  {q:"“I don't want to start it tonight. It's three hours long and I have work tomorrow.” — “___ Let's watch it on Saturday.”",o:["Fair enough.","No way!","I'm not so sure."],why:"Yes! You accept your friend's reason."},
+  {q:"“Watching films with English subtitles really helps you learn.” — “___ I've learned so many words that way.”",o:["I couldn't agree more.","I'm not so sure.","It depends."]},
+  {q:"“This film is far too slow.” — “___ the ending makes it worth it.”",o:["I see your point, but…","Tell me about it!","I couldn't agree more."],fill:"I see your point, but",why:"Yes! You understand your friend, but you think differently."},
+  {q:"“Horror films are good for your mental health.” — “___ They just give me nightmares.”",o:["I'm not so sure.","I couldn't agree more.","Tell me about it!"]}
+]);
+
+/* Scene 4C chat */
+var REACT=["i couldn't agree more","couldn't agree more","tell me about it","fair enough","i see your point","it depends","i'm not so sure","not so sure","no way"];
+var CHAT=[
+  "Sequels are never as good as the first film. Never!",
+  "Honestly, watching films at home is better than going to the cinema.",
+  "Why watch a film twice? You already know what happens.",
+  "Everyone has a guilty-pleasure film, and nobody should be ashamed of it. Mine is Mamma Mia!",
+  "Films with happy endings are boring. Real life isn't like that."
+];
+var chat=document.getElementById('chat');
+CHAT.forEach(function(t,i){
+  var id='c'+i;
+  var m=document.createElement('div');m.className='msg';
+  m.innerHTML='<p class="bubble"><span class="who">MAX</span>'+esc(t)+'</p>'+
+    '<div class="reply"><textarea id="'+id+'" aria-label="Your reply to Max, message '+(i+1)+'" placeholder="'+(i===0?'I see your point, but…':'Your reply…')+'"></textarea><span class="badge" hidden></span></div>';
+  chat.append(m);
+  var ta=m.querySelector('textarea'),bd=m.querySelector('.badge');
+  function chk(){
+    var v=norm(ta.value);
+    if(v.trim().length<4){bd.hidden=true;return;}
+    var ok=REACT.some(function(k){return v.indexOf(k)>-1;});
+    bd.hidden=false;
+    bd.className='badge '+(ok?'ok':'no');
+    bd.innerHTML=ok?ICON_OK+'Nice reaction!':ICON_NO+'Start with a reaction from the list.';
+  }
+  ta.addEventListener('blur',chk);
+  ta.addEventListener('input',function(){if(!bd.hidden)chk();});
+  m._chk=chk;
+});
+
+/* save writing between visits */
+var FIELDS=[];
+JOIN.forEach(function(_,i){FIELDS.push('j'+i);});
+CHAT.forEach(function(_,i){FIELDS.push('c'+i);});
+['v0','v1','v2','v3','v4','v5','v6','v7'].forEach(function(id){FIELDS.push(id);});
+FIELDS.forEach(function(id){
+  var el=document.getElementById(id),saved=store.get('ns-'+id);
+  if(saved)el.value=saved;
+  el.addEventListener('input',function(){store.set('ns-'+id,el.value);});
+});
+Array.prototype.forEach.call(chat.children,function(m){m._chk();});
+
+/* copy answers */
+document.getElementById('copy').addEventListener('click',function(){
+  function val(id){return document.getElementById(id).value.trim()||'(no answer)';}
+  var out=['Now Showing homework',''];
+  out.push('Scene 1: '+(results.q1||'-')+' · Scene 2: '+(results.q2||'-')+' · Scene 4B: '+(results.q4||'-')+' (right first time)','');
+  out.push('SCENE 3. Two into one');
+  JOIN.forEach(function(_,i){out.push((i+1)+'. '+val('j'+i));});
+  out.push('','SCENE 4C. Chat with Max');
+  CHAT.forEach(function(t,i){out.push('Max: '+t);out.push('Me: '+val('c'+i));out.push('');});
+  out.push('SCENE 5. The Present');
+  out.push('1. Before watching: '+val('v0'));
+  out.push('2. Without spoiling: '+val('v1'));
+  out.push('3. Grab you / leave you cold: '+val('v2'));
+  out.push('4. What struck me: '+val('v3'));
+  out.push('5. The whole story: '+val('v4'));
+  out.push('6a. “The ending is so predictable.” '+val('v5'));
+  out.push('6b. “It\'s just a sad cartoon for kids.” '+val('v6'));
+  out.push('7. I\'d recommend it if: '+val('v7'));
+  var text=out.join('\n'),box=document.getElementById('copyBox'),msg=document.getElementById('copied');
+  function fallback(){box.hidden=false;box.value=text;box.focus();box.select();msg.hidden=false;msg.textContent='Select all the text below and copy it.';}
+  try{navigator.clipboard.writeText(text).then(function(){msg.hidden=false;msg.textContent='Copied! Now paste it into a message.';},fallback);}
+  catch(e){fallback();}
+});
+</script>
+</body>
+</html>
